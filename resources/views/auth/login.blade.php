@@ -63,7 +63,7 @@
 					axios.post("{{ URL('login') }}",this.form)
 						.then(res => {
 							if (res.data.result) {
-								swal('','Su mensaje ha sido enviado','success');
+								window.location = res.data.url;
 							}
 							else {
 								swal('',res.data.error,'warning');

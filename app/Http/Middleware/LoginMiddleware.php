@@ -11,7 +11,7 @@
         public function handle($request, Closure $next) {
             View::share('_login',true);
             if (Auth::check())
-                return Redirect('/');
+                return Redirect('home');
             else
                 return $next($request);
         }

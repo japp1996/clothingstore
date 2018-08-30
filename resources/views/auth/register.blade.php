@@ -29,58 +29,58 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								{{ Form::label('nombre','Nombre Completo') }}
-								{{ Form::text('nombre','',['class' => 'form-control','v-model' => 'form.nombre']) }}
+								{{ Form::text('nombre','',['class' => 'form-control','v-model' => 'form.nombre', 'tabindex' => "1"]) }}
 							</div>
 							<div class="form-group">
 								{{ Form::label('type','Tipo de Persona') }}
 								{{ Form::select('type',[
 									'1' => 'Persona Natural',
 									'2' => 'Persona Jurídica'
-								],null,['class' => 'form-control','v-model' => 'form.type']) }}
+								],null,['class' => 'form-control','v-model' => 'form.type', 'tabindex' => "3"]) }}
 							</div>
-							<div class="form-group">
+							<div class="form-group" :class="{ opcional: form.type != '2' }">
 								{{ Form::label('empresa','Nombre de Empresa') }}
-								<input type="text" v-model="form.empresa" :disabled="form.type != '2'" class="form-control" name="empresa" id="empresa" />
+								<input type="text" v-model="form.empresa" :disabled="form.type != '2'" class="form-control" name="empresa" id="empresa" tabindex="5" />
 							</div>
 							<div class="form-group">
 								{{ Form::label('pais','País') }}
-								{{ Form::select('pais',$paises,null,['class' => 'form-control','v-model' => 'form.pais', 'v-on:change' => "form.estado = ''"]) }}
+								{{ Form::select('pais',$paises,null,['class' => 'form-control','v-model' => 'form.pais', 'v-on:change' => "form.estado = ''", 'tabindex' => '7']) }}
 							</div>
 							<div class="form-group">
 								{{ Form::label('codigo','Código Postal') }}
-								{{ Form::text('codigo','',['class' => 'form-control','v-model' => 'form.codigo']) }}
+								{{ Form::text('codigo','',['class' => 'form-control','v-model' => 'form.codigo', 'tabindex' => '9']) }}
 							</div>
 							<div class="form-group">
 								{{ Form::label('direccion','Dirección') }}
-								{{ Form::text('direccion','',['class' => 'form-control','v-model' => 'form.direccion']) }}
+								{{ Form::text('direccion','',['class' => 'form-control','v-model' => 'form.direccion', 'tabindex' => '11']) }}
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								{{ Form::label('email','Correo Electrónico') }}
-								{{ Form::text('email','',['class' => 'form-control','v-model' => 'form.email']) }}
+								{{ Form::text('email','',['class' => 'form-control','v-model' => 'form.email', 'tabindex' => '2']) }}
 							</div>
 							<div class="form-group">
 								{{ Form::label('identificacion','Identificación') }}
-								{{ Form::text('identificacion','',['class' => 'form-control','v-model' => 'form.identificacion']) }}
+								{{ Form::text('identificacion','',['class' => 'form-control','v-model' => 'form.identificacion', 'tabindex' => '4']) }}
 							</div>
 							<div class="form-group">
 								{{ Form::label('telefono','Teléfono') }}
-								{{ Form::text('telefono','',['class' => 'form-control','v-model' => 'form.telefono']) }}
+								{{ Form::text('telefono','',['class' => 'form-control','v-model' => 'form.telefono', 'tabindex' => '6']) }}
 							</div>
 							<div class="form-group">
 								{{ Form::label('estado','Estado') }}
-								<select :disabled="form.pais == ''" name="estado" id="estado" class="form-control">
+								<select :disabled="form.pais == ''" name="estado" id="estado" class="form-control" tabindex="8" v-model="form.estado">
 									<option v-for="item in estados" :value="item.id" v-if="form.pais == item.pais_id">@{{ item.nombre }}</option>
 								</select>
 							</div>							
 							<div class="form-group">
 								{{ Form::label('password','Contraseña') }}
-								{{ Form::password('password',['class' => 'form-control','v-model' => 'form.password']) }}
+								{{ Form::password('password',['class' => 'form-control','v-model' => 'form.password', 'tabindex' => '10']) }}
 							</div>
 							<div class="form-group">
 								{{ Form::label('password_confirmation','Repetir Contraseña') }}
-								{{ Form::password('password_confirmation',['class' => 'form-control','v-model' => 'form.password_confirmation']) }}
+								{{ Form::password('password_confirmation',['class' => 'form-control','v-model' => 'form.password_confirmation', 'tabindex' => '12']) }}
 							</div>
 						</div>
 					</div>
@@ -123,6 +123,9 @@
 						.then(res => {
 							if (res.data.result) {
 								swal('','Se ha registrado correctamente','success');
+								setTimeout(() => {
+									window.location = res.data.url;
+								},1500);
 							}
 							else {
 								swal('',res.data.error,'warning');

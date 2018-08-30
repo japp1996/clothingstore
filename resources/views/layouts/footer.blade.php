@@ -4,17 +4,17 @@
 			<table>
 				<tr>
 					<td>
-						<a href="{{ URL('/') }}" class="instagram_white">
+						<a href="{{ URL('home') }}" class="instagram_white">
 							{{ HTML::Image('img/icons/instagram_white.png') }}
 						</a>
 					</td>
 					<td>
-						<a href="{{ URL('/') }}" class="facebook_white">
+						<a href="{{ URL('home') }}" class="facebook_white">
 							{{ HTML::Image('img/icons/facebook_white.png') }}
 						</a>
 					</td>
 					<td>
-						<a href="{{ URL('/') }}" class="youtube">
+						<a href="{{ URL('home') }}" class="youtube">
 							{{ HTML::Image('img/icons/youtube.png') }}
 						</a>
 					</td>
@@ -27,11 +27,19 @@
 					Condiciones de Compra
 				</a>
 			@else
-				<a href="{{ URL('login') }}">
-					<button class="btn btn-default">
-						<span>Iniciar Sesión</span>
-					</button>
-				</a>
+				@if (Auth::check())
+					<a href="{{ URL('logout') }}">
+						<button class="btn btn-default">
+							<span>Cerrar Sesión</span>
+						</button>
+					</a>
+				@else
+					<a href="{{ URL('login') }}">
+						<button class="btn btn-default">
+							<span>Iniciar Sesión</span>
+						</button>
+					</a>
+				@endif				
 			@endif
 		</div>
 		<div class="col-md-4 right-text contacto">

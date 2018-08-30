@@ -1,6 +1,7 @@
 <?php
 
-	Route::get('/','HomeController@get');
+	Route::get('/','HomeController@intro')->middleware('intro');
+	Route::get('home','HomeController@get');
 	Route::get('nosotros','HomeController@nosotros')->middleware('active:1');
 	Route::get('mundo','HomeController@mundo')->middleware('active:2');
 	Route::get('aliados','HomeController@aliados')->middleware('active:4');

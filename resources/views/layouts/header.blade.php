@@ -1,6 +1,6 @@
 <header>   
 	<nav class="navbar navbar-expand-lg fixed-top bg-light">
-	   <a class="navbar-brand" href="{{ URL('/') }}">
+	   <a class="navbar-brand" href="{{ URL('home') }}">
 	    {{ HTML::Image('img/logo.png','',['class' => 'logo']) }}
 	   </a>
 

@@ -14,12 +14,16 @@
 	@yield('styles')
 </head>
 <body style="overflow-x: hidden !important;">
-
-	@include('layouts.header')
+	
+	@if (!isset($_no_header))
+		@include('layouts.header')
+	@endif
 		
 	<main>@yield('content')</main>
-
-	@include('layouts.footer')
+	
+	@if (!isset($_no_header))
+		@include('layouts.footer')
+	@endif
 	
 	{{ HTML::Script('bower_components/jquery/dist/jquery.min.js') }}
 	{{ HTML::Script('bower_components/bootstrap/dist/js/bootstrap.min.js') }}

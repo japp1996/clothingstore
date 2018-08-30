@@ -68,6 +68,7 @@
 						.then(res => {
 							if (res.data.result) {
 								swal('','Su mensaje ha sido enviado','success');
+								this.form = {};
 							}
 							else {
 								swal('',res.data.error,'warning');

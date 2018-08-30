@@ -6,7 +6,7 @@
 
 @section('content')
 	<div class="contenido contenido-no-padding" id="home" @if (isset($slider[0])) style="background-image: url({{ URL('img/slider/'.$slider[0]->foto) }})" @endif>
-		<div id="carousel" class="carousel slide" data-ride="carousel">
+		<div id="carousel" class="carousel slide carousel-fade" data-ride="carousel">
 
 		  <div class="carousel-inner">
 			@foreach($slider as $key => $item)
