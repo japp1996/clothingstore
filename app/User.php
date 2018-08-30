@@ -26,4 +26,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function estado() {
+        return $this->belongsTo('App\Models\Estado','estado_id');
+    }
+
+    public function pais() {
+        return $this->belongsTo('App\Models\Pais','pais_id');
+    }
 }

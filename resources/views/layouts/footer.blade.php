@@ -27,11 +27,19 @@
 					Condiciones de Compra
 				</a>
 			@else
-				<a href="{{ URL('login') }}">
-					<button class="btn btn-default">
-						<span>Iniciar Sesión</span>
-					</button>
-				</a>
+				@if (Auth::check())
+					<a href="{{ URL('logout') }}">
+						<button class="btn btn-default">
+							<span>Cerrar Sesión</span>
+						</button>
+					</a>
+				@else
+					<a href="{{ URL('login') }}">
+						<button class="btn btn-default">
+							<span>Iniciar Sesión</span>
+						</button>
+					</a>
+				@endif				
 			@endif
 		</div>
 		<div class="col-md-4 right-text contacto">
