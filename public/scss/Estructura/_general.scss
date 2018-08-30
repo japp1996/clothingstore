@@ -1,0 +1,305 @@
+// General
+
+body {
+	background-color: $black;
+	font-family: 'Segoe';
+	display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    main {
+    	flex: 1;
+    }
+}
+
+.sa-confirm-button-container {
+	button {
+		@include degradado();
+	}
+}
+
+input, textarea {
+	box-shadow: none !important; 
+	outline: 0px !important;
+}
+
+.contenido:not(.contenido-no-padding) {
+	padding: 40px;
+	padding-top: 40px + 62.88px;
+	@media (max-width: 600px) {
+		padding: 20px;
+		padding-top: 20px + 62.88px;
+	}
+}
+
+button {
+	outline: 0px !important;
+	box-shadow: none !important;
+}
+
+.title {
+	text-transform: uppercase;
+	text-align: center;
+	font-family: 'Bebas';
+	font-size: 70px;
+	@include texto();
+	&.title-line {
+		&::after {
+			content: '';
+			height: 2px;
+			@include degradado();
+			width: 100%;
+			display: block;
+		}
+	}	
+}
+
+.text-degradado {
+	@include texto();
+}
+
+header {
+	.navbar-toggler {
+		i {
+			color: $dorado !important;
+		}
+	}
+	.navbar {
+		padding: 0px !important;
+		.logo {
+			width: 110px;
+			margin-right: 30px;
+			margin-left: 30px;
+		}
+		.nav-item {
+			a {
+				@media (max-width: 991px) {
+					text-align: center;
+					margin-right: 0px !important;
+				}
+				color: $white !important;
+				font-size: 18px;
+				margin-right: 20px;
+				position: relative;
+				img {
+					width: 20px;
+				}
+				.container-img {
+					display: inline-block;
+					position: relative;
+				}
+				.badge {
+					position: absolute;
+					top: 10px;
+					right: 0px;
+					background-color: $dorado;
+					color: $black;
+					font-size: 9px;
+					width: 15px;
+					height: 15px;
+					border-radius: 30px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+				}
+			}
+			&.active a {
+				@include texto();
+				font-family: 'Segoe Bold';
+				position: relative;
+				@media (min-width: 992px) {
+					&::after {
+						content: '';
+						height: 2px; 
+						width: 100%;
+						position: absolute;
+						bottom: 0px;
+						left: 0px;
+						display: inline-block;
+						@include degradado();
+					}
+				}				
+				.badge {
+					background-color: $white;
+					color: $black;
+				}
+			}
+		}
+		.dropdown-menu {
+			background-color: transparent;
+			border: 0px !important;
+			margin-right: 5px;
+			padding: 0px !important;
+			@media (max-width: 991px) {
+				margin-right: 0px !important;
+			}
+			.dropdown-item {
+				text-align: center;
+				margin-top: 2px;
+				transition: .1s;
+				@media (max-width: 991px) {
+					padding-right: 0px !important;
+					padding-left: 0px !important;
+				}		
+				@media (min-width: 992px) {
+					border: 1px solid $white !important;
+					background-color: rgba($black,.9);
+				}				
+				&:hover {
+					color: $dorado !important;
+				}
+			}
+		}
+		.dropdown-toggle::after {
+			display: none;
+		}		
+		.link-idioma {
+			@media (max-width: 991px) {
+				display: none;
+			}
+			text-align: center;
+			cursor: pointer;
+			img {
+				width: 30px !important;
+			}
+			span {
+				display: block;
+				font-size: 12px;
+				@include texto();
+				margin-top: 5px;
+				font-family: 'Segoe SemiBold';
+			}
+		}
+		background-color: rgba($black,.9) !important;
+		border-bottom: 1px solid $white;
+		.container-cart {
+			@media (max-width: 991px) {
+				display: none;
+			}
+		}
+		.counter-cart {
+			display: none;
+			@media (max-width: 992px) {
+				display: inline-block;
+			}
+		}
+		.link-idioma-responsive {
+			display: none;
+			@media (max-width: 992px) {
+				display: block;
+			}
+		}
+	}	
+}
+
+footer {
+	.text-italic {
+		text-decoration: none !important;
+		text-align: center;
+		font-family: 'Segoe Bold Italic';
+		font-size: 20px;
+		color: $white;
+		margin-top: 5px;
+		display: inline-block;
+	}
+	position: relative;
+	z-index: 999;
+	background-color: $black;
+	border-top: 1px solid $white;
+	padding: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+	min-height: 64px;
+	@media (max-width: 767px) {
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+	img {
+		width: 35px;
+		margin-right: 5px;
+		@media (max-width: 767px) {
+			width: 22px;
+			margin-left: 5px;
+		}
+	}
+	table {
+		position: relative;
+	}
+	.center-text, .right-text {
+		@media (max-width: 767px) {
+			text-align: center !important;
+			table {
+				margin: 0 auto;
+				margin-top: 7.5px !important;
+			}
+		}
+	}
+	.right-text {
+		@media (min-width: 768px) {
+			text-align: right;
+		}
+		@media (max-width: 767px) {
+			display: none;
+		}
+	}
+	.text-degradado {
+		font-size: 25px;
+		font-family: 'Segoe SemiBold';
+		text-decoration: none !important;
+		img {
+			width: 25px;
+			margin-top: -5px;
+		}
+	}
+	button {
+		font-size: 16px !important;
+		margin-top: 2.5px;
+		margin-bottom: 2.5px;
+		font-family: 'Segoe SemiBold';
+		@include degradado();
+		box-sizing: border-box;
+		border-radius: 10px !important;
+		padding: 0px !important;
+		border-width: 2px !important;
+		span {
+			align-items: center;
+			border-radius: 10px !important;
+			background-color: $black;
+			color: $dorado;
+			display: flex;
+			justify-content: center;
+			height: 100%;
+			transition: .5s ease;
+			width: 100%;
+			padding: 5px;
+			padding-right: 20px;
+			padding-left: 20px;
+			span {
+				@include texto();
+			}			
+		}
+		&:hover {
+			span {
+				color: $black !important;
+				background-color: transparent;
+			}
+		}
+	}
+	@media (max-width: 767px) {
+		button {
+			// margin-top: 20px;
+			// margin-bottom: 10px;
+		}		
+	}
+	.youtube img {
+		width: 47px;
+		@media (max-width: 767px) {
+			width: 27px;
+		}
+	}
+	.instagram_white img {
+		width: 35px;
+		@media (max-width: 767px) {
+			width: 22px;
+		}
+	}
+}
