@@ -2,7 +2,7 @@
 
 	namespace App\Models;
 
-	use Illuminate\Database\Eloquent\Model;slider
+	use Illuminate\Database\Eloquent\Model;
 
 	class AliadoFoto extends Model {
 	    protected $table="aliados_fotos";
