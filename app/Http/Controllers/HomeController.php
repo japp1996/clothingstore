@@ -35,6 +35,10 @@
 	    	return View('condiciones')->with(['condiciones' => $condiciones]);
 	    }
 
+	    public function intro() {
+	    	return View('intro');
+	    }
+
 	    public function getContacto() {
 	    	$paises = Pais::orderBy('nombre','asc')->get()->pluck('nombre','nombre');
 	    	return View('contacto')->with(['paises' => $paises]);
@@ -43,12 +47,13 @@
 	    public function postContacto(Request $request) {
 	    	$reglas = [
 	    		'nombre' => 'required',
-	    		'email' => 'required',
+	    		'email' => 'required|email',
 	    		'pais' => 'required',
 	    		'mensaje' => 'required'
 	    	];
 	    	$mensajes = [
-	    		'required' => 'El campo :attribute es requerido'
+	    		'required' => 'El campo :attribute es requerido',
+	    		'email' => 'El correo electrónico no es válido'
 	    	];
 	    	$atributos = [
 	    		'nombre' => 'Nombre Completo',

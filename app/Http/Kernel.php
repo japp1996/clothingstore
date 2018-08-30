@@ -60,5 +60,6 @@ class Kernel extends HttpKernel
         'active' => \App\Http\Middleware\ActiveMiddleware::class,
         'auth' => \App\Http\Middleware\AuthMiddleware::class,
         'login' => \App\Http\Middleware\LoginMiddleware::class,
+        'intro' => \App\Http\Middleware\IntroMiddleware::class,
     ];
 }

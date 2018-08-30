@@ -8,6 +8,7 @@
 	use Hash;
 	use App\Models\Pais;
 	use App\Models\Estado;
+	use App\User;
 
 	class AuthController extends Controller {
 	    
@@ -44,18 +45,18 @@
 	    			if (Auth::user()->nivel == '1') {
 	    				return response()->json([
 			    			'result' => true,
-			    			'url' => \URL('/')
+			    			'url' => \URL('home')
 			    		]);
 	    			}
 	    			else {
 						return response()->json([
 			    			'result' => true,
-			    			'url' => \URL('/')
+			    			'url' => \URL('home')
 			    		]);
 	    			}
 	    		else
 	    			return response()->json([
-	    				'result' => 'error',
+	    				'result' => false,
 	    				'error' => "Correo Electrónico o Contraseña incorrectos"
 	    			]);
 	    	}
@@ -114,14 +115,32 @@
 		    			'error' => "El campo Nombre de Empresa es requerido"
 		    		]);
 	    		}
+
+	    		$user = new User;
+	    			$user->name = $request->nombre;
+	    			$user->email = $request->email;
+	    			$user->type = $request->type;
+	    			$user->identificacion = $request->identificacion;
+	    			$user->telefono = $request->telefono;
+	    			$user->pais_id = $request->pais;
+	    			$user->estado_id = $request->estado;
+	    			$user->codigo = $request->codigo;
+	    			$user->direccion = $request->direccion;
+	    			$user->password = Hash::make($request->password);
+	    			if ($request->type == '2') {
+	    				$user->empresa = $request->empresa;
+	    			}
+	    		$user->save();
+
 	    		return response()->json([
-	    			'result' => true
+	    			'result' => true,
+	    			'url' => \URL('login')
 	    		]);
 	    	}
 	    }
 
 	    public function logout() {
 	    	Auth::logout();
-	    	return Redirect('/');
+	    	return Redirect('home');
 	    }
 	}
