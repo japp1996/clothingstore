@@ -17979,6 +17979,8 @@ window.axios = __webpack_require__(144);
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 window.urlBase = window.location.protocol + '//' + window.location.hostname + '/Wara/public/';
+
+window.axios.defaults.baseURL = urlBase;
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
  * all outgoing HTTP requests automatically have it attached. This is just
@@ -74658,6 +74660,8 @@ exports.push([module.i, "", ""]);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SizeForm__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SizeForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__SizeForm__);
 //
 //
 //
@@ -74686,6 +74690,489 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    template: "#template-size-index",
+    components: { SizeForm: __WEBPACK_IMPORTED_MODULE_0__SizeForm___default.a },
+    props: {
+        url: {
+            type: String,
+            default: function _default() {
+                return "";
+            }
+        },
+
+        sizes: {
+            type: Array,
+            default: function _default() {
+                return [];
+            }
+        }
+    },
+
+    created: function created() {
+        this.sizesArray = this.sizes;
+    },
+    data: function data() {
+        return {
+            options: 0,
+            sizesArray: [],
+            filters: [],
+            filter: "",
+            form: {
+                id: 0,
+                name: ""
+            },
+            modal: {
+                init: {},
+                title: "",
+                type: {
+                    confirm: false,
+                    action: 'view'
+                },
+                data: {
+                    name: ''
+                }
+            }
+        };
+    },
+
+
+    methods: {
+        _resetView: function _resetView(option) {
+            this.options = option;
+        },
+        _edit: function _edit(item) {
+            this.options = 2;
+            this.form = item;
+        },
+        _confirm: function _confirm(item) {
+            this.modal.type.confirm = true;
+            this.modal.type.action = this._delete;
+            this.modal.data = item;
+            this.modal.init.open();
+        },
+        _delete: function _delete() {
+            var _this = this;
+
+            var index = this.sizesArray.findIndex(function (e) {
+                return e.id == _this.modal.data.id;
+            });
+
+            this.modal.init.close();
+
+            axios.delete("admin/sizes/" + this.modal.data.id).then(function (res) {
+                _this.sizesArray.splice(index, 1);
+                _this._showAlert(res.data.message, "success");
+            }).catch(function (err) {
+                _this._showAlert('Disculpa, ha ocurrido un error', "error");
+            });
+        },
+        _updateData: function _updateData() {
+            var _this2 = this;
+
+            axios.get('admin/sizes-all').then(function (res) {
+                _this2.sizesArray = res.data;
+            }).catch(function (err) {
+                console.log(err);
+            });
+        },
+        _showAlert: function _showAlert(text, type) {
+            swal({
+                title: "",
+                text: text,
+                timer: 3000,
+                showConfirmButton: false,
+                type: type
+            });
+        }
+    },
+
+    mounted: function mounted() {
+        this.filters = ['name'];
+        this.modal.init = M.Modal.init(document.querySelector('.modal'));
+    }
+});
+
+/***/ }),
+/* 211 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "section",
+    { staticClass: "container-fluid" },
+    [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col s12 center-align" }, [
+          _vm.options == 0 ? _c("h1", [_vm._v("Tallas")]) : _vm._e(),
+          _vm._v(" "),
+          _vm.options == 1 || _vm.options == 2
+            ? _c("h1", [
+                _vm._v(
+                  _vm._s(_vm.options == 1 ? "Agregar" : "Actualizar") + " Talla"
+                )
+              ])
+            : _vm._e()
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          { staticClass: "col s12" },
+          [
+            _vm.options == 0
+              ? _c(
+                  "section",
+                  { staticClass: "table__content" },
+                  [
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col s12 container-btn-add" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn-add",
+                            on: {
+                              click: function($event) {
+                                _vm.options = 1
+                              }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticClass: "img-responsive",
+                              attrs: {
+                                src: _vm._f("asset")("img/icons/new-msg.png"),
+                                alt: ""
+                              }
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "btn-add-text" }, [
+                          _vm._v(
+                            "\n                            Agregar nueva\n                        "
+                          )
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "table-byte",
+                      {
+                        attrs: {
+                          "set-table": _vm.sizesArray,
+                          filters: ["name"]
+                        },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "table-head",
+                            fn: function(ref) {
+                              var item = ref.item
+                              return _c(
+                                "table-row",
+                                {},
+                                [
+                                  _c("table-head", [
+                                    _vm._v("Nombre de la talla")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("table-head", [_vm._v("Acciones")])
+                                ],
+                                1
+                              )
+                            }
+                          },
+                          {
+                            key: "table-row",
+                            fn: function(ref) {
+                              var item = ref.item
+                              return _c(
+                                "table-row",
+                                {},
+                                [
+                                  _c("table-cell", [_vm._v(_vm._s(item.name))]),
+                                  _vm._v(" "),
+                                  _c("table-cell", [
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "btn-action",
+                                        attrs: { href: "#!" },
+                                        on: {
+                                          click: function($event) {
+                                            _vm._edit(item, "edit")
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("img", {
+                                          staticClass: "img-responsive",
+                                          attrs: {
+                                            src: _vm._f("asset")(
+                                              "img/icons/ico-editar.png"
+                                            ),
+                                            alt: ""
+                                          }
+                                        })
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "btn-action",
+                                        attrs: { href: "#!" },
+                                        on: {
+                                          click: function($event) {
+                                            _vm._confirm(item, "destroy")
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("img", {
+                                          staticClass: "img-responsive",
+                                          attrs: {
+                                            src: _vm._f("asset")(
+                                              "img/icons/ico-eliminar.png"
+                                            ),
+                                            alt: ""
+                                          }
+                                        })
+                                      ]
+                                    )
+                                  ])
+                                ],
+                                1
+                              )
+                            }
+                          }
+                        ])
+                      },
+                      [
+                        _c(
+                          "table-row",
+                          { attrs: { slot: "empty-rows" }, slot: "empty-rows" },
+                          [
+                            _c("table-cell", { attrs: { colspan: "3" } }, [
+                              _vm._v(
+                                "\n                            No se encontraron registros.\n                        "
+                              )
+                            ])
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.options == 1
+              ? _c("size-form", {
+                  on: { back: _vm._resetView, reload: _vm._updateData }
+                })
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.options == 2
+              ? _c("size-form", {
+                  attrs: { action: 1, data: _vm.form },
+                  on: { back: _vm._resetView, reload: _vm._updateData }
+                })
+              : _vm._e()
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "byte-modal",
+        {
+          attrs: { confirm: _vm.modal.type.confirm },
+          on: { pressok: _vm.modal.type.action }
+        },
+        [
+          _c("div", { staticClass: "container-confirmation" }, [
+            _c("div", { staticClass: "confimation__icon" }, [
+              _c("i", { staticClass: "material-icons" }, [
+                _vm._v("error_outline")
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "confirmation__text" }, [
+              _c("h5", [
+                _vm._v("¿ Realmente deseas "),
+                _c("b", [_vm._v("Eliminar")]),
+                _vm._v(" esta talla ?")
+              ])
+            ])
+          ])
+        ]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-4d455da6", module.exports)
+  }
+}
+
+/***/ }),
+/* 219 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(220)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(222)
+/* template */
+var __vue_template__ = __webpack_require__(223)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/sizes/SizeForm.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-56482a39", Component.options)
+  } else {
+    hotAPI.reload("data-v-56482a39", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 220 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(221);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(181)("6945f546", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-56482a39\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SizeForm.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-56482a39\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SizeForm.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 221 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(180)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.margin-top {\n  margin-top: 20px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 222 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
@@ -74725,202 +75212,178 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     template: "#template-size-index",
 
     props: {
-        url: {
-            type: String,
-            default: function _default() {
-                return "";
-            }
+        action: {
+            type: Number,
+            default: 0
         },
 
-        sizes: {
-            type: Array,
+        data: {
+            type: Object,
             default: function _default() {
-                return [];
+                return {};
             }
         }
     },
 
     created: function created() {
-        this.sizesArray = this.sizes;
+        this.form = this.action != 0 ? this.data : { id: 0, name: "" };
     },
     data: function data() {
         return {
-            sizesArray: [],
             form: {
                 id: 0,
                 name: ""
             }
         };
+    },
+
+
+    methods: {
+        _back: function _back() {
+            this.$emit('back', 0);
+        },
+        _store: function _store(e) {
+            var _this = this;
+
+            e.preventDefault();
+            e.target.setAttribute('disabled', true);
+            axios.post('admin/sizes', this.form).then(function (res) {
+                _this._showAlert(res.data.message, "success");
+                setTimeout(function () {
+                    _this.$emit('back', 0);
+                    _this.$emit('reload');
+                }, 3001);
+            }).catch(function (err) {
+                var message = "Disculpe, ha ocurrido un error";
+                if (err.response.status === 422) {
+                    message = err.response.data.error;
+                }
+                _this._showAlert(message, "error");
+            }).then(function (all) {
+                e.target.removeAttribute('disabled');
+            });
+        },
+        _edit: function _edit(e) {
+            var _this2 = this;
+
+            e.preventDefault();
+            e.target.setAttribute('disabled', true);
+            axios.put("admin/sizes/" + this.form.id, this.form).then(function (res) {
+                _this2._showAlert(res.data.message, "success");
+                setTimeout(function () {
+                    _this2.$emit('back', 0);
+                    _this2.$emit('reload');
+                }, 3001);
+            }).catch(function (err) {
+                var message = "Disculpe, ha ocurrido un error";
+                if (err.response.status === 422) {
+                    message = err.response.data.error;
+                }
+                _this2._showAlert(message, "error");
+            }).then(function (all) {
+                e.target.removeAttribute('disabled');
+            });
+        },
+        _showAlert: function _showAlert(text, type) {
+            swal({
+                title: "",
+                text: text,
+                timer: 3000,
+                showConfirmButton: false,
+                type: type
+            });
+        }
     }
 });
 
 /***/ }),
-/* 211 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("section", { staticClass: "container-fluid" }, [
-    _vm._m(0),
-    _vm._v(" "),
+  return _c("div", { staticClass: "col s12" }, [
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col s12" }, [
         _c(
-          "section",
-          { staticClass: "table__content" },
-          [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col s12 container-btn-add" }, [
-                _c("button", { staticClass: "btn-add" }, [
-                  _c("img", {
-                    staticClass: "img-responsive",
-                    attrs: {
-                      src: _vm._f("asset")("img/icons/new-msg.png"),
-                      alt: ""
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "btn-add-text" }, [
-                  _vm._v(
-                    "\n                            Agregar nueva\n                        "
-                  )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c(
-              "table-byte",
+          "a",
+          {
+            staticClass: "btn btn-back",
+            attrs: { href: "#!" },
+            on: {
+              click: function($event) {
+                _vm._back()
+              }
+            }
+          },
+          [_vm._m(0)]
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col s12 m12 l12 center-align" }, [
+          _c(
+            "label",
+            { staticClass: "label-impegno", attrs: { for: "name" } },
+            [_vm._v("Nombre de la talla")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
               {
-                attrs: { "set-table": _vm.sizesArray, filters: ["name"] },
-                scopedSlots: _vm._u([
-                  {
-                    key: "table-head",
-                    fn: function(ref) {
-                      var item = ref.item
-                      return _c(
-                        "table-row",
-                        {},
-                        [
-                          _c("table-head", [_vm._v("Nombre de la talla")]),
-                          _vm._v(" "),
-                          _c("table-head", [_vm._v("Acciones")])
-                        ],
-                        1
-                      )
-                    }
-                  },
-                  {
-                    key: "table-row",
-                    fn: function(ref) {
-                      var item = ref.item
-                      return _c(
-                        "table-row",
-                        {},
-                        [
-                          _c("table-cell", [_vm._v(_vm._s(item.name))]),
-                          _vm._v(" "),
-                          _c("table-cell", [
-                            _c(
-                              "a",
-                              {
-                                staticClass: "btn-action",
-                                attrs: { href: "#!" },
-                                on: {
-                                  click: function($event) {
-                                    _vm._view(item, "view")
-                                  }
-                                }
-                              },
-                              [
-                                _c("img", {
-                                  staticClass: "img-responsive",
-                                  attrs: {
-                                    src: _vm._f("asset")(
-                                      "img/icons/ico-ver.png"
-                                    ),
-                                    alt: ""
-                                  }
-                                })
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "a",
-                              {
-                                staticClass: "btn-action",
-                                attrs: { href: "#!" },
-                                on: {
-                                  click: function($event) {
-                                    _vm._edit(item, "edit")
-                                  }
-                                }
-                              },
-                              [
-                                _c("img", {
-                                  staticClass: "img-responsive",
-                                  attrs: {
-                                    src: _vm._f("asset")(
-                                      "img/icons/ico-editar.png"
-                                    ),
-                                    alt: ""
-                                  }
-                                })
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "a",
-                              {
-                                staticClass: "btn-action",
-                                attrs: { href: "#!" },
-                                on: {
-                                  click: function($event) {
-                                    _vm._confirm(item, "destroy")
-                                  }
-                                }
-                              },
-                              [
-                                _c("img", {
-                                  staticClass: "img-responsive",
-                                  attrs: {
-                                    src: _vm._f("asset")(
-                                      "img/icons/ico-eliminar.png"
-                                    ),
-                                    alt: ""
-                                  }
-                                })
-                              ]
-                            )
-                          ])
-                        ],
-                        1
-                      )
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.name,
+                expression: "form.name"
+              }
+            ],
+            staticClass: "browser-default input-impegno",
+            attrs: { type: "text", name: "name", id: "name", maxlength: "50" },
+            domProps: { value: _vm.form.name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form, "name", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col s12 m12 l12 margin-top center-align" }, [
+          _vm.action == 0
+            ? _c(
+                "a",
+                {
+                  staticClass: "btn btn-continue",
+                  attrs: { href: "#!" },
+                  on: {
+                    click: function($event) {
+                      _vm._store($event)
                     }
                   }
-                ])
-              },
-              [
-                _c(
-                  "table-row",
-                  { attrs: { slot: "empty-rows" }, slot: "empty-rows" },
-                  [
-                    _c("table-cell", { attrs: { colspan: "3" } }, [
-                      _vm._v(
-                        "\n                            No se encontraron registros.\n                        "
-                      )
-                    ])
-                  ],
-                  1
-                )
-              ],
-              1
-            )
-          ],
-          1
-        )
+                },
+                [_vm._v("Guardar")]
+              )
+            : _c(
+                "a",
+                {
+                  staticClass: "btn btn-continue",
+                  attrs: { href: "#!" },
+                  on: {
+                    click: function($event) {
+                      _vm._edit($event)
+                    }
+                  }
+                },
+                [_vm._v("Actualizar")]
+              )
+        ])
       ])
     ])
   ])
@@ -74930,10 +75393,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col s12 center-align" }, [
-        _c("h1", [_vm._v("Tallas")])
-      ])
+    return _c("div", { staticClass: "btn-back__container" }, [
+      _c("div", { staticClass: "btn-back__ico" }),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "" } }, [_vm._v(" Volver")])
     ])
   }
 ]
@@ -74942,7 +75405,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-4d455da6", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-56482a39", module.exports)
   }
 }
 

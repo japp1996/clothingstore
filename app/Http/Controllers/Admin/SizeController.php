@@ -22,6 +22,13 @@ class SizeController extends Controller
         return view('admin.sizes.index')->with(['sizes' => $sizes]);
     }
 
+    public function all()
+    {
+        $sizes = Size::where('status', '1')
+        ->get();
+        return response()->json($sizes);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -41,7 +48,7 @@ class SizeController extends Controller
     public function store(SizeRequest $request)
     {
         $size = new Size;
-        $size->name = $request->name;
+        $size->name = strtoupper($request->name);
         $size->status = '1';
         $size->save();
 
@@ -80,7 +87,7 @@ class SizeController extends Controller
     public function update(SizeRequest $request, $id)
     {
         $size = Size::find($id);
-        $size->name = $request->name;
+        $size->name = strtoupper($request->name);
         $size->save();
 
         return response()->json(['result' => true, 'message' => 'Talla actualizada exitosamente.']);

@@ -9281,7 +9281,7 @@ h1 {
   height: 40px !important;
   line-height: 40px !important;
   border-radius: 40px !important;
-  background: #2f5597 !important;
+  background: #151b26 !important;
   position: absolute;
   font-style: italic;
   top: 2rem;
@@ -10217,12 +10217,12 @@ body::-webkit-scrollbar-thumb {
 .table__content {
   width: 100%;
   background-color: white;
-  border: thin solid #2f5597 !important;
+  border: thin solid #151b26 !important;
   padding: 4vh;
 }
 
 .table__content thead th {
-  border-bottom: 2px solid #2f5597 !important;
+  border-bottom: 2px solid #151b26 !important;
 }
 
 [type="checkbox"].filled-in:not(:checked) + label.checkbox-impegno:after {
