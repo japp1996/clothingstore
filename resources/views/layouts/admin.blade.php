@@ -66,8 +66,7 @@
                     <div class="left-sidebar-overlay"></div>
                     <div class="left-sidebar">
                         <div id="logo">
-                            <h1 class="impegno">IMPEGNO</h1>
-                            <p>Inspirando personas, transformando empresas</p>
+                            <h1 class="impegno">Wará</h1>
                         </div>
                         {{--end brand --}}
                         {{--Left sidebar body--}}
