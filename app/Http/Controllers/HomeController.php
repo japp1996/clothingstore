@@ -24,7 +24,7 @@
 	    }
 
 	    public function aliados() {
-	    	$aliados = Aliado::with(['fotos'])->paginate(10);
+	    	$aliados = Aliado::with(['fotos'])->paginate(6);
 	    	return View('aliados')->with(['aliados' => $aliados]);
 	    }
 

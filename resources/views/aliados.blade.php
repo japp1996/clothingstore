@@ -11,7 +11,7 @@
 			@foreach($aliados as $aliado)
 				<div class="item">
 					<div class="container-item">
-						<div id="carousel{{ $aliado->id }}" class="carousel slide carousel-fade" data-ride="carousel">
+						<div id="carousel{{ $aliado->id }}" class="carousel slide carousel-fade" data-ride="carousel" data-interval="false">
 						
 						  <div class="carousel-inner">
 							@foreach($aliado->fotos as $key => $item)
@@ -59,5 +59,8 @@
 				</div>
 			@endforeach
 		</div>
+		<div class="text-center">
+			{{ $aliados->links('vendor.pagination.bootstrap-4') }}
+		</div>		
 	</div>
 @stop
