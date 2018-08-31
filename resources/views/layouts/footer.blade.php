@@ -4,17 +4,17 @@
 			<table>
 				<tr>
 					<td>
-						<a href="{{ URL('home') }}" class="instagram_white">
+						<a href="{{ $_sociales->instagram }}" class="instagram_white">
 							{{ HTML::Image('img/icons/instagram_white.png') }}
 						</a>
 					</td>
 					<td>
-						<a href="{{ URL('home') }}" class="facebook_white">
+						<a href="{{ $_sociales->facebook }}" class="facebook_white">
 							{{ HTML::Image('img/icons/facebook_white.png') }}
 						</a>
 					</td>
 					<td>
-						<a href="{{ URL('home') }}" class="youtube">
+						<a href="{{ $_sociales->youtube }}" class="youtube">
 							{{ HTML::Image('img/icons/youtube.png') }}
 						</a>
 					</td>
