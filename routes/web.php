@@ -58,7 +58,8 @@
 		Route::group(['middleware' => 'Auth'], function() {
 			Route::get('home', 'AdminController@home');
 			// Sizes			
-			Route::resource('sizes', 'SizeController');			
+			Route::resource('sizes', 'SizeController');
+			Route::get('sizes-all', 'SizeController@all');
 			// Collection
 			Route::resource('collection', 'CollectionController');
 		});
