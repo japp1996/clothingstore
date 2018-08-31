@@ -18,6 +18,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- Page title --}}
     <title>@yield('title') | Administrador</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico?1.0') }}" />
     {{-- ================================================ 
     CSS
     ================================================ --}}
@@ -66,8 +67,7 @@
                     <div class="left-sidebar-overlay"></div>
                     <div class="left-sidebar">
                         <div id="logo">
-                            <h1 class="impegno">IMPEGNO</h1>
-                            <p>Inspirando personas, transformando empresas</p>
+                            <h1 class="impegno">Wará</h1>
                         </div>
                         {{--end brand --}}
                         {{--Left sidebar body--}}
