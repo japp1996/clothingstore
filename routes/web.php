@@ -51,10 +51,15 @@
 	// Admin
 	
 	Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
+		// Home
 		Route::get('/', 'AdminController@index');
-		Route::post('login', 'AuthController@singIn');	
-		Route::group(['middleware' => 'Auth'], function() {			
+		Route::post('login', 'AuthController@singIn');
+		
+		Route::group(['middleware' => 'Auth'], function() {
 			Route::get('home', 'AdminController@home');
+
+			// Collection
+			Route::resource('collection', 'CollectionController');
 		});
 	});
 	
