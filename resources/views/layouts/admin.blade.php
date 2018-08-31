@@ -18,6 +18,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- Page title --}}
     <title>@yield('title') | Administrador</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico?1.0') }}" />
     {{-- ================================================ 
     CSS
     ================================================ --}}

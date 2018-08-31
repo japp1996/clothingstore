@@ -8,5 +8,9 @@
         </a>
     </li>
     
-      
+    <li>
+        <a href="{{ url('/admin/categories') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Categorías">
+            Categorías
+        </a>
+    </li>  
 </ul>
