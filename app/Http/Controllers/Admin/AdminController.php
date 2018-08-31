@@ -11,4 +11,9 @@ class AdminController extends Controller
     {
         return view('welcome');
     }
+
+    public function home()
+    {
+        
+    }
 }
