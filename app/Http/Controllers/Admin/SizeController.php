@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\Subcategory;
 use App\Models\Size;
 
-class CategyController extends Controller
+class SizeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +15,10 @@ class CategyController extends Controller
      */
     public function index()
     {
-        //
+        $sizes = Size::where('status', '1')
+        ->get();
+
+        return view('admin.sizes.index')->with(['sizes' => $sizes]);
     }
 
     /**
@@ -38,7 +39,12 @@ class CategyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $size = new Size;
+        $size->name = $request->name;
+        $size->status = '1';
+        $size->save();
+
+        return response()->json(['result' => true, 'message' => 'Talla registrada exitosamente.']);
     }
 
     /**
@@ -72,7 +78,11 @@ class CategyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $size = Size::find($id);
+        $size->name = $request->name;
+        $size->save();
+
+        return response()->json(['result' => true, 'message' => 'Talla actualizada exitosamente.']);
     }
 
     /**
