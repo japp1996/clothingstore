@@ -9,8 +9,14 @@
     </li>
 
     <li>
+        <a href="{{ url('/admin/sizes') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Tallas">
+            <img src="{{ asset('img/icons/ico-inicio.png') }}" alt="" class="img-responsive">Tallas
+        </a>
+    </li>
+
+    <li>
         <a href="{{ url('/admin/categories') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Categorías">
-            Categorías
+            <img src="{{ asset('img/icons/ico-inicio.png') }}" alt="" class="img-responsive">Categorías
         </a>
     </li>
 
