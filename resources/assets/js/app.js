@@ -77,6 +77,9 @@ Vue.component("byte-modal", require("./components/modal/Modal"));
 // Login
 Vue.component('login-form', require('./components/login/FormLogin.vue'));
 
+// Size
+Vue.component('size-index', require('./components/sizes/SizeIndex'));
+
 // Collection
 Vue.component('collection-index', require('./components/collection/CollectionIndex'));
 

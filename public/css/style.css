@@ -9205,6 +9205,35 @@ h1 {
   background: #4a72b2 !important;
 }
 
+.container-btn-add {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.btn-add, .btn-add:hover, .btn-add:active, .btn-add:focus {
+  background: transparent;
+  border: none;
+}
+
+.btn-add img, .btn-add:hover img, .btn-add:active img, .btn-add:focus img {
+  width: 3rem;
+}
+
+.btn-add-text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-weight: bold;
+  padding-left: .5rem;
+}
+
 .btn-upload {
   font-weight: bold !important;
   text-transform: capitalize !important;

@@ -163,6 +163,25 @@ h1{
     @extend %btn-impegno;
     background: $color-light-blue !important;
 }
+.container-btn-add{
+    display: flex;
+}
+
+.btn-add, .btn-add:hover, .btn-add:active, .btn-add:focus{
+    background: transparent;
+    border: none;
+    img{
+        width: 3rem;
+    }
+}
+
+.btn-add-text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    padding-left: .5rem;
+}
 
 // .btn-upload {
 //     @extend %btn-impegno;
