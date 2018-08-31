@@ -9060,7 +9060,6 @@ h1 {
 
 body {
   font-family: "Lato";
-  background-image: url(../img/background.jpg) !important;
 }
 
 aside#menu {
@@ -9070,9 +9069,10 @@ aside#menu {
 #logo {
   height: 180px;
   text-align: center;
-  background: #EDEEF0 !important;
-  border: 1px solid rgba(47, 85, 151, 0.8);
+  background: #151b26 !important;
+  border: 1px solid rgba(0, 0, 0, 0.8);
   padding: 2px 30px;
+  color: #fff;
 }
 
 #logo h1 {
@@ -9086,6 +9086,7 @@ aside#menu {
 
 main#app {
   background: transparent;
+  background-image: url("../img/logo-intro.png");
 }
 
 #action-form {
