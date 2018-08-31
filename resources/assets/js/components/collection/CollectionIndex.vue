@@ -14,12 +14,11 @@
                             </card-title>
 
                             <!-- Table -->
-                            <div class="col s12">
-                                
-                                
+                            <div class="col s12" v-if="options === 0">
 
+                                <a href="#!" class="btn btn-success" @click="options = 1">Crear coleccion</a>
 
-                                <table-byte :set-table="setTable" :filters="['name', 'assignments.length']">
+                                <table-byte :set-table="setTable">
 
                                     <table-row slot="table-head" slot-scope="{ item }">
                                         <table-head>Nombre del Curso</table-head>
@@ -31,7 +30,6 @@
                                         <table-cell>{{ item.name }}</table-cell>
                                         <table-cell>{{ item.assignments.length }}</table-cell>
                                         <table-cell>
-
                                             <a href="#!" class="btn-action" @click="_view(item, 'view')">
                                                 <img :src="'img/icons/ico-ver.png' | asset" alt="" class="img-responsive">
                                             </a>
@@ -47,7 +45,6 @@
                                             <a :href="`${url}/${item.id}/reports`" target="_blank" title="Reporte PDF" class="btn-action">
                                                 <img :src="'img/icons/ico-pdf.png' | asset" alt="" class="img-responsive">
                                             </a>
-
                                         </table-cell>
                                     </table-row>
 
@@ -62,29 +59,7 @@
 
                             <!-- Modal -->
                             <byte-modal v-on:pressok="_delete" :confirm="modal.type.confirm">
-                                <template v-if="modal.type.action == 'view'">
-
-                                    <div class="col s12">
-                                        <span>Nombre del curso: </span> {{ modal.data.name }}
-                                    </div>
-
-                                    <div class="col s12 mt-1">
-                                        Asignaciones:
-                                    </div>
-
-                                    <div class="col s12 no-padding" v-for="(assignment, i) in modal.data.assignments" :key="'assignment-' + i">
-                                        <div class="col s12 m6">
-                                            <span>Asignatura: </span> {{assignment.name}}
-                                        </div>
-                                        <div class="col s12 m6" v-if="assignment.teacher">
-                                            <span>Profesor: </span> {{ assignment.teacher.first_name }} {{ assignment.teacher.middle_name }} {{ assignment.teacher.surname }} {{ assignment.teacher.second_name }}
-                                        </div>
-                                        <div class="col s12">
-                                            {{ weeks[assignment.one_schedule.day] }}
-                                        </div>
-                                    </div>
-
-                                </template>
+                                <template v-if="modal.type.action == 'view'"></template>
 
                                 <template v-if="modal.type.action == 'destroy'">
                                     <div class="container-confirmation">
@@ -98,6 +73,10 @@
                                 </template>
                             </byte-modal>
                         </div>
+
+                        <collection-form v-if="options === 1"></collection-form>
+                        <collection-form v-if="options === 2"></collection-form>
+
                     </card-content>
                 </card-main>
             </div>
@@ -107,14 +86,18 @@
 </template>
 
 <script>
+
+import CollectionForm from "./CollectionForm";
+
 export default {
     template: "#template-collection-index",
+    components: { CollectionForm },
     props: {
         url: {
             type: String,
             default: ""
         },
-        'set-table': {
+        collections: {
             type: Array,
             default(){
                 return []
@@ -123,8 +106,7 @@ export default {
     },
     data() {
         return {
-            zones: [],
-            component: "Zona",
+            options: 0,
             modal: {
                 init: {},
                 title: "",
@@ -136,15 +118,7 @@ export default {
                     name: ''
                 }
             },
-            weeks: [
-                'Lunes',
-                'Martes',
-                'Miercoles',
-                'Jueves',
-                'Viernes',
-                'Sabado',
-                'Domingo'
-            ]
+            setTable: []
         }
     },
     methods:{
