@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CollectionRequest;
+use App\Models\Collection;
 
 class CollectionController extends Controller
 {
@@ -14,7 +16,11 @@ class CollectionController extends Controller
      */
     public function index()
     {
-        return view('admin.collection.index');
+        $collections = Collection::where('status', '!=', '2')->get();
+
+        return view('admin.collection.index')->with([
+            'collections' => $collections
+        ]);
     }
 
     /**
@@ -33,9 +39,9 @@ class CollectionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CollectionRequest $request)
     {
-        //
+        Collection::create($request->all());
     }
 
     /**
@@ -67,9 +73,9 @@ class CollectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CollectionRequest $request, $id)
     {
-        //
+        Collection::find($id)->update(['name' => $request->name, 'name_english' => $request->name_english]);
     }
 
     /**
@@ -80,6 +86,8 @@ class CollectionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $collection = Collection::find($id);
+            $collection->status = '2';
+        $collection->save();
     }
 }

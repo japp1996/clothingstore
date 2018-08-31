@@ -3,5 +3,5 @@
 @section('title', 'Colecciones')
 
 @section('content')
-    <collection-index></collection-index>
+    <collection-index :collections="{{ $collections }}"></collection-index>
 @endsection
