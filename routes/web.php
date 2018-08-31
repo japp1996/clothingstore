@@ -52,5 +52,9 @@
 	
 	Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
 		Route::get('/', 'AdminController@index');
+		Route::post('login', 'AuthController@singIn');	
+		Route::group(['middleware' => 'Auth'], function() {			
+			Route::get('home', 'AdminController@home');
+		});
 	});
 	

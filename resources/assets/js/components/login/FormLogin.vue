@@ -54,24 +54,33 @@ export default {
     },
     methods:{
         login(){
-            axios.post('login', this.form)
+            axios.post('admin/login', this.form)
                 .then(res => {
                     if(res.data.result){
                         window.location = res.data.location;
                     }else{
-                        swal('', res.data.message, 'error');
+                        this._showAlert(res.data.error, "error")
                     }
                 })
                 .catch(err => {
                     let message = "Disculpe, ha ocurrido un error";
 
-                    if(err.response.status === 422){
-                        message = err.response.data;
+                    if(err.response.status === 422){                        
+                        message = err.response.data.error;
                     }
-
-                    swal("", message, "error");
+                    this._showAlert(message, "error")
                 });
-        }
+        },
+
+        _showAlert(text, type) {
+            swal({
+                title: "",
+                text: text,
+                timer: 3000,
+                showConfirmButton: false,
+                type: type
+            })
+        },
     }
 }
 </script>
