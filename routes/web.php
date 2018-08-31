@@ -47,3 +47,10 @@
 
 	// Lang
 	Route::get('lang/{lang}','LangController@change');
+
+	// Admin
+	
+	Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
+		Route::get('/', 'AdminController@index');
+	});
+	

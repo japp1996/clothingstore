@@ -17,5 +17,12 @@
     "laravel-mix": "^1.0",
     "lodash": "^4.17.4",
     "vue": "^2.1.10"
+  },
+  "dependencies": {
+    "font-awesome-icons": "^1.4.3",
+    "materialize-css": "^1.0.0-rc.2",
+    "moment": "^2.22.2",
+    "sweetalert": "^2.1.0",
+    "vue-text-mask": "^6.1.1"
   }
 }
