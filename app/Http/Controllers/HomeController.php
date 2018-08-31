@@ -7,6 +7,7 @@
 	use App\Models\Condiciones;
 	use App\Models\Slider;
 	use App\Models\Pais;
+	use App\Models\Aliado;
 	use Validator;
 	use Mail;
 
@@ -23,7 +24,8 @@
 	    }
 
 	    public function aliados() {
-	    	return View('aliados');
+	    	$aliados = Aliado::with(['fotos'])->paginate(10);
+	    	return View('aliados')->with(['aliados' => $aliados]);
 	    }
 
 	    public function condiciones() {
