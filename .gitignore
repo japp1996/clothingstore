@@ -5,6 +5,8 @@
 /vendor
 /.idea
 /.vagrant
+/public/css/style.css
+/public/js/script.js
 Homestead.json
 Homestead.yaml
 npm-debug.log
