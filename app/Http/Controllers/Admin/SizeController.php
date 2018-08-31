@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Size;
+use App\Http\Requests\SizeRequest;
 
 class SizeController extends Controller
 {
@@ -37,7 +38,7 @@ class SizeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SizeRequest $request)
     {
         $size = new Size;
         $size->name = $request->name;
@@ -76,7 +77,7 @@ class SizeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SizeRequest $request, $id)
     {
         $size = Size::find($id);
         $size->name = $request->name;
@@ -93,6 +94,10 @@ class SizeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $size = Size::find($id);
+        $size->status = '2';
+        $size->save();
+
+        return response()->json(['result' => true, 'message' => 'Talla eliminada exitosamente.']);
     }
 }
