@@ -3,7 +3,12 @@
 	Route::get('/','HomeController@intro')->middleware('intro');
 	Route::get('home','HomeController@get');
 	Route::get('nosotros','HomeController@nosotros')->middleware('active:1');
-	Route::get('mundo','HomeController@mundo')->middleware('active:2');
+
+	Route::group(['middleware' => 'active:2'],function() {
+		Route::get('mundo','BlogController@get');
+		Route::get('mundo/view/{id}','BlogController@view');
+	});
+	
 	Route::get('aliados','HomeController@aliados')->middleware('active:4');
 	Route::get('condiciones','HomeController@condiciones');
 	Route::get('contacto','HomeController@getContacto');
@@ -25,6 +30,8 @@
 	Route::group(['middleware' => ['active:6','auth']],function() {
 
 		Route::get('perfil','PerfilController@get');
+		Route::post('perfil','PerfilController@post');
+		Route::post('password','PerfilController@password');
 	});	
 
 	// Auth

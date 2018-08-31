@@ -1,0 +1,14 @@
+// Mundo Wará
+
+#mundo {
+	background-image: url('../img/fondo-mundo.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+	@include size();
+
+	p {
+		text-align: center;
+		color: $white;
+	}
+}

@@ -22,10 +22,6 @@
 	    	return View('nosotros')->with(['nosotros' => $nosotros]);
 	    }
 
-	    public function mundo() {
-	    	return View('mundo');
-	    }
-
 	    public function aliados() {
 	    	return View('aliados');
 	    }

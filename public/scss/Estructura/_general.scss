@@ -1,5 +1,9 @@
 // General
 
+textarea {
+	resize: none !important;
+}
+
 body {
 	background-color: $black;
 	font-family: 'Segoe';
@@ -10,6 +14,22 @@ body {
     	flex: 1;
     }
 }
+
+select {
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	background-size: 16%; 
+	background: url('../img/select_arrow.png') 96% / 3% no-repeat #eee;
+}
+
+select::-ms-expand { 
+    display: none;
+}
+
+// input, select, textarea {
+// 	border-radius: 8px !important;
+// }
 
 .sa-confirm-button-container {
 	button {

@@ -11,6 +11,6 @@
             if (Auth::check())
                 return $next($request);
             else
-                return Redirect('home');
+                return Redirect('login');
         }
     }

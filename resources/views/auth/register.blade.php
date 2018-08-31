@@ -6,6 +6,11 @@
 
 @section('content')
 	<div class="contenido" id="register">
+		<div class="left">
+			<a href="{{ URL('login') }}">
+				{{ HTML::Image('img/icons/left.png') }}
+			</a>
+		</div>
 		<div class="row">
 			<div class="col-md-5 text-center right-line-container">
 				<h2 class="title">Regístrate</h2>

@@ -1,5 +1,19 @@
 // Home
 
 #home {
-	
+	.carousel-inner{
+	     height: 100%;
+	}
+	@media (min-width: 992px) {
+		background-image: none !important;
+	}
+	@media (max-width: 991px) {
+		.carousel {
+			display: none;
+		}
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center center;
+		@include size();
+	}
 }

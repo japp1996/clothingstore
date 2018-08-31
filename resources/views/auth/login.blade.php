@@ -44,6 +44,11 @@
 				{{ Form::close() }}
 			</div>
 		</div>
+		<div class="right">
+			<a href="{{ URL('register') }}">
+				{{ HTML::Image('img/icons/right.png') }}
+			</a>
+		</div>
 	</div>
 @stop
 
