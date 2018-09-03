@@ -14,6 +14,6 @@
 
 	    public function view($id) {
 	    	$blog = Blog::where('status','1')->where('id',$id)->with(['images'])->first();
-	    	return View('blog.ver')->with(['blog' => $blog]);
+	    	return View('blog.view')->with(['blog' => $blog]);
 	    }
 	}
