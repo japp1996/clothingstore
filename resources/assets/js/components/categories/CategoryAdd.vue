@@ -165,16 +165,16 @@ export default {
         },
 
         _selectAll(){
-            let length = this.form.sizes.length;
             this.form.sizes = [];
-            if(this.sizes.length != length){
+            if(event.target.checked){
                 this.sizes.forEach(val => {
                     this.form.sizes.push(val.id);
                 });
-            }
+            }            
         },
 
         _submit(){
+            showLoading();
             if(this.form.id == 0 || this.form.id == undefined){
                 this._store();
             }else{
@@ -182,7 +182,7 @@ export default {
             }
         },
 
-        _store(){            
+        _store(){
             axios.post(`admin/categories`, this.form)
                 .then(res => {
                     swal({
@@ -205,7 +205,27 @@ export default {
         },
 
         update(){
+            this.form._method = "PUT";
 
+            axios.post(`admin/categories/${this.form.id}`, this.form)
+                .then(res => {
+                    swal({
+                        title: '',
+                        text: 'Se edito la categoría exitosamente',
+                        timer: 2000,
+                        showConfirmButton: false,
+                        type: "success"
+                    }, () => {
+                        window.location = urlBase + "admin/categories";
+                    })
+                })
+                .catch(err => {
+                    let message = "Disculpe, ha ocurrido un error";
+                    if(err.response.status === 422){
+                        message = err.response.data.error;
+                    }
+                    swal('', message, 'error');
+                });
         }
     },
     created(){
@@ -221,7 +241,6 @@ export default {
             this.setForm.subcategories.forEach((s, i) => {
                 this.form.subcategories.push(s);
                 this.form.subcategories[i].enabled = s.products_count === 0 ? true : false;
-                console.log(this.form.subcategories[i].enabled, s.products_count);
             })
         }
     },
