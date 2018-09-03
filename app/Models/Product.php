@@ -17,4 +17,19 @@ class Product extends Model
     {
         return $this->belongsTo(Subcategory::class, 'subcategory_id');
     }
+
+    public function designs()
+    {
+        return $this->belongsTo(Design::class, 'design_id');
+    }
+
+    public function collections()
+    {
+        return $this->belongsTo(Collection::class, 'collection_id');
+    }
+
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class, 'product_id');
+    }
 }
