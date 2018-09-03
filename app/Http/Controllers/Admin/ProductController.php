@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Collection;
+use App\Models\Design;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductColor;
@@ -29,7 +31,33 @@ class ProductController extends Controller
         ])
         ->get();
 
-        $products = Product::where('status')
+        $collections = Collection::select('id', 'name')
+        ->where('status', '1')
+        ->get();
+
+        $designs = Design::select('id', 'name')
+        ->where('status', '1')
+        ->get();
+
+        $products = Product::where('status', '1')
+        ->with([
+            'categories' => function ($category) {
+                $category->select('id', 'name', 'name_english');
+            },
+            'subcategories' => function ($subcategory) {
+                $subcategory->select('id', 'name', 'name_english');
+            },
+            'designs' => function ($design) {
+                $design->select('id', 'name', 'name_english');
+            },
+            'collections' => function ($collection) {
+                $collection->select('id', 'name', 'name_english');
+            },
+            'images'
+        ])
+        ->get();
+
+        return view('admin.products.index')->with(['categories' => $categories, 'collections' => $collections, 'designs' => $designs, 'products' => $products]);
     }
 
     /**
