@@ -64,6 +64,9 @@
 			Route::resource('categories', 'CategoryController');			
 			// Collection
 			Route::resource('collections', 'CollectionController');
+			// Desigs			
+			Route::resource('designs', 'DesignController');
+			Route::get('designs-all', 'DesignController@allData');
 		});
 	});
 	

@@ -1,4 +1,4 @@
-<template id="template-size-form">
+<template id="template-design-form">
     <div class="col s12">
         <div class="row">
             <div class="col s12">
@@ -6,15 +6,20 @@
                     <div class="btn-back__container">
                         <div class="btn-back__ico"></div>
                         <label for=""> Volver</label>
-                </div>
+                    </div>
                 </a>
             </div>
         </div>
         <div class="container">
             <div class="row">
-                <div class="col s12 m12 l12 center-align">
-                    <label for="name" class="label-impegno">Nombre de la talla</label>
+                <div class="col s12 m6 l6 center-align">
+                    <label for="name" class="label-impegno">Diseño (Español)</label>
                     <input type="text" name="name" id="name" v-model="form.name" maxlength="50" class="browser-default input-impegno">
+                </div>
+
+                <div class="col s12 m6 l6 center-align">
+                    <label for="name_english" class="label-impegno">Diseño (Inglés)</label>
+                    <input type="text" name="name_english" id="name_english" v-model="form.name_english" maxlength="50" class="browser-default input-impegno">
                 </div>
                 <div class="col s12 m12 l12 margin-top center-align">
                     <a href="#!" class="btn btn-success" @click="_store($event)" v-if="action == 0">Guardar</a>
@@ -22,7 +27,6 @@
                 </div>
             </div>
         </div>
-        
     </div>
 </template>
 
@@ -34,7 +38,7 @@
 
 <script>
 export default {
-    template: "#template-size-index",
+    template: "#template-design-form",
 
     props: {
         action: {
@@ -51,14 +55,15 @@ export default {
     },
 
     created() {
-       this.form = this.action != 0 ? this.data : {id: 0, name: ""}
+       this.form = this.action != 0 ? this.data : {id: 0, name: "", name_english: ""}
     },
 
     data () {
         return {
             form: {
                 id: 0,
-                name: ""
+                name: "",
+                name_english: ""
             }
         }
     },
@@ -69,9 +74,9 @@ export default {
         },
 
         _store (e) {
-            e.preventDefault();
-            e.target.setAttribute('disabled', true);
-            axios.post('admin/sizes', this.form)
+            e.preventDefault()
+            e.target.setAttribute('disabled', true)
+            axios.post('admin/designs', this.form)
             .then(res => {
                 this._showAlert(res.data.message, "success")
                 setTimeout(() => {
@@ -89,13 +94,12 @@ export default {
             .then(all => {
                 e.target.removeAttribute('disabled')
             })
-            
         },
 
         _edit (e) {
-            e.preventDefault();
+            e.preventDefault()
             e.target.setAttribute('disabled', true)
-            axios.put(`admin/sizes/${this.form.id}`, this.form)
+            axios.put(`admin/designs/${this.form.id}`, this.form)
             .then(res => {
                 this._showAlert(res.data.message, "success")
                 setTimeout(() => {
@@ -111,9 +115,8 @@ export default {
                 this._showAlert(message, "error")
             })
             .then(all => {
-                e.target.removeAttribute('disabled') 
+                e.target.removeAttribute('disabled')
             })
-
         },
 
         _showAlert(text, type) {
@@ -128,4 +131,3 @@ export default {
     }
 }
 </script>
-
