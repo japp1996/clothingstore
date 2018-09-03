@@ -65,8 +65,30 @@ Vue.component("card-main", require("./components/card/CardMain.vue"));
 Vue.component("card-content", require("./components/card/CardContent.vue"));
 Vue.component("card-title", require("./components/card/CardTitle.vue"));
 
+// Table
+Vue.component('table-byte', require("./components/table/Table"));
+Vue.component("table-row", require("./components/table/TableRow"));
+Vue.component('table-head', require("./components/table/TableHead"));
+Vue.component("table-cell", require("./components/table/TableCell"));
+
+// Modal
+Vue.component("byte-modal", require("./components/modal/Modal"));
+
 // Login
 Vue.component('login-form', require('./components/login/FormLogin.vue'));
+
+// Size
+Vue.component('size-index', require('./components/sizes/SizeIndex'));
+
+// Category
+Vue.component('categoy-index', require('./components/categories/CategoryIndex'));
+
+// Collection
+Vue.component('collection-index', require('./components/collection/CollectionIndex'));
+
+// Design
+Vue.component('design-index', require('./components/designs/DesignIndex'));
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Size;
+use App\Http\Requests\SizeRequest;
 
-class CategyController extends Controller
+class SizeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,17 @@ class CategyController extends Controller
      */
     public function index()
     {
-        //
+        $sizes = Size::where('status', '1')
+        ->get();
+
+        return view('admin.sizes.index')->with(['sizes' => $sizes]);
+    }
+
+    public function all()
+    {
+        $sizes = Size::where('status', '1')
+        ->get();
+        return response()->json($sizes);
     }
 
     /**
@@ -33,9 +45,14 @@ class CategyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SizeRequest $request)
     {
-        //
+        $size = new Size;
+        $size->name = strtoupper($request->name);
+        $size->status = '1';
+        $size->save();
+
+        return response()->json(['result' => true, 'message' => 'Talla registrada exitosamente.']);
     }
 
     /**
@@ -67,9 +84,13 @@ class CategyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SizeRequest $request, $id)
     {
-        //
+        $size = Size::find($id);
+        $size->name = strtoupper($request->name);
+        $size->save();
+
+        return response()->json(['result' => true, 'message' => 'Talla actualizada exitosamente.']);
     }
 
     /**
@@ -80,6 +101,10 @@ class CategyController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $size = Size::find($id);
+        $size->status = '2';
+        $size->save();
+
+        return response()->json(['result' => true, 'message' => 'Talla eliminada exitosamente.']);
     }
 }

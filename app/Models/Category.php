@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $table = "categories";
+    protected $fillable = [
+        'name', 'name_english'
+    ];
 
     public function subcategories()
     {
@@ -16,5 +18,10 @@ class Category extends Model
     public function sizes()
     {
         return $this->belongsToMany(Size::class, 'category_sizes', 'category_id', 'size_id');
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'category_id')->where('status', '!=', '2');
     }
 }

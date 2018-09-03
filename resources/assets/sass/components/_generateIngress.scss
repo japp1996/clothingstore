@@ -184,9 +184,9 @@
 .table__content{
     width: 100%;
     background-color: white;
-    border: thin solid #2f5597 !important;
+    border: thin solid $dark !important;
     padding: 4vh;
 }
 .table__content thead th{
-    border-bottom: 2px solid #2f5597 !important;
+    border-bottom: 2px solid $dark !important;
 }

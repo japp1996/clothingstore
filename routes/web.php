@@ -51,10 +51,22 @@
 	// Admin
 	
 	Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
+		// Home
 		Route::get('/', 'AdminController@index');
-		Route::post('login', 'AuthController@singIn');	
-		Route::group(['middleware' => 'Auth'], function() {			
+		Route::post('login', 'AuthController@singIn');
+		
+		Route::group(['middleware' => 'Auth'], function() {
 			Route::get('home', 'AdminController@home');
+			// Sizes			
+			Route::resource('sizes', 'SizeController');
+			Route::get('sizes-all', 'SizeController@all');
+			// Categories			
+			Route::resource('categories', 'CategoryController');			
+			// Collection
+			Route::resource('collections', 'CollectionController');
+			// Desigs			
+			Route::resource('designs', 'DesignController');
+			Route::get('designs-all', 'DesignController@allData');
 		});
 	});
 	

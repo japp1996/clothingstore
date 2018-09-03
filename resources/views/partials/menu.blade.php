@@ -7,10 +7,27 @@
             <img src="{{ asset('img/icons/ico-inicio.png') }}" alt="" class="img-responsive">Inicio
         </a>
     </li>
-    
+
+    <li>
+        <a href="{{ url('/admin/sizes') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Tallas">
+            <img src="{{ asset('img/icons/ico-inicio.png') }}" alt="" class="img-responsive">Tallas
+        </a>
+    </li>
+
     <li>
         <a href="{{ url('/admin/categories') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Categorías">
-            Categorías
+            <img src="{{ asset('img/icons/ico-inicio.png') }}" alt="" class="img-responsive">Categorías
         </a>
-    </li>  
+    </li>
+
+    <li>
+        <a href="{{ url('/admin/collections') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Colecciones">
+            <img src="{{ asset('img/icons/ico-inicio.png') }}" alt="" class="img-responsive">Colecciones
+        </a>
+    </li>
+    <li>
+        <a href="{{ url('/admin/designs') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Diseños">
+            <img src="{{ asset('img/icons/ico-inicio.png') }}" alt="" class="img-responsive">Diseños
+        </a> 
+    </li>
 </ul>

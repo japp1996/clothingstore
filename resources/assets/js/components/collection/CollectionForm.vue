@@ -1,130 +1,130 @@
-<template>
+<template id="template-collection-form">
+
     <section class="row">
-        <div class="col s12">
-            <card-main> 
-                <card-content>
-                    <card-title>
-                        <h1>Perfil</h1>
-                    </card-title>
+
+        <div class="row">
+            <div class="col s12">
+                <a href="#!" class="btn btn-back" @click="$parent.options = 0">
+                    <div class="btn-back__container">
+                        <div class="btn-back__ico"></div>
+                        <label>Volver</label>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <card-main class="row"> 
+            <card-content>
+
+                <form @submit.prevent="send" class="col s12">
                     <div class="row">
-
-                        <div class="col s6 input-field">
+                        <div class="col s12 m6 input-field">
                             <input type="text" v-model="form.name">
-                            <label for="">Nombre</label>
+                            <label for="">Nombre (Español)</label>
                         </div>
 
-                        <div class="col s6 input-field">
-                            <input type="text" v-model="form.username">
-                            <label for="">Usuario</label>
-                        </div>
-
-                        <div class="col s6 input-field">
-                            <input type="password" v-model="form.password">
-                            <label for="">Contraseña</label>
-                        </div>
-
-                        <div class="col s6 input-field">
-                            <input type="password" v-model="form.password_confirmation">
-                            <label for="">Confirmar Contraseña</label>
+                        <div class="col s12 m6 input-field">
+                            <input type="text" v-model="form.name_english">
+                            <label for="">Nombre (Ingles)</label>
                         </div>
 
                         <div class="col s12 center-align">
-                            <button @click="store" class="btn btn-success" :disabled="passwordError">Actualizar perfil</button>
+                            <button type="submit" class="btn btn-success">Guardar</button>
                         </div>
-
                     </div>
-                </card-content>
-            </card-main>
-        </div>
+                </form>
+
+            </card-content>
+        </card-main>
     </section>
 </template>
 
-<style>
-    .err {
-        color: #F44336 !important;
-    }
-</style>
-
-
 <script>
 export default {
+    template: "#template-collection-form",
     data () {
         return {
             form: {
                 name: '',
-                surname: '',
-                password: '',
-                password_confirmation: ''
-            },
-            errors: {
-                password: '',
-                password_confirmation: ''
+                name_english: ''
             }
         }
     },
     props: {
-        user: {
+        'set-form': {
             type: Object,
             default () {
                 return {}
             }
         }
     },
-    watch: {
-        form: {
-            handler (form) {
-                if(form.password && !form.password_confirmation) {
-                    this.errors.password_confirmation = 'Debe confirmar la contraseña nueva'
-                    return
-                }else {
-                    this.errors.password_confirmation = ''
-                }
-
-                if(form.password || form.password_confirmation) { // Si alguno de los dos tiene datos
-                    if(form.password != form.password_confirmation) {
-                        this.errors.password = 'Las contarseñas no coinciden'
-                    }else {
-                        this.errors.password = ''
-                    }
-                }
-            },
-            deep: true
-        }
-    },
-    computed: {
-        passwordError () {
-            let changingPassword = this.form.password != '' || this.form.password_confirmation != ''
-            let errorPassword = this.errors.password != '' || this.errors.password_confirmation !=''
-
-            return changingPassword && errorPassword
-        },
-    },
     methods: {
-        store () {
-            axios.post('admin/perfil', this.form)
-                .then(res => {
-                    swal('', 'Se actualizó el perfil correctamente', 'success')
-                })
-                .catch(err => {
-                    if(err.response.status === 422){
-                        swal("", err.response.data.error, "error");
-                        return
-                    }
+        send () {
+            if(this.form.id == undefined){
+                this.store()
+            }else{
+                this.update();
+            }
+        },
 
+        store (){
+            axios.post('admin/collections', this.form)
+                .then(res => {
                     swal({
-                        title: "",
-                        text: `Algo ha ocurrido`,
+                        title: '',
+                        text: 'Se registro la colección exitosamente',
                         timer: 2000,
                         showConfirmButton: false,
-                        type: "error"
-                    });
-                    console.log(err)
+                        type: "success"
+                    }, () => {
+                        window.location = urlBase + "admin/collections";
+                    })
+                    
                 })
+                .catch(err => {
+                    let message = "Disculpe, ha ocurrido un error";
+                    if(err.response.status === 422){
+                        message = err.response.data.error;
+                    }
+                    swal('', message, 'error');
+                });
+        },
+
+        update (){
+            this.form._method = "PUT";
+            axios.post(`admin/collections/${this.form.id}`, this.form)
+                .then(res => {
+                    swal({
+                        title: '',
+                        text: 'Se edito la colección exitosamente',
+                        timer: 2000,
+                        showConfirmButton: false,
+                        type: "success"
+                    }, () => {
+                        window.location = urlBase + "admin/collections";
+                    })
+                    
+                })
+                .catch(err => {
+                    let message = "Disculpe, ha ocurrido un error";
+                    if(err.response.status === 422){
+                        message = err.response.data.error;
+                    }
+                    swal('', message, 'error');
+                });
         }
     },
+
     mounted () {
-        this.form.name = this.user.name;
-        this.form.username = this.user.username;
+        if(Object.entries(this.setForm).length > 0){
+            this.form.name = this.setForm.name;
+            this.form.name_english = this.setForm.name_english;
+            this.form.id = this.setForm.id;
+        }
+
+        document.querySelectorAll('label').forEach(el => {
+            el.classList.add('active');
+        });
     }
 }
 </script>
