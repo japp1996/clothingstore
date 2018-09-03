@@ -68,7 +68,7 @@ export default {
         },
 
         store (){
-            axios.post('collection', this.form)
+            axios.post('admin/collections', this.form)
                 .then(res => {
                     swal({
                         title: '',
@@ -77,7 +77,7 @@ export default {
                         showConfirmButton: false,
                         type: "success"
                     }, () => {
-                        window.location = urlBase + "admin/collection";
+                        window.location = urlBase + "admin/collections";
                     })
                     
                 })
@@ -92,7 +92,7 @@ export default {
 
         update (){
             this.form._method = "PUT";
-            axios.post(`collection/${this.form.id}`, this.form)
+            axios.post(`admin/collections/${this.form.id}`, this.form)
                 .then(res => {
                     swal({
                         title: '',
@@ -101,7 +101,7 @@ export default {
                         showConfirmButton: false,
                         type: "success"
                     }, () => {
-                        window.location = urlBase + "admin/collection";
+                        window.location = urlBase + "admin/collections";
                     })
                     
                 })

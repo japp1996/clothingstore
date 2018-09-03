@@ -21,8 +21,8 @@
     </li>
 
     <li>
-        <a href="{{ url('/admin/collection') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Colección">
-            <img src="{{ asset('img/icons/ico-inicio.png') }}" alt="" class="img-responsive">Colección
+        <a href="{{ url('/admin/collections') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Colecciones">
+            <img src="{{ asset('img/icons/ico-inicio.png') }}" alt="" class="img-responsive">Colecciones
         </a>
     </li>
 </ul>

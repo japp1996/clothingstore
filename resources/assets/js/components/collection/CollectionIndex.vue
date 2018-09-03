@@ -132,7 +132,7 @@ export default {
 
             this.modal.init.close();
 
-            axios.delete(`collection/${this.modal.data.id}`)
+            axios.delete(`admin/collections/${this.modal.data.id}`)
                 .then(res => {
                     this.setTable.splice(index, 1)
                     swal('', 'Se ha eliminado la colección', "success");

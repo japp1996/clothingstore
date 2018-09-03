@@ -63,7 +63,7 @@
 			// Categories			
 			Route::resource('categories', 'CategoryController');			
 			// Collection
-			Route::resource('collection', 'CollectionController');
+			Route::resource('collections', 'CollectionController');
 		});
 	});
 	

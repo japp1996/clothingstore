@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
-@section('tilte', 'Categorías')
+@section('title', 'Categorías')
 
 @section('content')
-    <categoy-index url="{{ url('/admin') }}" :sizes="{{ $categories }}" :categories="{{ $sizes }}"></categoy-index>
+    <categoy-index url="{{ url('/admin') }}" :sizes="{{ $sizes }}" :categories="{{ $categories }}"></categoy-index>
 @endsection

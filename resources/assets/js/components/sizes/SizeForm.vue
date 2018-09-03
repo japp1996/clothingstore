@@ -70,7 +70,7 @@ export default {
 
         _store (e) {
             e.preventDefault();
-            e.target.setAttribute('disabled', true)
+            e.target.setAttribute('disabled', true);
             axios.post('admin/sizes', this.form)
             .then(res => {
                 this._showAlert(res.data.message, "success")

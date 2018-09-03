@@ -45,7 +45,16 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        //
+        $category = Category::create($request->all());
+
+        foreach ($request->sizes as $key => $size) {
+            $category->sizes()->attach($category->id, ['size_id' => $size]);
+        }
+
+        foreach ($request->subcategories as $key => $subcategory) {
+            $category->subcategories()->create($subcategory);
+        }
+        
     }
 
     /**

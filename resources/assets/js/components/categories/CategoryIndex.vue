@@ -19,14 +19,17 @@
                             </div>                            
                         </div>
                     </div>
+
                     <table-byte :set-table="dataTable" :filters="['name']">
                         <table-row slot="table-head" slot-scope="{ item }">
-                            <table-head>Nombre de la categoría</table-head>
+                            <table-head>Categoría (Español)</table-head>
+                            <table-head>Categoría (Ingles)</table-head>
                             <table-head>Acciones</table-head>
                         </table-row>
 
                         <table-row slot="table-row" slot-scope="{ item }">
                             <table-cell>{{ item.name }}</table-cell>
+                            <table-cell>{{ item.name_english }}</table-cell>
                             <table-cell>
 
                                 <a href="#!" class="btn-action" @click="_edit(item, 'view')">
@@ -52,7 +55,9 @@
 
                     </table-byte>
                 </section>
+
                 <category-add v-if="options == 1" :sizes="sizes" @back="_resetView"></category-add>
+
             </div>
         </div>
         <byte-modal v-on:pressok="modal.type.action" :confirm="modal.type.confirm">
@@ -67,10 +72,6 @@
         </byte-modal>
     </section>
 </template>
-
-<style lang="scss">
-
-</style>
 
 <script>
 
@@ -101,7 +102,7 @@ export default {
     },
 
     created () {
-        this.dataTable = this.sizes
+        this.dataTable = this.categories;
     },
 
     data () {

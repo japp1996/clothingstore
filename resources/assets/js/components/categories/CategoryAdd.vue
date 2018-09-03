@@ -10,32 +10,102 @@
                 </a>
             </div>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col s12 m12 l12 center-align">
-                    <label for="name" class="label-impegno">Nombre de la categoría</label>
-                    <input type="text" name="name" id="name" v-model="form.name" maxlength="50" class="browser-default input-impegno">
+
+        <card-main>
+            <card-content>
+                <div class="container">
+                    <form class="row" @submit.prevent="_submit">
+
+
+                        <div class="col s12 m6 l6 center-align">
+                            <label for="name" class="label-impegno">Categoría (Español)</label>
+                            <input type="text" name="name" id="name" v-model="form.name" maxlength="50" class="browser-default input-impegno">
+                        </div>
+
+                        <div class="col s12 m6 l6 center-align">
+                            <label for="name_english" class="label-impegno">Categoría (Ingles)</label>
+                            <input type="text" name="name_english" id="name_english" v-model="form.name_english" maxlength="50" class="browser-default input-impegno">
+                        </div>
+
+                        <div class="col s12">
+                            <div class="col s12">
+                                <p class="not-mb">
+                                    <input type="checkbox" id="size-all" class="with-gap" @click="_selectAll()">
+                                    <label for="size-all">Todo</label>
+                                </p>
+                            </div>
+                            <div class="col s12 m3" v-for="(size, i) in sizes" :key="'size-' + i">
+                                <p>
+                                    <input type="checkbox" :id="`size-${i}`" class="with-gap" :value="size.id" v-model="form.sizes">
+                                    <label :for="`size-${i}`">{{ size.name }}</label>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s12 container-btn-add">
+                                <a href="#!" class="btn-add" @click="_addSubcategory()">
+                                    <img :src="'img/icons/new-msg.png' | asset" alt="" class="img-responsive">
+                                </a>
+                                <div class="btn-add-text">
+                                    Agregar Subcategoría
+                                </div>
+                            </div>
+
+
+                            <div class="col s12 center-align" :key="index" v-for="(subcategory, index) in form.subcategories">
+                                
+                                <div class="row flex">
+
+                                    <div class="col s5">
+                                        <label for="name" class="label-impegno">Subcategoría (Español)</label>
+                                        <input type="text" name="name" id="name" v-model="subcategory.name" maxlength="50" class="browser-default input-impegno">
+                                    </div>
+
+                                    <div class="col s5">
+                                        <label for="name" class="label-impegno">Subcategoría (Ingles)</label>
+                                        <input type="text" name="name" id="name" v-model="subcategory.name_english" maxlength="50" class="browser-default input-impegno">
+                                    </div>
+
+                                    <div class="col s2">
+                                        <a href="#!" class="btn-floating red" @click="_delete(index)">
+                                            <i class="material-icons">delete</i>
+                                        </a>
+                                    </div>
+                                    
+                                </div>
+
+                            </div>
+                        </div>
+                        
+
+                        <div class="col s12 center-align">
+                            <button type="submit" class="btn btn-success">Guardar</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="col s12 container-btn-add">
-                    <button class="btn-add" @click="_addSubcategory()">
-                        <img :src="'img/icons/new-msg.png' | asset" alt="" class="img-responsive">
-                    </button>
-                    <div class="btn-add-text">
-                        Agregar Subcategoría
-                    </div>
-                </div>
-                <div class="col s12 m6 l6 center-align" :key="index" v-for="(subcategory, index) in form.subcategories">
-                    <label for="name" class="label-impegno">Subcategoría</label>
-                    <input type="text" name="name" id="name" v-model="subcategory.name" maxlength="50" class="browser-default input-impegno">
-                </div>
-            </div>
-        </div>
+            </card-content>
+        </card-main>
     </div>
 </template>
 
 <style lang="scss">
     .container-btn-add{
         margin: 1rem 0;
+    }
+
+    .flex{
+        display: flex;
+        // justify-content: center;
+        align-items: flex-end;
+    }
+
+    .btn-floating i{
+        color: #fff
+    }
+
+    .not-mb{
+        margin-bottom: 0 !important;
     }
 </style>
 
@@ -57,6 +127,7 @@ export default {
             form: {
                 id: 0,
                 name: "",
+                name_english: "",
                 sizes: [],
                 subcategories: []
             }
@@ -69,7 +140,55 @@ export default {
         },
 
         _addSubcategory() {
-            this.form.subcategories.push({ name: "" })
+            this.form.subcategories.push({ name: "", name_english: "" })
+        },
+
+        _delete(index){
+            this.form.subcategories.splice(index, 1);
+        },
+
+        _selectAll(){
+            let length = this.form.sizes.length;
+            this.form.sizes = [];
+            if(this.sizes.length != length){
+                this.sizes.forEach(val => {
+                    this.form.sizes.push(val.id);
+                });
+            }
+        },
+
+        _submit(){
+            if(this.form.id == 0 || this.form.id == undefined){
+                this._store();
+            }else{
+                this.update();
+            }
+        },
+
+        _store(){            
+            axios.post(`admin/categories`, this.form)
+                .then(res => {
+                    swal({
+                        title: '',
+                        text: 'Se registro la categoría exitosamente',
+                        timer: 2000,
+                        showConfirmButton: false,
+                        type: "success"
+                    }, () => {
+                        window.location = urlBase + "admin/categories";
+                    })
+                })
+                .catch(err => {
+                    let message = "Disculpe, ha ocurrido un error";
+                    if(err.response.status === 422){
+                        message = err.response.data.error;
+                    }
+                    swal('', message, 'error');
+                });
+        },
+
+        update(){
+
         }
     }
 }

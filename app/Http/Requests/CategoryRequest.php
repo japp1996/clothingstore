@@ -31,27 +31,36 @@ class CategoryRequest extends FormRequest
                 Rule::unique('categories')->ignore($this->id)->where(function ($query) {
                     return $query->where('status', '1');
                 }),
-            ]
+            ],
+            'name_english' => [
+                'required',
+                Rule::unique('categories')->ignore($this->id)->where(function ($query) {
+                    return $query->where('status', '1');
+                }),
+            ],
+            'sizes' => "required|array_not_null",
+            'subcategories' => 'nullable|array_object_not_null:name,name_english'
         ];
     }
 
     public function attributes()
     {
         return [
-            'name' => 'Nombre de la categoría',
+            'name' => 'nombre de la categoría',
+            'sizes' => 'tallas',
+            'subcategories' => 'subcategorías'
         ];
     }
 
     public function messages()
     {
         return [
-            'unique' => 'Ya existe una categoría registrada con este nombre',
-            'required' => 'El campo :attribute es requerido',
+            'array_object_not_null' => 'Debe completar los campos en :attribute'
         ];
     }
 
     public function formatErrors(Validator $validator)
     {
-        return ['error' => $validator->errors()->first()];
+        return [ 'error' => $validator->errors()->first() ];
     }
 }
