@@ -75548,6 +75548,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -75605,10 +75622,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _resetView: function _resetView(option) {
             this.options = option;
         },
+        _view: function _view(data, action) {
+            this.modal.type.action = action;
+            this.modal.type.confirm = false;
+            this.modal.data = data;
+            this.modal.init.open();
+        },
         _edit: function _edit(item, action) {
             this.edit = item;
             this.options = 2;
+        },
+        _confirm: function _confirm(data, action) {
+            this.modal.type.action = action;
+            this.modal.type.confirm = true;
+            this.modal.data = data;
+            this.modal.init.open();
+        },
+        _delete: function _delete() {
+            var _this = this;
+
+            var index = this.dataTable.findIndex(function (e) {
+                return e.id == _this.modal.data.id;
+            });
+
+            this.modal.init.close();
+
+            axios.delete("admin/categories/" + this.modal.data.id).then(function (res) {
+                if (res.data.result == undefined) {
+                    _this.dataTable.splice(index, 1);
+                    swal('', 'Se ha eliminado la categoría', "success");
+                } else {
+                    swal('', res.data.error, "warning");
+                }
+            }).catch(function (err) {
+                swal('', 'Disculpe, ha ocurrido un error', "error");
+            });
         }
+    },
+    mounted: function mounted() {
+        this.modal.init = M.Modal.init(document.querySelector('.modal'));
     }
 });
 
@@ -75876,15 +75928,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _selectAll: function _selectAll() {
             var _this = this;
 
-            var length = this.form.sizes.length;
             this.form.sizes = [];
-            if (this.sizes.length != length) {
+            if (event.target.checked) {
                 this.sizes.forEach(function (val) {
                     _this.form.sizes.push(val.id);
                 });
             }
         },
         _submit: function _submit() {
+            showLoading();
             if (this.form.id == 0 || this.form.id == undefined) {
                 this._store();
             } else {
@@ -75910,7 +75962,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 swal('', message, 'error');
             });
         },
-        update: function update() {}
+        update: function update() {
+            this.form._method = "PUT";
+
+            axios.post("admin/categories/" + this.form.id, this.form).then(function (res) {
+                swal({
+                    title: '',
+                    text: 'Se edito la categoría exitosamente',
+                    timer: 2000,
+                    showConfirmButton: false,
+                    type: "success"
+                }, function () {
+                    window.location = urlBase + "admin/categories";
+                });
+            }).catch(function (err) {
+                var message = "Disculpe, ha ocurrido un error";
+                if (err.response.status === 422) {
+                    message = err.response.data.error;
+                }
+                swal('', message, 'error');
+            });
+        }
     },
     created: function created() {
         var _this2 = this;
@@ -75927,7 +75999,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.setForm.subcategories.forEach(function (s, i) {
                 _this2.form.subcategories.push(s);
                 _this2.form.subcategories[i].enabled = s.products_count === 0 ? true : false;
-                console.log(_this2.form.subcategories[i].enabled, s.products_count);
             });
         }
     },
@@ -76372,256 +76443,281 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "section",
-    { staticClass: "container-fluid" },
-    [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col s12 center-align" }, [
-          _vm.options == 0 ? _c("h1", [_vm._v("Categorías")]) : _vm._e(),
-          _vm._v(" "),
-          _vm.options == 1 || _vm.options == 2
-            ? _c("h1", [
-                _vm._v(
-                  _vm._s(_vm.options == 1 ? "Registrar" : "Actualizar") +
-                    " Categoría"
-                )
-              ])
-            : _vm._e()
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c(
-          "div",
-          { staticClass: "col s12" },
-          [
-            _vm.options == 0
-              ? _c(
-                  "section",
-                  { staticClass: "table__content" },
-                  [
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col s12 container-btn-add" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn-add",
-                            on: {
-                              click: function($event) {
-                                _vm.options = 1
-                              }
-                            }
-                          },
-                          [
-                            _c("img", {
-                              staticClass: "img-responsive",
-                              attrs: {
-                                src: _vm._f("asset")("img/icons/new-msg.png"),
-                                alt: ""
-                              }
-                            })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "btn-add-text" }, [
-                          _vm._v(
-                            "\n                            Agregar nueva\n                        "
-                          )
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "table-byte",
-                      {
-                        attrs: {
-                          "set-table": _vm.dataTable,
-                          filters: ["name"]
-                        },
-                        scopedSlots: _vm._u([
-                          {
-                            key: "table-head",
-                            fn: function(ref) {
-                              var item = ref.item
-                              return _c(
-                                "table-row",
-                                {},
-                                [
-                                  _c("table-head", [
-                                    _vm._v("Categoría (Español)")
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("table-head", [
-                                    _vm._v("Categoría (Ingles)")
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("table-head", [_vm._v("Acciones")])
-                                ],
-                                1
-                              )
-                            }
-                          },
-                          {
-                            key: "table-row",
-                            fn: function(ref) {
-                              var item = ref.item
-                              return _c(
-                                "table-row",
-                                {},
-                                [
-                                  _c("table-cell", [_vm._v(_vm._s(item.name))]),
-                                  _vm._v(" "),
-                                  _c("table-cell", [
-                                    _vm._v(_vm._s(item.name_english))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("table-cell", [
-                                    _c(
-                                      "a",
-                                      {
-                                        staticClass: "btn-action",
-                                        attrs: { href: "#!" },
-                                        on: {
-                                          click: function($event) {
-                                            _vm._edit(item, "view")
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("img", {
-                                          staticClass: "img-responsive",
-                                          attrs: {
-                                            src: _vm._f("asset")(
-                                              "img/icons/ico-ver.png"
-                                            ),
-                                            alt: ""
-                                          }
-                                        })
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "a",
-                                      {
-                                        staticClass: "btn-action",
-                                        attrs: { href: "#!" },
-                                        on: {
-                                          click: function($event) {
-                                            _vm._edit(item, "edit")
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("img", {
-                                          staticClass: "img-responsive",
-                                          attrs: {
-                                            src: _vm._f("asset")(
-                                              "img/icons/ico-editar.png"
-                                            ),
-                                            alt: ""
-                                          }
-                                        })
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "a",
-                                      {
-                                        staticClass: "btn-action",
-                                        attrs: { href: "#!" },
-                                        on: {
-                                          click: function($event) {
-                                            _vm._confirm(item, "destroy")
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("img", {
-                                          staticClass: "img-responsive",
-                                          attrs: {
-                                            src: _vm._f("asset")(
-                                              "img/icons/ico-eliminar.png"
-                                            ),
-                                            alt: ""
-                                          }
-                                        })
-                                      ]
-                                    )
-                                  ])
-                                ],
-                                1
-                              )
+  return _c("section", { staticClass: "container-fluid" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col s12 center-align" }, [
+        _vm.options == 0 ? _c("h1", [_vm._v("Categorías")]) : _vm._e(),
+        _vm._v(" "),
+        _vm.options == 1 || _vm.options == 2
+          ? _c("h1", [
+              _vm._v(
+                _vm._s(_vm.options == 1 ? "Registrar" : "Actualizar") +
+                  " Categoría"
+              )
+            ])
+          : _vm._e()
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        { staticClass: "col s12" },
+        [
+          _vm.options == 0
+            ? _c(
+                "section",
+                { staticClass: "table__content" },
+                [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col s12 container-btn-add" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn-add",
+                          on: {
+                            click: function($event) {
+                              _vm.options = 1
                             }
                           }
-                        ])
-                      },
-                      [
-                        _c(
-                          "table-row",
-                          { attrs: { slot: "empty-rows" }, slot: "empty-rows" },
-                          [
-                            _c("table-cell", { attrs: { colspan: "3" } }, [
-                              _vm._v(
-                                "\n                            No se encontraron registros.\n                        "
-                              )
-                            ])
-                          ],
-                          1
+                        },
+                        [
+                          _c("img", {
+                            staticClass: "img-responsive",
+                            attrs: {
+                              src: _vm._f("asset")("img/icons/new-msg.png"),
+                              alt: ""
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "btn-add-text" }, [
+                        _vm._v(
+                          "\n                            Agregar nueva\n                        "
                         )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.options == 1
-              ? _c("category-add", {
-                  attrs: { sizes: _vm.sizes },
-                  on: { back: _vm._resetView }
-                })
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.options == 2
-              ? _c("category-add", {
-                  attrs: { sizes: _vm.sizes, "set-form": _vm.edit },
-                  on: { back: _vm._resetView }
-                })
-              : _vm._e()
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c(
-        "byte-modal",
-        {
-          attrs: { confirm: _vm.modal.type.confirm },
-          on: { pressok: _vm.modal.type.action }
-        },
-        [
-          _c("div", { staticClass: "container-confirmation" }, [
-            _c("div", { staticClass: "confimation__icon" }, [
-              _c("i", { staticClass: "material-icons" }, [
-                _vm._v("error_outline")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "confirmation__text" }, [
-              _c("h5", [
-                _vm._v("¿ Realmente deseas "),
-                _c("b", [_vm._v("Eliminar")]),
-                _vm._v(" esta categoría ?")
-              ])
-            ])
-          ])
-        ]
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "table-byte",
+                    {
+                      attrs: { "set-table": _vm.dataTable, filters: ["name"] },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "table-head",
+                          fn: function(ref) {
+                            var item = ref.item
+                            return _c(
+                              "table-row",
+                              {},
+                              [
+                                _c("table-head", [
+                                  _vm._v("Categoría (Español)")
+                                ]),
+                                _vm._v(" "),
+                                _c("table-head", [
+                                  _vm._v("Categoría (Ingles)")
+                                ]),
+                                _vm._v(" "),
+                                _c("table-head", [_vm._v("Acciones")])
+                              ],
+                              1
+                            )
+                          }
+                        },
+                        {
+                          key: "table-row",
+                          fn: function(ref) {
+                            var item = ref.item
+                            return _c(
+                              "table-row",
+                              {},
+                              [
+                                _c("table-cell", [_vm._v(_vm._s(item.name))]),
+                                _vm._v(" "),
+                                _c("table-cell", [
+                                  _vm._v(_vm._s(item.name_english))
+                                ]),
+                                _vm._v(" "),
+                                _c("table-cell", [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "btn-action",
+                                      attrs: { href: "#!" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm._edit(item, "view")
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("img", {
+                                        staticClass: "img-responsive",
+                                        attrs: {
+                                          src: _vm._f("asset")(
+                                            "img/icons/ico-ver.png"
+                                          ),
+                                          alt: ""
+                                        }
+                                      })
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "btn-action",
+                                      attrs: { href: "#!" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm._edit(item, "edit")
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("img", {
+                                        staticClass: "img-responsive",
+                                        attrs: {
+                                          src: _vm._f("asset")(
+                                            "img/icons/ico-editar.png"
+                                          ),
+                                          alt: ""
+                                        }
+                                      })
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "btn-action",
+                                      attrs: { href: "#!" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm._confirm(item, "destroy")
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("img", {
+                                        staticClass: "img-responsive",
+                                        attrs: {
+                                          src: _vm._f("asset")(
+                                            "img/icons/ico-eliminar.png"
+                                          ),
+                                          alt: ""
+                                        }
+                                      })
+                                    ]
+                                  )
+                                ])
+                              ],
+                              1
+                            )
+                          }
+                        }
+                      ])
+                    },
+                    [
+                      _c(
+                        "table-row",
+                        { attrs: { slot: "empty-rows" }, slot: "empty-rows" },
+                        [
+                          _c("table-cell", { attrs: { colspan: "3" } }, [
+                            _vm._v(
+                              "\n                            No se encontraron registros.\n                        "
+                            )
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "byte-modal",
+                    {
+                      attrs: { confirm: _vm.modal.type.confirm },
+                      on: { pressok: _vm._delete }
+                    },
+                    [
+                      _vm.modal.type.action == "destroy"
+                        ? [
+                            _c(
+                              "div",
+                              { staticClass: "container-confirmation" },
+                              [
+                                _c(
+                                  "div",
+                                  { staticClass: "confimation__icon" },
+                                  [
+                                    _c("i", { staticClass: "material-icons" }, [
+                                      _vm._v("error_outline")
+                                    ])
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "confirmation__text" },
+                                  [
+                                    _c("h5", [
+                                      _vm._v("¿Realmente desea "),
+                                      _c("b", [_vm._v("eliminar")]),
+                                      _vm._v(" la categoría "),
+                                      _c("b", [
+                                        _vm._v(_vm._s(_vm.modal.data.name))
+                                      ]),
+                                      _vm._v(" ?")
+                                    ])
+                                  ]
+                                )
+                              ]
+                            )
+                          ]
+                        : [
+                            _c("div", { staticClass: "col s12" }, [
+                              _c("h3", [_vm._v("Categoría")])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col s12 m6" }, [
+                              _c("span", [_vm._v("Categoría (Español)")])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col s12 m6" }, [
+                              _c("span", [_vm._v("Categoría (Ingles)")])
+                            ])
+                          ]
+                    ],
+                    2
+                  )
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.options == 1
+            ? _c("category-add", {
+                attrs: { sizes: _vm.sizes },
+                on: { back: _vm._resetView }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.options == 2
+            ? _c("category-add", {
+                attrs: { sizes: _vm.sizes, "set-form": _vm.edit },
+                on: { back: _vm._resetView }
+              })
+            : _vm._e()
+        ],
+        1
       )
-    ],
-    1
-  )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

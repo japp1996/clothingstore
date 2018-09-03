@@ -54,6 +54,33 @@
                         </table-row>
 
                     </table-byte>
+
+                    <!-- Modal -->
+                    <byte-modal v-on:pressok="_delete" :confirm="modal.type.confirm">
+                        <template v-if="modal.type.action == 'destroy'">
+                            <div class="container-confirmation">
+                                <div class="confimation__icon">
+                                    <i class="material-icons">error_outline</i>
+                                </div>
+                                <div class="confirmation__text">
+                                    <h5>¿Realmente desea <b>eliminar</b> la categoría <b>{{ modal.data.name }}</b> ?</h5>
+                                </div>
+                            </div>
+                        </template>
+
+                        <template v-else>
+                            <div class="col s12">
+                                <h3>Categoría</h3>
+                            </div>
+                            <div class="col s12 m6">
+                                <span>Categoría (Español)</span>
+                            </div>
+                            <div class="col s12 m6">
+                                <span>Categoría (Ingles)</span>
+                            </div>
+                        </template>
+                        
+                    </byte-modal>
                 </section>
 
                 <category-add v-if="options == 1" :sizes="sizes" @back="_resetView"></category-add>
@@ -61,16 +88,6 @@
 
             </div>
         </div>
-        <byte-modal v-on:pressok="modal.type.action" :confirm="modal.type.confirm">
-            <div class="container-confirmation">
-                <div class="confimation__icon">
-                    <i class="material-icons">error_outline</i>
-                </div>
-                <div class="confirmation__text">
-                    <h5>¿ Realmente deseas <b>Eliminar</b> esta categoría ?</h5>
-                </div>
-            </div>
-        </byte-modal>
     </section>
 </template>
 
@@ -132,10 +149,48 @@ export default {
             this.options = option
         },
 
+        _view(data, action){
+            this.modal.type.action = action;
+            this.modal.type.confirm = false;
+            this.modal.data = data;
+            this.modal.init.open();
+        },
+
         _edit(item, action){
             this.edit = item;
             this.options = 2;
+        },
+
+        _confirm(data, action){
+            this.modal.type.action = action;
+            this.modal.type.confirm = true;
+            this.modal.data = data;
+            this.modal.init.open();
+        },
+
+        _delete() {
+            let index = this.dataTable.findIndex(e => {
+                return e.id == this.modal.data.id
+            })
+
+            this.modal.init.close();
+
+            axios.delete(`admin/categories/${this.modal.data.id}`)
+                .then(res => {
+                    if(res.data.result == undefined){
+                        this.dataTable.splice(index, 1)
+                        swal('', 'Se ha eliminado la categoría', "success");
+                    }else{
+                        swal('', res.data.error, "warning");
+                    }
+                })
+                .catch(err => {
+                    swal('', 'Disculpe, ha ocurrido un error', "error")
+                });
         }
+    },
+    mounted(){
+        this.modal.init = M.Modal.init(document.querySelector('.modal'));
     }
 }
 </script>
