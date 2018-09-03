@@ -16,13 +16,12 @@
                 <div class="container">
                     <form class="row" @submit.prevent="_submit">
 
-
-                        <div class="col s12 m6 l6 center-align">
+                        <div class="col s12 m6 l6">
                             <label for="name" class="label-impegno">Categoría (Español)</label>
                             <input type="text" name="name" id="name" v-model="form.name" maxlength="50" class="browser-default input-impegno">
                         </div>
 
-                        <div class="col s12 m6 l6 center-align">
+                        <div class="col s12 m6 l6">
                             <label for="name_english" class="label-impegno">Categoría (Ingles)</label>
                             <input type="text" name="name_english" id="name_english" v-model="form.name_english" maxlength="50" class="browser-default input-impegno">
                         </div>
@@ -52,6 +51,9 @@
                                 </div>
                             </div>
 
+                            <div class="col s12 nota" v-if="form.id > 0">
+                                <span class="nota__title">Nota: </span> Las subcategorías con productos no pueden ser eliminadas.
+                            </div>
 
                             <div class="col s12 center-align" :key="index" v-for="(subcategory, index) in form.subcategories">
                                 
@@ -68,9 +70,11 @@
                                     </div>
 
                                     <div class="col s2">
-                                        <a href="#!" class="btn-floating red" @click="_delete(index)">
+                                        <a href="#!" class="btn-floating red" @click="_delete(index)" v-if="subcategory.enabled == true || subcategory.enabled == null">
                                             <i class="material-icons">delete</i>
                                         </a>
+
+                                        <span v-else>Tiene productos</span>
                                     </div>
                                     
                                 </div>
@@ -78,7 +82,6 @@
                             </div>
                         </div>
                         
-
                         <div class="col s12 center-align">
                             <button type="submit" class="btn btn-success">Guardar</button>
                         </div>
@@ -96,7 +99,6 @@
 
     .flex{
         display: flex;
-        // justify-content: center;
         align-items: flex-end;
     }
 
@@ -106,6 +108,15 @@
 
     .not-mb{
         margin-bottom: 0 !important;
+    }
+
+    .nota{
+        font-size: .8rem;
+        margin: .8rem 0;
+
+        &__title {
+            font-weight: bold;
+        }
     }
 </style>
 
@@ -118,6 +129,12 @@ export default {
             type: Array,
             default () {
                 return []
+            }
+        },
+        'set-form': {
+            type: Object,
+            default(){
+                return {}
             }
         }
     },
@@ -140,7 +157,7 @@ export default {
         },
 
         _addSubcategory() {
-            this.form.subcategories.push({ name: "", name_english: "" })
+            this.form.subcategories.push({ name: "", name_english: "", id: 0})
         },
 
         _delete(index){
@@ -189,6 +206,30 @@ export default {
 
         update(){
 
+        }
+    },
+    created(){
+        if(Object.entries(this.setForm).length > 0){
+            this.form.id = this.setForm.id
+            this.form.name = this.setForm.name;
+            this.form.name_english = this.setForm.name_english;
+            
+            this.setForm.sizes.forEach(s => {
+                this.form.sizes.push(s.id);
+            });
+
+            this.setForm.subcategories.forEach((s, i) => {
+                this.form.subcategories.push(s);
+                this.form.subcategories[i].enabled = s.products_count === 0 ? true : false;
+                console.log(this.form.subcategories[i].enabled, s.products_count);
+            })
+        }
+    },
+    mounted(){
+        if(Object.entries(this.setForm).length > 0){
+            if(this.setForm.sizes.length == this.form.sizes.length){
+                document.querySelector("#size-all").setAttribute('checked', true);
+            }
         }
     }
 }

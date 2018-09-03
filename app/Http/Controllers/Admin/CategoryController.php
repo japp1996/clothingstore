@@ -19,8 +19,16 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::where('status', '1')
-        ->with('subcategories', 'sizes')
-        ->get();
+            ->with([
+                'subcategories' => function ($q){
+                    $q->select('id', 'name', 'name_english', 'category_id')->withCount('products');
+                },
+                'sizes' => function ($q){
+                    $q->select('sizes.id');
+                }
+            ])
+            ->withCount('products')
+            ->get();
 
         $sizes = Size::where('status', '1')->get();
 
