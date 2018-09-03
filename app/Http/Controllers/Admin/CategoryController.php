@@ -7,8 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Subcategory;
 use App\Models\Size;
+use App\Http\Requests\CategoryRequest;
 
-class CategyController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +18,13 @@ class CategyController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::where('status', '1')
+        ->with('subcategories', 'sizes')
+        ->get();
+
+        $sizes = Size::where('status', '1')->get();
+
+        return view('admin.categories.index')->with(['categories' => $categories, 'sizes' => $sizes]);
     }
 
     /**
@@ -36,7 +43,7 @@ class CategyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         //
     }
@@ -70,7 +77,7 @@ class CategyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
         //
     }

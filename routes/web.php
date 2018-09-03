@@ -60,6 +60,8 @@
 			// Sizes			
 			Route::resource('sizes', 'SizeController');
 			Route::get('sizes-all', 'SizeController@all');
+			// Categories			
+			Route::resource('categories', 'CategoryController');			
 			// Collection
 			Route::resource('collection', 'CollectionController');
 		});

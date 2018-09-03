@@ -80,6 +80,9 @@ Vue.component('login-form', require('./components/login/FormLogin.vue'));
 // Size
 Vue.component('size-index', require('./components/sizes/SizeIndex'));
 
+// Category
+Vue.component('categoy-index', require('./components/categories/CategoryIndex'));
+
 // Collection
 Vue.component('collection-index', require('./components/collection/CollectionIndex'));
 
