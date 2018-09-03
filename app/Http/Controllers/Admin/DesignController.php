@@ -46,6 +46,12 @@ class DesignController extends Controller
         return response()->json(['result' => true, 'message' => 'Diseño registrado exitosamente']);
     }
 
+    public function allData()
+    {
+        $designs = Design::where('status', '1')->get();
+        return response()->json($designs);
+    }
+
     /**
      * Display the specified resource.
      *

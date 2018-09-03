@@ -65,7 +65,8 @@
 			// Collection
 			Route::resource('collections', 'CollectionController');
 			// Desigs			
-			Route::resource('designs', 'DesignController');			
+			Route::resource('designs', 'DesignController');
+			Route::get('designs-all', 'DesignController@allData');
 		});
 	});
 	

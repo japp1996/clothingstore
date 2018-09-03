@@ -53,7 +53,7 @@ class DesignRequest extends FormRequest
     {
         return [
             'unique' => 'Ya existe un diseño registrado con este nombre',
-            'required' => 'El campo :attrribute es requerido'
+            'required' => 'El campo :attribute es requerido'
         ];
     }
 
