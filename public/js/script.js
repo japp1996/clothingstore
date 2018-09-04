@@ -80468,7 +80468,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.form.retail = this.form.wholesale == false ? 0 : 1;
 
             if (this.form.wholesale == 0 && this.form.retail == 0) {
-                this._showAlert("Debes seleccionar al menos un tipo de venta");
+                this._showAlert("Debes seleccionar al menos un tipo de venta", "warning");
+                return false;
+            }
+            if (this.form.colors.length == 0) {
+                this._showAlert("Debes cargar al menos color y existencia del mismo", "warning");
                 return false;
             }
             for (var x = 0; x < this.form.colors.length; x++) {
