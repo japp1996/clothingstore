@@ -10,15 +10,15 @@
 
 [type="checkbox"].filled-in:not(:checked)+label.checkbox-impegno:after {
     height: 2rem;
-    width: 5rem;
+    width: 2rem;
     border-radius: .6rem;
-    border: 3px solid $color-light-green-end;
+    border: 3px solid #bd8f3e;
     transition: all linear 0.45s;
 }
 
 [type="checkbox"].filled-in:checked+label.checkbox-impegno:after {
     height: 2rem;
-    width: 5rem;
+    width: 2rem;
     border-radius: .6rem;
     border: none !important;
     @include gradient-green;
@@ -27,7 +27,10 @@
 [type="checkbox"].filled-in:checked+label.checkbox-impegno:before {
     display: none !important;
 }
-
+[type="checkbox"].filled-in:checked + span:not(.lever):after{
+    border: 2px solid #bd8f3e;
+    background-color: #bd8f3e;
+}
 [type="radio"]:checked+label:after,
 [type="radio"].with-gap:checked+label:after,
 [type="checkbox"].filled-in:checked+label:after {

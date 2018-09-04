@@ -66,7 +66,7 @@
                 justify-content: center;
                 align-items: center;
                 font-size: 5rem;
-                background: #fff;
+                background: rgba(21, 27, 38, 0.07);
             }
 
             img{

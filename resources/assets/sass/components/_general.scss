@@ -15,7 +15,7 @@ body {
         bottom: 0;
         right: 0;
         opacity: 0.1;
-        background-image: url('../img/logo.png') !important;
+        // background-image: url('../img/logo.png') !important;
         background-position: 70% center;
         background-size: 10%;
         // background-repeat: no-repeat;
@@ -280,6 +280,22 @@ h1{
     text-align: right;
 }
 
+.btn-remove, .btn-remove:hover, .btn-remove:active, .btn-remove:focus{
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: transparent;
+    border: none;
+    padding: .5rem;
+    background-color: rgba($dark, .62);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img{
+        width: 1.5rem;
+    }
+}
+
 .btn--block{
     width: 100%;
 }
@@ -316,11 +332,11 @@ h1{
     right: 0.75rem;
     top: 0;
     border: none;
-    height: 3.5rem;
-    width: 3.5rem;
-    background-color: rgba(255,255,255, 0.5);
-    background-image: url('../img/icons/ico-eliminar.png');
-    background-size: 65%;
+    height: 2.5rem;
+    width: 2.5rem;
+    background-color: rgba($dark, .62);
+    background-image: url('../img/icons/cancelar_white.png');
+    background-size: 1.5rem;
     background-repeat: no-repeat;
     background-position: center center;
     opacity: 0;

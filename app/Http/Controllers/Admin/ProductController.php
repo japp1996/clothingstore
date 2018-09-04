@@ -11,6 +11,10 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductColor;
 use App\Models\ProductAmount;
+use App\Http\Requests\ProductRequest;
+use App\Libraries\SetNameImage;
+use App\Libraries\ResizeImage;
+use File;
 
 class ProductController extends Controller
 {
@@ -27,7 +31,9 @@ class ProductController extends Controller
             'subcategories' => function ($sql) {
                 $sql->select('subcategories.id', 'subcategories.name', 'subcategories.category_id');
             },
-            'sizes'
+            'sizes' => function ($sizes) {
+                $sizes->select('category_sizes.id', 'name');
+            }
         ])
         ->get();
 
@@ -76,9 +82,64 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //
+        $product = new Product;
+        $product->name = $request->name;
+        $product->name_english = $request->name_english;
+        $product->description = $request->description;
+        $product->description_english = $request->description_english;
+        $product->coin = $request->coin;
+        $product->price_1 = $request->price_1;
+        $product->price_2 = $request->price_2;
+        $product->category_id = $request->category_id;
+        $product->subcategory_id = $request->subcategory_id == "" ? $request->subcategory_id : NULL;
+        $product->collection_id = $request->collection_id;
+        $product->design_id = $request->design_id;
+        $product->retail = $request->retail;
+        $product->wholesale = $request->wholesale;
+        $product->save();
+
+        foreach (json_decode($request->colors) as $colors) {
+            $color = new ProductColor;
+            $color->name = $colors->name;
+            $color->name_english = $colors->name_english;
+            $color->product_id = $product->id;
+            $color->save();
+
+            foreach ($colors->sizes as $sizes) {
+                $size = new ProductAmount;
+                $size->amount = $sizes->amount;
+                $size->product_color_id = $color->id;
+                $size->category_size_id = $sizes->id;
+                $size->save();
+            }
+        }
+
+        // Images
+        $url = "img/products/";
+        $main = $request->file('main');
+        $main_name = SetNameImage::set($main->getClientOriginalName(), $main->getClientOriginalExtension());
+        $main->move($url, $main_name);
+        ResizeImage::dimenssion($main_name, $main->getClientOriginalExtension(), $url);
+        $first = new ProductImage;
+        $first->file = $main_name;
+        $first->product_id = $product->id;
+        $first->main = '1';
+        $first->save();
+        for ($i=1; $i <= $request->count; $i++) { 
+            $file = $request->file('file'.$i);
+            $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
+            $file->move($url, $file_name);
+            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
+            $second = new ProductImage;
+            $second->file = $file_name;
+            $second->product_id = $product->id;
+            $second->main = '0';
+            $second->save();
+        }
+
+        return response()->json(['result' => true, 'message' => 'Producto almacenado exitosamente.']);
     }
 
     /**
@@ -110,7 +171,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, $id)
     {
         //
     }

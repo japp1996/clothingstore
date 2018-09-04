@@ -91,36 +91,100 @@
                                 <option :value="item.id" :key="index" v-for="(item, index) in designs">{{ item.name }}</option>
                             </select>
                         </div>
-                        <div class="col s12 m12 l12">
-                            <div class="col s12 m6 l6 center-align container-options">
-                                <label class="label-impegno">Catálogo</label>
-                                <p>
-                                    <label>
-                                        <input name="catalogue" value="1" type="radio" v-model="form.catalogue" checked />
-                                        <span>Dama</span>
-                                    </label>
-                                </p>
-                                <p>
-                                    <label>
-                                        <input name="catalogue" value="2" type="radio" v-model="form.catalogue" />
-                                        <span>Caballero</span>
-                                    </label>
-                                </p>
-                                <p>
-                                    <label>
-                                        <input name="catalogue" value="3" type="radio" v-model="form.catalogue" />
-                                        <span>Niños</span>
-                                    </label>
-                                </p>
-                            </div>                            
+                        <div class="col s12 m6 l6 center-align container-options">
+                            <label class="label-impegno">Catálogo</label>
+                            <p>
+                                <label>
+                                    <input name="catalogue" value="1" type="radio" v-model="form.catalogue" checked />
+                                    <span>Dama</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input name="catalogue" value="2" type="radio" v-model="form.catalogue" />
+                                    <span>Caballero</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input name="catalogue" value="3" type="radio" v-model="form.catalogue" />
+                                    <span>Niños</span>
+                                </label>
+                            </p>                           
+                        </div>
+                        <div class="col s12 m6 l6 center-align container-options">
+                            <label class="label-impegno">Tipo de venta</label>
+                            <p>
+                                <label>
+                                    <input type="checkbox" id="retail" class="filled-in" checked="checked" value="1" v-model="form.retail" />
+                                    <span>Detal</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input type="checkbox" id="wholesale" class="filled-in" value="1" v-model="form.wholesale" />
+                                    <span>Mayor</span>
+                                </label>
+                            </p>
                         </div>
                     </div>
                 </div>
                 <div id="test2" class="col s12">
-                    <div class="row container-form"></div>
+                    <div class="row container-form">
+                        <div class="col s12 container-btn-add">
+                            <button class="btn-add" @click="_addColor()">
+                                 <img :src="'img/icons/new-msg.png' | asset" alt="" class="img-responsive">
+                            </button>
+                            <div class="btn-add-text">
+                                Agregar nuevo
+                            </div>                            
+                        </div>
+                        <div class="col s12">
+                            <fieldset v-for="(item, index) in form.colors" :key="index">
+                                <button class="btn-remove" @click="_removeColor(index)">
+                                    <img :src="'img/icons/cancelar_white.png' | asset" alt="" class="img-responsive">
+                                </button>
+                                <div class="row">
+                                    <div class="col s12 m6 l6 center-align">
+                                        <label for="name" class="label-impegno">Nombre (Español)</label>
+                                        <input type="text" name="name" id="name" v-model="item.name" maxlength="50" class="browser-default input-impegno">
+                                    </div>
+                                    <div class="col s12 m6 l6 center-align">
+                                        <label for="name_english" class="label-impegno">Nombre (Inglés)</label>
+                                        <input type="text" name="name_english" id="name_english" v-model="item.name_english" maxlength="50" class="browser-default input-impegno">
+                                    </div>
+                                    <div class="col s6 m3 l3 center-align" v-for="(size, z) in item.sizes" :key="z">
+                                        <label class="label-impegno">{{ size.name }}</label>
+                                        <input type="number" min="0" v-model="item.sizes[z].amount" class="browser-default input-impegno">
+                                    </div>
+                                </div>                                
+                            </fieldset>
+                        </div>
+                    </div>
                 </div>
                 <div id="test3" class="col s12">
-                    <div class="row container-form"></div>
+                    <div class="row container-form">
+                        <div class="row">
+                            <div class="col s12 center-align">
+                                <label for="" class="label-impegno">Imagen Principal</label>
+                                <input-file :btn="false" :image="true" v-on:file="_setFile(null, $event)"></input-file>
+                            </div>
+                        </div>
+                        <div class="row gallery__items">
+                            <div class="col s12 container-btn-add">
+                                <button class="btn-add" @click="_addImage()">
+                                    <img :src="'img/icons/new-msg.png' | asset" alt="" class="img-responsive">
+                                </button>
+                                <div class="btn-add-text">
+                                    Agregar nueva imagen secundaria
+                                </div>                            
+                            </div>
+                            <div class="col l4 m6 s6 items__file" :key="index" v-for="(file, index) in form.images" :id="`file-${file.id}`">
+                                <input-file :btn="false" :image="true" v-on:file="_setFile(index, $event)"></input-file>
+                                <button class="file__claer" @click="_sliceItem(file.id, index)"></button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -156,6 +220,18 @@
         label{
             flex: 1 1 100%;
         }
+    }
+    fieldset{
+        margin: 10px 2px !important;
+        border: 1px solid #efefefec !important;
+        padding: 1rem !important;
+        position: relative;
+    }
+    .label-impegno{
+        font-weight: bold;
+    }
+    .items__file{
+        position: relative;
     }
 </style>
 
@@ -210,10 +286,13 @@ export default {
                 retail: "1",
                 wholesale: "1",
                 colors: [],
-                images: []
+                images: [],
+                main: ""
             },
             tabs: "",
-            images: ""
+            images: "",
+            image: "",
+            ids: 0
         }
     },
 
@@ -228,10 +307,129 @@ export default {
             })            
             this.subcategories = this.selectedCategory.subcategories
         },
+
+        _addColor() {
+            if (Object.keys(this.selectedCategory) == 0) {
+                this._showAlert("Disculpa, debes seleccionar una categoría primero.", "warning")
+                return false
+            }
+            let sizes = []
+            this.selectedCategory.sizes.forEach(element => {
+                sizes.push({id: element.id, name: element.name})
+            });
+            this.form.colors.push({name: "", sizes: sizes})
+                    
+        },
+
+        _removeColor(i) {
+            this.form.colors.splice(i, 1);
+        },
+
+        _setFile(i, file) {
+            if (i == null) {
+                this.image = file.file
+                this.form.main = file.file
+            }else {
+                this.form.images[i].file = file.file
+                this.files = this.form.images
+            }            
+        },
+
+        _addImage() {
+            this.ids = this.form.images.length > 1 ? this.ids + 1 : this.ids
+            this.form.images.push({file: "", id: this.ids})
+            this.images = this.form.images
+        },
+
+        _sliceItem (id, i) {            
+           this.images = this.form.images.filter((el) => {
+                return (el.id != id)
+            })
+            let parent = document.querySelector(".gallery__items")
+            let child = document.querySelector(`#file-${id}`)            
+            parent.removeChild(child)
+        },
+
+        _showAlert(text, type) {
+            swal({
+                title: "",
+                text: text,
+                timer: 3000,
+                showConfirmButton: false,
+                type: type
+            })
+        },
+
+        _store (e) {
+            let button = e.target
+            button.setAttribute('disabled', true)
+            this.form.wholesale = this.form.wholesale == false ? 0 : 1
+            this.form.retail = this.form.wholesale == false ? 0 : 1
+
+            if (this.form.wholesale == 0 && this.form.retail == 0) {
+                this._showAlert("Debes seleccionar al menos un tipo de venta")
+                return false;
+            }
+            for (let x = 0; x < this.form.colors.length; x++) {
+                for (let y = 0; y < this.form.colors[x].sizes.length; y++) {
+                    if (this.form.colors[x].sizes[y].amount == "") {
+                        this._showAlert("Debes completar los campos referentes a los colores del producto")
+                        return false
+                    }               
+                }                
+            }
+            axios.post('admin/products', this._convertToFormData())
+            .then(resp => {                
+                if (resp.data.result) {
+                    this._showAlert("Producto almacenado exitosamente", "success")
+                    setTimeout(() => {
+                        this.$emit('back', 0)
+                        // this.$emit('reset')
+                    }, 3000);
+                }
+            })
+            .catch(err => {
+                if(err.response.status === 422){
+                    this._showAlert(err.response.data.error, 'warning')
+                    return false;
+                }
+                
+                this._showAlert("Disculpa, ha ocurrido un error", "error")
+            })
+            .then(all => {
+                button.removeAttribute('disabled')
+            })
+        },
+
+        _convertToFormData(){
+            let formData = new FormData();
+            Object.getOwnPropertyNames(this.form).forEach((key, i) => {
+                let count = 0;
+                if(key === "images")
+                {
+                    this.images.forEach((e, y) => {
+                        if (e.file !== "") {
+                            count = count + 1
+                            formData.append(`file${count}`, e.file);
+                        }                        
+                    })
+                    formData.append('count', count)
+                }else if(key != "__ob__"){
+                    if (key == 'colors') {
+                        formData.append(key, JSON.stringify(this.form[key]));
+                    }else {
+                        formData.append(key, this.form[key]);
+                    }                    
+                }
+            });
+
+            return formData;
+        },
     },
 
     mounted () {
         this.tabs = M.Tabs.init(document.querySelector(".tabs"))
+        this.ids = this.form.images.length
     }
 }
 </script>
