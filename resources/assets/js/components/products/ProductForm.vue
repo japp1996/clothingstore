@@ -290,7 +290,7 @@ export default {
                 main: ""
             },
             tabs: "",
-            images: "",
+            images: [],
             image: "",
             ids: 0
         }
@@ -362,22 +362,26 @@ export default {
 
         _store (e) {
             let button = e.target
-            button.setAttribute('disabled', true)
             this.form.wholesale = this.form.wholesale == false ? 0 : 1
             this.form.retail = this.form.wholesale == false ? 0 : 1
 
             if (this.form.wholesale == 0 && this.form.retail == 0) {
                 this._showAlert("Debes seleccionar al menos un tipo de venta")
                 return false;
-            }
+            }            
             for (let x = 0; x < this.form.colors.length; x++) {
+                if (this.form.colors[x].name == "" || this.form.colors[x].name_english == "") {
+                    this._showAlert("Debes completar los campos referentes a los colores del producto", "warning")
+                    return false
+                }                
                 for (let y = 0; y < this.form.colors[x].sizes.length; y++) {
-                    if (this.form.colors[x].sizes[y].amount == "") {
-                        this._showAlert("Debes completar los campos referentes a los colores del producto")
+                    if (typeof this.form.colors[x].sizes[y].amount == 'undefined') {
+                        this._showAlert("Debes completar los campos referentes a los colores del producto", "warning")
                         return false
                     }               
                 }                
             }
+            button.setAttribute('disabled', true)
             axios.post('admin/products', this._convertToFormData())
             .then(resp => {                
                 if (resp.data.result) {

@@ -80398,7 +80398,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 main: ""
             },
             tabs: "",
-            images: "",
+            images: [],
             image: "",
             ids: 0
         };
@@ -80464,7 +80464,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             var button = e.target;
-            button.setAttribute('disabled', true);
             this.form.wholesale = this.form.wholesale == false ? 0 : 1;
             this.form.retail = this.form.wholesale == false ? 0 : 1;
 
@@ -80473,13 +80472,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return false;
             }
             for (var x = 0; x < this.form.colors.length; x++) {
+                if (this.form.colors[x].name == "" || this.form.colors[x].name_english == "") {
+                    this._showAlert("Debes completar los campos referentes a los colores del producto", "warning");
+                    return false;
+                }
                 for (var y = 0; y < this.form.colors[x].sizes.length; y++) {
-                    if (this.form.colors[x].sizes[y].amount == "") {
-                        this._showAlert("Debes completar los campos referentes a los colores del producto");
+                    if (typeof this.form.colors[x].sizes[y].amount == 'undefined') {
+                        this._showAlert("Debes completar los campos referentes a los colores del producto", "warning");
                         return false;
                     }
                 }
             }
+            button.setAttribute('disabled', true);
             axios.post('admin/products', this._convertToFormData()).then(function (resp) {
                 if (resp.data.result) {
                     _this._showAlert("Producto almacenado exitosamente", "success");
