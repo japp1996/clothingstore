@@ -18,6 +18,7 @@
 	Route::group(['middleware' => 'active:3'],function() {
 
 		Route::get('tienda','TiendaController@get');
+		Route::post('tienda/ajax','TiendaController@ajax');
 	});
 	
 	// Carrito

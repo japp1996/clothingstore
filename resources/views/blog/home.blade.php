@@ -7,7 +7,7 @@
 @section('content')
 	<div class="contenido" id="mundo">
 		<h2 class="title">Mundo Wará</h2>
-		<p>Entérate con nosotros los nuevos eventos, campañas y nuestros embajadores</p>
+		<p>Conoce más de nuestros embajadores, eventos y campañas</p>
 		<div class="masonry">
 			@foreach($blogs as $blog)
 				<a href="{{ URL('mundo/view',$blog->id) }}">
@@ -26,4 +26,16 @@
 			{{ $blogs->links('vendor.pagination.bootstrap-4') }}
 		</div>		
 	</div>
+@stop
+
+@section('scripts')
+	<script type="text/javascript">
+		$(document).ready(function() {
+			if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
+				$('.item').css('display','inline-block');
+			}
+
+			$('.item').css('opacity','1');
+		});
+	</script>
 @stop

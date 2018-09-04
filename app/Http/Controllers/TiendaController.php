@@ -9,4 +9,10 @@
 	    public function get() {
 	    	return View('tienda.home');
 	    }
+
+	    public function ajax(Request $request) {
+	    	return response()->json([
+	    		'result' => true
+	    	]);
+	    }
 	}

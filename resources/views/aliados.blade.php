@@ -9,7 +9,7 @@
 		<h2 class="title">Aliados Comerciales</h2>
 		<div class="masonry">
 			@foreach($aliados as $aliado)
-				<div class="item">
+				<div class="item item-column">
 					<div class="container-item">
 						<a href="#" v-on:click.prevent="ver({{ $aliado }})">
 							<div id="carousel{{ $aliado->id }}" class="carousel slide carousel-fade" data-ride="carousel" data-interval="false">
@@ -37,17 +37,17 @@
 								<table>
 									<tr>
 										<td>
-											<a href="{{ $aliado->instagram }}" class="instagram_white">
+											<a target="_blank" href="{{ $aliado->instagram }}" class="instagram_white">
 												{{ HTML::Image('img/icons/instagram.png') }}
 											</a>
 										</td>
 										<td>
-											<a href="{{ $aliado->facebook }}" class="facebook_white">
+											<a target="_blank" href="{{ $aliado->facebook }}" class="facebook_white">
 												{{ HTML::Image('img/icons/facebook.png') }}
 											</a>
 										</td>
 										<td>
-											<a href="{{ $aliado->twitter }}" class="youtube">
+											<a target="_blank" href="{{ $aliado->twitter }}" class="youtube">
 												{{ HTML::Image('img/icons/twitter.png') }}
 											</a>
 										</td>
@@ -71,7 +71,7 @@
 		      <div class="modal-body">
 		        <div class="item" v-if="aliado != null">
 					<div class="container-item">
-						<div id="carousel-modal" class="carousel slide carousel-fade" data-ride="carousel" data-interval="false">
+						<div id="carousel-modal" class="carousel slide carousel-fade" data-ride="carousel">
 						
 						  <div class="carousel-inner">
 						    <div v-for="(item,key) in aliado.fotos" class="carousel-item" :class="key == 0 ? 'active' : ''">
@@ -96,17 +96,17 @@
 								<table>
 									<tr>
 										<td>
-											<a :href="aliado.instagram" class="instagram_white">
+											<a target="_blank" :href="aliado.instagram" class="instagram_white">
 												{{ HTML::Image('img/icons/instagram.png') }}
 											</a>
 										</td>
 										<td>
-											<a :href="aliado.facebook" class="facebook_white">
+											<a target="_blank" :href="aliado.facebook" class="facebook_white">
 												{{ HTML::Image('img/icons/facebook.png') }}
 											</a>
 										</td>
 										<td>
-											<a :href="aliado.twitter" class="youtube">
+											<a target="_blank" :href="aliado.twitter" class="youtube">
 												{{ HTML::Image('img/icons/twitter.png') }}
 											</a>
 										</td>
@@ -119,27 +119,10 @@
 					</div>
 				</div>
 		      </div>
-
-		      <div class="controls-outside">
-		      	  <a class="carousel-control-prev" href="#carousel-modal" role="button" data-slide="prev">
-				    {{ HTML::Image('img/icons/left.png') }}
-				  </a>
-				  <a class="carousel-control-next" href="#carousel-modal" role="button" data-slide="next">
-				    {{ HTML::Image('img/icons/right.png') }}
-				  </a>
-		      </div>
 		    </div>
 		  </div>
 		</div>	
-
-		<button type="button" class="close" v-on:click="close()" v-show="aliado != null">
-		    {{ HTML::Image('img/icons/cancelar_white.png') }}
-		</button>	
 	</div>
-@stop
-
-@section('styles')
-	{{ HTML::Image('bower_components/animate.css') }}
 @stop
 
 @section('scripts')
@@ -149,6 +132,12 @@
 			$('#modal-aliado').on('hide.bs.modal', e => {
 				vue.aliado = null;
 			});
+
+			if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+				$('.item-column').css('display','inline-block');
+			}
+
+			$('.item-column').css('opacity','1');
 		});
 
 		let vue = new Vue({

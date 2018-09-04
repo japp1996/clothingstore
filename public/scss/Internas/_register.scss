@@ -1,6 +1,11 @@
 // Register
 
 #register {
+	.left {
+		@media (max-width: 767px) {
+			display: none;
+		}
+	}
 	.right-line-container {
 		position: relative;
 		padding-top: 30px;
