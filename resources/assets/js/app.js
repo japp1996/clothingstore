@@ -89,6 +89,8 @@ Vue.component('collection-index', require('./components/collection/CollectionInd
 // Design
 Vue.component('design-index', require('./components/designs/DesignIndex'));
 
+// Product
+Vue.component('product-index', require('./components/products/ProductIndex'));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

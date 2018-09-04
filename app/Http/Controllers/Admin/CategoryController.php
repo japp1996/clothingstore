@@ -96,7 +96,29 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, $id)
     {
-        //
+        $category = Category::find($id);
+            $category->name = $request->name;
+            $category->name_english = $request->name_english;
+        $category->save();
+
+        $category->sizes()->detach();
+
+        foreach ($request->sizes as $key => $size) {
+            $category->sizes()->attach($category->id, ['size_id' => $size]);
+        }
+        
+        $sub_ids = [];
+        foreach ($request->subcategories as $key => $subcategory) {
+            if($subcategory['id'] > 0){
+                Subcategory::find($subcategory['id'])->update(['name' => $subcategory['name'], 'name_english' => $subcategory['name_english']]);
+            }else{
+                $subcategory = $category->subcategories()->create($subcategory);
+            }
+
+            $sub_ids[] = $subcategory['id'];
+        }
+
+        Subcategory::where('category_id', $id)->whereNotIn('id', $sub_ids)->doesnthave('products')->update(['status' => '2']);
     }
 
     /**
@@ -107,6 +129,19 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::where('id', $id)->withCount(['products'])->first();
+
+        if($category->products_count == 0){
+                $category->status = "2";
+            $category->save();
+
+            Subcategory::where('category_id', $id)->doesnthave('products')->update(['status' => '2']);
+        }else{
+            return response()->json([
+                'error' => "La categoría tiene productos activos",
+                'result' => false
+            ]);
+        }
+        
     }
 }
