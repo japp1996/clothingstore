@@ -65,6 +65,11 @@ Vue.component("card-main", require("./components/card/CardMain.vue"));
 Vue.component("card-content", require("./components/card/CardContent.vue"));
 Vue.component("card-title", require("./components/card/CardTitle.vue"));
 
+// Inputs
+Vue.component("input-autocomplete", require("./components/inputs/InputAutocomplete"));
+Vue.component("input-file", require("./components/inputs/InputFile"));
+Vue.component("input-document", require("./components/inputs/InputDocument"));
+
 // Table
 Vue.component('table-byte', require("./components/table/Table"));
 Vue.component("table-row", require("./components/table/TableRow"));

@@ -7,6 +7,8 @@
 /.vagrant
 /public/css/style.css
 /public/js/script.js
+public/img/products/
+/public/img/products/
 Homestead.json
 Homestead.yaml
 npm-debug.log
