@@ -25,7 +25,7 @@ class ProductController extends Controller
         ->where('status', '1')
         ->with([
             'subcategories' => function ($sql) {
-                $sql->select('id', 'name', 'category_id');
+                $sql->select('subcategories.id', 'subcategories.name', 'subcategories.category_id');
             },
             'sizes'
         ])

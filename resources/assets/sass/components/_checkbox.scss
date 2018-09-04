@@ -34,3 +34,14 @@
     border: none !important;
     background-color: inherit !important;
 }
+
+[type="radio"]:checked+span:after,
+[type="radio"].with-gap:checked+span:after {
+    background-color: #bd8f3e !important;
+}
+
+[type="radio"]:checked+span:after,
+[type="radio"].with-gap:checked+span:before,
+[type="radio"].with-gap:checked+span:after {
+    border: 2px solid #bd8f3e !important;
+}

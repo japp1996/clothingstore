@@ -32,61 +32,96 @@
                         </div>
 
                         <div class="col s12 m6 l6 center-align">
-                            <label for="name" class="label-impegno">Descripción (Español)</label>
-                            <textarea name="name" id="name" v-model="form.name" class="browser-default textarea-impegno"></textarea>
+                            <label for="description" class="label-impegno">Descripción (Español)</label>
+                            <textarea name="description" id="description" v-model="form.description" class="browser-default textarea-impegno"></textarea>
                         </div>
 
                         <div class="col s12 m6 l6 center-align">
-                            <label for="name_english" class="label-impegno">Descripción (Inglés)</label>
-                            <textarea name="name_english" id="name_english" v-model="form.name_english" class="browser-default textarea-impegno"></textarea>
+                            <label for="description_english" class="label-impegno">Descripción (Inglés)</label>
+                            <textarea name="description_english" id="description_english" v-model="form.description_english" class="browser-default textarea-impegno"></textarea>
+                        </div>
+                        <div class="col s12 m6 l6 center-align container-options">
+                            <label class="label-impegno">Moneda</label>
+                            <p>
+                                <label>
+                                    <input name="group1" value="1" type="radio" v-model="form.coin" checked />
+                                    <span>USD</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input name="group1" value="2" type="radio" v-model="form.coin" />
+                                    <span>Bs. S</span>
+                                </label>
+                            </p>
                         </div>
 
                         <div class="col s12 m6 l6 center-align">
-                            <p class="bold">Precio Bs.</p>
-                            <label for="name" class="label-impegno">Precio (Detal)</label>
+                            <label for="name_english" class="label-impegno">Precio (Detal)</label>
                             <input type="text" name="price_1" id="price_1" v-model="form.price_1" class="browser-default input-impegno">
-                            <label for="name" class="label-impegno">Precio (Mayor)</label>
+                            <label for="name_english" class="label-impegno">Precio (Mayor)</label>
                             <input type="text" name="price_2" id="price_2" v-model="form.price_2" class="browser-default input-impegno">
                         </div>
 
                         <div class="col s12 m6 l6 center-align">
-                            <p class="bold">Precio USD</p>
-                            <label for="name_english" class="label-impegno">Precio (Detal)</label>
-                            <input type="text" name="price_usd_1" id="price_usd_1" v-model="form.price_usd_1" class="browser-default input-impegno">
-                            <label for="name_english" class="label-impegno">Precio (Mayor)</label>
-                            <input type="text" name="price_usd_2" id="price_usd_2" v-model="form.price_usd_2" class="browser-default input-impegno">
-                        </div>
-
-                        <div class="col s12 m6 l6 center-align">
-                            <label for="" class="label-impegno">Categoría</label>
-                            <select name="" id="" class="browser-default">
+                            <label for="category_id" class="label-impegno">Categoría</label>
+                            <select name="category_id" id="category_id" class="browser-default" @change="_setSubcategories($event)" v-model="form.category_id">
                                 <option value="">Seleccione</option>
                                 <option :value="item.id" :key="index" v-for="(item, index) in categories">{{ item.name }}</option>
                             </select>
                         </div>
                         <div class="col s12 m6 l6 center-align">
-                            <label for="" class="label-impegno">Subcategía</label>
-                            <select name="" id="" class="browser-default">
+                            <label for="subcategory_id" class="label-impegno">Subcategía</label>
+                            <select name="subcategory_id" id="subcategory_id" class="browser-default" v-model="form.subcategory_id">
                                 <option value="">Seleccione</option>
+                                <option :value="item.id" :key="index" v-for="(item, index) in subcategories">{{ item.name }}</option>
                             </select>
                         </div>
                         <div class="col s12 m6 l6 center-align">
-                            <label for="" class="label-impegno">Colección</label>
-                            <select name="" id="" class="browser-default">
+                            <label for="collection_id" class="label-impegno">Colección</label>
+                            <select name="collection_id" id="collection_id" class="browser-default" v-model="form.collection_id">
                                 <option value="">Seleccione</option>
+                                <option :value="item.id" :key="index" v-for="(item, index) in collections">{{ item.name }}</option>
                             </select>
                         </div>
                         <div class="col s12 m6 l6 center-align">
-                            <label for="" class="label-impegno">Diseños</label>
-                            <select name="" id="" class="browser-default">
+                            <label for="design_id" class="label-impegno">Diseños</label>
+                            <select name="design_id" id="design_id" class="browser-default" v-model="form.design_id">
                                 <option value="">Seleccione</option>
+                                <option :value="item.id" :key="index" v-for="(item, index) in designs">{{ item.name }}</option>
                             </select>
                         </div>
-
+                        <div class="col s12 m12 l12">
+                            <div class="col s12 m6 l6 center-align container-options">
+                                <label class="label-impegno">Catálogo</label>
+                                <p>
+                                    <label>
+                                        <input name="catalogue" value="1" type="radio" v-model="form.catalogue" checked />
+                                        <span>Dama</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input name="catalogue" value="2" type="radio" v-model="form.catalogue" />
+                                        <span>Caballero</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input name="catalogue" value="3" type="radio" v-model="form.catalogue" />
+                                        <span>Niños</span>
+                                    </label>
+                                </p>
+                            </div>                            
+                        </div>
                     </div>
                 </div>
-                <div id="test2" class="col s12">Test 2</div>
-                <div id="test3" class="col s12">Test 3</div>
+                <div id="test2" class="col s12">
+                    <div class="row container-form"></div>
+                </div>
+                <div id="test3" class="col s12">
+                    <div class="row container-form"></div>
+                </div>
             </div>
 
             <div class="col s12 m12 l12 margin-top center-align">
@@ -113,6 +148,14 @@
         margin-left: 0 !important;
         margin-right: 0 !important;
         padding: 1rem .75rem;
+    }
+    .container-options{
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        label{
+            flex: 1 1 100%;
+        }
     }
 </style>
 
@@ -149,27 +192,42 @@ export default {
     data () {
         return {
             subcategories: [],
+            selectedCategory: {},
             form: {
                 id: 0,
                 name: "",
                 name_english: "",
                 description: "",
                 description_english: "",
+                coin: "1",
                 price_1: "",
                 price_2: "",
-                price_usd_1: "",
-                price_usd_2: "",
+                catalogue: "1",
                 category_id: "",
                 subcategory_id: "",
                 collection_id: "",
-                design_id: ""
+                design_id: "",
+                retail: "1",
+                wholesale: "1",
+                colors: [],
+                images: []
             },
-            tabs: ""
+            tabs: "",
+            images: ""
         }
     },
 
     methods: {
+        _back() {
+            this.$emit('back', 0)
+        },
 
+        _setSubcategories(e) {            
+            this.selectedCategory = this.categories.find((el) => {
+                return (el.id == e.target.options[e.target.selectedIndex].value)
+            })            
+            this.subcategories = this.selectedCategory.subcategories
+        },
     },
 
     mounted () {
