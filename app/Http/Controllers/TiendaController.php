@@ -64,7 +64,7 @@
 
 	    public function ajax(Request $request) {
 	    	$productos = Product::with(['designs','collections','images' => function($q) {
-	    		$q->where('main','1')->first();
+	    		$q->where('main','1');
 	    	},'categories' => function($q) {
 	    		$q->with(['sizes']);
 	    	},'colors'])->where('status','1')->paginate(8);

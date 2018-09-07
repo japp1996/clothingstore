@@ -129,6 +129,7 @@
 	<script type="text/javascript">
 
 		$(document).ready(() => {
+
 			$('#modal-aliado').on('hide.bs.modal', e => {
 				vue.aliado = null;
 			});
@@ -137,7 +138,9 @@
 				$('.item-column').css('display','inline-block');
 			}
 
-			$('.item-column').css('opacity','1');
+			$('.item-column').animate({
+				opacity: '1'
+			},1500);
 		});
 
 		let vue = new Vue({

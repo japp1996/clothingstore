@@ -35,7 +35,9 @@
 				$('.item').css('display','inline-block');
 			}
 
-			$('.item').css('opacity','1');
+			$('.item').animate({
+				opacity: '1'
+			},1500);
 		});
 	</script>
 @stop

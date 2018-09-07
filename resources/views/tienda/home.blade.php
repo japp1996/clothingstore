@@ -44,33 +44,35 @@
 			</div>
 		</div>
 
-		<ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-                <span class="page-link">
-                    <i class="fa fa-angle-left"></i>
-                </span>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#" rel="prev">
-                    <i class="fa fa-angle-left"></i>
-                </a>
-            </li>
-	        <li class="page-item page-of disabled">
-	            <span class="page-link">
-	                1 {{ Lang::get('Page.De') }} 2
-	            </span>
-	        </li>
-            <li class="page-item">
-                <a class="page-link" href="#" rel="next">
-                    <i class="fa fa-angle-right"></i>
-                </a>
-            </li>
-            <li class="page-item disabled">
-                <span class="page-link">
-                    <i class="fa fa-angle-right"></i>
-                </span>
-            </li>
-	    </ul>
+		<div class="text-center" v-if="paginator.total > 1">
+			<ul class="pagination justify-content-center">
+	            <li class="page-item disabled" v-if="paginator.current_page == 1">
+	                <span class="page-link">
+	                    <i class="fa fa-angle-left"></i>
+	                </span>
+	            </li>
+	            <li class="page-item">
+	                <a class="page-link" href="#" rel="prev" v-else v-on:click.prevent="load(paginator.from)">
+	                    <i class="fa fa-angle-left"></i>
+	                </a>
+	            </li>
+		        <li class="page-item page-of disabled">
+		            <span class="page-link">
+		                @{{ paginator.current_page }} {{ Lang::get('Page.De') }} @{{ paginator.last_page }}
+		            </span>
+		        </li>
+	            <li class="page-item" v-if="paginator.last_page > paginator.current_page">
+	                <a class="page-link" href="#" rel="next" v-on:click.prevent="load(paginator.to)">
+	                    <i class="fa fa-angle-right"></i>
+	                </a>
+	            </li>
+	            <li class="page-item disabled" v-else>
+	                <span class="page-link">
+	                    <i class="fa fa-angle-right"></i>
+	                </span>
+	            </li>
+		    </ul>
+		</div>
 
 		<div class="modal fade" id="modal-producto">
 		  <div class="modal-dialog">
@@ -237,6 +239,7 @@
 				productos: [],
 				producto: null,
 				carrito: [],
+				paginator: {},
 				form: {
 					talla: '',
 					color: '',
@@ -260,14 +263,12 @@
 					},250);
 					event.stopPropagation();
 				},
-				load() {
+				load(page = 1) {
 					setLoader();
-					let data = {
-
-					}	
-					axios.post('{{ URL('tienda/ajax') }}',data)
+					axios.post('{{ URL('tienda/ajax') }}?page=' + page)
 						.then(res => {
 							if (res.data.result) {
+								this.paginator = res.data.productos;
 								this.productos = res.data.productos.data;
 								this.carrito = res.data.carrito;
 							}
