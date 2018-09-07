@@ -1,12 +1,12 @@
 @extends('layouts.master')
 
 @section('title')
-	Aliados Comerciales
+	@lang('Page.Aliados.Title')
 @stop
 
 @section('content')
 	<div class="contenido" id="aliados" v-cloak>
-		<h2 class="title">Aliados Comerciales</h2>
+		<h2 class="title">@lang('Page.Aliados.Title')</h2>
 		<div class="masonry">
 			@foreach($aliados as $aliado)
 				<div class="item item-column">
@@ -54,7 +54,7 @@
 									</tr>
 								</table>
 							</div>
-							<p class="bold">Ubicación:</p>
+							<p class="bold">@lang('Page.Aliados.Ubicacion'):</p>
 							<p>{!! nl2br($aliado->address) !!}</p>
 						</div>
 					</div>
@@ -113,7 +113,7 @@
 									</tr>
 								</table>
 							</div>
-							<p class="bold">Ubicación:</p>
+							<p class="bold">@lang('Page.Aliados.Ubicacion'):</p>
 							<p class="nl2br">@{{ aliado.address }}</p>
 						</div>
 					</div>

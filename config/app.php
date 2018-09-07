@@ -229,6 +229,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'HTML' => Collective\Html\HtmlFacade::class,
         'Cart' => App\Libraries\Cart::class,
+        'PasswordGenerator' => App\Libraries\PasswordGenerator::class,
 
     ],
 

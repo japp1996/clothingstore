@@ -33,6 +33,15 @@
 	{{ HTML::Script('bower_components/sweetalert/dist/sweetalert.min.js') }}
 	{{ HTML::Script('bower_components/hold-on/src/js/HoldOn.min.js') }}
 	{{ HTML::Script('js/loader.js') }}
+	{{ HTML::Script('js/filtros.js') }}
+	<script type="text/javascript">
+		let vue_header = new Vue({
+			el: '#vue_header',
+			data: {
+				cart: '{{ Cart::count() }}'
+			}
+		});
+	</script>
 	@yield('scripts')
 </body>
 </html>

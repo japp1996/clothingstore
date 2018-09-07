@@ -15,6 +15,11 @@ body {
     }
 }
 
+.nl2br {
+  white-space: pre;
+  white-space: pre-line;
+}
+
 .modal {
 	&::-webkit-scrollbar {
 	    -webkit-appearance: none;
@@ -45,6 +50,8 @@ body {
 }
 
 select {
+	box-shadow: none !important;
+	outline: 0px !important;
 	-moz-appearance: none;
 	-webkit-appearance: none;
 	appearance: none;
@@ -89,7 +96,7 @@ button {
 	text-transform: uppercase;
 	text-align: center;
 	font-family: 'Bebas';
-	font-size: 70px;
+	font-size: 50px;
 	@include texto();
 	&.title-line {
 		&::after {
@@ -104,6 +111,16 @@ button {
 
 .text-degradado {
 	@include texto();
+}
+
+.responsive-table {
+	@media (max-width: 991px) {
+		width: 100%;
+		overflow-x: auto;
+		table {
+			width: 1000px;
+		}
+	}
 }
 
 header {
@@ -227,6 +244,7 @@ header {
 		}
 		.counter-cart {
 			display: none;
+			color: $white !important;
 			@media (max-width: 992px) {
 				display: inline-block;
 			}
@@ -263,7 +281,7 @@ footer {
 		padding-bottom: 10px;
 	}
 	img {
-		width: 35px;
+		width: 25px;
 		margin-right: 5px;
 		@media (max-width: 767px) {
 			width: 22px;
@@ -272,6 +290,7 @@ footer {
 	}
 	table {
 		position: relative;
+		margin-top: 5px;
 	}
 	.center-text, .right-text {
 		@media (max-width: 767px) {
@@ -340,13 +359,13 @@ footer {
 		}		
 	}
 	.youtube img {
-		width: 47px;
+		width: 37px;
 		@media (max-width: 767px) {
 			width: 27px;
 		}
 	}
 	.instagram_white img {
-		width: 35px;
+		width: 25px;
 		@media (max-width: 767px) {
 			width: 22px;
 		}

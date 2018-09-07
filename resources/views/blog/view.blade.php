@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-	Ver Blog
+	@lang('Page.Blog.Ver')
 @stop
 
 @section('content')
@@ -25,9 +25,9 @@
 		</div>
 
 		<div class="container-text">
-			<h2>{{ $blog->title }}</h2>
-			<p class="fech">Fecha: {{ \Carbon\Carbon::parse($blog->created_at)->format('d/m/Y') }}</p>
-			<p>{!! nl2br($blog->description) !!}</p>
+			<h2>{{ \App::getLocale() == 'es' ? $blog->title : $blog->title_english }}</h2>
+			<p class="fech">@lang('Page.Blog.Fecha'): {{ \Carbon\Carbon::parse($blog->created_at)->format('d/m/Y') }}</p>
+			<p>{!! \App::getLocale() == 'es' ? nl2br($blog->description) : nl2br($blog->description_english) !!}</p>
 		</div>
 	</div>
 @stop

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-	Inicio
+	@lang('Page.Home.Inicio')
 @stop
 
 @section('content')

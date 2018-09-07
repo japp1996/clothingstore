@@ -2,6 +2,7 @@
 
 #tienda {
 	.row-title {
+		margin-bottom: 20px;
 		&::after {
 			content: '';
 			height: 2px;
@@ -23,7 +24,208 @@
 		}
 		select {
 			max-width: 250px;
-			float: right;
+			@media (min-width: 768px) {
+				float: right;
+			}
+			@media (max-width: 767px) {
+				margin-top: 20px;
+			}			
+		}
+	}
+
+	.almayor {
+		font-size: 11px;
+		margin-bottom: 0px;
+		position: relative;
+		top: -15px;
+		font-style: italic;
+	}
+
+	.row-productos {
+		margin-right: 40px;
+		margin-left: 40px;
+		@media (max-width: 767px) {
+			margin-right: 0px !important;
+			margin-left: 0px !important;
+		}
+	}
+
+	.modal {
+		img.img-principal {
+			width: 100%;
+			display: none;
+			@media (max-width: 767px) {
+				display: block;
+			}
+		}
+		.modal-content {
+			border: 0px !important;
+			background-color: #edeef0;
+			margin: 0 auto;
+		}
+		.image-modal {
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: center top;
+		}
+		.modal-dialog, .modal-body, .modal-content {
+			border-radius: 0px !important;
+			padding: 0px !important;
+		}
+		.modal-dialog {
+			min-width: 80% !important;
+			background-color: $gris;
+			border: 0px !important;
+			@media (max-width: 767px) {
+				width: 100% !important;
+			}
+		}
+		.row, [class*="col-md-"], [class*="col-lg-"] {
+			padding: 0px !important;
+			margin: 0px !important;
+		}
+		label {
+			font-family: 'Segoe Bold';
+		}
+		.container-description {
+			border-top: 1px solid $dorado;
+			padding: 20px;
+			padding-left: 30px;
+			padding-right: 30px;
+			h5 {
+				margin-bottom: 20px;
+			}
+			h4 {
+				font-family: 'Segoe Bold';
+				font-size: 25px;
+			}
+			.precio {
+				color: $dorado;
+				font-size: 22px;
+				font-family: 'Segoe Bold';
+				// margin-bottom: 0px;
+			}
+			.strong {
+				line-height: 0.8;
+			}
+			.ellipsis {
+				line-height: 20px;
+		        position: relative;
+		        height: 40px;
+		        overflow: hidden;
+			}
+			a {
+				font-family: 'Segoe Bold';
+				font-style: italic;
+				color: $dorado;
+				display: inline-block;
+			}
+			.descripcion {
+				margin-bottom: 5px;
+			}
+		}
+		.container-texto {
+			overflow: auto;
+		}
+		.container-add {
+			padding: 20px;
+			padding-left: 30px;
+			padding-right: 30px; 
+			.btn-add {
+				@include degradado();
+				border-radius: 0px !important;
+				border: 0px !important;
+				min-width: 100px;
+				height: 32px;
+				position: relative;
+				top: -4px;
+				img {
+					width: 18px;
+					position: relative;
+					top: -3px;
+				}
+			}
+			select {
+				max-width: 300px;
+			}
+		}
+		.item-cantidad {
+			border: 1px solid #c0c0c0;
+			display: inline-block;
+			background-color: $white;
+			color: $black;
+			.add, .remove {
+				padding: 0px !important;
+				border-radius: 0px !important;
+				margin-top: -7.5px;
+				background-color: $white !important;
+				position: relative;
+				img {
+					width: 15px;
+					margin: 0 auto;
+					margin-left: 5px;
+					margin-right: 5px;
+					position: relative;
+					top: -1.5px;
+					cursor: pointer;
+				}
+			}	
+			.add {
+				right: 1.5px;
+			}
+			.remove {
+				left: 1.5px;
+			}	
+			span {
+				font-size: 20px;
+				border-right: 1px solid #c0c0c0;
+				border-left: 1px solid #c0c0c0;
+				width: auto;
+				min-width: 35px;
+				padding-right: 5px;
+				padding-left: 5px;
+				display: inline-block;
+				text-align: center;
+			}
+		}
+	}
+
+	.container-item {
+		a {
+			text-decoration: none !important;
+			color: $black !important;
+		}
+		margin: 10px;
+		margin-left: auto;
+		margin-right: auto;
+		background-color: $white;
+		max-width: 300px;
+		.container-text {
+			padding: 20px;
+			text-align: center;
+			padding-top: 10px;
+			padding-bottom: 0px;
+			h4 {
+				font-family: 'Segoe Bold';
+			}
+			p {
+				font-size: 18px;
+			}
+		}
+		& > a > img {
+			width: 100%;
+		}
+		button {
+			width: 100%;
+			border-radius: 0px !important;
+			background-color: transparent !important;
+			border-top: 2px solid $dorado;
+			border-bottom: 2px solid $dorado;
+			img {
+				height: 50px;
+				padding-top: 10px;
+				padding-bottom: 10px;
+			}
 		}
 	}
 
@@ -43,6 +245,9 @@
 		top: 0px;
 		height: 100vh;
 		min-width: 350px;
+		@media (max-width: 400px) {
+			min-width: 100%;
+		}
 		background-color: $white;
 		z-index: 99999999;
 		img {

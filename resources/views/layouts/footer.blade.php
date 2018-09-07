@@ -24,19 +24,19 @@
 		<div class="col-md-4 col-6 text-center">
 			@if (isset($_login))
 				<a href="{{ URL('condiciones') }}" class="text-italic">
-					Condiciones de Compra
+					@lang('Footer.Condiciones')
 				</a>
 			@else
 				@if (Auth::check())
 					<a href="{{ URL('logout') }}">
 						<button class="btn btn-default">
-							<span>Cerrar Sesión</span>
+							<span>@lang('Footer.Logout')</span>
 						</button>
 					</a>
 				@else
 					<a href="{{ URL('login') }}">
 						<button class="btn btn-default">
-							<span>Iniciar Sesión</span>
+							<span>@lang('Footer.Login')</span>
 						</button>
 					</a>
 				@endif				
@@ -45,7 +45,7 @@
 		<div class="col-md-4 right-text contacto">
 			<a href="{{ URL('contacto') }}" class="text-degradado">
 				{{ HTML::Image('img/icons/contacto.png') }}
-				Contacto
+				@lang('Footer.Contacto')
 			</a>
 		</div>
 	</div>

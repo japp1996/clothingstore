@@ -9,6 +9,7 @@
 	use Auth;
 	use Validator;
 	use Hash;
+	use Lang;
 
 	class PerfilController extends Controller {
 	    
@@ -23,6 +24,59 @@
 	    	]);
 	    }
 
+	    public function pedidos() {
+	    	$pedidos = [
+	    		[
+	    			"fecha" => '2018-09-05',
+	    			"metodo" => '1',
+	    			"total" => '200',
+	    			"productos" => [
+		    			[
+		    				'name' => 'Franela Negra de Guitarra',
+			    			'cantidad' => 2,
+			    			'precio' => 200
+			    		],
+			    		[
+		    				'name' => 'Franela Negra de Guitarra',
+			    			'cantidad' => 2,
+			    			'precio' => 200
+			    		],
+			    		[
+		    				'name' => 'Franela Negra de Guitarra',
+			    			'cantidad' => 2,
+			    			'precio' => 200
+			    		],
+		    		]
+		    	],
+		    	[
+	    			"fecha" => '2018-09-05',
+	    			"metodo" => '2',
+	    			"total" => '200',
+	    			"productos" => [
+		    			[
+		    				'name' => 'Franela Negra de Guitarra',
+			    			'cantidad' => 2,
+			    			'precio' => 200
+			    		],
+			    		[
+		    				'name' => 'Franela Negra de Guitarra',
+			    			'cantidad' => 2,
+			    			'precio' => 200
+			    		],
+			    		[
+		    				'name' => 'Franela Negra de Guitarra',
+			    			'cantidad' => 2,
+			    			'precio' => 200
+			    		],
+		    		]
+		    	],
+	    	];
+	    	return response()->json([
+	    		'result' => true,
+	    		'pedidos' => $pedidos
+	    	]);
+	    }
+
 	    public function post(Request $request) {
 	    	$reglas = [
 	    		'name' => 'required',
@@ -32,19 +86,15 @@
 	    		'telefono' => 'required',
 	    		'codigo' => 'required'
 	    	];
-	    	$mensajes = [
-	    		'required' => 'El campo :attribute es requerido',
-	    		'email' => 'El correo electrónico no es válido'
-	    	];
 	    	$atributos = [
-	    		'name' => 'Nombre Completo',
-	    		'email' => 'Correo Electrónico',
-	    		'pais_id' => 'País',
-	    		'estado_id' => 'Estado',
-	    		'telefono' => 'Teléfono',
-	    		'codigo' => 'Código Postal'
+	    		'name' => Lang::get('Controllers.Atributos.Nombre'),
+	    		'email' => Lang::get('Controllers.Atributos.Email'),
+	    		'pais_id' => Lang::get('Controllers.Atributos.Pais'),
+	    		'estado_id' => Lang::get('Controllers.Atributos.Estado'),
+	    		'telefono' => Lang::get('Controllers.Atributos.Telefono'),
+	    		'codigo' => Lang::get('Controllers.Atributos.Codigo')
 	    	];
-	    	$validacion = Validator::make($request->all(),$reglas,$mensajes);
+	    	$validacion = Validator::make($request->all(),$reglas);
 	    	$validacion->setAttributeNames($atributos);
 	    	if ($validacion->fails()) {
 	    		return response()->json([
@@ -72,14 +122,10 @@
 	    	$reglas = [
 	    		'password' => 'required|confirmed'
 	    	];
-	    	$mensajes = [
-	    		'required' => 'El campo :attribute es requerido',
-	    		'confirmed' => 'Las contraseñas no coinciden'
-	    	];
 	    	$atributos = [
-	    		'password' => 'Contraseña Nueva'
+	    		'password' => Lang::get('Controllers.Atributos.NewPassword')
 	    	];
-	    	$validacion = Validator::make($request->all(),$reglas,$mensajes);
+	    	$validacion = Validator::make($request->all(),$reglas);
 	    	$validacion->setAttributeNames($atributos);
 	    	if ($validacion->fails()) {
 	    		return response()->json([
@@ -92,7 +138,7 @@
 	    		if (!Hash::check($request->old_password,$user->password))
 	    			return response()->json([
 		    			'result' => false,
-		    			'error' => "La contraseña actual no coincide"
+		    			'error' => Lang::get('Controllers.NoCoincide')
 		    		]);
 	    			$user->password = Hash::make($request->password);
 	    		$user->save();

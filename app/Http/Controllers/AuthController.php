@@ -9,6 +9,7 @@
 	use App\Models\Pais;
 	use App\Models\Estado;
 	use App\User;
+	use Lang;
 
 	class AuthController extends Controller {
 	    
@@ -21,14 +22,11 @@
 	    		'email' => 'required',
 	    		'password' => 'required'
 	    	];
-	    	$mensajes = [
-	    		'required' => "El campo :attribute es requerido"
-	    	];
 	    	$atributos = [
-	    		'email' => 'Correo Electrónico',
-	    		'password' => 'Contraseña'
+	    		'email' => Lang::get('Controllers.Atributos.Email'),
+	    		'password' => Lang::get('Controllers.Atributos.Password')
 	    	];
-	    	$validacion = Validator::make($request->all(),$reglas,$mensajes);
+	    	$validacion = Validator::make($request->all(),$reglas);
 	    	$validacion->setAttributeNames($atributos);
 	    	if ($validacion->fails()) {
 	    		return response()->json([
@@ -57,7 +55,7 @@
 	    		else
 	    			return response()->json([
 	    				'result' => false,
-	    				'error' => "Correo Electrónico o Contraseña incorrectos"
+	    				'error' => Lang::get('Controllers.Login')
 	    			]);
 	    	}
 	    }
@@ -84,23 +82,19 @@
 	    		'direccion' => 'required',
 	    		'password' => 'required|confirmed'
 	    	];
-	    	$mensajes = [
-	    		'required' => 'El campo :attribute es requerido',
-	    		'confirmed' => 'Las contraseñas no coinciden'
-	    	];
 	    	$atributos = [
-	    		'nombre' => 'Nombre Completo',
-	    		'email' => 'Correo Electrónico',
-	    		'type' => 'Tipo de Persona',
-	    		'identificacion' => 'Identificación',
-	    		'telefono' => 'Teléfono',
-	    		'pais' => 'País',
-	    		'estado' => 'Estado',
-	    		'codigo' => 'Código Postal',
-	    		'direccion' => 'Dirección',
-	    		'password' => 'Contraseña'
+	    		'nombre' => Lang::get('Controllers.Atributos.Nombre'),
+	    		'email' => Lang::get('Controllers.Atributos.Email'),
+	    		'type' => Lang::get('Controllers.Atributos.Tipo'),
+	    		'identificacion' => Lang::get('Controllers.Atributos.Identificacion'),
+	    		'telefono' => Lang::get('Controllers.Atributos.Telefono'),
+	    		'pais' => Lang::get('Controllers.Atributos.Pais'),
+	    		'estado' => Lang::get('Controllers.Atributos.Estado'),
+	    		'codigo' => Lang::get('Controllers.Atributos.Codigo'),
+	    		'direccion' => Lang::get('Controllers.Atributos.Direccion'),
+	    		'password' => Lang::get('Controllers.Atributos.Password')
 	    	]; 
-	    	$validacion = Validator::make($request->all(),$reglas,$mensajes);
+	    	$validacion = Validator::make($request->all(),$reglas);
 	    	$validacion->setAttributeNames($atributos);
 	    	if ($validacion->fails()) {
 	    		return response()->json([
@@ -112,7 +106,7 @@
 	    		if ($request->type == '2' && ($request->empresa == '' || $request->empresa == null)) {
 	    			return response()->json([
 		    			'result' => false,
-		    			'error' => "El campo Nombre de Empresa es requerido"
+		    			'error' => Lang::get('Controllers.Empresa')
 		    		]);
 	    		}
 

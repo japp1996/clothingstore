@@ -26,6 +26,7 @@
 
 @mixin button() {
   @include degradado();
+  border: 0px !important;
   font-family: 'Segoe SemiBold';
   font-size: 20px;
 }

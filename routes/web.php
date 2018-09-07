@@ -19,12 +19,17 @@
 
 		Route::get('tienda','TiendaController@get');
 		Route::post('tienda/ajax','TiendaController@ajax');
+		Route::get('tienda/ver/{id}','TiendaController@ver');
+		Route::post('tienda/get','TiendaController@getProducto');
+		Route::post('tienda/add','TiendaController@add');
 	});
 	
 	// Carrito
 	Route::group(['middleware' => 'active:5'],function() {
 
 		Route::get('carrito','CarritoController@get');
+		Route::post('carrito/ajax','CarritoController@ajax');
+		Route::post('carrito/delete','CarritoController@delete');
 	});
 
 	// Perfil
@@ -33,6 +38,7 @@
 		Route::get('perfil','PerfilController@get');
 		Route::post('perfil','PerfilController@post');
 		Route::post('password','PerfilController@password');
+		Route::post('perfil/pedidos','PerfilController@pedidos');
 	});	
 
 	// Auth
@@ -42,9 +48,20 @@
 		Route::post('login','AuthController@postLogin');
 		Route::get('register','AuthController@getRegister');
 		Route::post('register','AuthController@postRegister');
+
+		Route::get('recuperar','ResetController@get');
+		Route::post('recuperar/send','ResetController@send');
+		Route::post('recuperar/codigo','ResetController@codigo');
+		Route::post('recuperar/reenviar','ResetController@reenviar');
+		Route::post('recuperar/recuperar','ResetController@recuperar');
 	});
 	
 	Route::get('logout','AuthController@logout');
+
+	Route::get('destroy',function() {
+		\App\Libraries\Cart::destroy();
+		return Back();
+	});
 
 	// Lang
 	Route::get('lang/{lang}','LangController@change');

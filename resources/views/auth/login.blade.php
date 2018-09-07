@@ -1,45 +1,45 @@
 @extends('layouts.master')
 
 @section('title')
-	Iniciar Sesión
+	@lang('Page.Login.Title')
 @stop
 
 @section('content')
 	<div class="contenido" id="login">
 		<div class="row">
 			<div class="col-md-6 text-center right-line-container">
-				<h2 class="title">Iniciar Sesión</h2>
-				<p>Inicia sesión para poder comprar directamente desde la página web. ¿No estas aun registrado?</p>
+				<h2 class="title">@lang('Page.Login.Title')</h2>
+				<p>@lang('Page.Login.SubTitle')</p>
 				<div class="text-center">
 					<a href="{{ URL('register') }}">
 						<button class="btn btn-default" type="submit">
-							Regístrate
+							@lang('Page.Login.Registrate')
 						</button>
 					</a>
 				</div>
 				<a href="{{ URL('condiciones') }}" class="item-right">
 					{{ HTML::Image('img/icons/right.png') }}
-					Condiciones de Compra
+					@lang('Page.Login.Condiciones')
 				</a>
 				<div class="right-line"></div>
 			</div>
 			<div class="col-md-6 text-center">
 				{{ Form::open(['v-on:submit.prevent' => 'submit()']) }}
 					<div class="form-group">
-						{{ Form::label('email','Correo Electrónico') }}
+						{{ Form::label('email',Lang::get('Page.Login.Email')) }}
 						{{ Form::text('email','',['class' => 'form-control','v-model' => 'form.email']) }}
 					</div>
 					<div class="form-group">
-						{{ Form::label('password','Contraseña') }}
+						{{ Form::label('password',Lang::get('Page.Login.Password')) }}
 						{{ Form::password('password',['class' => 'form-control','v-model' => 'form.password']) }}
 					</div>
 					<div class="text-center">
 						<button class="btn btn-default" type="submit">
-							Entrar
+							@lang('Page.Login.Entrar')
 						</button>
 					</div>
 					<a href="{{ URL('recuperar') }}">
-						¿Has olvidado tu contraseña?
+						@lang('Page.Login.Recuperar')
 					</a>
 				{{ Form::close() }}
 			</div>
@@ -75,7 +75,7 @@
 							}
 						})
 						.catch(err => {
-							swal('',"Se ha producido un error",'warning');
+							swal('',"{{ Lang::get('Page.Error') }}",'warning');
 						})
 						.then(() => {
 							quitLoader();

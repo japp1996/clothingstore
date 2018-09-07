@@ -1,9 +1,45 @@
 // Perfil
 
 #perfil {
+	.bold {
+		font-family: 'Segoe Bold' !important;
+	}
+	.bold-gold {
+		font-family: 'Segoe Bold' !important;
+		color: $dorado;
+	}
 	padding-top: 70px !important;
 	@media (max-width: 991px) {
 		padding-top: 62.88px !important;
+	}
+	table {
+		thead {
+			th {
+				color: $white;
+				font-family: 'Segoe';
+				font-weight: normal;
+				border: 0px !important;
+			}
+		}
+		tbody {
+			td {
+				color: $white;
+				border: 0px !important;
+			}	
+			tr.borderGold > td {
+				border-top: 2px solid $dorado !important;
+			}
+			td.borderWhite {
+				border-top: 1px solid $white !important;
+			}
+		}
+	}
+	.no-items {
+		font-style: italic;
+		font-size: 30px;
+		color: $white;
+		margin-top: 30px;
+		margin-bottom: 30px;
 	}
 	h2 {
 		@include texto();
