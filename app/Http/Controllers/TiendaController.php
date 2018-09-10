@@ -5,6 +5,8 @@
 	use Illuminate\Http\Request;
 	use App\Models\Product;
 	use App\Models\ProductAmount;
+	use App\Models\Category;
+	use App\Models\CategorySize;
 	use App\Libraries\Cart;
 	use Validator;
 	use Lang;
@@ -43,6 +45,21 @@
 	    			'talla' => $request->talla,
 	    			'color' => $request->color
 	    		];
+
+	    		$producto = Product::find($request->id);
+
+	    		$category_size = CategorySize::where('category_id',$producto->category_id)->where('size_id',$request->talla)->first();
+		    	$producto->amount = ProductAmount::where('product_color_id',$request->color)
+																	->where('category_size_id',$category_size->id)
+																	->first();
+
+				if ($request->cantidad > $producto->amount->amount) {
+					return response()->json([
+			    		'result' => false,
+			    		'error' => Lang::get('Page.Carrito.NoCantidad').$producto->amount->amount
+		    		]);
+				}
+
 	    		Cart::set($item);		
 		    	return response()->json([
 		    		'result' => true,

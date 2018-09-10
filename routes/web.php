@@ -30,6 +30,7 @@
 		Route::get('carrito','CarritoController@get');
 		Route::post('carrito/ajax','CarritoController@ajax');
 		Route::post('carrito/delete','CarritoController@delete');
+		Route::post('carrito/check','CarritoController@check');
 		Route::get('mercadopago','MPController@create');
 		Route::get('carrito/response','MPController@response');
 	});

@@ -161,6 +161,7 @@
 			'Paypal' => 'Método de pago unicamente para las personas ubicadas a nivel internacional',
 			'Metodos' => 'Métodos de Pago',
 			'Eliminar' => '¿Desea eliminar el producto?',
+			"NoCantidad" => "Lo sentimos, no hay suficientes unidades del producto. Disponible: "
 		],
 
 		'Tienda' => [

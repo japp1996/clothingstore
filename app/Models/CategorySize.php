@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models;
+    namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+    use Illuminate\Database\Eloquent\Model;
 
-class CategorySize extends Model
-{
-    protected $table="category_size";
-}
+    class CategorySize extends Model {
+        protected $table="category_sizes";
+        
+    }

@@ -161,6 +161,7 @@
 			'Paypal' => 'Payment method only for people located internationally',
 			'Metodos' => 'Payment methods',
 			'Eliminar' => 'Do you want to delete the product?',
+			"NoCantidad" => "Sorry, there are not enough units of the product. Available: "
 		],
 
 		'Tienda' => [
