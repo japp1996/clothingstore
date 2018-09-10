@@ -50,10 +50,10 @@
 		    		$password->codigo = strtoupper(PasswordGenerator::get());
 		    	$password->save();
 
-		    	// Mail::send('emails.reset', ['codigo' => $password->codigo], function ($m) use ($user) {
-		     //        $m->to($user->email)
-		     //          ->subject(Lang::get('Page.ResetPassword.Recuperar').' | Wará');
-		     //    });
+		    	Mail::send('emails.reset', ['codigo' => $password->codigo], function ($m) use ($user) {
+		            $m->to($user->email)
+		              ->subject(Lang::get('Page.ResetPassword.Recuperar').' | Wará');
+		        });
 
 		    	return response()->json([
 		    		'result' => true
@@ -73,10 +73,10 @@
 	    		]);
 	    	}
 
-	    	// Mail::send('emails.reset', ['codigo' => $password->codigo], function ($m) use ($request) {
-	     //        $m->to($request->email)
-	     //          ->subject(Lang::get('Page.ResetPassword.Recuperar').' | Wará');
-	     //    });
+	    	Mail::send('emails.reset', ['codigo' => $password->codigo], function ($m) use ($request) {
+	            $m->to($request->email)
+	              ->subject(Lang::get('Page.ResetPassword.Recuperar').' | Wará');
+	        });
 
 			return response()->json([
 	    		'result' => true

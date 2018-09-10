@@ -30,6 +30,8 @@
 		Route::get('carrito','CarritoController@get');
 		Route::post('carrito/ajax','CarritoController@ajax');
 		Route::post('carrito/delete','CarritoController@delete');
+		Route::get('mercadopago','MPController@create');
+		Route::get('carrito/response','MPController@response');
 	});
 
 	// Perfil
@@ -55,13 +57,25 @@
 		Route::post('recuperar/reenviar','ResetController@reenviar');
 		Route::post('recuperar/recuperar','ResetController@recuperar');
 	});
+
+	Route::group(['middleware' => 'auth'],function() {
+		Route::get('payment', [
+			'as' => 'payment',
+			'uses' => 'PaypalController@postPayment',
+		]);
+
+		Route::get('payment/status', [
+			'as' => 'payment.status',
+			'uses' => 'PaypalController@getPaymentStatus',
+		]);	
+	});
 	
 	Route::get('logout','AuthController@logout');
 
-	Route::get('destroy',function() {
-		\App\Libraries\Cart::destroy();
-		return Back();
-	});
+	// Route::get('destroy',function() {
+	// 	\App\Libraries\Cart::destroy();
+	// 	return Back();
+	// });
 
 	// Lang
 	Route::get('lang/{lang}','LangController@change');

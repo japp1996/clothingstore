@@ -15,12 +15,12 @@
 					@lang('Page.Tienda.Catalogo')
 				</h3>
 			</div>
-			<div class="col-md-6 text-right">
+{{-- 			<div class="col-md-6 text-right">
 				{{ Form::select('moneda',[
 					'1' => Lang::get('Page.Tienda.Bolivar'),
 					'2' => Lang::get('Page.Tienda.Dolar')
 				],'1',['class' => 'form-control','v-model' => 'currency']) }}
-			</div>
+			</div> --}}
 		</div>
 
 		<div class="row row-productos">
@@ -44,15 +44,15 @@
 			</div>
 		</div>
 
-		<div class="text-center" v-if="paginator.total > 1">
+		<div class="text-center" v-if="paginator.last_page > 1">
 			<ul class="pagination justify-content-center">
 	            <li class="page-item disabled" v-if="paginator.current_page == 1">
 	                <span class="page-link">
 	                    <i class="fa fa-angle-left"></i>
 	                </span>
 	            </li>
-	            <li class="page-item">
-	                <a class="page-link" href="#" rel="prev" v-else v-on:click.prevent="load(paginator.from)">
+	            <li class="page-item" v-else>
+	                <a class="page-link" href="#" rel="prev" v-on:click.prevent="load(paginator.current_page - 1)">
 	                    <i class="fa fa-angle-left"></i>
 	                </a>
 	            </li>
@@ -62,7 +62,7 @@
 		            </span>
 		        </li>
 	            <li class="page-item" v-if="paginator.last_page > paginator.current_page">
-	                <a class="page-link" href="#" rel="next" v-on:click.prevent="load(paginator.to)">
+	                <a class="page-link" href="#" rel="next" v-on:click.prevent="load(paginator.current_page + 1)">
 	                    <i class="fa fa-angle-right"></i>
 	                </a>
 	            </li>
@@ -148,7 +148,7 @@
 		  </div>
 		</div>
 	
-		<div class="filtro" v-on:click.stop="close()"></div>
+		<div class="filtro" v-on:click="close()"></div>
 		<div class="filtro-container">
 			<h2>
 				@lang('Page.Tienda.Filtros')
@@ -235,7 +235,7 @@
 		new Vue({
 			el: '#tienda',
 			data: {
-				currency: '1',
+				currency: getCurrency('{{ $_ip }}'),
 				productos: [],
 				producto: null,
 				carrito: [],
@@ -256,12 +256,11 @@
 						left: '0px'
 					},250);
 				},
-				close(event) {
+				close() {
 					$('.filtro').fadeOut();
 					$('.filtro-container').animate({
 						left: '-500px'
 					},250);
-					event.stopPropagation();
 				},
 				load(page = 1) {
 					setLoader();

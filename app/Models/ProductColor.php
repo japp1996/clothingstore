@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Models;
+	namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+	use Illuminate\Database\Eloquent\Model;
 
-class ProductColor extends Model
-{
-    protected $table = "product_colors";
-}
+	class ProductColor extends Model {
+	    protected $table = "product_colors";
+
+	    public function product() {
+	    	return $this->belongsTo(Product::class,'product_id');
+	    }
+	}

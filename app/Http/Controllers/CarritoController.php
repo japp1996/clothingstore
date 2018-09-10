@@ -7,12 +7,13 @@
 	use App\Models\Product;
 	use App\Models\Size;
 	use App\Models\ProductColor;
+	use MP;
 
 	class CarritoController extends Controller {
 	    
-	    public function get() {	    	
+	    public function get() { 	
 	    	return View('carrito.home');
-	    }
+	    }	    	
 
 	    public function ajax(Request $request) {
 	    	$carrito = $this->getCarrito();
@@ -22,7 +23,7 @@
 	    	]);
 	    }
 
-	    private function getCarrito() {
+	    public function getCarrito() {
 	    	$carrito = Cart::get();
 	    	for($n = 0; $n < count($carrito); $n++) {
 	    		$carrito[$n]['producto'] = Product::with(['designs','collections','images','categories' => function($q) {

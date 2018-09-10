@@ -2,6 +2,18 @@
 
 	return [
 
+		"PayPal" => [
+			"Compra" => 'Compra de Productos',
+			'Error' => 'Ups! Algo salió mal',
+			'NoProcesar' => 'No se pudo procesar su compra',
+			'Success' => 'Su compra se ha realizado correctamente'
+		],
+
+		"Errors" => [
+			"Error403" => "Permiso Denegado",
+			"Error404" => "Página no encontrada"
+		],
+
 		'De' => 'de',
 		"Error" => "Se ha producido un error",
 
@@ -125,11 +137,11 @@
 		'Carrito' => [
 			'Title' => 'Carrito de Compras',
 			'Nombre' => 'Nombre Completo',
-			'Precio' => 'Precio (VES)',
-			'PrecioUSD' => 'Precio (USD)',
+			'Precio' => 'Precio',
+			'PrecioUSD' => 'Precio',
 			'Cantidades' => 'Cantidades',
-			'TotalVES' => 'Total (VES)',
-			'TotalUSD' => 'Total (USD)',
+			'TotalVES' => 'Total',
+			'TotalUSD' => 'Total',
 			'Envio' => 'Empresa de envio',
 			'Total' => 'Total',
 			'Talla' => 'Talla',

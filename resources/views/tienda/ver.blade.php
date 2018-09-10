@@ -15,12 +15,12 @@
 					</h3>
 				</a>
 			</div>
-			<div class="col-md-6 text-right">
+{{-- 			<div class="col-md-6 text-right">
 				{{ Form::select('moneda',[
 					'1' => Lang::get('Page.Tienda.Bolivar'),
 					'2' => Lang::get('Page.Tienda.Dolar')
 				],'1',['class' => 'form-control','v-model' => 'currency']) }}
-			</div>
+			</div> --}}
 		</div>
 
 		<div class="row producto-container" v-if="producto != null">
@@ -99,7 +99,7 @@
 		new Vue({
 			el: '#ver-producto',
 			data: {
-				currency: '1',
+				currency: getCurrency('{{ $_ip }}'),
 				producto: null,
 				carrito: [],
 				form: {

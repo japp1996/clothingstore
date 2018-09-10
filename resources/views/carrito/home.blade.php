@@ -15,12 +15,12 @@
 				<thead>
 					<tr>
 						<th>@lang('Page.Carrito.Nombre')</th>
-						<th>@lang('Page.Carrito.Precio')</th>
-						<th>@lang('Page.Carrito.PrecioUSD')</th>
+						<th v-if="currency == '1'">@lang('Page.Carrito.Precio')</th>
+						<th v-if="currency == '2'">@lang('Page.Carrito.PrecioUSD')</th>
 						<th>@lang('Page.Carrito.Cantidades')</th>
-						<th>@lang('Page.Carrito.TotalVES')</th>
-						<th>@lang('Page.Carrito.TotalUSD')</th>
-						<th style="width: 20px"></th>
+						<th v-if="currency == '1'">@lang('Page.Carrito.TotalVES')</th>
+						<th v-if="currency == '2'">@lang('Page.Carrito.TotalUSD')</th>
+						<th style="width: 50px"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -35,8 +35,8 @@
 							</p>
 							<p style="line-height: 0.8;">@lang('Page.Carrito.Talla'): @{{ item.producto.talla.name }}, @lang('Page.Carrito.Color'): @if (\App::getLocale() == 'es') @{{ item.producto.color.name }} @else @{{ item.producto.color.name_english }} @endif</p>
 						</td>
-						<td>@{{ item.producto.price_1 | VES }}</td>
-						<td>@{{ item.producto.price_1 | USD }}</td>
+						<td v-if="currency == '1'">@{{ item.producto.price_1 | VES }}</td>
+						<td v-if="currency == '2'">@{{ item.producto.price_1 | USD }}</td>
 						<td>
 							<div class="item-cantidad">
 								<button class="btn btn-default remove" v-on:click="item.cantidad > 1 ? item.cantidad-- : null; update(item)">
@@ -48,8 +48,8 @@
 								</button>
 							</div>
 						</td>
-						<td>@{{ (item.producto.price_1 * item.cantidad) | VES }}</td>
-						<td>@{{ (item.producto.price_1 * item.cantidad) | USD }}</td>
+						<td v-if="currency == '1'">@{{ (item.producto.price_1 * item.cantidad) | VES }}</td>
+						<td v-if="currency == '2'">@{{ (item.producto.price_1 * item.cantidad) | USD }}</td>
 						<td>
 							<button class="btn btn-default" v-on:click="eliminar(index)">
 								<i class="fa fa-close"></i>
@@ -57,10 +57,10 @@
 						</td>
 					</tr>
 					<tr v-if="carrito.length > 0">
+						{{-- <td></td> --}}
 						<td></td>
 						<td></td>
-						<td></td>
-						<td colspan="2" class="text-center envio">
+						<td class="envio">
 							@lang('Page.Carrito.Envio')
 						</td>
 						<td class="envio">
@@ -71,10 +71,9 @@
 					<tr v-if="carrito.length > 0">
 						<td class="empty"></td>
 						<td class="empty"></td>
-						<td class="empty"></td>
 						<td class="total">@lang('Page.Carrito.Total')</td>
-						<td class="total total-gold">@{{ getTotal() | VES }}</td>
-						<td class="total total-gold">@{{ getTotalUsd() | USD }}</td>
+						<td v-if="currency == '1'" class="total total-gold">@{{ getTotal() | VES }}</td>
+						<td v-if="currency == '2'" class="total total-gold">@{{ getTotalUsd() | USD }}</td>
 						<td></td>
 					</tr>
 				</tbody>
@@ -110,6 +109,14 @@
 		        			<button class="btn btn-default" data-dismiss="modal">
 		        				@lang('Page.Carrito.Aceptar')
 		        			</button>
+		        		</div>
+		        	</div>
+		        	<div v-if="tipo_alerta == 3">
+		        		<p>@lang('Page.PayPal.NoProcesar')</p>
+		        		<div class="text-center">
+		        			<a href="#" data-dismiss="modal">
+		        				{{ HTML::Image('img/icons/check.png') }}
+		        			</a>
 		        		</div>
 		        	</div>
 		        </div>
@@ -153,19 +160,23 @@
 		        <div class="modal-container">
 		        	<h3 class="title title-line">@lang('Page.Carrito.Metodos')</h3>
 		        	<div class="row">
-		        		<div class="col-md-6 text-center">
+		        		<div class="col-md-6 offset-md-3 text-center" v-if="currency == '1'">
 		        			{{ HTML::Image('img/mercadopago.png','',['class' => 'img-pago']) }}
 		        			<p>@lang('Page.Carrito.MercadoPago')</p>
-		        			<button class="btn btn-default">
-		        				@lang('Page.Carrito.Seleccionar')
-		        			</button>
+		        			<a href="{{ URL('mercadopago') }}">
+		        				<button class="btn btn-default">
+		        					@lang('Page.Carrito.Seleccionar')
+		        				</button>
+		        			</a>
 		        		</div>
-		        		<div class="col-md-6 text-center">
+		        		<div class="col-md-6 offset-md-3 text-center" v-if="currency == '2'">
 		        			{{ HTML::Image('img/paypal.png','',['class' => 'img-pago']) }}
 		        			<p>@lang('Page.Carrito.Paypal')</p>
-		        			<button class="btn btn-default">
-		        				@lang('Page.Carrito.Seleccionar')
-		        			</button>
+		        			<a href="{{ URL('payment') }}">
+		        				<button class="btn btn-default">
+		        					@lang('Page.Carrito.Seleccionar')
+		        				</button>
+		        			</a>
 		        		</div>
 		        	</div>
 		        </div>
@@ -182,7 +193,8 @@
 			el: '#carrito',
 			data: {
 				tipo_alerta: '1',
-				carrito: []
+				carrito: [],
+				currency: getCurrency('{{ $_ip }}')
 			},
 			created() {
 				this.load();
@@ -222,6 +234,12 @@
 							if (res.data.result) {
 								this.carrito = res.data.carrito;
 								vue_header.cart = this.carrito.length;
+								if ('{{ Session('success') }}' != '') {
+									this.alerta(1);
+								}
+								else if ('{{ Session('errors') }}' != '') {
+									this.alerta(3);
+								}
 							}
 						})
 						.catch(err => {

@@ -73,11 +73,11 @@
 	    			'mensaje' => $request->mensaje
 	    		];
 
-	    		// Mail::send('emails.contacto',$data, function ($m) use ($request) {
-		     //        $m->to(env('MAIL_CONTACTO'))
-		     //          ->from($request->email,$request->nombre)
-		     //          ->subject(Lang::get('Page.Contacto.Correo.Title').' | Wará');
-		     //    });
+	    		Mail::send('emails.contacto',$data, function ($m) use ($request) {
+		            $m->to(env('MAIL_CONTACTO'))
+		              ->from($request->email,$request->nombre)
+		              ->subject(Lang::get('Page.Contacto.Correo.Title').' | Wará');
+		        });
 
 	    		return response()->json([
 	    			'result' => true
