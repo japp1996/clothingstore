@@ -10,4 +10,8 @@
 	    public function details() {
 	    	return $this->hasMany('App\Models\PurchaseDetails','purchase_id');
 	    }
+
+	    public function exchange() {
+	    	return $this->belongsTo('App\Models\ExchangeRate','exchange_rate_id');
+	    }
 	}

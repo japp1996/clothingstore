@@ -23,6 +23,10 @@
 			</div> --}}
 		</div>
 
+		<p class="etiqueta" v-if="catalogo_selected == 1"><i class="fa fa-close" v-on:click="catalogo = 0; load()"></i>Catálogo de Dama</p>
+		<p class="etiqueta" v-if="catalogo_selected == 2"><i class="fa fa-close" v-on:click="catalogo = 0; load()"></i>Catálogo de Caballero</p>
+		<p class="etiqueta" v-if="catalogo_selected == 3"><i class="fa fa-close" v-on:click="catalogo = 0; load()"></i>Catálogo de Niño</p>
+
 		<div class="row row-productos">
 			<div class="col-lg-3 col-md-4 col-sm-6" v-for="item in productos">
 				<div class="container-item">
@@ -33,8 +37,8 @@
 						<a :href="'{{ URL('tienda/ver') }}' + '/' + item.id">
 							<h4>@if (\App::getLocale() == 'es') @{{ item.name }} @else @{{ item.name_english }} @endif</h4>
 						</a>
-						<p v-if="currency == 1">@{{ item.price_1 | VES }}</p>
-						<p v-if="currency == 2">@{{ item.price_1 | USD }}</p>
+						<p v-if="currency == 1">@{{ getPrice(item.price_1,item.coin) | VES }}</p>
+						<p v-if="currency == 2">@{{ getPrice(item.price_1,item.coin) | USD }}</p>
 					</div>
 					<button class="btn btn-default" v-on:click="ver(item)" :disabled="inCarrito(item.id)">
 						<template v-if="!inCarrito(item.id)">{{ HTML::Image('img/icons/cart_gold.png') }}</template>
@@ -79,8 +83,10 @@
 		    <div class="modal-content">
 		      <div class="modal-body">
 		        <div class="row" v-if="producto != null">
-		        	<div class="col-md-4 image-modal" :style="{ backgroundImage: 'url({{ URL('img/products') }}' + '/' + producto.images[0].file + ')' }">
-		        		<img class="img-principal" :src="'{{ URL('img/products') }}' + '/' + producto.images[0].file" />
+		        	<div class="col-md-4 image-modal" :style="{ backgroundImage: 'url({{ URL('img/products') }}' + '/' + producto.images[producto.file_selected].file + ')' }">
+		        		<i class="fa fa-chevron-left" v-on:click="producto.file_selected == 0 ? (producto.file_selected = producto.images.length - 1) : producto.file_selected--"></i>
+		        			<img class="img-principal" :src="'{{ URL('img/products') }}' + '/' + producto.images[0].file" />
+		        		<i class="fa fa-chevron-right" v-on:click="producto.file_selected == producto.images.length -1 ? producto.file_selected = 0 : producto.file_selected++"></i>
 		        	</div>
 		        	<div class="col-md-8">
 		        		<div class="container-texto">
@@ -121,12 +127,12 @@
 		        			<div class="container-description">
 		        				<h4>@if (\App::getLocale() == 'es') @{{ producto.name }} @else @{{ producto.name_english }} @endif</h4>
 		        				<template v-if="form.cantidad < 12">
-		        					<p class="precio" v-if="currency == 1">@{{ producto.price_1 | VES }}</p>
-		        					<p class="precio" v-if="currency == 2">@{{ producto.price_1 | USD }}</p>
+		        					<p class="precio" v-if="currency == 1">@{{ getPrice(producto.price_1,producto.coin) | VES }}</p>
+		        					<p class="precio" v-if="currency == 2">@{{ getPrice(producto.price_1,producto.coin) | USD }}</p>
 		        				</template>
 		        				<template v-if="form.cantidad >= 12">
-		        					<p class="precio" v-if="currency == 1">@{{ producto.price_2 | VES }}</p>
-		        					<p class="precio" v-if="currency == 2">@{{ producto.price_2 | USD }}</p>
+		        					<p class="precio" v-if="currency == 1">@{{ getPrice(producto.price_2,producto.coin) | VES }}</p>
+		        					<p class="precio" v-if="currency == 2">@{{ getPrice(producto.price_2,producto.coin) | USD }}</p>
 		        				</template>
 		        				<p class="almayor" v-if="form.cantidad >= 12">@lang('Page.Tienda.Mayor')</p>
 		        				<p class="almayor" v-if="form.cantidad < 12">@lang('Page.Tienda.Detal')</p>
@@ -162,38 +168,66 @@
 			</h3>
 			<ul>
 				<li>
-					@lang('Page.Tienda.Detal')
-					<ul style="">
-						<li>
+					{{-- @lang('Page.Tienda.Detal') --}}
+					<ul>
+						<li v-on:click="catalogo = 0">
 							<div class="form-check">
 							  <label class="form-check-label">
-							    <input type="radio" class="form-check-input" name="detal">@lang('Page.Tienda.Todos')
-							  </label>
-							</div></li>
-						<li>
-							<div class="form-check">
-							  <label class="form-check-label">
-							    <input type="radio" class="form-check-input" name="detal">@lang('Page.Tienda.Dama')
+							    <input type="radio" class="form-check-input" v-model="catalogo" value="0" name="detal"><span>@lang('Page.Tienda.Todos')</span>
 							  </label>
 							</div>
 						</li>
-						<li>
+						<li v-on:click="catalogo = 1" class="item-desplegable">
 							<div class="form-check">
 							  <label class="form-check-label">
-							    <input type="radio" class="form-check-input" name="detal">@lang('Page.Tienda.Caballero')
+							    <input type="radio" class="form-check-input" v-model="catalogo" value="1" name="detal"><span>@lang('Page.Tienda.Dama')</span>
 							  </label>
 							</div>
+							<ul v-if="catalogo == 1">
+								<li v-for="i in categorias" v-if="i.catalogue == 1">
+									<div class="form-check">
+									  <label class="form-check-label">
+									    <input type="checkbox" :value="i.id" v-model="categorias_selected" class="form-check-input"><span>@if (\App::getLocale() == 'es') @{{ i.name }} @else @{{ i.name_english }} @endif</span>
+									  </label>
+									</div>
+								</li>
+							</ul>
 						</li>
-						<li>
+						<li v-on:click="catalogo = 2" class="item-desplegable">
 							<div class="form-check">
 							  <label class="form-check-label">
-							    <input type="radio" class="form-check-input" name="detal">@lang('Page.Tienda.Ninos')
+							    <input type="radio" class="form-check-input" v-model="catalogo" value="2" name="detal"><span>@lang('Page.Tienda.Caballero')</span>
 							  </label>
 							</div>
+							<ul v-if="catalogo == 2">
+								<li v-for="i in categorias" v-if="i.catalogue == 2">
+									<div class="form-check">
+									  <label class="form-check-label">
+									    <input type="checkbox" :value="i.id" v-model="categorias_selected" class="form-check-input"><span>@if (\App::getLocale() == 'es') @{{ i.name }} @else @{{ i.name_english }} @endif</span>
+									  </label>
+									</div>
+								</li>
+							</ul>
+						</li>
+						<li v-on:click="catalogo = 3" class="item-desplegable">
+							<div class="form-check">
+							  <label class="form-check-label">
+							    <input type="radio" class="form-check-input" v-model="catalogo" value="3" name="detal"><span>@lang('Page.Tienda.Ninos')</span>
+							  </label>
+							</div>
+							<ul v-if="catalogo == 3">
+								<li v-for="i in categorias" v-if="i.catalogue == 3">
+									<div class="form-check">
+									  <label class="form-check-label">
+									    <input type="checkbox" :value="i.id" v-model="categorias_selected" class="form-check-input"><span>@if (\App::getLocale() == 'es') @{{ i.name }} @else @{{ i.name_english }} @endif</span>
+									  </label>
+									</div>
+								</li>
+							</ul>
 						</li>
 					</ul>
 				</li>
-				<li>
+{{-- 				<li>
 					@lang('Page.Tienda.Mayor')
 					<ul>
 						<li>
@@ -224,8 +258,13 @@
 							</div>
 						</li>
 					</ul>
-				</li>
+				</li> --}}
 			</ul>
+			<div class="text-center">
+				<button class="btn btn-default" v-on:click="close(); load()">
+					Filtrar
+				</button>
+			</div>
 		</div>
 	</div>
 @stop
@@ -240,6 +279,12 @@
 				producto: null,
 				carrito: [],
 				paginator: {},
+				exchange: '{{ $_change }}',
+				catalogo: 0,
+				catalogo_selected: 0,
+				categorias: [],
+				categorias_selected: [],
+				page: 1,
 				form: {
 					talla: '',
 					color: '',
@@ -249,6 +294,11 @@
 			created() {
 				this.load();
 			},
+			// watch: {
+			// 	catalogo(item) {
+			// 		this.categorias_selected = [];
+			// 	}
+			// },
 			methods: {
 				filtro() {
 					$('.filtro').fadeIn();
@@ -262,14 +312,35 @@
 						left: '-500px'
 					},250);
 				},
-				load(page = 1) {
+				getPrice(precio,coin) {
+					let price = precio;
+					if (coin == '1' && this.currency == '2') {
+						price = price / this.exchange;
+					}
+					else if (coin == '2' && this.currency == '1') {
+						price = price * this.exchange;
+					}
+					return price;
+				},
+				load(page = null) {
+					if (page != null)
+						this.page = page;
 					setLoader();
-					axios.post('{{ URL('tienda/ajax') }}?page=' + page)
+					axios.post('{{ URL('tienda/ajax') }}?page=' + this.page,{
+						categorias: this.categorias_selected,
+						catalogo: this.catalogo == 0 ? null : this.catalogo
+					})
 						.then(res => {
 							if (res.data.result) {
+								res.data.productos.data.forEach(item => {
+									item.file_selected = 0;
+								});
 								this.paginator = res.data.productos;
 								this.productos = res.data.productos.data;
 								this.carrito = res.data.carrito;
+								this.categorias = res.data.categorias;
+								vue_header.cart = this.carrito.length;
+								this.catalogo_selected = this.catalogo;
 							}
 						})
 						.catch(err => {
@@ -282,6 +353,11 @@
 				},
 				ver(item) {
 					this.producto = item;
+					this.form = {
+						talla: '',
+						color: '',
+						cantidad: 1
+					}
 					$('#modal-producto').modal();
 				},
 				getTallas(tallas) {
@@ -309,9 +385,10 @@
 					axios.post('{{ URL('tienda/add') }}',item)
 						.then(res => {
 							if (res.data.result) {
+								this.load();
 								swal('','{{ Lang::get('Page.Tienda.Agregado') }}','success');
-								this.carrito = res.data.carrito;
-								vue_header.cart = this.carrito.length;
+								// this.carrito = res.data.carrito;
+								// vue_header.cart = this.carrito.length;
 								$('#modal-producto').modal('hide');
 							}
 							else {

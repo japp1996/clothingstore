@@ -89,6 +89,12 @@
 							</div>
 						</div>
 					</div>
+					<div class="form-check">
+					  <input class="form-check-input" type="checkbox" id="check-terminos" v-model="terminos">
+					  <label class="form-check-label" for="check-terminos">
+					    @lang('Page.Register.HeLeido',['url' => \URL('terminos')])
+					  </label>
+					</div>
 					<div class="text-center">
 						<button class="btn btn-default" type="submit">
 							@lang('Page.Register.Registrar')
@@ -105,6 +111,7 @@
 		new Vue({
 			el: '#register',
 			data: {
+				terminos: false,
 				form: {
 					nombre: '',
 					password: '',
@@ -123,6 +130,10 @@
 			},
 			methods: {
 				submit() {
+					if (!this.terminos) {
+						swal('','{{ Lang::get('Page.Register.Terminos') }}','warning');
+						return false;
+					}
 					setLoader();
 					axios.post("{{ URL('register') }}",this.form)
 						.then(res => {

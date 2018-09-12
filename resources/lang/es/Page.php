@@ -47,6 +47,10 @@
 			'DHL' => 'Condiciones de Envío con DHL'
 		],
 
+		"Terminos" => [
+			'Title' => "Términos y Condiciones"
+		],
+
 		'Nosotros' => [
 			'Title' => '¿Quiénes Somos?',
 			'Mision' => 'Misión',
@@ -131,7 +135,9 @@
 			'Direccion' => 'Dirección',
 			'RePassword' => 'Repetir Contraseña',
 			'Natural' => 'Persona Natural',
-			'Juridica' => 'Persona Jurídica'
+			'Juridica' => 'Persona Jurídica',
+			'Terminos' => 'Debe aceptar los términos y condiciones para continuar',
+			'HeLeido' => 'He leído y acepto los <a target="_blank" href=":url">términos y condiciones</a> de uso.'
 		],
 
 		'Carrito' => [
@@ -155,13 +161,15 @@
 			'Aceptar' => 'Aceptar',
 			'Cancelar' => 'Cancelar',
 			'Piezas' => 'Al registrarse de modo persona jurídica el mínimo de piezas es 12 (al mayor).',
+			'PiezasName' => 'Al registrarse de modo persona jurídica el mínimo de piezas es 12 (al mayor). Producto: :producto',
 			'Exito' => 'Su pago se ha registrado con éxito',
 			'Seleccionar' => 'Seleccionar',
 			'MercadoPago' => 'Método de pago unicamente para las personas ubicadas en Venezuela',
 			'Paypal' => 'Método de pago unicamente para las personas ubicadas a nivel internacional',
 			'Metodos' => 'Métodos de Pago',
 			'Eliminar' => '¿Desea eliminar el producto?',
-			"NoCantidad" => "Lo sentimos, no hay suficientes unidades del producto. Disponible: "
+			"NoCantidad" => 'Lo sentimos, no hay suficientes unidades del producto. Disponible: ',
+			"NoCantidadProducto" => 'Lo sentimos, no hay suficientes unidades del producto ":producto". Disponible: :cantidad'
 		],
 
 		'Tienda' => [

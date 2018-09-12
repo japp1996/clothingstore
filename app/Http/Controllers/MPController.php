@@ -26,6 +26,14 @@
 	    	$productos = \App('\App\Http\Controllers\CarritoController')->getCarrito();
 
 	    	$preferenceData = [
+	    		"auto_return" => "approved",
+	    		"default_payment_method_id" => "credit_card",
+	    		"payment_methods" => [
+			        "excluded_payment_types" => [
+			        	["id" => "atm"],
+			            ["id" => "ticket"]
+			        ]
+			    ],
 		    	"back_urls" => [
 			      "success" => URL('carrito/response'),
 			      "failure" => URL('carrito/response')
@@ -38,7 +46,12 @@
 					"title" => \App::getLocale() == 'es' ? $producto['producto']['name'] : $producto['producto']['name_english'],
 		            "quantity" => $producto['cantidad'],
 		            "currency_id" => $currency,
-		            "unit_price" => $producto['producto']['price_1']
+		            "unit_price" => \App('\App\Http\Controllers\CarritoController')->getPrice(
+		            	$producto['producto']['price_1'],
+	    				$producto['producto']['price_2'],
+	    				$producto['producto']['coin'],
+	    				$producto['cantidad']
+		            )
 	    		 ];
 	    	}
 
@@ -57,6 +70,11 @@
 			if ($payment_id == $request->preference_id) {
 				if ($request->collection_status) {
 					Cart::destroy();
+					\App('\App\Http\Controllers\CarritoController')->pay([
+						"type" => '1',
+						"code" => $payment_id,
+						"transaction" => $request
+					]);
 					return Redirect('carrito')->with('success', Lang::get('Page.PayPal.Success'));
 				}
 				return Redirect('carrito')->with('errors', Lang::get('Page.PayPal.NoProcesar'));

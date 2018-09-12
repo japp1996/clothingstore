@@ -47,6 +47,10 @@
 			'DHL' => 'Shipping conditions with DHL'
 		],
 
+		"Terminos" => [
+			'Title' => "Terms and Conditions"
+		],
+
 		'Nosotros' => [
 			'Title' => 'About Us',
 			'Mision' => 'Mission',
@@ -131,7 +135,9 @@
 			'Direccion' => 'Address',
 			'RePassword' => 'Repeat Password',
 			'Natural' => 'Natural person',
-			'Juridica' => 'Legal person'
+			'Juridica' => 'Legal person',
+			'Terminos' => 'You must accept the terms and conditions to continue',
+			'HeLeido' => 'I have read and accept the <a target="_blank" href=":url">terms and conditions</a> of use.'
 		],
 
 		'Carrito' => [
@@ -155,13 +161,15 @@
 			'Aceptar' => 'Accept',
 			'Cancelar' => 'Cancel',
 			'Piezas' => 'When registering as a legal entity, the minimum number of pieces is 12 (the largest).',
+			'PiezasName' => 'Al registrarse de modo persona jurídica el mínimo de piezas es 12 (al mayor). Product: :producto',
 			'Exito' => 'Your payment has been successfully registered',
 			'Seleccionar' => 'Select',
 			'MercadoPago' => 'Payment method only for people located in Venezuela',
 			'Paypal' => 'Payment method only for people located internationally',
 			'Metodos' => 'Payment methods',
 			'Eliminar' => 'Do you want to delete the product?',
-			"NoCantidad" => "Sorry, there are not enough units of the product. Available: "
+			"NoCantidad" => 'Sorry, there are not enough units of the product. Available: ',
+			"NoCantidadProducto" => 'Sorry, there are not enough units of the product ":producto". Available: :cantidad'
 		],
 
 		'Tienda' => [

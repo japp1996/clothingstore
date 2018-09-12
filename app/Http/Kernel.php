@@ -21,6 +21,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\LangMiddleware::class,
         \App\Http\Middleware\SocialMiddleware::class,
         \App\Http\Middleware\IpMiddleware::class,
+        \App\Http\Middleware\ExchangeMiddleware::class,
     ];
 
     /**

@@ -32,11 +32,11 @@
 }
 
 @mixin size() {
-  min-height: calc(100vh - 64px);
+  min-height: calc(100vh - 84px);
 }
 
 @mixin sizePerfil() {
-  min-height: calc(100vh - 64px - 70px);
+  min-height: calc(100vh - 84px - 70px);
   @media (max-width: 991px) {
     min-height: auto !important;
   }

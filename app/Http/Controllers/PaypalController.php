@@ -50,10 +50,22 @@
 					 ->setCurrency($currency)
 					 ->setDescription(\App::getLocale() == 'es' ? $producto['producto']['name'] : $producto['producto']['name_english'])
 					 ->setQuantity($producto['cantidad'])
-					 ->setPrice($producto['producto']['price_1']);
+					 ->setPrice(
+					 	\App('\App\Http\Controllers\CarritoController')->getPrice(
+			            	$producto['producto']['price_1'],
+		    				$producto['producto']['price_2'],
+		    				$producto['producto']['coin'],
+		    				$producto['cantidad']
+			            )
+					 );
 
 				$items[] = $item;
-				$total += $producto['producto']['price_1'] * $producto['cantidad'];
+				$total += \App('\App\Http\Controllers\CarritoController')->getPrice(
+				            	$producto['producto']['price_1'],
+			    				$producto['producto']['price_2'],
+			    				$producto['producto']['coin'],
+			    				$producto['cantidad']
+				            ) * $producto['cantidad'];
 			}
 
 			$item_list = new ItemList();
@@ -136,6 +148,11 @@
 
 			if ($result->getState() == 'approved') {
 				Cart::destroy();
+				\App('\App\Http\Controllers\CarritoController')->pay([
+					"type" => '2',
+					"code" => $payment_id,
+					"transaction" => $request,
+				]);
 				return \Redirect('carrito')
 					->with('success', Lang::get('Page.PayPal.Success'));
 			}

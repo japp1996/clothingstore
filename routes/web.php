@@ -11,6 +11,7 @@
 	
 	Route::get('aliados','HomeController@aliados')->middleware('active:4');
 	Route::get('condiciones','HomeController@condiciones');
+	Route::get('terminos','HomeController@terminos');
 	Route::get('contacto','HomeController@getContacto');
 	Route::post('contacto','HomeController@postContacto');
 
@@ -73,10 +74,10 @@
 	
 	Route::get('logout','AuthController@logout');
 
-	// Route::get('destroy',function() {
-	// 	\App\Libraries\Cart::destroy();
-	// 	return Back();
-	// });
+	Route::get('destroy',function() {
+		\App\Libraries\Cart::destroy();
+		return Back();
+	});
 
 	// Lang
 	Route::get('lang/{lang}','LangController@change');

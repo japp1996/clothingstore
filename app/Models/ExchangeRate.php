@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Models;
+	namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+	use Illuminate\Database\Eloquent\Model;
 
-class ExchangeRate extends Model
-{
-    //
-}
+	class ExchangeRate extends Model {
+	    protected $table="exchange_rates";
+	}
