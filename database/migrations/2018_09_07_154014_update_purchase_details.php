@@ -13,7 +13,7 @@ class UpdatePurchaseDetails extends Migration
      */
     public function up()
     {
-        Schema::rename('purchase_deatils', 'purchase_details');
+        // Schema::rename('purchase_deatils', 'purchase_details');
     }
 
     /**
@@ -23,6 +23,6 @@ class UpdatePurchaseDetails extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('purchase_details');
+        // Schema::dropIfExists('purchase_details');
     }
 }

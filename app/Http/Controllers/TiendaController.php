@@ -10,6 +10,7 @@
 	use App\Libraries\Cart;
 	use Validator;
 	use Lang;
+	use Auth;
 
 	class TiendaController extends Controller {
 	    
@@ -39,6 +40,13 @@
 	    		]);
 	    	}
 	    	else {
+	    		if (Auth::check() && Auth::user()->type == '2' && $request->cantidad < 12) {
+					return response()->json([
+		    			'result' => false,
+		    			'error' => Lang::get('Page.Carrito.Piezas')
+		    		]);
+	    		}
+
 	    		$item = [
 	    			'cantidad' => $request->cantidad,
 	    			'id' => $request->id,
@@ -80,16 +88,26 @@
 	    }
 
 	    public function ajax(Request $request) {
-	    	$productos = Product::with(['designs','collections','images' => function($q) {
-	    		$q->where('main','1');
-	    	},'categories' => function($q) {
+	    	$query = Product::with(['designs','collections','images','categories' => function($q) {
 	    		$q->with(['sizes']);
-	    	},'colors'])->where('status','1')->paginate(8);
+	    	},'colors']);
+
+	    	if ($request->has('catalogo')) {
+	    		$query->where('catalogue',$request->catalogo);
+	    		if ($request->has('categorias') && count($request->categorias) > 0) {
+		    		$query->whereIn('category_id',$request->categorias);
+		    	}
+	    	}    	
+
+	    	$productos = $query->where('status','1')->paginate(8);
+
+	    	$categorias = Category::orderBy('name','asc')->get();
 
 	    	return response()->json([
 	    		'result' => true,
 	    		'productos' => $productos,
-	    		'carrito' => Cart::get()
+	    		'carrito' => Cart::get(),
+	    		'categorias' => $categorias
 	    	]);
 	    }
 	}

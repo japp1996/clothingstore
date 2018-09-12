@@ -51,9 +51,9 @@
 			Cookie::queue(self::$name,self::$items, 2628000);
 		}
 
-		public static function delete($index) {
+		public static function delete($id) {
 			self::init();
-			unset(self::$items[$index]);
+			array_splice(self::$items,self::in($id,true),1);
 			Cookie::queue(self::$name,self::$items, 2628000);
 		}
 

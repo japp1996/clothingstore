@@ -6,16 +6,17 @@
 
 	class PurchaseDetails extends Model {
 	    protected $table="purchase_details";
+	    protected $appends = ['product'];
 
 	    public function purchase() {
 	    	return $this->belongsTo('App\Models\Purchase','purchase_id');
 	    }
 
 	    public function product_amount() {
-	    	return $this->belongsToMany(ProductAmount::class, 'product_amount_id');
+	    	return $this->belongsTo('App\Models\ProductAmount','product_amount_id');
 	    }
 
-	    public function product() {
-	    	return $this->product_amount()->product_color()->product();
-	    }
+	    public function getProductAttribute($value) {
+		    return $this->product_amount->product_color->product;
+		}
 	}

@@ -24,20 +24,25 @@
 		</div>
 
 		<div class="row producto-container" v-if="producto != null">
-        	<div class="col-md-4 image-modal" :style="{ backgroundImage: 'url({{ URL('img/products') }}' + '/' + producto.images[0].file + ')' }">
-        		<img class="img-principal" :src="'{{ URL('img/products') }}' + '/' + producto.images[0].file" />
+        	<div class="col-md-4 image-modal" :style="{ backgroundImage: 'url({{ URL('img/products') }}' + '/' + producto.images[producto.file_selected].file + ')' }">
+        		<i class="fa fa-chevron-left" v-on:click="producto.file_selected == 0 ? (producto.file_selected = producto.images.length - 1) : producto.file_selected--"></i>
+        			<img class="img-principal" :src="'{{ URL('img/products') }}' + '/' + producto.images[0].file" />
+        		<i class="fa fa-chevron-right" v-on:click="producto.file_selected == producto.images.length -1 ? producto.file_selected = 0 : producto.file_selected++"></i>
+{{--         		<div class="owl-carousel owl-theme">
+				    <div class="item" v-for="i in producto.images" :style="{ backgroundImage: 'url({{ URL('img/products') }}' + '/' + i.file + ')' }"></div>
+				</div> --}}
         	</div>
         	<div class="col-md-8">
         		<div class="container-texto">
         			<div class="container-description">
         				<h4>@if (\App::getLocale() == 'es') @{{ producto.name }} @else @{{ producto.name_english }} @endif</h4>
         				<template v-if="form.cantidad < 12">
-        					<p class="precio" v-if="currency == 1">@{{ producto.price_1 | VES }}</p>
-        					<p class="precio" v-if="currency == 2">@{{ producto.price_1 | USD }}</p>
+        					<p class="precio" v-if="currency == 1">@{{ getPrice(producto.price_1,producto.coin) | VES }}</p>
+        					<p class="precio" v-if="currency == 2">@{{ getPrice(producto.price_1,producto.coin) | USD }}</p>
         				</template>
         				<template v-if="form.cantidad >= 12">
-        					<p class="precio" v-if="currency == 1">@{{ producto.price_2 | VES }}</p>
-        					<p class="precio" v-if="currency == 2">@{{ producto.price_2 | USD }}</p>
+        					<p class="precio" v-if="currency == 1">@{{ getPrice(producto.price_2,producto.coin) | VES }}</p>
+        					<p class="precio" v-if="currency == 2">@{{ getPrice(producto.price_2,producto.coin) | USD }}</p>
         				</template>
         				<p class="almayor" v-if="form.cantidad >= 12">@lang('Page.Tienda.Mayor')</p>
 		        		<p class="almayor" v-if="form.cantidad < 12">@lang('Page.Tienda.Detal')</p>
@@ -95,6 +100,7 @@
 @stop
 
 @section('scripts')
+	{{ HTML::Script('bower_components/owl-carousel/dist/owl.carousel.min.js') }}
 	<script type="text/javascript">
 		new Vue({
 			el: '#ver-producto',
@@ -102,6 +108,7 @@
 				currency: getCurrency('{{ $_ip }}'),
 				producto: null,
 				carrito: [],
+				exchange: '{{ $_change }}',
 				form: {
 					talla: '',
 					color: '',
@@ -117,9 +124,11 @@
 					axios.post('{{ URL('tienda/get') }}',{id: '{{ $id }}'})
 						.then(res => {
 							if (res.data.result) {
+								res.data.producto.file_selected = 0;
 								this.producto = res.data.producto;
 								this.carrito = res.data.carrito;
 								this.updateCarrito();
+								// this.carousel();
 							}
 						})
 						.catch(err => {
@@ -130,6 +139,19 @@
 							quitLoader();
 						});
 				},
+				// carousel() {
+				// 	setTimeout(() => {
+				// 		$('.owl-carousel').owlCarousel({
+				// 	        loop: true,
+				// 	        margin: 20,
+				// 	        nav: false,
+				// 	        autoplay: true,
+				// 	        autoplayTimeout: 2000,
+				// 	        autoplayHoverPause: true,
+				// 	        dots: false
+				// 	    });
+				// 	},100);					
+				// },
 				getTallas(tallas) {
 					let respuesta = "";
 					tallas.forEach((item,index) => {
@@ -143,6 +165,16 @@
 						respuesta += @if (\App::getLocale() == 'es') item.name @else item.name_english @endif + (index + 1 == colores.length ? '' : ', ');
 					});
 					return respuesta;
+				},
+				getPrice(precio,coin) {
+					let price = precio;
+					if (coin == '1' && this.currency == '2') {
+						price = price / this.exchange;
+					}
+					else if (coin == '2' && this.currency == '1') {
+						price = price * this.exchange;
+					}
+					return price;
 				},
 				add() {
 					setLoader();
@@ -190,3 +222,7 @@
 		})
 	</script>
 @stop
+
+{{-- @section('styles')
+	{{ HTML::Style("bower_components/owl-carousel/dist/assets/owl.carousel.min.css") }}
+@stop --}}

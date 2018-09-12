@@ -106,16 +106,16 @@
 							</thead>
 							<tbody>
 								<template v-for="item in pedidos">
-									<tr v-for="(i,index) in item.productos" :class="{ borderGold: index == 0 }">
-										<td>@{{ (index == 0 ? (item.fecha) : '') | date }}</td>
-										<td>@{{ (index == 0 ? (item.metodo) : '') | metodo }}</td>
+									<tr v-for="(i,index) in item.details" :class="{ borderGold: index == 0 }">
+										<td>@{{ (index == 0 ? (item.created_at) : '') | date }}</td>
+										<td>@{{ (index == 0 ? (item.payment_type) : '') | metodo }}</td>
 										<td class="bold">
-											@{{ i.name }}
+											@if (\App::getLocale() == 'es') @{{ i.product.name }} @else @{{ i.product.name_english }} @endif
 										</td>
-										<td>@{{ i.cantidad }}</td>										
+										<td>@{{ i.quantity }}</td>										
 										<td>
-											<span class="bold" v-if="item.metodo == 2">@{{ i.precio * i.cantidad | VES }}</span>
-											<span class="bold" v-if="item.metodo == 1">@{{ i.precio * i.cantidad | USD }}</span>
+											<span class="bold" v-if="currency == 1">@{{ getPrice(i.price,i.coin,item.exchange.change) * i.quantity | VES }}</span>
+											<span class="bold" v-if="currency == 2">@{{ getPrice(i.price,i.coin,item.exchange.change) * i.quantity | USD }}</span>
 										</td>
 									</tr>
 									<tr>
@@ -124,13 +124,43 @@
 										<td></td>
 										<td class="borderWhite">@lang('Page.Perfil.Historial.Total')</td>
 										<td class="borderWhite">
-											<span class="bold-gold" v-if="item.metodo == 2">@{{ item.total | VES }}</span>
-											<span class="bold-gold" v-if="item.metodo == 1">@{{ item.total | USD }}</span>
+											<span class="bold-gold" v-if="currency == 1">@{{ getTotal(item) | VES }}</span>
+											<span class="bold-gold" v-if="currency == 2">@{{ getTotal(item) | USD }}</span>
 										</td>
 									</tr>
 								</template>
 							</tbody>
 						</table>
+					</div>
+
+					<div class="text-center" v-if="paginator.last_page > 1">
+						<ul class="pagination justify-content-center">
+				            <li class="page-item disabled" v-if="paginator.current_page == 1">
+				                <span class="page-link">
+				                    <i class="fa fa-angle-left"></i>
+				                </span>
+				            </li>
+				            <li class="page-item" v-else>
+				                <a class="page-link" href="#" rel="prev" v-on:click.prevent="load(paginator.current_page - 1)">
+				                    <i class="fa fa-angle-left"></i>
+				                </a>
+				            </li>
+					        <li class="page-item page-of disabled">
+					            <span class="page-link">
+					                @{{ paginator.current_page }} {{ Lang::get('Page.De') }} @{{ paginator.last_page }}
+					            </span>
+					        </li>
+				            <li class="page-item" v-if="paginator.last_page > paginator.current_page">
+				                <a class="page-link" href="#" rel="next" v-on:click.prevent="load(paginator.current_page + 1)">
+				                    <i class="fa fa-angle-right"></i>
+				                </a>
+				            </li>
+				            <li class="page-item disabled" v-else>
+				                <span class="page-link">
+				                    <i class="fa fa-angle-right"></i>
+				                </span>
+				            </li>
+					    </ul>
 					</div>
 
 					<div class="text-center">
@@ -152,22 +182,42 @@
 				user: {!! json_encode($user) !!},
 				estados: {!! json_encode($estados) !!},
 				pedidos: [],
+				currency: getCurrency('{{ $_ip }}'),
 				password: {
 					old_password: '',
 					password: '',
 					password_confirmation: ''
 				},
-				pedidos: []
+				pedidos: [],
+				paginator: {}
 			},
 			created() {
 				this.load();
 			},
 			methods: {
-				load() {
-					axios.post('{{ URL('perfil/pedidos') }}')
+				getTotal(pedido) {
+					let total = 0;
+					pedido.details.forEach(item => {
+						total += item.quantity * this.getPrice(item.price,item.coin,pedido.exchange.change);
+					});
+					return total;
+				},
+				getPrice(precio,coin,exchange) {
+					let price = precio;
+					if (coin == '1' && this.currency == '2') {
+						price = price / exchange;
+					}
+					else if (coin == '2' && this.currency == '1') {
+						price = price * exchange;
+					}
+					return price;
+				},
+				load(page = 1) {
+					axios.post('{{ URL('perfil/pedidos') }}?page=' + page)
 						.then(res => {
 							if (res.data.result) {
-								this.pedidos = res.data.pedidos;
+								this.pedidos = res.data.pedidos.data;
+								this.paginator = res.data.pedidos;
 							}
 						})
 						.catch(err => {

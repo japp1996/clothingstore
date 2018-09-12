@@ -6,6 +6,7 @@
 	use App\User;
 	use App\Models\Pais;
 	use App\Models\Estado;
+	use App\Models\Purchase;
 	use Auth;
 	use Validator;
 	use Hash;
@@ -25,52 +26,7 @@
 	    }
 
 	    public function pedidos() {
-	    	$pedidos = [
-	    		[
-	    			"fecha" => '2018-09-05',
-	    			"metodo" => '1',
-	    			"total" => '200',
-	    			"productos" => [
-		    			[
-		    				'name' => 'Franela Negra de Guitarra',
-			    			'cantidad' => 2,
-			    			'precio' => 200
-			    		],
-			    		[
-		    				'name' => 'Franela Negra de Guitarra',
-			    			'cantidad' => 2,
-			    			'precio' => 200
-			    		],
-			    		[
-		    				'name' => 'Franela Negra de Guitarra',
-			    			'cantidad' => 2,
-			    			'precio' => 200
-			    		],
-		    		]
-		    	],
-		    	[
-	    			"fecha" => '2018-09-05',
-	    			"metodo" => '2',
-	    			"total" => '200',
-	    			"productos" => [
-		    			[
-		    				'name' => 'Franela Negra de Guitarra',
-			    			'cantidad' => 2,
-			    			'precio' => 200
-			    		],
-			    		[
-		    				'name' => 'Franela Negra de Guitarra',
-			    			'cantidad' => 2,
-			    			'precio' => 200
-			    		],
-			    		[
-		    				'name' => 'Franela Negra de Guitarra',
-			    			'cantidad' => 2,
-			    			'precio' => 200
-			    		],
-		    		]
-		    	],
-	    	];
+	    	$pedidos = Purchase::where('user_id',Auth::id())->with(['exchange','details'])->orderBy('id','desc')->paginate(6);
 	    	return response()->json([
 	    		'result' => true,
 	    		'pedidos' => $pedidos

@@ -8,6 +8,7 @@
 	use App\Models\Slider;
 	use App\Models\Pais;
 	use App\Models\Aliado;
+	use App\Models\Terminos;
 	use Validator;
 	use Mail;
 	use Lang;
@@ -32,6 +33,11 @@
 	    public function condiciones() {
 	    	$condiciones = Condiciones::orderBy('id','desc')->first();
 	    	return View('condiciones')->with(['condiciones' => $condiciones]);
+	    }
+
+	    public function terminos() {
+	    	$terminos = Terminos::orderBy('id','desc')->first();
+	    	return View('terminos')->with(['terminos' => $terminos]);
 	    }
 
 	    public function intro() {

@@ -21,6 +21,16 @@
 			display: none;
 		}
 	}
+	.form-check {
+		margin-top: 10px;
+		margin-bottom: 10px;
+		margin-left: 30px;
+		.form-check-label {
+			&, a {
+				font-size: 16px !important;
+			}			
+		}
+	}
 	form {
 		margin-left: 30px;
 		@media (max-width: 767px) {
