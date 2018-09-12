@@ -90,6 +90,8 @@
 		
 		Route::group(['middleware' => 'Auth'], function() {
 			Route::get('home', 'AdminController@home');
+			// Exchange rate
+			Route::resource('exchange_rate', 'ExchangeRateController');			
 			// Sizes			
 			Route::resource('sizes', 'SizeController');
 			Route::get('sizes-all', 'SizeController@all');
