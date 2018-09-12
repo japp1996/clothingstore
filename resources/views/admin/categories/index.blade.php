@@ -3,5 +3,5 @@
 @section('title', 'Categorías')
 
 @section('content')
-    <categoy-index url="{{ url('/admin') }}" :sizes="{{ $sizes }}" :categories="{{ $categories }}"></categoy-index>
+    <categoy-index url="{{ url('/admin') }}" :sizes="{{ $sizes }}" :catalogs="{{ $filters }}" :categories="{{ $categories }}"></categoy-index>
 @endsection

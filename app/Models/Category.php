@@ -20,7 +20,7 @@ class Category extends Model
         return $this->belongsToMany(Size::class, 'category_sizes', 'category_id', 'size_id');
     }
 
-    public function categories()
+    public function filters()
     {
         return $this->belongsToMany(Filter::class, 'category_filters', 'category_id', 'filter_id');
     }

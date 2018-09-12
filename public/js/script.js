@@ -76957,6 +76957,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             default: function _default() {
                 return [];
             }
+        },
+        catalogs: {
+            type: Array,
+            default: function _default() {
+                return [];
+            }
         }
     },
 
@@ -77253,12 +77259,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     template: "#template-category-add",
 
     props: {
         sizes: {
+            type: Array,
+            default: function _default() {
+                return [];
+            }
+        },
+        filters: {
             type: Array,
             default: function _default() {
                 return [];
@@ -77279,6 +77307,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 name: "",
                 name_english: "",
                 sizes: [],
+                filters: [],
                 subcategories: []
             }
         };
@@ -77304,6 +77333,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     _this.form.sizes.push(val.id);
                 });
             }
+        },
+        _selectAllFilters: function _selectAllFilters() {
+            var _this2 = this;
+
+            this.form.filters = [];
+            if (event.target.checked) {
+                this.filters.forEach(function (val) {
+                    _this2.form.filters.push(val.id);
+                });
+            }
+            console.log(this.form);
         },
         _submit: function _submit() {
             showLoading();
@@ -77355,7 +77395,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     created: function created() {
-        var _this2 = this;
+        var _this3 = this;
 
         if (Object.entries(this.setForm).length > 0) {
             this.form.id = this.setForm.id;
@@ -77363,12 +77403,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.form.name_english = this.setForm.name_english;
 
             this.setForm.sizes.forEach(function (s) {
-                _this2.form.sizes.push(s.id);
+                _this3.form.sizes.push(s.id);
             });
 
             this.setForm.subcategories.forEach(function (s, i) {
-                _this2.form.subcategories.push(s);
-                _this2.form.subcategories[i].enabled = s.products_count === 0 ? true : false;
+                _this3.form.subcategories.push(s);
+                _this3.form.subcategories[i].enabled = s.products_count === 0 ? true : false;
             });
         }
     },
@@ -77503,6 +77543,100 @@ var render = function() {
                         }
                       }
                     })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col s12" }, [
+                    _c(
+                      "fieldset",
+                      [
+                        _c("legend", [_vm._v("Disponible para estos ")]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col s12" }, [
+                          _c("p", { staticClass: "not-mb" }, [
+                            _c("input", {
+                              staticClass: "with-gap",
+                              attrs: { type: "checkbox", id: "filter-all" },
+                              on: {
+                                click: function($event) {
+                                  _vm._selectAllFilters()
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", { attrs: { for: "filter-all" } }, [
+                              _vm._v("Todo")
+                            ])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.filters, function(filter, i) {
+                          return _c(
+                            "div",
+                            { key: "filter-" + i, staticClass: "col s12 m3" },
+                            [
+                              _c("p", [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.filters,
+                                      expression: "form.filters"
+                                    }
+                                  ],
+                                  staticClass: "with-gap",
+                                  attrs: {
+                                    type: "checkbox",
+                                    id: "filter-" + i
+                                  },
+                                  domProps: {
+                                    value: filter.id,
+                                    checked: Array.isArray(_vm.form.filters)
+                                      ? _vm._i(_vm.form.filters, filter.id) > -1
+                                      : _vm.form.filters
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      var $$a = _vm.form.filters,
+                                        $$el = $event.target,
+                                        $$c = $$el.checked ? true : false
+                                      if (Array.isArray($$a)) {
+                                        var $$v = filter.id,
+                                          $$i = _vm._i($$a, $$v)
+                                        if ($$el.checked) {
+                                          $$i < 0 &&
+                                            _vm.$set(
+                                              _vm.form,
+                                              "filters",
+                                              $$a.concat([$$v])
+                                            )
+                                        } else {
+                                          $$i > -1 &&
+                                            _vm.$set(
+                                              _vm.form,
+                                              "filters",
+                                              $$a
+                                                .slice(0, $$i)
+                                                .concat($$a.slice($$i + 1))
+                                            )
+                                        }
+                                      } else {
+                                        _vm.$set(_vm.form, "filters", $$c)
+                                      }
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("label", { attrs: { for: "filter-" + i } }, [
+                                  _vm._v(_vm._s(filter.name))
+                                ])
+                              ])
+                            ]
+                          )
+                        })
+                      ],
+                      2
+                    )
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "col s12" }, [
@@ -78075,14 +78209,18 @@ var render = function() {
           _vm._v(" "),
           _vm.options == 1
             ? _c("category-add", {
-                attrs: { sizes: _vm.sizes },
+                attrs: { sizes: _vm.sizes, filters: _vm.catalogs },
                 on: { back: _vm._resetView }
               })
             : _vm._e(),
           _vm._v(" "),
           _vm.options == 2
             ? _c("category-add", {
-                attrs: { sizes: _vm.sizes, "set-form": _vm.edit },
+                attrs: {
+                  sizes: _vm.sizes,
+                  filters: _vm.catalogs,
+                  "set-form": _vm.edit
+                },
                 on: { back: _vm._resetView }
               })
             : _vm._e()

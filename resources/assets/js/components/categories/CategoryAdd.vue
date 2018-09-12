@@ -25,7 +25,23 @@
                             <label for="name_english" class="label-impegno">Categoría (Ingles)</label>
                             <input type="text" name="name_english" id="name_english" v-model="form.name_english" maxlength="50" class="browser-default input-impegno">
                         </div>
-
+                        <div class="col s12">
+                            <fieldset>
+                                <legend>Disponible para estos </legend>
+                                <div class="col s12">
+                                    <p class="not-mb">
+                                        <input type="checkbox" id="filter-all" class="with-gap" @click="_selectAllFilters()">
+                                        <label for="filter-all">Todo</label>
+                                    </p>
+                                </div>
+                                <div class="col s12 m3" v-for="(filter, i) in filters" :key="'filter-' + i">
+                                    <p>
+                                        <input type="checkbox" :id="`filter-${i}`" class="with-gap" :value="filter.id" v-model="form.filters">
+                                        <label :for="`filter-${i}`">{{ filter.name }}</label>
+                                    </p>
+                                </div>
+                            </fieldset>
+                        </div>
                         <div class="col s12">
                             <fieldset>
                                 <legend>Tallas</legend>
@@ -134,6 +150,12 @@ export default {
                 return []
             }
         },
+        filters: {
+            type: Array,
+            default () {
+                return []
+            }
+        },
         'set-form': {
             type: Object,
             default(){
@@ -149,6 +171,7 @@ export default {
                 name: "",
                 name_english: "",
                 sizes: [],
+                filters: [],
                 subcategories: []
             }
         }
@@ -174,6 +197,17 @@ export default {
                     this.form.sizes.push(val.id);
                 });
             }            
+        },
+
+        _selectAllFilters() {            
+            this.form.filters = [];
+            if (event.target.checked) {
+                this.filters.forEach(val => {
+                    this.form.filters.push(val.id)
+                })
+            }
+            console.log(this.form);
+            
         },
 
         _submit(){

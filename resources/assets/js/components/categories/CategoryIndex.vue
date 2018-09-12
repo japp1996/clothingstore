@@ -83,8 +83,8 @@
                     </byte-modal>
                 </section>
 
-                <category-add v-if="options == 1" :sizes="sizes" @back="_resetView"></category-add>
-                <category-add v-if="options == 2" :sizes="sizes" :set-form="edit" @back="_resetView"></category-add>
+                <category-add v-if="options == 1" :sizes="sizes" :filters="catalogs" @back="_resetView"></category-add>
+                <category-add v-if="options == 2" :sizes="sizes" :filters="catalogs" :set-form="edit" @back="_resetView"></category-add>
 
             </div>
         </div>
@@ -114,6 +114,12 @@ export default {
         sizes: {
             type: Array,
             default () {
+                return []
+            }
+        },
+        catalogs: {
+            type: Array,
+            default() {
                 return []
             }
         }
