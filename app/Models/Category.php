@@ -20,6 +20,11 @@ class Category extends Model
         return $this->belongsToMany(Size::class, 'category_sizes', 'category_id', 'size_id');
     }
 
+    public function categories()
+    {
+        return $this->belongsToMany(Filter::class, 'category_filters', 'category_id', 'filter_id');
+    }
+
     public function products()
     {
         return $this->hasMany(Product::class, 'category_id')->where('status', '!=', '2');

@@ -17838,7 +17838,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(139);
-module.exports = __webpack_require__(271);
+module.exports = __webpack_require__(276);
 
 
 /***/ }),
@@ -17955,7 +17955,7 @@ Vue.component('product-index', __webpack_require__(256));
 
 // Exchange Rate
 Vue.component('change-index', __webpack_require__(266));
-Vue.component('change-form', __webpack_require__(275));
+Vue.component('change-form', __webpack_require__(271));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -73069,7 +73069,7 @@ var content = __webpack_require__(181);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("8aae94ce", content, false, {});
+var update = __webpack_require__(3)("71454aec", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -73242,7 +73242,7 @@ var content = __webpack_require__(187);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("22d2b4d2", content, false, {});
+var update = __webpack_require__(3)("64c2c02c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -73799,7 +73799,7 @@ var content = __webpack_require__(192);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("c17fc21c", content, false, {});
+var update = __webpack_require__(3)("2e651c45", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -74206,7 +74206,7 @@ var content = __webpack_require__(197);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("517c37ec", content, false, {});
+var update = __webpack_require__(3)("bf275882", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -74600,7 +74600,7 @@ var content = __webpack_require__(202);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("d73db8fa", content, false, {});
+var update = __webpack_require__(3)("195984d4", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -75506,7 +75506,7 @@ var content = __webpack_require__(216);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("71ae317a", content, false, {});
+var update = __webpack_require__(3)("5ebf68e6", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -76000,7 +76000,7 @@ var content = __webpack_require__(224);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("78e38424", content, false, {});
+var update = __webpack_require__(3)("7e445cb7", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -76278,7 +76278,7 @@ var content = __webpack_require__(228);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("799dac39", content, false, {});
+var update = __webpack_require__(3)("6945f546", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -77093,7 +77093,7 @@ var content = __webpack_require__(236);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("7b5b4cc1", content, false, {});
+var update = __webpack_require__(3)("8435dd58", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -77128,6 +77128,9 @@ exports.push([module.i, "\n.container-btn-add {\n  margin: 1rem 0;\n}\n.flex {\n
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
 //
 //
 //
@@ -77502,93 +77505,96 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col s12" },
-                    [
-                      _c("div", { staticClass: "col s12" }, [
-                        _c("p", { staticClass: "not-mb" }, [
-                          _c("input", {
-                            staticClass: "with-gap",
-                            attrs: { type: "checkbox", id: "size-all" },
-                            on: {
-                              click: function($event) {
-                                _vm._selectAll()
+                  _c("div", { staticClass: "col s12" }, [
+                    _c(
+                      "fieldset",
+                      [
+                        _c("legend", [_vm._v("Tallas")]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col s12" }, [
+                          _c("p", { staticClass: "not-mb" }, [
+                            _c("input", {
+                              staticClass: "with-gap",
+                              attrs: { type: "checkbox", id: "size-all" },
+                              on: {
+                                click: function($event) {
+                                  _vm._selectAll()
+                                }
                               }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("label", { attrs: { for: "size-all" } }, [
-                            _vm._v("Todo")
+                            }),
+                            _vm._v(" "),
+                            _c("label", { attrs: { for: "size-all" } }, [
+                              _vm._v("Todo")
+                            ])
                           ])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _vm._l(_vm.sizes, function(size, i) {
-                        return _c(
-                          "div",
-                          { key: "size-" + i, staticClass: "col s12 m3" },
-                          [
-                            _c("p", [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.form.sizes,
-                                    expression: "form.sizes"
-                                  }
-                                ],
-                                staticClass: "with-gap",
-                                attrs: { type: "checkbox", id: "size-" + i },
-                                domProps: {
-                                  value: size.id,
-                                  checked: Array.isArray(_vm.form.sizes)
-                                    ? _vm._i(_vm.form.sizes, size.id) > -1
-                                    : _vm.form.sizes
-                                },
-                                on: {
-                                  change: function($event) {
-                                    var $$a = _vm.form.sizes,
-                                      $$el = $event.target,
-                                      $$c = $$el.checked ? true : false
-                                    if (Array.isArray($$a)) {
-                                      var $$v = size.id,
-                                        $$i = _vm._i($$a, $$v)
-                                      if ($$el.checked) {
-                                        $$i < 0 &&
-                                          _vm.$set(
-                                            _vm.form,
-                                            "sizes",
-                                            $$a.concat([$$v])
-                                          )
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.sizes, function(size, i) {
+                          return _c(
+                            "div",
+                            { key: "size-" + i, staticClass: "col s12 m3" },
+                            [
+                              _c("p", [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.sizes,
+                                      expression: "form.sizes"
+                                    }
+                                  ],
+                                  staticClass: "with-gap",
+                                  attrs: { type: "checkbox", id: "size-" + i },
+                                  domProps: {
+                                    value: size.id,
+                                    checked: Array.isArray(_vm.form.sizes)
+                                      ? _vm._i(_vm.form.sizes, size.id) > -1
+                                      : _vm.form.sizes
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      var $$a = _vm.form.sizes,
+                                        $$el = $event.target,
+                                        $$c = $$el.checked ? true : false
+                                      if (Array.isArray($$a)) {
+                                        var $$v = size.id,
+                                          $$i = _vm._i($$a, $$v)
+                                        if ($$el.checked) {
+                                          $$i < 0 &&
+                                            _vm.$set(
+                                              _vm.form,
+                                              "sizes",
+                                              $$a.concat([$$v])
+                                            )
+                                        } else {
+                                          $$i > -1 &&
+                                            _vm.$set(
+                                              _vm.form,
+                                              "sizes",
+                                              $$a
+                                                .slice(0, $$i)
+                                                .concat($$a.slice($$i + 1))
+                                            )
+                                        }
                                       } else {
-                                        $$i > -1 &&
-                                          _vm.$set(
-                                            _vm.form,
-                                            "sizes",
-                                            $$a
-                                              .slice(0, $$i)
-                                              .concat($$a.slice($$i + 1))
-                                          )
+                                        _vm.$set(_vm.form, "sizes", $$c)
                                       }
-                                    } else {
-                                      _vm.$set(_vm.form, "sizes", $$c)
                                     }
                                   }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("label", { attrs: { for: "size-" + i } }, [
-                                _vm._v(_vm._s(size.name))
+                                }),
+                                _vm._v(" "),
+                                _c("label", { attrs: { for: "size-" + i } }, [
+                                  _vm._v(_vm._s(size.name))
+                                ])
                               ])
-                            ])
-                          ]
-                        )
-                      })
-                    ],
-                    2
-                  ),
+                            ]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ]),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -78918,7 +78924,7 @@ var content = __webpack_require__(248);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("91cf18c2", content, false, {});
+var update = __webpack_require__(3)("11640b72", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -79188,7 +79194,7 @@ var content = __webpack_require__(252);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("5dff850d", content, false, {});
+var update = __webpack_require__(3)("466fb24c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -79803,7 +79809,7 @@ var content = __webpack_require__(258);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("48471b48", content, false, {});
+var update = __webpack_require__(3)("43795dd6", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -80078,7 +80084,7 @@ var content = __webpack_require__(262);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("1864cdd7", content, false, {});
+var update = __webpack_require__(3)("ff57ab2c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -81979,7 +81985,7 @@ var content = __webpack_require__(268);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("6b805271", content, false, {});
+var update = __webpack_require__(3)("0963b244", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -82240,27 +82246,18 @@ if (false) {
 
 /***/ }),
 /* 271 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 272 */,
-/* 273 */,
-/* 274 */,
-/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(276)
+  __webpack_require__(272)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(278)
+var __vue_script__ = __webpack_require__(274)
 /* template */
-var __vue_template__ = __webpack_require__(279)
+var __vue_template__ = __webpack_require__(275)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -82299,17 +82296,17 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 276 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(277);
+var content = __webpack_require__(273);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("9794b7a2", content, false, {});
+var update = __webpack_require__(3)("8d650408", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -82325,7 +82322,7 @@ if(false) {
 }
 
 /***/ }),
-/* 277 */
+/* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -82339,7 +82336,7 @@ exports.push([module.i, "\n.margin-top {\n  margin-top: 20px;\n}\n", ""]);
 
 
 /***/ }),
-/* 278 */
+/* 274 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -82430,7 +82427,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 279 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -82536,6 +82533,12 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-568a6abe", module.exports)
   }
 }
+
+/***/ }),
+/* 276 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

@@ -27,18 +27,21 @@
                         </div>
 
                         <div class="col s12">
-                            <div class="col s12">
-                                <p class="not-mb">
-                                    <input type="checkbox" id="size-all" class="with-gap" @click="_selectAll()">
-                                    <label for="size-all">Todo</label>
-                                </p>
-                            </div>
-                            <div class="col s12 m3" v-for="(size, i) in sizes" :key="'size-' + i">
-                                <p>
-                                    <input type="checkbox" :id="`size-${i}`" class="with-gap" :value="size.id" v-model="form.sizes">
-                                    <label :for="`size-${i}`">{{ size.name }}</label>
-                                </p>
-                            </div>
+                            <fieldset>
+                                <legend>Tallas</legend>
+                                <div class="col s12">
+                                    <p class="not-mb">
+                                        <input type="checkbox" id="size-all" class="with-gap" @click="_selectAll()">
+                                        <label for="size-all">Todo</label>
+                                    </p>
+                                </div>
+                                <div class="col s12 m3" v-for="(size, i) in sizes" :key="'size-' + i">
+                                    <p>
+                                        <input type="checkbox" :id="`size-${i}`" class="with-gap" :value="size.id" v-model="form.sizes">
+                                        <label :for="`size-${i}`">{{ size.name }}</label>
+                                    </p>
+                                </div>
+                            </fieldset>                            
                         </div>
 
                         <div class="row">
