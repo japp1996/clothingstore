@@ -9,9 +9,27 @@
 			'Success' => 'Su compra se ha realizado correctamente'
 		],
 
+		"Transferencia" => [
+			'Type' => 'Transferencia',
+			'Title' => 'Transferencia Bancaria',
+			'From' => 'Banco de Origen',
+			'To' => 'Banco de Destino',
+			'Number' => 'Número de Referencia',
+			'Fecha' => 'Fecha de la Transferencia',
+			'Enviar' => 'Pagar',
+			'Total' => 'Total',
+			'Success' => 'Se ha realizado el pago correctamente'
+		],
+
 		"Errors" => [
 			"Error403" => "Permiso Denegado",
 			"Error404" => "Página no encontrada"
+		],
+
+		"Catalogo" => [
+			'Dama' => 'Catálogo de Dama',
+			'Caballero' => 'Catálogo de Caballero',
+			'Nino' => 'Catálogo de Niño'
 		],
 
 		'De' => 'de',
@@ -89,7 +107,11 @@
 				'Metodo' => 'Método de Pago',
 				'Productos' => 'Productos',
 				'Cantidades' => 'Cantidades',
-				'Precio' => 'Precio'
+				'Precio' => 'Precio',
+				'Pendiente' => 'Pendiente',
+				'Aprobado' => 'Aprobado',
+				'Rechazado' => 'Rechazado',
+				'Status' => 'Estatus'
 			],
 			'Logout' => 'Cerrar Sesión',
 			'Success' => 'Se han guardado los datos correctamente',
@@ -166,6 +188,7 @@
 			'Seleccionar' => 'Seleccionar',
 			'MercadoPago' => 'Método de pago unicamente para las personas ubicadas en Venezuela',
 			'Paypal' => 'Método de pago unicamente para las personas ubicadas a nivel internacional',
+			'Transferencias' => 'Transferencias Bancarias. Método de pago para montos elevados.',
 			'Metodos' => 'Métodos de Pago',
 			'Eliminar' => '¿Desea eliminar el producto?',
 			"NoCantidad" => 'Lo sentimos, no hay suficientes unidades del producto. Disponible: ',

@@ -14,4 +14,8 @@
 	    public function exchange() {
 	    	return $this->belongsTo('App\Models\ExchangeRate','exchange_rate_id');
 	    }
+
+	    public function transfer() {
+	    	return $this->belongsTo('App\Models\Transfer','transfer_id');
+	    }
 	}

@@ -8,6 +8,7 @@
 	use App\Models\Category;
 	use App\Models\CategorySize;
 	use App\Libraries\Cart;
+	use App\Models\Filter;
 	use Validator;
 	use Lang;
 	use Auth;
@@ -90,10 +91,15 @@
 	    public function ajax(Request $request) {
 	    	$query = Product::with(['designs','collections','images','categories' => function($q) {
 	    		$q->with(['sizes']);
-	    	},'colors']);
+	    	},'colors'])->whereHas('categories',function($q) use ($request) {
+	    		if ($request->has('catalogo')) {
+	    			$q->whereHas('filters',function($q) use ($request) {
+	    				$q->where('filters.id',$request->catalogo);
+	    			});
+	    		}
+	    	});
 
 	    	if ($request->has('catalogo')) {
-	    		$query->where('catalogue',$request->catalogo);
 	    		if ($request->has('categorias') && count($request->categorias) > 0) {
 		    		$query->whereIn('category_id',$request->categorias);
 		    	}
@@ -101,13 +107,15 @@
 
 	    	$productos = $query->where('status','1')->paginate(8);
 
-	    	$categorias = Category::orderBy('name','asc')->get();
+	    	$categorias = Category::orderBy('name','asc')->with(['filters'])->get();
+	    	$filtros = Filter::orderBy('name','asc')->with(['categories'])->get();
 
 	    	return response()->json([
 	    		'result' => true,
 	    		'productos' => $productos,
 	    		'carrito' => Cart::get(),
-	    		'categorias' => $categorias
+	    		'categorias' => $categorias,
+	    		'filtros' => $filtros
 	    	]);
 	    }
 	}

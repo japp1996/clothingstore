@@ -16,12 +16,15 @@
 					<div class="col-md-6 text-center">
 						{{ HTML::Image('img/nosotros/mision.png') }}
 					</div>
-					<div class="col-md-6 text-center">
+					<div class="col-md-6 text-center vision-no-responsive">
 						{{ HTML::Image('img/nosotros/vision.png') }}
 					</div>
 					<div class="col-md-6">
 						<h3>@lang('Page.Nosotros.Mision')</h3>
 						<p>{!! \App::getLocale() == 'es' ? nl2br($nosotros->mision) : nl2br($nosotros->mision_english) !!}</p>
+					</div>
+					<div class="col-md-6 text-center vision-responsive">
+						{{ HTML::Image('img/nosotros/vision.png') }}
 					</div>
 					<div class="col-md-6">
 						<h3>@lang('Page.Nosotros.Vision')</h3>

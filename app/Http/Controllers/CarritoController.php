@@ -80,9 +80,13 @@
 	    	$compra = new Purchase;
 	    		$compra->payment_type = $data['type'];
 	    		$compra->user_id = Auth::id();
-	    		$compra->transaction_code = $data['code'];
-	    		$compra->transaction = json_encode($data['transaction']);   		
+	    		if (isset($data['code']))
+	    			$compra->transaction_code = $data['code'];
+	    		if (isset($data['transaction']))
+	    			$compra->transaction = json_encode($data['transaction']);   		
 	    		$compra->exchange_rate_id = $this->exchange->id;
+	    		if (isset($data['transfer_id']))
+	    			$compra->transfer_id = $data['transfer_id'];
 	    	$compra->save();
 
 	    	foreach($carrito as $item) {

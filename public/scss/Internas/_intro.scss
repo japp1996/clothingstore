@@ -3,6 +3,9 @@
 #intro {
 	min-height: 100vh;
 	background-image: url('../img/intro.jpg');
+	@media (max-width: 767px) {
+		background-image: url('../img/intro-responsive.jpg');
+	}
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center center;

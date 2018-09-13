@@ -34,27 +34,6 @@
         	</div>
         	<div class="col-md-8">
         		<div class="container-texto">
-        			<div class="container-description">
-        				<h4>@if (\App::getLocale() == 'es') @{{ producto.name }} @else @{{ producto.name_english }} @endif</h4>
-        				<template v-if="form.cantidad < 12">
-        					<p class="precio" v-if="currency == 1">@{{ getPrice(producto.price_1,producto.coin) | VES }}</p>
-        					<p class="precio" v-if="currency == 2">@{{ getPrice(producto.price_1,producto.coin) | USD }}</p>
-        				</template>
-        				<template v-if="form.cantidad >= 12">
-        					<p class="precio" v-if="currency == 1">@{{ getPrice(producto.price_2,producto.coin) | VES }}</p>
-        					<p class="precio" v-if="currency == 2">@{{ getPrice(producto.price_2,producto.coin) | USD }}</p>
-        				</template>
-        				<p class="almayor" v-if="form.cantidad >= 12">@lang('Page.Tienda.Mayor')</p>
-		        		<p class="almayor" v-if="form.cantidad < 12">@lang('Page.Tienda.Detal')</p>
-        				<h5>@lang('Page.Tienda.Descripcion')</h5>
-        				<p class="strong"><strong>@lang('Page.Tienda.Coleccion'):</strong> @if (\App::getLocale() == 'es') @{{ producto.collections.name }} @else @{{ producto.collections.name_english }} @endif</p>
-        				<p class="strong"><strong>@lang('Page.Tienda.Diseno'):</strong> @if (\App::getLocale() == 'es') @{{ producto.designs.name }} @else @{{ producto.designs.name_english }} @endif</p>
-        				<p class="strong"><strong>@lang('Page.Tienda.Colores'):</strong> @{{ getColors(producto.colors) }}</p>
-        				<p class="strong"><strong>@lang('Page.Tienda.Tallas'):</strong> @{{ getTallas(producto.categories.sizes) }}</p>
-        				<p class="nl2br">
-        					@if (\App::getLocale() == 'es') @{{ producto.description }} @else @{{ producto.description_english }} @endif
-        				</p>
-        			</div>
         			<div class="container-add">
         				<div class="row">
         					<div class="col-md-6">
@@ -92,6 +71,27 @@
 						<a href="{{ URL('condiciones') }}" target="_blank">
 							@lang('Page.Tienda.Condiciones')
 						</a>
+        			</div>
+        			<div class="container-description">
+        				<h4>@if (\App::getLocale() == 'es') @{{ producto.name }} @else @{{ producto.name_english }} @endif</h4>
+        				<template v-if="form.cantidad < 12">
+        					<p class="precio" v-if="currency == 1">@{{ getPrice(producto.price_1,producto.coin) | VES }}</p>
+        					<p class="precio" v-if="currency == 2">@{{ getPrice(producto.price_1,producto.coin) | USD }}</p>
+        				</template>
+        				<template v-if="form.cantidad >= 12">
+        					<p class="precio" v-if="currency == 1">@{{ getPrice(producto.price_2,producto.coin) | VES }}</p>
+        					<p class="precio" v-if="currency == 2">@{{ getPrice(producto.price_2,producto.coin) | USD }}</p>
+        				</template>
+        				<p class="almayor" v-if="form.cantidad >= 12">@lang('Page.Tienda.Mayor')</p>
+		        		<p class="almayor" v-if="form.cantidad < 12">@lang('Page.Tienda.Detal')</p>
+        				<h5>@lang('Page.Tienda.Descripcion')</h5>
+        				<p class="strong"><strong>@lang('Page.Tienda.Coleccion'):</strong> @if (\App::getLocale() == 'es') @{{ producto.collections.name }} @else @{{ producto.collections.name_english }} @endif</p>
+        				<p class="strong"><strong>@lang('Page.Tienda.Diseno'):</strong> @if (\App::getLocale() == 'es') @{{ producto.designs.name }} @else @{{ producto.designs.name_english }} @endif</p>
+        				<p class="strong"><strong>@lang('Page.Tienda.Colores'):</strong> @{{ getColors(producto.colors) }}</p>
+        				<p class="strong"><strong>@lang('Page.Tienda.Tallas'):</strong> @{{ getTallas(producto.categories.sizes) }}</p>
+        				<p class="nl2br">
+        					@if (\App::getLocale() == 'es') @{{ producto.description }} @else @{{ producto.description_english }} @endif
+        				</p>
         			</div>
         		</div>
         	</div>

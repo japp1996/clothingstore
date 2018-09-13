@@ -26,7 +26,7 @@
 	    }
 
 	    public function pedidos() {
-	    	$pedidos = Purchase::where('user_id',Auth::id())->with(['exchange','details'])->orderBy('id','desc')->paginate(6);
+	    	$pedidos = Purchase::where('user_id',Auth::id())->with(['exchange','details','transfer'])->orderBy('id','desc')->paginate(5);
 	    	return response()->json([
 	    		'result' => true,
 	    		'pedidos' => $pedidos

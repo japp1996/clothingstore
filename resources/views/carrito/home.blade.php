@@ -168,10 +168,19 @@
 		        <div class="modal-container">
 		        	<h3 class="title title-line">@lang('Page.Carrito.Metodos')</h3>
 		        	<div class="row">
-		        		<div class="col-md-6 offset-md-3 text-center" v-if="currency == '1'">
+		        		<div class="col-md-6 text-center" v-if="currency == '1'">
 		        			{{ HTML::Image('img/mercadopago.png','',['class' => 'img-pago']) }}
 		        			<p>@lang('Page.Carrito.MercadoPago')</p>
 		        			<a v-on:click.prevent="check('{{ URL('mercadopago') }}')" href="#">
+		        				<button class="btn btn-default">
+		        					@lang('Page.Carrito.Seleccionar')
+		        				</button>
+		        			</a>
+		        		</div>
+		        		<div class="col-md-6 text-center" v-if="currency == '1'">
+		        			{{ HTML::Image('img/transferencias.png','',['class' => 'img-pago']) }}
+		        			<p>@lang('Page.Carrito.Transferencias')</p>
+		        			<a v-on:click.prevent="check('{{ URL('transferencia') }}')" href="#">
 		        				<button class="btn btn-default">
 		        					@lang('Page.Carrito.Seleccionar')
 		        				</button>

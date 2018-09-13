@@ -24,6 +24,10 @@ class FiltersTableSeeder extends Seeder
             [
                 'name' => "Niños",
                 'name_english' => "Children"
+            ],
+            [
+                'name' => "Ramses",
+                'name_english' => "Ramses"
             ]
         ]);
     }

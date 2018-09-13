@@ -73,7 +73,7 @@
 					\App('\App\Http\Controllers\CarritoController')->pay([
 						"type" => '1',
 						"code" => $payment_id,
-						"transaction" => $request
+						"transaction" => $request->all()
 					]);
 					return Redirect('carrito')->with('success', Lang::get('Page.PayPal.Success'));
 				}

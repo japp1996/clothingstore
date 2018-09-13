@@ -9,9 +9,27 @@
 			'Success' => 'Your purchase was successful'
 		],
 
+		"Transferencia" => [
+			"Type" => 'Transfer',
+			'Title' => 'Bank Transfer',
+			'From' => 'Bank of Origin',
+			'To' => 'Bank of Destiny',
+			'Number' => 'Reference Number',
+			'Fecha' => 'Date of Transfer',
+			'Enviar' => 'Pay',
+			'Total' => 'Total',
+			'Success' => 'The payment has been made correctly'
+		],
+
 		"Errors" => [
 			"Error403" => "Permission Denied",
 			"Error404" => "Page Not Found"
+		],
+
+		"Catalogo" => [
+			'Dama' => "Lady's Catalog",
+			'Caballero' => "Gentleman's Catalog",
+			'Nino' => 'Kids Catalog'
 		],
 
 		'De' => 'of',
@@ -89,7 +107,11 @@
 				'Metodo' => 'Payment method',
 				'Productos' => 'Products',
 				'Cantidades' => 'Amounts',
-				'Precio' => 'Price'
+				'Precio' => 'Price',
+				'Pendiente' => 'Pending',
+				'Aprobado' => 'Approved',
+				'Rechazado' => 'Rejected',
+				'Status' => 'Status'
 			],
 			'Logout' => 'Logout',
 			'Success' => 'The data has been saved correctly',
@@ -161,11 +183,12 @@
 			'Aceptar' => 'Accept',
 			'Cancelar' => 'Cancel',
 			'Piezas' => 'When registering as a legal entity, the minimum number of pieces is 12 (the largest).',
-			'PiezasName' => 'Al registrarse de modo persona jurídica el mínimo de piezas es 12 (al mayor). Product: :producto',
+			'PiezasName' => 'When registering as a legal entity, the minimum number of pieces is 12 (the largest). Product: :producto',
 			'Exito' => 'Your payment has been successfully registered',
 			'Seleccionar' => 'Select',
 			'MercadoPago' => 'Payment method only for people located in Venezuela',
 			'Paypal' => 'Payment method only for people located internationally',
+			'Transferencias' => 'Bank transfers. Payment method for high amounts.',
 			'Metodos' => 'Payment methods',
 			'Eliminar' => 'Do you want to delete the product?',
 			"NoCantidad" => 'Sorry, there are not enough units of the product. Available: ',
