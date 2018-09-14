@@ -77123,7 +77123,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n.container-btn-add {\n  margin: 1rem 0;\n}\n.flex {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: end;\n      -ms-flex-align: end;\n          align-items: flex-end;\n}\n.btn-floating i {\n  color: #fff;\n}\n.not-mb {\n  margin-bottom: 0 !important;\n}\n.nota {\n  font-size: .8rem;\n  margin: .8rem 0;\n}\n.nota__title {\n    font-weight: bold;\n}\n", ""]);
+exports.push([module.i, "\n.container-btn-add {\n  margin: 1rem 0;\n}\n.flex {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: end;\n      -ms-flex-align: end;\n          align-items: flex-end;\n}\n.btn-floating i {\n  color: #fff;\n}\n.not-mb {\n  margin-bottom: 0 !important;\n}\n.nota {\n  font-size: .8rem;\n  margin: .8rem 0;\n}\n.nota__title {\n    font-weight: bold;\n}\nfieldset {\n  margin: 1rem 0;\n  border-radius: .6rem;\n}\nfieldset legend {\n    padding: 0 10px;\n}\n", ""]);
 
 // exports
 
@@ -77134,6 +77134,14 @@ exports.push([module.i, "\n.container-btn-add {\n  margin: 1rem 0;\n}\n.flex {\n
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -77878,7 +77886,7 @@ var render = function() {
                                   ? _c(
                                       "a",
                                       {
-                                        staticClass: "btn-floating red",
+                                        staticClass: "btn-action",
                                         attrs: { href: "#!" },
                                         on: {
                                           click: function($event) {
@@ -77887,11 +77895,15 @@ var render = function() {
                                         }
                                       },
                                       [
-                                        _c(
-                                          "i",
-                                          { staticClass: "material-icons" },
-                                          [_vm._v("delete")]
-                                        )
+                                        _c("img", {
+                                          staticClass: "img-responsive",
+                                          attrs: {
+                                            src: _vm._f("asset")(
+                                              "img/icons/ico-eliminar.png"
+                                            ),
+                                            alt: ""
+                                          }
+                                        })
                                       ]
                                     )
                                   : _c("span", [_vm._v("Tiene productos")])
@@ -78453,6 +78465,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(280)
+}
 var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(243)
@@ -78461,7 +78477,7 @@ var __vue_template__ = __webpack_require__(244)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -78542,14 +78558,63 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     template: "#template-collection-form",
+
     data: function data() {
         return {
             form: {
+                id: 0,
                 name: '',
-                name_english: ''
+                name_english: '',
+                designs: []
             }
         };
     },
@@ -78564,11 +78629,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         send: function send() {
-            if (this.form.id == undefined) {
+            if (this.form.id == 0) {
                 this.store();
             } else {
                 this.update();
             }
+        },
+        _addDesign: function _addDesign() {
+            this.form.designs.push({ name: "", name_english: "", id: 0 });
+        },
+        _delete: function _delete(index) {
+            this.form.designs.splice(index, 1);
         },
         store: function store() {
             axios.post('admin/collections', this.form).then(function (res) {
@@ -78612,10 +78683,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     mounted: function mounted() {
+        var _this = this;
+
         if (Object.entries(this.setForm).length > 0) {
             this.form.name = this.setForm.name;
             this.form.name_english = this.setForm.name_english;
             this.form.id = this.setForm.id;
+
+            this.setForm.designs.forEach(function (s, i) {
+                _this.form.designs.push(s);
+                _this.form.designs[i].enabled = s.products_count === 0 ? true : false;
+            });
         }
 
         document.querySelectorAll('label').forEach(function (el) {
@@ -78672,7 +78750,13 @@ var render = function() {
               },
               [
                 _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col s12 m6 input-field" }, [
+                  _c("div", { staticClass: "col s12 m6" }, [
+                    _c(
+                      "label",
+                      { staticClass: "label-impegno", attrs: { for: "name" } },
+                      [_vm._v("Nombre (Español)")]
+                    ),
+                    _vm._v(" "),
                     _c("input", {
                       directives: [
                         {
@@ -78682,7 +78766,8 @@ var render = function() {
                           expression: "form.name"
                         }
                       ],
-                      attrs: { type: "text" },
+                      staticClass: "browser-default input-impegno",
+                      attrs: { type: "text", name: "name", id: "name" },
                       domProps: { value: _vm.form.name },
                       on: {
                         input: function($event) {
@@ -78692,14 +78777,19 @@ var render = function() {
                           _vm.$set(_vm.form, "name", $event.target.value)
                         }
                       }
-                    }),
-                    _vm._v(" "),
-                    _c("label", { attrs: { for: "" } }, [
-                      _vm._v("Nombre (Español)")
-                    ])
+                    })
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col s12 m6 input-field" }, [
+                  _c("div", { staticClass: "col s12 m6" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "label-impegno",
+                        attrs: { for: "name_english" }
+                      },
+                      [_vm._v("Nombre (Ingles)")]
+                    ),
+                    _vm._v(" "),
                     _c("input", {
                       directives: [
                         {
@@ -78709,7 +78799,12 @@ var render = function() {
                           expression: "form.name_english"
                         }
                       ],
-                      attrs: { type: "text" },
+                      staticClass: "browser-default input-impegno",
+                      attrs: {
+                        type: "text",
+                        name: "name_english",
+                        id: "name_english"
+                      },
                       domProps: { value: _vm.form.name_english },
                       on: {
                         input: function($event) {
@@ -78723,13 +78818,185 @@ var render = function() {
                           )
                         }
                       }
-                    }),
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "row" },
+                  [
+                    _c("div", { staticClass: "col s12 container-btn-add" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn-add",
+                          attrs: { href: "#!" },
+                          on: {
+                            click: function($event) {
+                              _vm._addDesign()
+                            }
+                          }
+                        },
+                        [
+                          _c("img", {
+                            staticClass: "img-responsive",
+                            attrs: {
+                              src: _vm._f("asset")("img/icons/new-msg.png"),
+                              alt: ""
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "btn-add-text" }, [
+                        _vm._v(
+                          "\n                            Agregar Diseño\n                        "
+                        )
+                      ])
+                    ]),
                     _vm._v(" "),
-                    _c("label", { attrs: { for: "" } }, [
-                      _vm._v("Nombre (Ingles)")
-                    ])
-                  ]),
-                  _vm._v(" "),
+                    _vm.form.id > 0
+                      ? _c("div", { staticClass: "col s12 nota" }, [
+                          _c("span", { staticClass: "nota__title" }, [
+                            _vm._v("Nota: ")
+                          ]),
+                          _vm._v(
+                            " Los diseños con productos no pueden ser eliminados.\n                    "
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm._l(_vm.form.designs, function(design, index) {
+                      return _c(
+                        "div",
+                        { key: index, staticClass: "col s12 center-align" },
+                        [
+                          _c("div", { staticClass: "row flex" }, [
+                            _c("div", { staticClass: "col s5" }, [
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "label-impegno",
+                                  attrs: { for: "name" }
+                                },
+                                [_vm._v("Diseño (Español)")]
+                              ),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: design.name,
+                                    expression: "design.name"
+                                  }
+                                ],
+                                staticClass: "browser-default input-impegno",
+                                attrs: {
+                                  type: "text",
+                                  name: "name",
+                                  id: "name",
+                                  maxlength: "50"
+                                },
+                                domProps: { value: design.name },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      design,
+                                      "name",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col s5" }, [
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "label-impegno",
+                                  attrs: { for: "name" }
+                                },
+                                [_vm._v("Diseño (Ingles)")]
+                              ),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: design.name_english,
+                                    expression: "design.name_english"
+                                  }
+                                ],
+                                staticClass: "browser-default input-impegno",
+                                attrs: {
+                                  type: "text",
+                                  name: "name",
+                                  id: "name",
+                                  maxlength: "50"
+                                },
+                                domProps: { value: design.name_english },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      design,
+                                      "name_english",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "col s2 btn-delete-margin_top" },
+                              [
+                                design.enabled == true || design.enabled == null
+                                  ? _c(
+                                      "a",
+                                      {
+                                        staticClass: "btn-action",
+                                        attrs: { href: "#!" },
+                                        on: {
+                                          click: function($event) {
+                                            _vm._delete(index)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("img", {
+                                          staticClass: "img-responsive",
+                                          attrs: {
+                                            src: _vm._f("asset")(
+                                              "img/icons/ico-eliminar.png"
+                                            ),
+                                            alt: ""
+                                          }
+                                        })
+                                      ]
+                                    )
+                                  : _c("span", [_vm._v("Tiene productos")])
+                              ]
+                            )
+                          ])
+                        ]
+                      )
+                    })
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col s12 center-align" }, [
                     _c(
                       "button",
@@ -82681,6 +82948,49 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 277 */,
+/* 278 */,
+/* 279 */,
+/* 280 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(281);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("087f7ff8", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-de8446a8\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CollectionForm.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-de8446a8\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CollectionForm.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 281 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.btn-delete-margin_top {\n  margin-top: 2.2rem;\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);
