@@ -275,6 +275,10 @@ export default {
                 this.form.sizes.push(s.id);
             });
 
+            this.setForm.filters.forEach(f => {
+                this.form.filters.push(f.id);
+            });
+
             this.setForm.subcategories.forEach((s, i) => {
                 this.form.subcategories.push(s);
                 this.form.subcategories[i].enabled = s.products_count === 0 ? true : false;

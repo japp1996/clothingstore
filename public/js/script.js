@@ -77406,6 +77406,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this3.form.sizes.push(s.id);
             });
 
+            this.setForm.filters.forEach(function (f) {
+                _this3.form.filters.push(f.id);
+            });
+
             this.setForm.subcategories.forEach(function (s, i) {
                 _this3.form.subcategories.push(s);
                 _this3.form.subcategories[i].enabled = s.products_count === 0 ? true : false;
