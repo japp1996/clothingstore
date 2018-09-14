@@ -36,6 +36,8 @@
 	{{ HTML::Script('js/filtros.js') }}
 	{{ HTML::Script('js/currency.js') }}
 	<script type="text/javascript">
+		let _transfer = '{{ Lang::get('Page.Transferencia.Type') }}';
+
 		let vue_header = new Vue({
 			el: '#vue_header',
 			data: {

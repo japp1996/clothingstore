@@ -16,7 +16,7 @@ class TablesPayment extends Migration
         if (!Schema::hasTable('purchases')) {
             Schema::create('purchases', function (Blueprint $table) {
                 $table->increments('id');
-                $table->enum('payment_type', ['1', '2'])->comment('1: MercadoPago; 2: Paypal;');
+                $table->enum('payment_type', ['1', '2','3'])->comment('1: MercadoPago; 2: Paypal; 3: Transferencia');
                 $table->integer('user_id')->unsigned();
                 $table->string('transaction_code', 255)->nullable();
                 $table->text('transaction')->nullable();

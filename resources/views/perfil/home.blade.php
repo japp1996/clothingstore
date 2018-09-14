@@ -8,7 +8,13 @@
 	<div class="contenido contenido-no-padding" id="perfil" v-cloak>
 		<div class="row">
 			<div class="col-lg-3 separacion">
-				<h2>@lang('Page.Perfil.Title')</h2>
+				
+				<h2 class="title-perfil">
+					<a href="#" v-on:click.prevent="filtro()">
+						{{ HTML::Image('img/icons/filtro.png','',['class' => 'filtro-button']) }}
+					</a>
+					@lang('Page.Perfil.Title')
+				</h2>
 				<ul>
 					<li>
 						<a href="#" :class="{ bold: seccion == 1 }" v-on:click.prevent="seccion = 1">@lang('Page.Perfil.Editar.Title')</a>
@@ -118,6 +124,17 @@
 											<span class="bold" v-if="currency == 2">@{{ getPrice(i.price,i.coin,item.exchange.change) * i.quantity | USD }}</span>
 										</td>
 									</tr>
+									<tr v-if="item.payment_type == '3'">
+										<td></td>
+										<td></td>
+										<td></td>
+										<td class="borderWhite">@lang('Page.Perfil.Historial.Status')</td>
+										<td class="borderWhite">
+											<p v-if="item.transfer.status == '0'" class="bold bold-status bold-gold">@lang('Page.Perfil.Historial.Pendiente')</p>
+											<p v-if="item.transfer.status == '2'" class="bold bold-status bold-red">@lang('Page.Perfil.Historial.Rechazado')</p>
+											<p v-if="item.transfer.status == '1'" class="bold bold-status bold-green">@lang('Page.Perfil.Historial.Aprobado')</p>
+										</td>
+									</tr>
 									<tr>
 										<td></td>
 										<td></td>
@@ -170,6 +187,30 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="filtro" v-on:click="close()"></div>
+		<div class="filtro-container">
+			<h2>
+				@lang('Page.Perfil.Title')
+				<div class="close" v-on:click="close()">
+					{{ HTML::Image('img/icons/cancelar.png') }}
+				</div>
+			</h2>
+			<ul>
+				<li>
+					<a href="#" :class="{ bold: seccion == 1 }" v-on:click.prevent="seccion = 1; close()">@lang('Page.Perfil.Editar.Title')</a>
+				</li>
+				<li>
+					<a href="#" :class="{ bold: seccion == 2 }" v-on:click.prevent="seccion = 2; close()">@lang('Page.Perfil.CambiarPassword.Title')</a>
+				</li>
+				<li>
+					<a href="#" :class="{ bold: seccion == 3 }" v-on:click.prevent="seccion = 3; close()">@lang('Page.Perfil.Historial.Title')</a>
+				</li>
+				<li>
+					<a href="{{ URL('logout') }}">@lang('Page.Perfil.Logout')</a>
+				</li>
+			</ul>
+		</div>
 	</div>
 @stop
 
@@ -195,6 +236,18 @@
 				this.load();
 			},
 			methods: {
+				filtro() {
+					$('.filtro').fadeIn();
+					$('.filtro-container').animate({
+						left: '0px'
+					},250);
+				},
+				close() {
+					$('.filtro').fadeOut();
+					$('.filtro-container').animate({
+						left: '-500px'
+					},250);
+				},
 				getTotal(pedido) {
 					let total = 0;
 					pedido.details.forEach(item => {
@@ -213,6 +266,7 @@
 					return price;
 				},
 				load(page = 1) {
+					setLoader();
 					axios.post('{{ URL('perfil/pedidos') }}?page=' + page)
 						.then(res => {
 							if (res.data.result) {
@@ -223,6 +277,9 @@
 						.catch(err => {
 							swal('','{{ Lang::get('Page.Error') }}','warning');
 							console.log(err);
+						})
+						.then(() => {
+							quitLoader();
 						});
 				},
 				submit() {

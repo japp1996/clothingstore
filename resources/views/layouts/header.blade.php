@@ -4,6 +4,19 @@
 	    {{ HTML::Image('img/logo.png','',['class' => 'logo']) }}
 	   </a>
 
+	   <ul class="navbar-nav navbar-responsive ml-auto">
+	   		<li class="nav-item {{ isset($_active) && $_active == 5 ? 'active' : '' }}">
+		      <a class="nav-link" href="{{ URL('carrito') }}">
+		      	<span class="container-cart container-cart-responsive">
+			      	{{ isset($_active) && $_active == 5 ? HTML::Image('img/icons/cart_gold.png') : HTML::Image('img/icons/cart.png') }}
+			      	<span class="badge text-center" v-if="cart > 0" v-cloak>
+			      		@{{ cart }}
+			      	</span>
+			    </span>
+		      </a>
+		    </li>
+	   </ul>
+
 	   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 	     <i class="fa fa-bars"></i>
 	   </button>

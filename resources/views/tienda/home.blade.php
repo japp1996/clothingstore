@@ -23,12 +23,16 @@
 			</div> --}}
 		</div>
 
-		<p class="etiqueta" v-if="catalogo_selected == 1"><i class="fa fa-close" v-on:click="catalogo = 0; load()"></i>Catálogo de Dama</p>
-		<p class="etiqueta" v-if="catalogo_selected == 2"><i class="fa fa-close" v-on:click="catalogo = 0; load()"></i>Catálogo de Caballero</p>
-		<p class="etiqueta" v-if="catalogo_selected == 3"><i class="fa fa-close" v-on:click="catalogo = 0; load()"></i>Catálogo de Niño</p>
+		{{-- <p class="etiqueta" v-if="catalogo_selected == 1"><i class="fa fa-close" v-on:click="catalogo = 0; load()"></i>@lang('Page.Catalogo.Dama')</p>
+		<p class="etiqueta" v-if="catalogo_selected == 2"><i class="fa fa-close" v-on:click="catalogo = 0; load()"></i>@lang('Page.Catalogo.Caballero')</p>
+		<p class="etiqueta" v-if="catalogo_selected == 3"><i class="fa fa-close" v-on:click="catalogo = 0; load()"></i>@lang('Page.Catalogo.Nino')</p> --}}
+
+		<p v-for="i in filtros" class="etiqueta" v-if="catalogo_selected == i.id"><i class="fa fa-close" v-on:click="catalogo = 0; load()"></i>
+			@if (\App::getLocale() == 'es') @{{ i.name }} @else @{{ i.name_english }} @endif
+		</p>
 
 		<div class="row row-productos">
-			<div class="col-lg-3 col-md-4 col-sm-6" v-for="item in productos">
+			<div class="col-lg-3 col-md-4 col-6" v-for="item in productos">
 				<div class="container-item">
 					<a :href="'{{ URL('tienda/ver') }}' + '/' + item.id">
 						<img :src="'{{ URL('img/products') }}' + '/' + item.images[0].file" />
@@ -177,7 +181,25 @@
 							  </label>
 							</div>
 						</li>
-						<li v-on:click="catalogo = 1" class="item-desplegable">
+						<li v-for="item in filtros" v-on:click="catalogo = item.id" class="item-desplegable">
+							<div class="form-check">
+							  <label class="form-check-label">
+							    <input type="radio" class="form-check-input" v-model="catalogo" :value="item.id" name="detal"><span>
+							    	@if (\App::getLocale() == 'es') @{{ item.name }} @else @{{ item.name_english }} @endif
+							    </span>
+							  </label>
+							</div>
+							<ul v-if="catalogo == item.id">
+								<li v-for="i in item.categories">
+									<div class="form-check">
+									  <label class="form-check-label">
+									    <input type="checkbox" :value="i.id" v-model="categorias_selected" class="form-check-input"><span>@if (\App::getLocale() == 'es') @{{ i.name }} @else @{{ i.name_english }} @endif</span>
+									  </label>
+									</div>
+								</li>
+							</ul>
+						</li>
+						{{-- <li v-on:click="catalogo = 1" class="item-desplegable">
 							<div class="form-check">
 							  <label class="form-check-label">
 							    <input type="radio" class="form-check-input" v-model="catalogo" value="1" name="detal"><span>@lang('Page.Tienda.Dama')</span>
@@ -224,7 +246,7 @@
 									</div>
 								</li>
 							</ul>
-						</li>
+						</li> --}}
 					</ul>
 				</li>
 {{-- 				<li>
@@ -262,7 +284,7 @@
 			</ul>
 			<div class="text-center">
 				<button class="btn btn-default" v-on:click="close(); load()">
-					Filtrar
+					@lang('Page.Tienda.Filtrar')
 				</button>
 			</div>
 		</div>
@@ -284,6 +306,7 @@
 				catalogo_selected: 0,
 				categorias: [],
 				categorias_selected: [],
+				filtros: [],
 				page: 1,
 				form: {
 					talla: '',
@@ -335,6 +358,7 @@
 								res.data.productos.data.forEach(item => {
 									item.file_selected = 0;
 								});
+								this.filtros = res.data.filtros;
 								this.paginator = res.data.productos;
 								this.productos = res.data.productos.data;
 								this.carrito = res.data.carrito;
@@ -406,7 +430,7 @@
 				inCarrito(id) {
 					let carrito = this.carrito.map(item => { return item.id });
 					return carrito.indexOf(id) != -1;
-				}
+				},
 			}
 		})
 	</script>

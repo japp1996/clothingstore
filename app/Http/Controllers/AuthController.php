@@ -61,7 +61,11 @@
 	    }
 
 	    public function getRegister() {
-	    	$paises = Pais::orderBy('nombre','asc')->get()->pluck('nombre','id');
+	    	if (\App::getLocale() == 'es')
+	    		$paises = Pais::orderBy('nombre','asc')->get()->pluck('nombre','id');
+	    	else
+	    		$paises = Pais::orderBy('english','asc')->get()->pluck('english','id');
+	    	
 	    	$estados = Estado::orderBy('nombre','asc')->get();
 	    	return View('auth.register')->with([
 	    		'paises' => $paises,
@@ -75,10 +79,10 @@
 	    		'email' => 'required',
 	    		'type' => 'required',
 	    		'identificacion' => 'required',
-	    		'telefono' => 'required',
+	    		'telefono' => 'required|numeric',
 	    		'pais' => 'required',
 	    		'estado' => 'required',
-	    		'codigo' => 'required',
+	    		'codigo' => 'required|numeric',
 	    		'direccion' => 'required',
 	    		'password' => 'required|confirmed'
 	    	];

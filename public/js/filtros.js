@@ -35,6 +35,10 @@ Vue.filter('metodo',value => {
 		case 2:
 			respuesta = "PayPal";
 			break;
+
+		case 3:
+			respuesta = _transfer;
+			break;
 	}
 	return respuesta;
 });

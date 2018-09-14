@@ -33,6 +33,8 @@
 		Route::post('carrito/delete','CarritoController@delete');
 		Route::post('carrito/check','CarritoController@check');
 		Route::get('mercadopago','MPController@create');
+		Route::get('transferencia','TransferenciaController@get');
+		Route::post('transferencia','TransferenciaController@post');
 		Route::get('carrito/response','MPController@response');
 	});
 
@@ -91,8 +93,6 @@
 		
 		Route::group(['middleware' => 'Auth'], function() {
 			Route::get('home', 'AdminController@home');
-			// Exchange rate
-			Route::resource('exchange_rate', 'ExchangeRateController');			
 			// Sizes			
 			Route::resource('sizes', 'SizeController');
 			Route::get('sizes-all', 'SizeController@all');

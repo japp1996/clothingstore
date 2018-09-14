@@ -15,6 +15,10 @@ body {
     }
 }
 
+.ui-datepicker {
+	z-index: 99999 !important;
+}
+
 .nl2br {
   white-space: pre;
   white-space: pre-line;
@@ -235,11 +239,21 @@ header {
 				font-family: 'Segoe SemiBold';
 			}
 		}
+		.navbar-responsive {
+			margin-right: 5px;
+			display: none;
+			float: right;
+			@media (max-width: 991px) {
+				display: block;
+			}
+		}
 		background-color: rgba($black,.9) !important;
 		border-bottom: 1px solid $white;
 		.container-cart {
 			@media (max-width: 991px) {
-				display: none;
+				&:not(.container-cart-responsive) {
+					display: none;
+				}				
 			}
 		}
 		.counter-cart {
