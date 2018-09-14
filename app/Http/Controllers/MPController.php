@@ -67,8 +67,8 @@
 
 			\Session::forget('mercadopago_payment_id');
 
-			if ($payment_id == $request->preference_id) {
-				if ($request->collection_status) {
+			// if ($payment_id == $request->preference_id) {
+				if ($request->collection_status == 'approved') {
 					Cart::destroy();
 					\App('\App\Http\Controllers\CarritoController')->pay([
 						"type" => '1',
@@ -78,10 +78,10 @@
 					return Redirect('carrito')->with('success', Lang::get('Page.PayPal.Success'));
 				}
 				return Redirect('carrito')->with('errors', Lang::get('Page.PayPal.NoProcesar'));
-			}
-			else {
-				return abort(403);
-			}
+			// }
+			// else {
+			// 	return abort(403);
+			// }
 		}
 
 

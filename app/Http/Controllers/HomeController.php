@@ -45,7 +45,11 @@
 	    }
 
 	    public function getContacto() {
-	    	$paises = Pais::orderBy('nombre','asc')->get()->pluck('nombre','nombre');
+	    	if (\App::getLocale() == 'es')
+	    		$paises = Pais::orderBy('nombre','asc')->get()->pluck('nombre','nombre');
+	    	else
+	    		$paises = Pais::orderBy('english','asc')->get()->pluck('english','english');
+
 	    	return View('contacto')->with(['paises' => $paises]);
 	    }
 

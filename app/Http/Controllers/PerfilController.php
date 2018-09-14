@@ -16,7 +16,12 @@
 	    
 	    public function get() {
 	    	$user = User::find(Auth::user()->id);
-	    	$paises = Pais::orderBy('nombre','asc')->get()->pluck('nombre','id');
+	    	
+	    	if (\App::getLocale() == 'es')
+	    		$paises = Pais::orderBy('nombre','asc')->get()->pluck('nombre','id');
+	    	else
+	    		$paises = Pais::orderBy('english','asc')->get()->pluck('english','id');
+
 	    	$estados = Estado::orderBy('nombre','asc')->get();
 	    	return View('perfil.home')->with([
 	    		'user' => $user,

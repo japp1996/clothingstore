@@ -4,8 +4,52 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ad38aed772974976122ed3ddfcc19773",
+    "content-hash": "a93d2582b4c0d0865c4d72ab9d13f63d",
     "packages": [
+        {
+            "name": "armorpayments/armorpayments-php",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Armor-Payments/armor-payments-php.git",
+                "reference": "613188bf1070c61d31f70829d575a7e3213191d8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Armor-Payments/armor-payments-php/zipball/613188bf1070c61d31f70829d575a7e3213191d8",
+                "reference": "613188bf1070c61d31f70829d575a7e3213191d8",
+                "shasum": ""
+            },
+            "require": {
+                "lib-curl": "*",
+                "php": ">=5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "lib/ArmorPayments/ArmorPayments.php"
+                ],
+                "psr-4": {
+                    "ArmorPayments\\": "lib/ArmorPayments",
+                    "": [
+                        "lib/",
+                        "lib/ArmorPayments/"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A PHP client library for interacting with the Armor Payments API",
+            "homepage": "http://www.armorpayments.com",
+            "keywords": [
+                "Armor Payments",
+                "api",
+                "escrow payments"
+            ],
+            "time": "2016-03-15T20:12:53+00:00"
+        },
         {
             "name": "dnoegel/php-xdg-base-dir",
             "version": "0.1",

@@ -284,7 +284,7 @@
 			</ul>
 			<div class="text-center">
 				<button class="btn btn-default" v-on:click="close(); load()">
-					Filtrar
+					@lang('Page.Tienda.Filtrar')
 				</button>
 			</div>
 		</div>

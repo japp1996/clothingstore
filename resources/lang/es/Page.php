@@ -9,6 +9,8 @@
 			'Success' => 'Su compra se ha realizado correctamente'
 		],
 
+		"Derechos" => "Todos los derechos reservados",
+
 		"Transferencia" => [
 			'Type' => 'Transferencia',
 			'Title' => 'Transferencia Bancaria',
@@ -222,7 +224,8 @@
 			'Agregado' => 'Se ha agregado el producto al carrito',
 			'VerProducto' => 'Ver Producto',
 			'Condiciones' => 'Condiciones de Compra',
-			'AgregadoCarrito' => 'Agregado al Carrito'
+			'AgregadoCarrito' => 'Agregado al Carrito',
+			'Filtrar' => 'Filtrar'
 		],
 
 		'ResetPassword' => [

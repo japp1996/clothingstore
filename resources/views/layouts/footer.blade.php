@@ -50,6 +50,6 @@
 		</div>
 	</div>
 	<p class="designed">
-		&copy; {{ \Carbon\Carbon::now()->format('Y') }} Designed by <a target="_blank" href="https://www.limonbyte.com">LimónByte</a> - Todos los derechos reservados
+		&copy; {{ \Carbon\Carbon::now()->format('Y') }} Designed by <a target="_blank" href="https://www.limonbyte.com">LimónByte</a> - @lang('Page.Derechos')
 	</p>
 </footer>

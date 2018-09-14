@@ -9,6 +9,8 @@
 			'Success' => 'Your purchase was successful'
 		],
 
+		"Derechos" => "All rights reserved",
+
 		"Transferencia" => [
 			"Type" => 'Transfer',
 			'Title' => 'Bank Transfer',
@@ -222,7 +224,8 @@
 			'Agregado' => 'The product has been added to the cart',
 			'VerProducto' => 'See Product',
 			'Condiciones' => 'Purchase conditions',
-			'AgregadoCarrito' => 'Added to Cart'
+			'AgregadoCarrito' => 'Added to Cart',
+			'Filtrar' => 'Filter'
 		],
 
 		'ResetPassword' => [
