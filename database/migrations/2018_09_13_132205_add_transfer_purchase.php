@@ -14,9 +14,13 @@ class AddTransferPurchase extends Migration
 
     public function up()
     {
-        // Schema::table('purchases', function (Blueprint $table) {
-        //     $table->enum('payment_type',['1','2','3'])->comment('1: MercadoPago, 2: PayPal, 3: Transferencia')->change();
-        // });
+        Schema::table('purchases', function (Blueprint $table) {
+            $table->dropColumn(['payment_type']);
+        });
+
+        Schema::table('purchases', function (Blueprint $table) {
+            $table->enum('payment_type',['1','2','3'])->comment('1: MercadoPago, 2: PayPal, 3: Transferencia')->after('id');
+        });
     }
 
     /**
@@ -26,8 +30,12 @@ class AddTransferPurchase extends Migration
      */
     public function down()
     {
-        // Schema::table('purchases', function (Blueprint $table) {
-        //     $table->dropColumn('payment_type');
-        // });
+        Schema::table('purchases', function (Blueprint $table) {
+            $table->dropColumn(['payment_type']);
+        });
+
+        Schema::table('purchases', function (Blueprint $table) {
+            $table->enum('payment_type',['1','2',])->comment('1: MercadoPago, 2: PayPal')->after('id');
+        });
     }
 }
