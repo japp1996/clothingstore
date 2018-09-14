@@ -25,11 +25,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $categories = Category::select('id', 'name')
+        $categories = Category::select('id', 'name', 'name_english')
         ->where('status', '1')
         ->with([
             'subcategories' => function ($sql) {
-                $sql->select('subcategories.id', 'subcategories.name', 'subcategories.category_id');
+                $sql->select('subcategories.id', 'subcategories.name', 'subcategories.name_english', 'subcategories.category_id');
             },
             'sizes' => function ($sizes) {
                 $sizes->select('category_sizes.id', 'name');
@@ -37,11 +37,11 @@ class ProductController extends Controller
         ])
         ->get();
 
-        $collections = Collection::select('id', 'name')
+        $collections = Collection::select('id', 'name', 'name_english')
         ->where('status', '1')
         ->get();
 
-        $designs = Design::select('id', 'name')
+        $designs = Design::select('id', 'name', 'name_english', 'collection_id')
         ->where('status', '1')
         ->get();
 
@@ -95,7 +95,7 @@ class ProductController extends Controller
         $product->category_id = $request->category_id;
         $product->subcategory_id = $request->subcategory_id == "" ? $request->subcategory_id : NULL;
         $product->collection_id = $request->collection_id;
-        $product->design_id = $request->design_id;
+        $product->design_id = $request->design_id == "" ? $request->design_id : NULL;
         $product->retail = $request->retail;
         $product->wholesale = $request->wholesale;
         $product->save();
