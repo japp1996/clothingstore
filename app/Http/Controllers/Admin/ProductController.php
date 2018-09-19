@@ -203,9 +203,9 @@ class ProductController extends Controller
         $product->price_1 = $request->price_1;
         $product->price_2 = $request->price_2;
         $product->category_id = $request->category_id;
-        $product->subcategory_id = $request->subcategory_id != "" ? $request->subcategory_id : NULL;
+        $product->subcategory_id = $request->subcategory_id != "" && $request->subcategory_id != 'null' ? $request->subcategory_id : NULL;
         $product->collection_id = $request->collection_id;
-        $product->design_id = $request->design_id != "" ? $request->design_id : NULL;
+        $product->design_id = $request->design_id != "" && $request->design_id != 'null' ? $request->design_id : NULL;
         $product->retail = $request->retail;
         $product->wholesale = $request->wholesale;
         $product->save();
