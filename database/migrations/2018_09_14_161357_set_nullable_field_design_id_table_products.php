@@ -14,7 +14,7 @@ class SetNullableFieldDesignIdTableProducts extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropForeign(['design_id']);
+            $table->dropForeign('design_id');
         });
 
         Schema::table('products', function (Blueprint $table) {
@@ -31,7 +31,7 @@ class SetNullableFieldDesignIdTableProducts extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropForeign(['design_id']);
+            $table->dropForeign('design_id');
         });
 
         Schema::table('products', function (Blueprint $table) {
