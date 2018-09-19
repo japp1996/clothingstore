@@ -97,7 +97,7 @@ class CollectionController extends Controller
             if($design['id'] > 0){
                 Design::find($design['id'])->update(['name' => $design['name'], 'name_english' => $design['name_english']]);
             }else{
-                $design = $category->subcategories()->create($design);
+                $design = $collection->designs()->create($design);
             }
 
             $design_ids[] = $design['id'];
