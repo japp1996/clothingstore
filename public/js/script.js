@@ -77406,7 +77406,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         update: function update() {
-            this.form._method = "PUT";
+            this.form._method = "PATCH";
 
             axios.post("admin/categories/" + this.form.id, this.form).then(function (res) {
                 swal({
