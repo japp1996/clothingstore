@@ -44,9 +44,10 @@
 						<p v-if="currency == 1">@{{ getPrice(item.price_1,item.coin) | VES }}</p>
 						<p v-if="currency == 2">@{{ getPrice(item.price_1,item.coin) | USD }}</p>
 					</div>
-					<button class="btn btn-default" v-on:click="ver(item)" :disabled="inCarrito(item.id)">
-						<template v-if="!inCarrito(item.id)">{{ HTML::Image('img/icons/cart_gold.png') }}</template>
-						<template v-if="inCarrito(item.id)">{{ HTML::Image('img/check.png') }}</template>
+					<button class="btn btn-default" v-on:click="ver(item)" {{-- :disabled="inCarrito(item.id)" --}}>
+						{{-- <template v-if="!inCarrito(item.id)">{{ HTML::Image('img/icons/cart_gold.png') }}</template>
+						<template v-if="inCarrito(item.id)">{{ HTML::Image('img/check.png') }}</template> --}}
+						{{ HTML::Image('img/icons/cart_gold.png') }}
 					</button>
 				</div>
 			</div>
@@ -88,6 +89,9 @@
 		      <div class="modal-body">
 		        <div class="row" v-if="producto != null">
 		        	<div class="col-md-4 image-modal" :style="{ backgroundImage: 'url({{ URL('img/products') }}' + '/' + producto.images[producto.file_selected].file + ')' }">
+		        		<button class="close" v-on:click="closeModal()">
+		        			<i class="fa fa-close"></i>
+		        		</button>
 		        		<i class="fa fa-chevron-left" v-on:click="producto.file_selected == 0 ? (producto.file_selected = producto.images.length - 1) : producto.file_selected--"></i>
 		        			<img class="img-principal" :src="'{{ URL('img/products') }}' + '/' + producto.images[0].file" />
 		        		<i class="fa fa-chevron-right" v-on:click="producto.file_selected == producto.images.length -1 ? producto.file_selected = 0 : producto.file_selected++"></i>
@@ -293,6 +297,9 @@
 
 @section('scripts')
 	<script type="text/javascript">
+
+		var vue;
+
 		new Vue({
 			el: '#tienda',
 			data: {
@@ -315,14 +322,18 @@
 				}
 			},
 			created() {
-				this.load();
+				vue = this;
+				vue.load();
 			},
 			// watch: {
 			// 	catalogo(item) {
-			// 		this.categorias_selected = [];
+			// 		vue.categorias_selected = [];
 			// 	}
 			// },
 			methods: {
+				closeModal() {
+					$('.modal').modal('hide');
+				},
 				filtro() {
 					$('.filtro').fadeIn();
 					$('.filtro-container').animate({
@@ -336,100 +347,112 @@
 					},250);
 				},
 				getPrice(precio,coin) {
-					let price = precio;
-					if (coin == '1' && this.currency == '2') {
-						price = price / this.exchange;
+					var price = precio;
+					if (coin == '1' && vue.currency == '2') {
+						price = price / vue.exchange;
 					}
-					else if (coin == '2' && this.currency == '1') {
-						price = price * this.exchange;
+					else if (coin == '2' && vue.currency == '1') {
+						price = price * vue.exchange;
 					}
 					return price;
 				},
 				load(page = null) {
 					if (page != null)
-						this.page = page;
+						vue.page = page;
 					setLoader();
-					axios.post('{{ URL('tienda/ajax') }}?page=' + this.page,{
-						categorias: this.categorias_selected,
-						catalogo: this.catalogo == 0 ? null : this.catalogo
+					axios.post('{{ URL('tienda/ajax') }}?page=' + vue.page,{
+						categorias: vue.categorias_selected,
+						catalogo: vue.catalogo == 0 ? null : vue.catalogo
 					})
-						.then(res => {
+						.then(function(res) {
 							if (res.data.result) {
-								res.data.productos.data.forEach(item => {
+								res.data.productos.data.forEach(function(item) {
 									item.file_selected = 0;
 								});
-								this.filtros = res.data.filtros;
-								this.paginator = res.data.productos;
-								this.productos = res.data.productos.data;
-								this.carrito = res.data.carrito;
-								this.categorias = res.data.categorias;
-								vue_header.cart = this.carrito.length;
-								this.catalogo_selected = this.catalogo;
+								vue.filtros = res.data.filtros;
+								vue.paginator = res.data.productos;
+								vue.productos = res.data.productos.data;
+								vue.carrito = res.data.carrito;
+								vue.categorias = res.data.categorias;
+								vue_header.cart = vue.carrito.length;
+								vue.catalogo_selected = vue.catalogo;
 							}
 						})
-						.catch(err => {
+						.catch(function(err) {
 							swal('','{{ Lang::get('Page.Error') }}','warning');
 							console.log(err);
 						})
-						.then(() => {
+						.then(function() {
 							quitLoader();
 						});
 				},
 				ver(item) {
-					this.producto = item;
-					this.form = {
+					vue.producto = item;
+					vue.form = {
 						talla: '',
 						color: '',
 						cantidad: 1
 					}
+					vue.updateCarrito();
 					$('#modal-producto').modal();
 				},
 				getTallas(tallas) {
-					let respuesta = "";
-					tallas.forEach((item,index) => {
+					var respuesta = "";
+					tallas.forEach(function(item,index) {
 						respuesta += item.name + (index + 1 == tallas.length ? '' : ', ');
 					});
 					return respuesta;
 				},
 				getColors(colores) {
-					let respuesta = "";
-					colores.forEach((item,index) => {
+					var respuesta = "";
+					colores.forEach(function(item,index) {
 						respuesta += @if (\App::getLocale() == 'es') item.name @else item.name_english @endif + (index + 1 == colores.length ? '' : ', ');
 					});
 					return respuesta;
 				},
 				add() {
 					setLoader();
-					let item = {
-						id: this.producto.id,
-						cantidad: this.form.cantidad,
-						color: this.form.color,
-						talla: this.form.talla
+					var item = {
+						id: vue.producto.id,
+						cantidad: vue.form.cantidad,
+						color: vue.form.color,
+						talla: vue.form.talla
 					}
 					axios.post('{{ URL('tienda/add') }}',item)
-						.then(res => {
+						.then(function(res) {
 							if (res.data.result) {
-								this.load();
+								vue.load();
 								swal('','{{ Lang::get('Page.Tienda.Agregado') }}','success');
-								// this.carrito = res.data.carrito;
-								// vue_header.cart = this.carrito.length;
+								// vue.carrito = res.data.carrito;
+								// vue_header.cart = vue.carrito.length;
 								$('#modal-producto').modal('hide');
 							}
 							else {
 								swal('',res.data.error,'warning');
 							}
 						})
-						.catch(err => {
+						.catch(function(err) {
 							swal('','{{ Lang::get('Page.Error') }}','warning');
 							console.log(err);
 						})
-						.then(() => {
+						.then(function() {
 							quitLoader();
 						});
 				},
 				inCarrito(id) {
-					let carrito = this.carrito.map(item => { return item.id });
+					var carrito = vue.carrito.map(function(item) { return item.id });
 					return carrito.indexOf(id) != -1;
+				},
+				getCarrito() {
+					var carrito = vue.carrito.map(function(item) { return item.id });
+					return vue.carrito[carrito.indexOf(vue.producto.id)];
+				},
+				updateCarrito() {
+					if (vue.getCarrito() != null) {
+						vue.form.talla = vue.getCarrito().talla;
+						vue.form.color = vue.getCarrito().color;
+						vue.form.cantidad = vue.getCarrito().cantidad;
+					}
 				},
 			}
 		})

@@ -128,9 +128,9 @@
 @section('scripts')
 	<script type="text/javascript">
 
-		$(document).ready(() => {
+		$(document).ready(function() {
 
-			$('#modal-aliado').on('hide.bs.modal', e => {
+			$('#modal-aliado').on('hide.bs.modal', function(e) {
 				vue.aliado = null;
 			});
 
@@ -143,18 +143,18 @@
 			},1500);
 		});
 
-		let vue = new Vue({
+		var vue = new Vue({
 			el: '#aliados',
 			data: {
 				aliado: null
 			},
 			methods: {
 				ver(item) {
-					this.aliado = item;
+					vue.aliado = item;
 					$('#modal-aliado').modal();
 				},
 				close() {
-					this.aliado = null;
+					vue.aliado = null;
 					$('#modal-aliado').modal('hide');
 				}
 			}

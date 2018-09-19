@@ -76,7 +76,7 @@
 	    public function postRegister(Request $request) {
 	    	$reglas = [
 	    		'nombre' => 'required',
-	    		'email' => 'required',
+	    		'email' => 'required|email|unique:users,email',
 	    		'type' => 'required',
 	    		'identificacion' => 'required',
 	    		'telefono' => 'required|numeric',

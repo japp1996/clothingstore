@@ -51,7 +51,7 @@
 
 @section('scripts')
 	<script type="text/javascript">
-		new Vue({
+		var vue = new Vue({
 			el: '#contacto',
 			data: {
 				form: {
@@ -64,20 +64,20 @@
 			methods: {
 				submit() {
 					setLoader();
-					axios.post("{{ URL('contacto') }}",this.form)
-						.then(res => {
+					axios.post("{{ URL('contacto') }}",vue.form)
+						.then(function(res) {
 							if (res.data.result) {
 								swal('','{{ Lang::get('Page.Contacto.Success') }}','success');
-								this.form = {};
+								vue.form = {};
 							}
 							else {
 								swal('',res.data.error,'warning');
 							}
 						})
-						.catch(err => {
+						.catch(function(err) {
 							swal('',"{{ Lang::get('Page.Error') }}",'warning');
 						})
-						.then(() => {
+						.then(function() {
 							quitLoader();
 						});
 				}

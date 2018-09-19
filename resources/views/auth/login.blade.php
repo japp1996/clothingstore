@@ -54,7 +54,7 @@
 
 @section('scripts')
 	<script type="text/javascript">
-		new Vue({
+		var vue = new Vue({
 			el: '#login',
 			data: {
 				form: {
@@ -65,8 +65,8 @@
 			methods: {
 				submit() {
 					setLoader();
-					axios.post("{{ URL('login') }}",this.form)
-						.then(res => {
+					axios.post("{{ URL('login') }}",vue.form)
+						.then(function(res) {
 							if (res.data.result) {
 								window.location = res.data.url;
 							}
@@ -74,10 +74,10 @@
 								swal('',res.data.error,'warning');
 							}
 						})
-						.catch(err => {
+						.catch(function(err) {
 							swal('',"{{ Lang::get('Page.Error') }}",'warning');
 						})
-						.then(() => {
+						.then(function() {
 							quitLoader();
 						});
 				}

@@ -118,7 +118,7 @@
 										<td class="bold">
 											@if (\App::getLocale() == 'es') @{{ i.product.name }} @else @{{ i.product.name_english }} @endif
 										</td>
-										<td>@{{ i.quantity }}</td>										
+										<td>@{{ i.quantity }} <span class="talla_small">(@{{ i.product_size.name }}, @if (\App::getLocale() == 'es') @{{ i.product_color.name }} @else @{{ i.product_color.name_english }} @endif)</span></td>										
 										<td>
 											<span class="bold" v-if="currency == 1">@{{ getPrice(i.price,i.coin,item.exchange.change) * i.quantity | VES }}</span>
 											<span class="bold" v-if="currency == 2">@{{ getPrice(i.price,i.coin,item.exchange.change) * i.quantity | USD }}</span>
@@ -216,6 +216,8 @@
 
 @section('scripts')
 	<script type="text/javascript">
+		var vue;
+
 		new Vue({
 			el: '#perfil',
 			data: {
@@ -233,7 +235,8 @@
 				paginator: {}
 			},
 			created() {
-				this.load();
+				vue = this;
+				vue.load();
 			},
 			methods: {
 				filtro() {
@@ -249,18 +252,18 @@
 					},250);
 				},
 				getTotal(pedido) {
-					let total = 0;
-					pedido.details.forEach(item => {
-						total += item.quantity * this.getPrice(item.price,item.coin,pedido.exchange.change);
+					var total = 0;
+					pedido.details.forEach(function(item) {
+						total += item.quantity * vue.getPrice(item.price,item.coin,pedido.exchange.change);
 					});
 					return total;
 				},
 				getPrice(precio,coin,exchange) {
-					let price = precio;
-					if (coin == '1' && this.currency == '2') {
+					var price = precio;
+					if (coin == '1' && vue.currency == '2') {
 						price = price / exchange;
 					}
-					else if (coin == '2' && this.currency == '1') {
+					else if (coin == '2' && vue.currency == '1') {
 						price = price * exchange;
 					}
 					return price;
@@ -268,24 +271,24 @@
 				load(page = 1) {
 					setLoader();
 					axios.post('{{ URL('perfil/pedidos') }}?page=' + page)
-						.then(res => {
+						.then(function(res) {
 							if (res.data.result) {
-								this.pedidos = res.data.pedidos.data;
-								this.paginator = res.data.pedidos;
+								vue.pedidos = res.data.pedidos.data;
+								vue.paginator = res.data.pedidos;
 							}
 						})
-						.catch(err => {
+						.catch(function(err) {
 							swal('','{{ Lang::get('Page.Error') }}','warning');
 							console.log(err);
 						})
-						.then(() => {
+						.then(function() {
 							quitLoader();
 						});
 				},
 				submit() {
 					setLoader();
-					axios.post('{{ URL('perfil') }}',this.user)
-						.then(res => {
+					axios.post('{{ URL('perfil') }}',vue.user)
+						.then(function(res) {
 							if (res.data.result) {
 								swal('',"{{ Lang::get('Page.Perfil.Success') }}",'success');
 							}
@@ -293,20 +296,20 @@
 								swal('',res.data.error,'warning');
 							}
 						})
-						.catch(err => {
+						.catch(function(err) {
 							swal('','{{ Lang::get('Page.Error') }}','warning');
 						})
-						.then(() => {
+						.then(function() {
 							quitLoader();
 						});
 				},
 				submitPassword() {
 					setLoader();
-					axios.post('{{ URL('password') }}',this.password)
-						.then(res => {
+					axios.post('{{ URL('password') }}',vue.password)
+						.then(function(res) {
 							if (res.data.result) {
 								swal('',"{{ Lang::get('Page.Perfil.SuccessPassword') }}",'success');
-								this.password = {
+								vue.password = {
 									old_password: '',
 									password: '',
 									password_confirmation: ''
@@ -316,10 +319,10 @@
 								swal('',res.data.error,'warning');
 							}
 						})
-						.catch(err => {
+						.catch(function(err) {
 							swal('','{{ Lang::get('Page.Error') }}','warning');
 						})
-						.then(() => {
+						.then(function() {
 							quitLoader();
 						});
 				}

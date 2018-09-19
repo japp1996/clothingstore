@@ -67,7 +67,7 @@
 						<button class="btn btn-default btn-add" v-on:click="add()">
 							{{ HTML::Image('img/icons/cart_black.png') }}
 						</button>
-						<span class="agregado" v-if="inCarrito()">@lang('Page.Tienda.AgregadoCarrito') {{ HTML::Image('img/check.png') }}</span>
+						{{-- <span class="agregado" v-if="inCarrito()">@lang('Page.Tienda.AgregadoCarrito') {{ HTML::Image('img/check.png') }}</span> --}}
 						<a href="{{ URL('condiciones') }}" target="_blank">
 							@lang('Page.Tienda.Condiciones')
 						</a>
@@ -102,6 +102,8 @@
 @section('scripts')
 	{{ HTML::Script('bower_components/owl-carousel/dist/owl.carousel.min.js') }}
 	<script type="text/javascript">
+		var vue;
+
 		new Vue({
 			el: '#ver-producto',
 			data: {
@@ -116,31 +118,32 @@
 				}
 			},
 			created() {
-				this.load();
+				vue = this;
+				vue.load();
 			},
 			methods: {
 				load() {
 					setLoader();
 					axios.post('{{ URL('tienda/get') }}',{id: '{{ $id }}'})
-						.then(res => {
+						.then(function(res) {
 							if (res.data.result) {
 								res.data.producto.file_selected = 0;
-								this.producto = res.data.producto;
-								this.carrito = res.data.carrito;
-								this.updateCarrito();
-								// this.carousel();
+								vue.producto = res.data.producto;
+								vue.carrito = res.data.carrito;
+								vue.updateCarrito();
+								// vue.carousel();
 							}
 						})
-						.catch(err => {
+						.catch(function(err) {
 							swal('','{{ Lang::get('Page.Error') }}','warning');
 							console.log(err)
 						})
-						.then(() => {
+						.then(function() {
 							quitLoader();
 						});
 				},
 				// carousel() {
-				// 	setTimeout(() => {
+				// 	setTimeout(function() {
 				// 		$('.owl-carousel').owlCarousel({
 				// 	        loop: true,
 				// 	        margin: 20,
@@ -153,70 +156,70 @@
 				// 	},100);					
 				// },
 				getTallas(tallas) {
-					let respuesta = "";
-					tallas.forEach((item,index) => {
+					var respuesta = "";
+					tallas.forEach(function(item,index) {
 						respuesta += item.name + (index + 1 == tallas.length ? '' : ', ');
 					});
 					return respuesta;
 				},
 				getColors(colores) {
-					let respuesta = "";
-					colores.forEach((item,index) => {
+					var respuesta = "";
+					colores.forEach(function(item,index) {
 						respuesta += @if (\App::getLocale() == 'es') item.name @else item.name_english @endif + (index + 1 == colores.length ? '' : ', ');
 					});
 					return respuesta;
 				},
 				getPrice(precio,coin) {
-					let price = precio;
-					if (coin == '1' && this.currency == '2') {
-						price = price / this.exchange;
+					var price = precio;
+					if (coin == '1' && vue.currency == '2') {
+						price = price / vue.exchange;
 					}
-					else if (coin == '2' && this.currency == '1') {
-						price = price * this.exchange;
+					else if (coin == '2' && vue.currency == '1') {
+						price = price * vue.exchange;
 					}
 					return price;
 				},
 				add() {
 					setLoader();
-					let item = {
-						id: this.producto.id,
-						cantidad: this.form.cantidad,
-						color: this.form.color,
-						talla: this.form.talla
+					var item = {
+						id: vue.producto.id,
+						cantidad: vue.form.cantidad,
+						color: vue.form.color,
+						talla: vue.form.talla
 					}
 					axios.post('{{ URL('tienda/add') }}',item)
-						.then(res => {
+						.then(function(res) {
 							if (res.data.result) {
 								swal('','{{ Lang::get('Page.Tienda.Agregado') }}','success');
-								this.carrito = res.data.carrito;
-								vue_header.cart = this.carrito.length;
+								vue.carrito = res.data.carrito;
+								vue_header.cart = vue.carrito.length;
 							}
 							else {
 								swal('',res.data.error,'warning');
 							}
 						})
-						.catch(err => {
+						.catch(function(err) {
 							swal('','{{ Lang::get('Page.Error') }}','warning');
 							console.log(err);
 						})
-						.then(() => {
+						.then(function() {
 							quitLoader();
 						});
 				},
 				getCarrito() {
-					let carrito = this.carrito.map(item => { return item.id });
-					return this.carrito[carrito.indexOf(this.producto.id)];
+					var carrito = vue.carrito.map(function(item) { return item.id });
+					return vue.carrito[carrito.indexOf(vue.producto.id)];
 				},
 				updateCarrito() {
-					if (this.getCarrito() != null) {
-						this.form.talla = this.getCarrito().talla;
-						this.form.color = this.getCarrito().color;
-						this.form.cantidad = this.getCarrito().cantidad;
+					if (vue.getCarrito() != null) {
+						vue.form.talla = vue.getCarrito().talla;
+						vue.form.color = vue.getCarrito().color;
+						vue.form.cantidad = vue.getCarrito().cantidad;
 					}
 				},
 				inCarrito() {
-					let carrito = this.carrito.map(item => { return item.id });
-					return carrito.indexOf(this.producto.id) != -1;
+					var carrito = vue.carrito.map(function(item) { return item.id });
+					return carrito.indexOf(vue.producto.id) != -1;
 				}
 			}
 		})

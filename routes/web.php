@@ -77,8 +77,9 @@
 	Route::get('logout','AuthController@logout');
 
 	Route::get('destroy',function() {
-		\App\Libraries\Cart::destroy();
-		return Back();
+		// \App\Libraries\Cart::destroy();
+		// return Back();
+		return \App\Libraries\Cart::get();
 	});
 
 	// Lang

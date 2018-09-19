@@ -24,12 +24,12 @@
 			return self::$items;
 		}
 
-		public static function in($id,$_index = false) {
+		public static function in($producto,$_index = false) {
 			self::init();
 			$in = false;
 			$index = null;
 			foreach(self::$items as $key => $item) {
-				if ($id == $item['id']) {
+				if($producto['id'] == $item['id'] && $producto['talla'] == $item['talla'] && $producto['color'] == $item['color']) {
 					$in = true;
 					$index = $key;
 				}
@@ -42,18 +42,18 @@
 
 		public static function set($item) {
 			self::init();
-			if (self::in($item['id'])) {
-				self::$items[self::in($item['id'],true)] = $item;
+			if (self::in($item)) {
+				self::$items[self::in($item,true)] = $item;
 			}
 			else {
 				self::$items[] = $item;
-			}			
+			}
 			Cookie::queue(self::$name,self::$items, 2628000);
 		}
 
-		public static function delete($id) {
+		public static function delete($item) {
 			self::init();
-			array_splice(self::$items,self::in($id,true),1);
+			array_splice(self::$items,self::in($item,true),1);
 			Cookie::queue(self::$name,self::$items, 2628000);
 		}
 

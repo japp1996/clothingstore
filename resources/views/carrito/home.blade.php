@@ -59,7 +59,7 @@
 						<td v-if="currency == '1'">@{{ (getPrice(item.cantidad < 12 ? item.producto.price_1 : item.producto.price_2,item.producto.coin) * item.cantidad) | VES }}</td>
 						<td v-if="currency == '2'">@{{ (getPrice(item.cantidad < 12 ? item.producto.price_1 : item.producto.price_2,item.producto.coin) * item.cantidad) | USD }}</td>
 						<td>
-							<button class="btn btn-default" v-on:click="eliminar(item.id)">
+							<button class="btn btn-default" v-on:click="eliminar(item)">
 								<i class="fa fa-close"></i>
 							</button>
 						</td>
@@ -206,6 +206,8 @@
 
 @section('scripts')
 	<script type="text/javascript">
+		var vue;
+
 		new Vue({
 			el: '#carrito',
 			data: {
@@ -215,17 +217,18 @@
 				exchange: '{{ $_change }}'
 			},
 			created() {
-				this.load();
+				vue = this;
+				vue.load();
 			},
 			methods: {
 				alerta(num) {
-					this.tipo_alerta = num;
+					vue.tipo_alerta = num;
 					$('#modal-alerta').modal();
 				},
 				check(url) {
 					setLoader();
 					axios.post('{{ URL('carrito/check') }}')
-						.then(res => {
+						.then(function(res) {
 							if (res.data.result) {
 								window.location = url;
 							}
@@ -233,16 +236,16 @@
 								swal('',res.data.error,'warning');
 							}
 						})
-						.catch(err => {
+						.catch(function(err) {
 							swal('','Se ha producido un error','warning');
 						})
-						.then(() => {
+						.then(function() {
 							quitLoader();
 						});
 				},
 				proceder() {
 					if ("{{ Auth::check() }}" == true)
-						this.pago();
+						vue.pago();
 					else
 						$('#modal-proceder').modal();
 				},
@@ -250,65 +253,65 @@
 					$('#modal-pago').modal();
 				},
 				getTotal() {
-					let total = 0;
-					this.carrito.forEach(item => {
-						total += item.cantidad * this.getPrice(item.cantidad < 12 ? item.producto.price_1 : item.producto.price_2,item.producto.coin);
+					var total = 0;
+					vue.carrito.forEach(function(item) {
+						total += item.cantidad * vue.getPrice(item.cantidad < 12 ? item.producto.price_1 : item.producto.price_2,item.producto.coin);
 					});
 					return total;
 				},
 				getTotalUsd() {
-					let total = 0;
-					this.carrito.forEach(item => {
-						total += item.cantidad * this.getPrice(item.cantidad < 12 ? item.producto.price_1 : item.producto.price_2,item.producto.coin);
+					var total = 0;
+					vue.carrito.forEach(function(item) {
+						total += item.cantidad * vue.getPrice(item.cantidad < 12 ? item.producto.price_1 : item.producto.price_2,item.producto.coin);
 					});
 					return total;
 				},
 				getPrice(precio,coin) {
-					let price = precio;
-					if (coin == '1' && this.currency == '2') {
-						price = price / this.exchange;
+					var price = precio;
+					if (coin == '1' && vue.currency == '2') {
+						price = price / vue.exchange;
 					}
-					else if (coin == '2' && this.currency == '1') {
-						price = price * this.exchange;
+					else if (coin == '2' && vue.currency == '1') {
+						price = price * vue.exchange;
 					}
 					return price;
 				},
 				load() {
 					setLoader();
 					axios.post('{{ URL('carrito/ajax') }}')
-						.then(res => {
+						.then(function(res) {
 							if (res.data.result) {
-								this.carrito = res.data.carrito;
-								vue_header.cart = this.carrito.length;
+								vue.carrito = res.data.carrito;
+								vue_header.cart = vue.carrito.length;
 								if ('{{ Session('success') }}' != '') {
-									this.alerta(1);
+									vue.alerta(1);
 								}
 								else if ('{{ Session('errors') }}' != '') {
-									this.alerta(3);
+									vue.alerta(3);
 								}
 							}
 						})
-						.catch(err => {
+						.catch(function(err) {
 							swal('','{{ Lang::get('Page.Error') }}','warning');
 							console.log(err);
 						})
-						.then(() => {
+						.then(function() {
 							quitLoader();
 						});
 				},
 				update(producto) {
-					let item = {
+					var item = {
 						id: producto.id,
 						cantidad: producto.cantidad,
 						color: producto.color,
 						talla: producto.talla
 					}
 					axios.post('{{ URL('tienda/add') }}',item)
-						.catch(err => {
+						.catch(function(err) {
 							console.log(err);
 						});
 				},
-				eliminar(id) {
+				eliminar(item) {
 					swal({
 					  title: "",
 					  type: 'warning',
@@ -317,19 +320,19 @@
 					  confirmButtonText: "{{ Lang::get('Page.Carrito.Aceptar') }}",
 					  cancelButtonText: "{{ Lang::get('Page.Carrito.Cancelar') }}"
 					},
-					confirm => {
+					function(confirm) {
 					  if (confirm) {
 					  		setLoader();
-							axios.post('{{ URL('carrito/delete') }}',{id: id})
-								.then(res => {
+							axios.post('{{ URL('carrito/delete') }}',{item: item})
+								.then(function(res) {
 									if (res.data.result) {
-										this.load();
+										vue.load();
 									}
 								})
-								.catch(err => {
+								.catch(function(err) {
 									swal('','{{ Lang::get('Page.Error') }}','warning');
 								})
-								.then(() => {
+								.then(function() {
 									quitLoader();
 								});
 							  }

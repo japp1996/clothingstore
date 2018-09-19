@@ -1,28 +1,28 @@
-Vue.filter('number',value => {
+Vue.filter('number',function(value) {
 	if (value == '')
 		return '';
 	return formatMoney(parseFloat(value));
 });
 
-Vue.filter('VES',value => {
+Vue.filter('VES',function(value) {
 	if (value == '')
 		return '';
 	return formatMoney(parseFloat(value)) + ' Bs. S';
 });
 
-Vue.filter('USD',value => {
+Vue.filter('USD',function(value) {
 	if (value == '')
 		return '';
 	return formatMoney(parseFloat(value)) + ' USD';
 });
 
-Vue.filter('date',value => {
+Vue.filter('date',function(value) {
 	if (value == '')
 		return '';
 	return moment(value).format('DD/MM/YYYY');
 });
 
-Vue.filter('metodo',value => {
+Vue.filter('metodo',function(value) {
 	if (value == '')
 		return '';
 	let respuesta = "";
