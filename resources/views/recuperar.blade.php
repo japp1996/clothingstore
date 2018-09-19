@@ -67,7 +67,7 @@
 
 @section('scripts')
 	<script type="text/javascript">
-		new Vue({
+		var vue = new Vue({
 			el: '#recuperar',
 			data: {
 				seccion: 1,
@@ -81,60 +81,60 @@
 			methods: {
 				send() {
 					setLoader();
-					let data = {
-						email: this.form.email
+					var data = {
+						email: vue.form.email
 					}
 					axios.post('{{ URL('recuperar/send') }}',data)
-						.then(res => {
+						.then(function(res) {
 							if (res.data.result) {
 								swal('','{{ Lang::get('Page.ResetPassword.Success') }}','success');
-								this.seccion = 2;
+								vue.seccion = 2;
 							}
 							else {
 								swal('',res.data.error,'warning');
 							}
 						})
-						.catch(err => {
+						.catch(function(err) {
 						   swal('','{{ Lang::get('Page.Error') }}','warning');
 						})
-						.then(() => {
+						.then(function() {
 							quitLoader();
 						});
 				},
 				codigo() {
 					setLoader();
-					let data = {
-						codigo: this.form.codigo
+					var data = {
+						codigo: vue.form.codigo
 					}
 					axios.post('{{ URL('recuperar/codigo') }}',data)
-						.then(res => {
+						.then(function(res) {
 							if (res.data.result) {
-								this.seccion = 3;
+								vue.seccion = 3;
 							}
 							else {
 								swal('',res.data.error,'warning');
 							}
 						})
-						.catch(err => {
+						.catch(function(err) {
 						   swal('','{{ Lang::get('Page.Error') }}','warning');
 						})
-						.then(() => {
+						.then(function() {
 							quitLoader();
 						});
 				},
 				recuperar() {
 					setLoader();
-					let data = {
-						password: this.form.password,
-						password_confirmation: this.form.password_confirmation,
-						email: this.form.email,
-						codigo: this.form.codigo
+					var data = {
+						password: vue.form.password,
+						password_confirmation: vue.form.password_confirmation,
+						email: vue.form.email,
+						codigo: vue.form.codigo
 					}
 					axios.post('{{ URL('recuperar/recuperar') }}',data)
-						.then(res => {
+						.then(function(res) {
 							if (res.data.result) {
 								swal('','{{ Lang::get('Page.ResetPassword.SuccessPassword') }}','success');
-								setTimeout(() => {
+								setTimeout(function() {
 									window.location = res.data.url;
 								},1500);
 							}
@@ -142,20 +142,20 @@
 								swal('',res.data.error,'warning');
 							}
 						})
-						.catch(err => {
+						.catch(function(err) {
 						   swal('','{{ Lang::get('Page.Error') }}','warning');
 						})
-						.then(() => {
+						.then(function() {
 							quitLoader();
 						});
 				},
 				reenviar() {
 					setLoader();
-					let data = {
-						email: this.form.email
+					var data = {
+						email: vue.form.email
 					}
 					axios.post('{{ URL('recuperar/reenviar') }}',data)
-						.then(res => {
+						.then(function(res) {
 							if (res.data.result) {
 								swal('','{{ Lang::get('Page.ResetPassword.SuccessReenvio') }}','success');
 							}
@@ -163,10 +163,10 @@
 								swal('',res.data.error,'warning');
 							}
 						})
-						.catch(err => {
+						.catch(function(err) {
 						   swal('','{{ Lang::get('Page.Error') }}','warning');
 						})
-						.then(() => {
+						.then(function() {
 							quitLoader();
 						});
 				}

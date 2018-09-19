@@ -39,7 +39,7 @@
 
             foreach($carrito as $item) {
                 if ($item['producto']['amount']['amount'] <= 0) {
-                    Cart::delete($item['id']);
+                    Cart::delete($item);
                 }
                 if ($item['cantidad'] > $item['producto']['amount']['amount']) {
                     $item['cantidad'] = $item['producto']['amount']['amount'];
@@ -65,7 +65,7 @@
 		    	},'colors'])->where('status','1')->where('id',$carrito[$n]['id'])->first();
 
 		    	$carrito[$n]['producto']['talla'] = Size::find($carrito[$n]['talla'])->first();
-		    	$carrito[$n]['producto']['color'] = ProductColor::find($carrito[$n]['color'])->first();
+		    	$carrito[$n]['producto']['color'] = ProductColor::find($carrito[$n]['color']);
 		    	$category_size = CategorySize::where('category_id',$carrito[$n]['producto']['category_id'])->where('size_id',$carrito[$n]['talla'])->first();
 		    	$carrito[$n]['producto']['amount'] = ProductAmount::where('product_color_id',$carrito[$n]['color'])
 																	->where('category_size_id',$category_size->id)
@@ -152,7 +152,7 @@
 	    }
 
 	    public function delete(Request $request) {
-	    	Cart::delete($request->id);
+	    	Cart::delete($request->item);
 	    	return response()->json([
 	    		'result' => true,
 	    		'carrito' => $this->getCarrito()

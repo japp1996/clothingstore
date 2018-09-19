@@ -27,7 +27,7 @@
 	
 	{{ HTML::Script('bower_components/jquery/dist/jquery.min.js') }}
 	{{ HTML::Script('bower_components/bootstrap/dist/js/bootstrap.min.js') }}
-	{{ HTML::Script('bower_components/moment/moment.js') }}
+	{{ HTML::Script('bower_components/moment/min/moment.min.js') }}
 	{{ HTML::Script('bower_components/vue/dist/vue.min.js') }}
 	{{ HTML::Script('bower_components/axios/dist/axios.min.js') }}
 	{{ HTML::Script('bower_components/sweetalert/dist/sweetalert.min.js') }}
@@ -36,9 +36,9 @@
 	{{ HTML::Script('js/filtros.js') }}
 	{{ HTML::Script('js/currency.js') }}
 	<script type="text/javascript">
-		let _transfer = '{{ Lang::get('Page.Transferencia.Type') }}';
+		var _transfer = '{{ Lang::get('Page.Transferencia.Type') }}';
 
-		let vue_header = new Vue({
+		var vue_header = new Vue({
 			el: '#vue_header',
 			data: {
 				cart: '{{ Cart::count() }}'

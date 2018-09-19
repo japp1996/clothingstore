@@ -6,5 +6,9 @@
 
     class CategorySize extends Model {
         protected $table="category_sizes";
+
+        public function size() {
+        	return $this->belongsTo(Size::class,'size_id');
+        }
         
     }

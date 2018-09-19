@@ -108,7 +108,7 @@
 
 @section('scripts')
 	<script type="text/javascript">
-		new Vue({
+		var vue = new Vue({
 			el: '#register',
 			data: {
 				terminos: false,
@@ -130,16 +130,16 @@
 			},
 			methods: {
 				submit() {
-					if (!this.terminos) {
+					if (!vue.terminos) {
 						swal('','{{ Lang::get('Page.Register.Terminos') }}','warning');
 						return false;
 					}
 					setLoader();
-					axios.post("{{ URL('register') }}",this.form)
-						.then(res => {
+					axios.post("{{ URL('register') }}",vue.form)
+						.then(function(res) {
 							if (res.data.result) {
 								swal('','{{ Lang::get('Page.Register.Success') }}','success');
-								setTimeout(() => {
+								setTimeout(function() {
 									window.location = res.data.url;
 								},1500);
 							}
@@ -147,10 +147,10 @@
 								swal('',res.data.error,'warning');
 							}
 						})
-						.catch(err => {
+						.catch(function(err) {
 							swal('',"{{ Lang::get('Page.Error') }}",'warning');
 						})
-						.then(() => {
+						.then(function() {
 							quitLoader();
 						});
 				}

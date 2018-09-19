@@ -55,7 +55,7 @@
 			});
 		@endif
 
-		new Vue({
+		var vue = new Vue({
 			el: '#transfers',
 			data: {
 				form: {
@@ -69,12 +69,12 @@
 			methods: {
 				submit() {
 					setLoader();
-					this.form.fecha = $('#datepicker').val();
-					axios.post('{{ URL('transferencia') }}',this.form)
-						.then(res => {
+					vue.form.fecha = $('#datepicker').val();
+					axios.post('{{ URL('transferencia') }}',vue.form)
+						.then(function(res) {
 							if (res.data.result) {
 								swal('','{{ Lang::get('Page.Transferencia.Success') }}','success');
-								setTimeout(() => {
+								setTimeout(function() {
 									window.location = res.data.url;
 								},1500);
 							}
@@ -82,10 +82,10 @@
 								swal('',res.data.error,'warning');
 							}
 						})
-						.catch(err => {
+						.catch(function(err) {
 							swal('','{{ Lang::get('Page.Error') }}','warning');
 						})
-						.then(() => {
+						.then(function() {
 							quitLoader();
 						});
 				}
