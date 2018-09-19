@@ -26,7 +26,8 @@ class CollectionRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'name_english' => 'required'
+            'name_english' => 'required',
+            'designs' => 'nullable|array_object_not_null:name,name_english'
         ];
     }
 
@@ -34,7 +35,8 @@ class CollectionRequest extends FormRequest
     {
         return [
             'name' => 'nombre (Español)',
-            'name_english' => 'nombre (Ingles)'
+            'name_english' => 'nombre (Ingles)',
+            'designs' => 'Diseños'
         ];
     }
 

@@ -89,8 +89,9 @@
                                     </div>
 
                                     <div class="col s2">
-                                        <a href="#!" class="btn-floating red" @click="_delete(index)" v-if="subcategory.enabled == true || subcategory.enabled == null">
-                                            <i class="material-icons">delete</i>
+
+                                        <a href="#!" class="btn-action" @click="_delete(index)" v-if="subcategory.enabled == true || subcategory.enabled == null">
+                                            <img :src="'img/icons/ico-eliminar.png' | asset" alt="" class="img-responsive">
                                         </a>
 
                                         <span v-else>Tiene productos</span>
@@ -135,6 +136,13 @@
 
         &__title {
             font-weight: bold;
+        }
+    }
+    fieldset{
+        margin: 1rem 0;
+        border-radius: .6rem;
+        legend{
+            padding: 0 10px;
         }
     }
 </style>
@@ -273,6 +281,10 @@ export default {
             
             this.setForm.sizes.forEach(s => {
                 this.form.sizes.push(s.id);
+            });
+
+            this.setForm.filters.forEach(f => {
+                this.form.filters.push(f.id);
             });
 
             this.setForm.subcategories.forEach((s, i) => {

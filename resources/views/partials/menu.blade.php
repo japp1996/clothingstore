@@ -31,11 +31,11 @@
             <img src="{{ asset('img/icons/ico-inicio.png') }}" alt="" class="img-responsive">Colecciones
         </a>
     </li>
-    <li>
+    {{--  <li>
         <a href="{{ url('/admin/designs') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Diseños">
             <img src="{{ asset('img/icons/ico-inicio.png') }}" alt="" class="img-responsive">Diseños
         </a> 
-    </li>
+    </li>  --}}
     <li>
         <a href="{{ url('/admin/products') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Productos">
             <img src="{{ asset('img/icons/ico-inicio.png') }}" alt="" class="img-responsive">Productos

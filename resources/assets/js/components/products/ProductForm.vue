@@ -21,14 +21,48 @@
                 </div>
                 <div id="test1" class="col s12">
                     <div class="row container-form">
+                        <div class="col s12">
+                            <p><b>Nota:</b> El nombre (Español/Inglés) se irá construyendo con los campos que seleccionará a continuación.</p>
+                        </div>
+                        <div class="col s12 m6 l6 center-align">
+                            <label for="category_id" class="label-impegno">Categoría</label>
+                            <select name="category_id" id="category_id" class="browser-default" @change="_setSubcategories($event); _constructNames($event, 0, categories)" v-model="form.category_id">
+                                <option value="">Seleccione</option>
+                                <option :value="item.id" :key="index" v-for="(item, index) in categories">{{ item.name }}</option>
+                            </select>
+                        </div>
+                        <div class="col s12 m6 l6 center-align">
+                            <label for="subcategory_id" class="label-impegno">Subcategía</label>
+                            <select name="subcategory_id" id="subcategory_id" class="browser-default" v-model="form.subcategory_id" @change="_constructNames($event, 1, subcategories)">
+                                <option value="">Seleccione</option>
+                                <option :value="item.id" :key="index" v-for="(item, index) in subcategories">{{ item.name }}</option>
+                            </select>
+                        </div>
+                        <div class="col s12 m6 l6 center-align">
+                            <label for="collection_id" class="label-impegno">Colección</label>
+                            <select name="collection_id" id="collection_id" class="browser-default" v-model="form.collection_id" @change="_setDedings($event); _constructNames($event, 2, collections)">
+                                <option value="">Seleccione</option>
+                                <option :value="item.id" :key="index" v-for="(item, index) in collections">{{ item.name }}</option>
+                            </select>
+                        </div>
+                        <div class="col s12 m6 l6 center-align">
+                            <label for="design_id" class="label-impegno">Diseños</label>
+                            <select name="design_id" id="design_id" class="browser-default" v-model="form.design_id" @change="_constructNames($event, 3, arrayDesigns)">
+                                <option value="">Seleccione</option>
+                                <option :value="item.id" :key="index" v-for="(item, index) in arrayDesigns">{{ item.name }}</option>
+                            </select>
+                        </div>
+
                         <div class="col s12 m6 l6 center-align">
                             <label for="name" class="label-impegno">Nombre (Español)</label>
-                            <input type="text" name="name" id="name" v-model="form.name" maxlength="50" class="browser-default input-impegno">
+                            <!-- <input type="text" name="name" id="name" v-model="form.name" maxlength="50" class="browser-default input-impegno"> -->
+                            <p class="names">{{ form.name }}</p>
                         </div>
 
                         <div class="col s12 m6 l6 center-align">
                             <label for="name_english" class="label-impegno">Nombre (Inglés)</label>
-                            <input type="text" name="name_english" id="name_english" v-model="form.name_english" maxlength="50" class="browser-default input-impegno">
+                            <!-- <input type="text" name="name_english" id="name_english" v-model="form.name_english" maxlength="50" class="browser-default input-impegno"> -->
+                            <p class="names">{{ form.name_english }}</p>
                         </div>
 
                         <div class="col s12 m6 l6 center-align">
@@ -63,35 +97,8 @@
                             <input type="text" name="price_2" id="price_2" v-model="form.price_2" class="browser-default input-impegno">
                         </div>
 
-                        <div class="col s12 m6 l6 center-align">
-                            <label for="category_id" class="label-impegno">Categoría</label>
-                            <select name="category_id" id="category_id" class="browser-default" @change="_setSubcategories($event)" v-model="form.category_id">
-                                <option value="">Seleccione</option>
-                                <option :value="item.id" :key="index" v-for="(item, index) in categories">{{ item.name }}</option>
-                            </select>
-                        </div>
-                        <div class="col s12 m6 l6 center-align">
-                            <label for="subcategory_id" class="label-impegno">Subcategía</label>
-                            <select name="subcategory_id" id="subcategory_id" class="browser-default" v-model="form.subcategory_id">
-                                <option value="">Seleccione</option>
-                                <option :value="item.id" :key="index" v-for="(item, index) in subcategories">{{ item.name }}</option>
-                            </select>
-                        </div>
-                        <div class="col s12 m6 l6 center-align">
-                            <label for="collection_id" class="label-impegno">Colección</label>
-                            <select name="collection_id" id="collection_id" class="browser-default" v-model="form.collection_id">
-                                <option value="">Seleccione</option>
-                                <option :value="item.id" :key="index" v-for="(item, index) in collections">{{ item.name }}</option>
-                            </select>
-                        </div>
-                        <div class="col s12 m6 l6 center-align">
-                            <label for="design_id" class="label-impegno">Diseños</label>
-                            <select name="design_id" id="design_id" class="browser-default" v-model="form.design_id">
-                                <option value="">Seleccione</option>
-                                <option :value="item.id" :key="index" v-for="(item, index) in designs">{{ item.name }}</option>
-                            </select>
-                        </div>
-                        <div class="col s12 m6 l6 center-align container-options">
+                        
+                        <!-- <div class="col s12 m6 l6 center-align container-options">
                             <label class="label-impegno">Catálogo</label>
                             <p>
                                 <label>
@@ -111,7 +118,7 @@
                                     <span>Niños</span>
                                 </label>
                             </p>                           
-                        </div>
+                        </div> -->
                         <div class="col s12 m6 l6 center-align container-options">
                             <label class="label-impegno">Tipo de venta</label>
                             <p>
@@ -139,8 +146,8 @@
                                 Agregar nuevo
                             </div>                            
                         </div>
-                        <div class="col s12">
-                            <fieldset v-for="(item, index) in form.colors" :key="index">
+                        <div class="col s12" v-for="(item, index) in form.colors" :key="index">
+                            <fieldset>
                                 <button class="btn-remove" @click="_removeColor(index)">
                                     <img :src="'img/icons/cancelar_white.png' | asset" alt="" class="img-responsive">
                                 </button>
@@ -153,10 +160,15 @@
                                         <label for="name_english" class="label-impegno">Nombre (Inglés)</label>
                                         <input type="text" name="name_english" id="name_english" v-model="item.name_english" maxlength="50" class="browser-default input-impegno">
                                     </div>
-                                    <div class="col s6 m3 l3 center-align" v-for="(size, z) in item.sizes" :key="z">
-                                        <label class="label-impegno">{{ size.name }}</label>
-                                        <input type="number" min="0" v-model="item.sizes[z].amount" class="browser-default input-impegno">
-                                    </div>
+                                    <div class="col s12">
+                                        <fieldset class="sizes_stop">
+                                            <legend>Inventario por tallas</legend>
+                                            <div class="col s6 m3 l3 center-align" v-for="(size, z) in item.sizes" :key="z">
+                                                <label class="label-impegno">{{ size.name }}</label>
+                                                <input type="number" min="0" v-model="item.sizes[z].amount" class="browser-default input-impegno">
+                                            </div>
+                                        </fieldset>
+                                    </div>                                                                        
                                 </div>                                
                             </fieldset>
                         </div>
@@ -187,7 +199,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="col s12 m12 l12 margin-top center-align">
                 <a href="#!" class="btn btn-success" @click="_store($event)" v-if="action == 0">Guardar</a>
                 <a href="#!" class="btn btn-success" @click="_edit($event)" v-else>Actualizar</a>
@@ -233,6 +244,18 @@
     .items__file{
         position: relative;
     }
+    .names{
+        margin-bottom: 1rem;
+    }
+    .sizes_stop{
+        margin: .5rem .2rem !important;
+        border-color: rgba($color: #000000, $alpha: .3);
+        border-radius: .4rem;
+        legend{
+            font-weight: bold;
+            padding: 0 10px;
+        }
+    }
 </style>
 
 <script>
@@ -268,7 +291,13 @@ export default {
     data () {
         return {
             subcategories: [],
+            arrayDesigns: [],
             selectedCategory: {},
+            objectNames: {
+                spanish: [],
+                english: []
+            },
+            inserted: [],
             form: {
                 id: 0,
                 name: "",
@@ -301,11 +330,25 @@ export default {
             this.$emit('back', 0)
         },
 
-        _setSubcategories(e) {            
-            this.selectedCategory = this.categories.find((el) => {
-                return (el.id == e.target.options[e.target.selectedIndex].value)
-            })            
-            this.subcategories = this.selectedCategory.subcategories
+        _setSubcategories(e) {
+            if (e.target.options[e.target.selectedIndex].value == "") {
+                this.subcategories = []
+            }else {
+                this.selectedCategory = this.categories.find((el) => {
+                    return (el.id == e.target.options[e.target.selectedIndex].value)
+                })            
+                this.subcategories = this.selectedCategory.subcategories
+            }  
+        },
+
+        _setDedings(e) {            
+            if (e.target.options[e.target.selectedIndex].value == "") {
+                this.arrayDesigns = []
+            }else {
+                this.arrayDesigns = this.designs.filter((el) => {                    
+                    return (el.collection_id == e.target.options[e.target.selectedIndex].value)
+                })
+            }
         },
 
         _addColor() {
@@ -319,6 +362,46 @@ export default {
             });
             this.form.colors.push({name: "", sizes: sizes})
                     
+        },
+
+        _constructNames(e, i, item) {
+            let value = e.target.options[e.target.selectedIndex].value
+            if (value != "") {
+                let selected = item.find((el) => {
+                    return(el.id == value)
+                })
+                if (this.inserted.indexOf(i) > -1) {
+                    this.objectNames.spanish.splice(i, 1);
+                    this.objectNames.english.splice(i, 1);
+                    if (i == 0 || (i % 2 == 0)) {
+                        this.objectNames.spanish.splice(i, 1);
+                        this.objectNames.english.splice(i, 1);
+                        this.inserted.splice(i + 1, 1);
+                    }
+                } else {
+                    this.inserted.splice(i, 0, i);
+                }
+                this.objectNames.spanish.splice(i, 0, selected.name);
+                this.objectNames.english.splice(i, 0, selected.name_english);
+                this.form.name = ""
+                this.form.name_english = ""
+                this.objectNames.spanish.forEach((el, i) => {
+                    if ((this.objectNames.spanish.length -1) == i) {
+                        this.form.name += el
+                    } else {
+                        this.form.name += el + ' - '
+                    }
+                })
+                this.objectNames.english.forEach((el, i) => {
+                    if ((this.objectNames.english.length -1) == i) {
+                        this.form.name_english += el
+                    } else {
+                        this.form.name_english += el + ' - '
+                    }
+                })      
+            } else {
+
+            }
         },
 
         _removeColor(i) {
