@@ -93,9 +93,9 @@ class ProductController extends Controller
         $product->price_1 = $request->price_1;
         $product->price_2 = $request->price_2;
         $product->category_id = $request->category_id;
-        $product->subcategory_id = $request->subcategory_id == "" ? $request->subcategory_id : NULL;
+        $product->subcategory_id = $request->subcategory_id != "" ? $request->subcategory_id : NULL;
         $product->collection_id = $request->collection_id;
-        $product->design_id = $request->design_id == "" ? $request->design_id : NULL;
+        $product->design_id = $request->design_id != "" ? $request->design_id : NULL;
         $product->retail = $request->retail;
         $product->wholesale = $request->wholesale;
         $product->save();
@@ -161,7 +161,32 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::find($id);
+        $product->name = $request->name;
+        $product->name_english = $request->name_english;
+        $product->description = $request->description;
+        $product->description_english = $request->description_english;
+        $product->coin = $request->coin;
+        $product->price_1 = $request->price_1;
+        $product->price_2 = $request->price_2;
+        $product->category_id = $request->category_id;
+        $product->subcategory_id = $request->subcategory_id != "" ? $request->subcategory_id : NULL;
+        $product->collection_id = $request->collection_id;
+        $product->design_id = $request->design_id != "" ? $request->design_id : NULL;
+        $product->retail = $request->retail;
+        $product->wholesale = $request->wholesale;
+        $product->save();
+
+        $color_ids = [];
+        foreach (json_decode($request->colors) as $key => $color) {
+            if($color->id > 0){
+                ProductColor::find($color->id)->update(['name' => $color->name, 'name_english' => $color->name_english]);
+            }else{
+                $color = $product->colors()->create($color);
+            }
+
+            $color_ids[] = $color['id'];
+        }
     }
 
     /**
@@ -184,6 +209,11 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $destroy = Product::find($id);
+        $destroy->status = "2";
+        $destroy->save();
+        
+        return response()->json(["result" => true, "message" => "Producto eliminado exitosamente."]);
+        
     }
 }
