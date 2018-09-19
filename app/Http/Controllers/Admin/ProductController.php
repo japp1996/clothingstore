@@ -59,7 +59,27 @@ class ProductController extends Controller
             'collections' => function ($collection) {
                 $collection->select('id', 'name', 'name_english');
             },
-            'images'
+            'images',
+            'colors' => function ($colors) {
+                $colors->select('id', 'name', 'name_english', 'product_id')
+                ->where('status', '1')
+                ->with([
+                    'amounts' => function ($q) {
+                        $q->select('id as amount_id', 'amount', 'product_color_id', 'category_size_id')
+                        ->with([
+                            'category_size' => function ($c) {
+                                $c->select('id', 'category_id', 'size_id')
+                                ->with([
+                                    'size' => function ($s) {
+                                        $s->select('id', 'name')
+                                        ->where('status', '1');
+                                    }
+                                ]);
+                            }
+                        ]);
+                    }
+                ]);
+            }
         ])
         ->get();
 
@@ -161,6 +181,19 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+        
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(ProductRequest $request, $id)
+    {
+
         $product = Product::find($id);
         $product->name = $request->name;
         $product->name_english = $request->name_english;
@@ -178,27 +211,67 @@ class ProductController extends Controller
         $product->save();
 
         $color_ids = [];
-        foreach (json_decode($request->colors) as $key => $color) {
-            if($color->id > 0){
-                ProductColor::find($color->id)->update(['name' => $color->name, 'name_english' => $color->name_english]);
+        foreach (json_decode($request->colors) as $key => $colors) {
+            if($colors->id > 0){
+                $color = ProductColor::find($colors->id)->update(['name' => $colors->name, 'name_english' => $colors->name_english]);
+                $color_id = $colors->id;
             }else{
-                $color = $product->colors()->create($color);
+                $color = $product->colors()->create(['name' => $colors->name, 'name_english' => $colors->name_english]);
+                $color_id = $color->id;
             }
-
-            $color_ids[] = $color['id'];
+            $color_ids[] = $color_id;
+            foreach ($colors->sizes as $key => $sizes) {
+                if ($sizes->amount_id != 0) {
+                    $size = ProductAmount::find($sizes->amount_id);
+                    $size->amount = $sizes->amount;
+                    $size->save();
+                } else {
+                    $size = new ProductAmount;
+                    $size->amount = $sizes->amount;
+                    $size->product_color_id = $color_id;
+                    $size->category_size_id = $sizes->id;
+                    $size->save();
+                }
+                
+            }
         }
-    }
+        ProductColor::where('product_id', $id)
+        ->whereNotIn('id', $color_ids)
+        ->whereHas('amounts', function ($query) {
+            $query->where('amount', '=', '0');
+        })->update(['status' => '0']);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(ProductRequest $request, $id)
-    {
-        //
+        // Images
+        $url = "img/products/";
+        if ($request->hasFile('main')) {
+            $main = $request->file('main');
+            $main_name = SetNameImage::set($main->getClientOriginalName(), $main->getClientOriginalExtension());
+            $main->move($url, $main_name);
+            ResizeImage::dimenssion($main_name, $main->getClientOriginalExtension(), $url);
+            $first = ProductImage::where('product_id', $id)->where('main', '1')->first();
+            $old_main = $first->file;
+            $first->file = $main_name;
+            $first->save();
+            File::delete(public_path($url.$old_main));
+            if ($request->count > 0) {
+                for ($i=1; $i <= $request->count; $i++) {
+                    if ($request->hasFile('file'.$i)) {
+                        $file = $request->file('file'.$i);
+                        $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
+                        $file->move($url, $file_name);
+                        ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
+                        $second = new ProductImage;
+                        $second->file = $file_name;
+                        $second->product_id = $product->id;
+                        $second->main = '0';
+                        $second->save();
+                    }                    
+                }
+            }
+        }
+
+        return response()->json(['result' => true, 'message' => 'Producto actualizado exitosamente.']);
+        
     }
 
     /**

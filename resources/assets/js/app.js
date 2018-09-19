@@ -16,11 +16,13 @@ import date from './filters/date'
 import money from './filters/money'
 import amountInLetters from './filters/amount-in-letters'
 import asset from './filters/asset'
+import image from './filters/image'
 
 Vue.use(date)
 Vue.use(money)
 Vue.use(amountInLetters)
 Vue.use(asset)
+Vue.use(image)
 
 import swal from "sweetalert";
 

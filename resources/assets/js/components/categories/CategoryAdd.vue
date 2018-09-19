@@ -88,7 +88,7 @@
                                         <input type="text" name="name" id="name" v-model="subcategory.name_english" maxlength="50" class="browser-default input-impegno">
                                     </div>
 
-                                    <div class="col s2">
+                                    <div class="col s2 margin-botton">
 
                                         <a href="#!" class="btn-action" @click="_delete(index)" v-if="subcategory.enabled == true || subcategory.enabled == null">
                                             <img :src="'img/icons/ico-eliminar.png' | asset" alt="" class="img-responsive">
@@ -144,6 +144,9 @@
         legend{
             padding: 0 10px;
         }
+    }
+    .margin-botton{
+        margin-bottom: .8rem;
     }
 </style>
 

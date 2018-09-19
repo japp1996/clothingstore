@@ -29,11 +29,11 @@
                         <table-row slot="table-row" slot-scope="{ item }">
                             <table-cell>{{ item.name }}</table-cell>
                             <table-cell>
-                                <a href="#!" class="btn-action" @click="_edit(item, 'edit')">
+                                <a href="#!" class="btn-action">
                                     <img :src="'img/icons/ico-ver.png' | asset" alt="" class="img-responsive">
                                 </a>
 
-                                <a href="#!" class="btn-action" @click="_edit(item, 'edit')">
+                                <a href="#!" class="btn-action" @click="_edit(item)">
                                     <img :src="'img/icons/ico-editar.png' | asset" alt="" class="img-responsive">
                                 </a>
 
@@ -54,7 +54,7 @@
                 </section>
 
                 <product-form v-if="options == 1" @back="_resetView" @reload="_updateData" :categories="categories" :designs="designs" :collections="collections"></product-form>
-                <product-form v-if="options == 2" @back="_resetView" :action="1" :data="form" :categories="categories" :designs="designs" :collections="collections" @reload="_updateData"></product-form>
+                <product-edit v-if="options == 2" @back="_resetView" :data="form" :categories="categories" :designs="designs" :collections="collections" @reload="_updateData"></product-edit>
             </div>
         </div>
         <byte-modal v-on:pressok="modal.type.action" :confirm="modal.type.confirm">
@@ -76,9 +76,10 @@
 
 <script>
 import ProductForm from './ProductForm';
+import ProductEdit from './ProductEdit';
 export default {
     template: "#template-product-index",
-    components: {ProductForm},
+    components: {ProductForm, ProductEdit},
     props: {
         categories: {
             type: Array,
@@ -136,6 +137,11 @@ export default {
             this.modal.type.action = this._delete;
             this.modal.data = item;
             this.modal.init.open();
+        },
+
+        _edit(item) {
+            this.options = 2
+            this.form = item
         },
 
         _delete(){
