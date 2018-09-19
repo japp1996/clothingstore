@@ -106,6 +106,8 @@
 			Route::get('designs-all', 'DesignController@allData');
 			// Products			
 			Route::resource('products', 'ProductController');
+			Route::post('update-images', 'ProductController@updateImage');
+			Route::post('delete-images', 'ProductController@delete');
 			
 		});
 	});

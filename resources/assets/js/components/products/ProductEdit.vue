@@ -179,7 +179,7 @@
                         <div class="row">
                             <div class="col s12 center-align">
                                 <label for="" class="label-impegno">Imagen Principal</label>
-                                <input-file :file="`img/products/${form.main}` | img" :btn="false" :image="true" @file="_setFile(null, $event)"></input-file>
+                                <input-file :file="`img/products/${form.main}` | img" :btn="false" :image="true" @file="_setFile(null, null, $event)"></input-file>
                             </div>
                         </div>
                         <div class="row gallery__items">
@@ -192,7 +192,7 @@
                                 </div>                            
                             </div>
                             <div class="col l4 m6 s6 items__file" :key="index" v-for="(file, index) in form.images" :id="`file-${file.id}`">
-                                <input-file :file="`img/products/${file.file}` | img" :btn="false" :image="true" @file="_setFile(index, $event)"></input-file>
+                                <input-file :file="file.file !== '' ? `${urlBase + 'img/products/' + file.file}` : ''" :btn="false" :image="true" @file="_setFile(file.id, index, $event)"></input-file>
                                 <button class="file__claer" @click="_sliceItem(file.id, index)"></button>
                             </div>
                         </div>
@@ -283,7 +283,7 @@ export default {
 
     data () {
         return {
-            urlBase: "",
+            urlBase: urlBase,
             tabs: "",
             form: {
                 main: {
@@ -302,7 +302,8 @@ export default {
             inserted: [],
             images: [],
             image: "",
-            ids: 0
+            ids: 0,
+            elements: 0
         }
     },
 
@@ -356,29 +357,89 @@ export default {
             this.form.colors.splice(i, 1);
         },
 
-        _setFile(i, file) {
-            if (i == null) {
-                this.image = file.file
-                this.form.main = file.file
-            }else {
-                this.form.images[i].file = file.file
-                this.files = this.form.images
-            }            
+        _setFile(i, x, e) {
+            // let progressElement = document.querySelector(`#progress-${x}`)
+            // progressElement.classList.add('progress-active')
+            let formData = new FormData()
+            formData.append('id',  i)
+            formData.append('file', e.file)
+            formData.append('product_id', this.form.id)
+            axios.post('admin/update-images', formData)
+            .then(resp => {
+                if (i != null) {
+                    this.form.images[x].id = resp.data.id
+                    this.form.images[x].file = resp.data.file
+                }
+            })
+            .catch(err => {
+                this._showAlert("Disculpa, ha ocurrido un error", "error")
+            })
+        },
+
+        _sliceItem (id, i) {
+            let parent = document.querySelector(".gallery__items")
+            let child = document.querySelector(`#file-${id}`)            
+            
+            if (id != 0) {
+                axios.post('admin/delete-images', {id: id})
+                .then(resp => {
+                    parent.removeChild(child)
+                    this.elements = this.elements - 1
+                })
+                .catch(err => {
+                    this._showAlert("Disculpa, ha ocurrido un error", "error")
+                })
+            } else {
+                parent.removeChild(child)
+                this.elements = this.elements - 1
+            }
+        },
+
+        _constructNames(e, i, item) {
+            let value = e.target.options[e.target.selectedIndex].value
+            if (value != "") {
+                let selected = item.find((el) => {
+                    return(el.id == value)
+                })
+                if (this.inserted.indexOf(i) > -1) {
+                    this.objectNames.spanish.splice(i, 1);
+                    this.objectNames.english.splice(i, 1);
+                    if (i == 0 || (i % 2 == 0)) {
+                        this.objectNames.spanish.splice(i, 1);
+                        this.objectNames.english.splice(i, 1);
+                        this.inserted.splice(i + 1, 1);
+                    }
+                } else {
+                    this.inserted.splice(i, 0, i);
+                }
+                this.objectNames.spanish.splice(i, 0, selected.name);
+                this.objectNames.english.splice(i, 0, selected.name_english);
+                this.form.name = ""
+                this.form.name_english = ""
+                this.objectNames.spanish.forEach((el, i) => {
+                    if ((this.objectNames.spanish.length -1) == i) {
+                        this.form.name += el
+                    } else {
+                        this.form.name += el + ' - '
+                    }
+                })
+                this.objectNames.english.forEach((el, i) => {
+                    if ((this.objectNames.english.length -1) == i) {
+                        this.form.name_english += el
+                    } else {
+                        this.form.name_english += el + ' - '
+                    }
+                })      
+            } else {
+
+            }
         },
 
         _addImage() {
-            this.ids = this.form.images.length > 1 ? this.ids + 1 : this.ids
-            this.form.images.push({file: "", id: this.ids})
+            // this.ids = this.form.images.length > 1 ? this.ids + 1 : this.ids
+            this.form.images.push({file: "", id: 0})
             this.images = this.form.images
-        },
-
-        _sliceItem (id, i) {            
-           this.images = this.form.images.filter((el) => {
-                return (el.id != id)
-            })
-            let parent = document.querySelector(".gallery__items")
-            let child = document.querySelector(`#file-${id}`)            
-            parent.removeChild(child)
+            this.elements = this.elements + 1
         },
 
         _edit (e) {
@@ -413,7 +474,7 @@ export default {
                     this._showAlert("Producto almacenado exitosamente", "success")
                     setTimeout(() => {
                         // this.$emit('back', 0)
-                        // location.reload()
+                        location.reload()
                     }, 3000);
                 }
             })
@@ -438,13 +499,13 @@ export default {
                 let count = 0;
                 if(key === "images")
                 {
-                    this.images.forEach((e, y) => {
-                        if (e.file !== "") {
-                            count = count + 1
-                            formData.append(`file${count}`, e.file);
-                        }                        
-                    })
-                    formData.append('count', count)
+                    // this.images.forEach((e, y) => {
+                    //     if (e.file !== "") {
+                    //         count = count + 1
+                    //         formData.append(`file${count}`, e.file);
+                    //     }                        
+                    // })
+                    // formData.append('count', count)
                 }else if(key != "__ob__"){
                     if (key == 'colors') {
                         formData.append(key, JSON.stringify(this.form[key]));

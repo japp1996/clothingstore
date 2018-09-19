@@ -80504,7 +80504,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
 
-    mounted: function mounted() {}
+    mounted: function mounted() {
+        this.modal.init = M.Modal.init(document.querySelector('.modal'));
+    }
 });
 
 /***/ }),
@@ -82516,7 +82518,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            urlBase: "",
+            urlBase: urlBase,
             tabs: "",
             form: {
                 main: {
@@ -82535,7 +82537,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             inserted: [],
             images: [],
             image: "",
-            ids: 0
+            ids: 0,
+            elements: 0
         };
     },
     created: function created() {
@@ -82587,30 +82590,89 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _removeColor: function _removeColor(i) {
             this.form.colors.splice(i, 1);
         },
-        _setFile: function _setFile(i, file) {
-            if (i == null) {
-                this.image = file.file;
-                this.form.main = file.file;
-            } else {
-                this.form.images[i].file = file.file;
-                this.files = this.form.images;
-            }
-        },
-        _addImage: function _addImage() {
-            this.ids = this.form.images.length > 1 ? this.ids + 1 : this.ids;
-            this.form.images.push({ file: "", id: this.ids });
-            this.images = this.form.images;
+        _setFile: function _setFile(i, x, e) {
+            var _this = this;
+
+            // let progressElement = document.querySelector(`#progress-${x}`)
+            // progressElement.classList.add('progress-active')
+            var formData = new FormData();
+            formData.append('id', i);
+            formData.append('file', e.file);
+            formData.append('product_id', this.form.id);
+            axios.post('admin/update-images', formData).then(function (resp) {
+                if (i != null) {
+                    _this.form.images[x].id = resp.data.id;
+                    _this.form.images[x].file = resp.data.file;
+                }
+            }).catch(function (err) {
+                _this._showAlert("Disculpa, ha ocurrido un error", "error");
+            });
         },
         _sliceItem: function _sliceItem(id, i) {
-            this.images = this.form.images.filter(function (el) {
-                return el.id != id;
-            });
+            var _this2 = this;
+
             var parent = document.querySelector(".gallery__items");
             var child = document.querySelector("#file-" + id);
-            parent.removeChild(child);
+
+            if (id != 0) {
+                axios.post('admin/delete-images', { id: id }).then(function (resp) {
+                    parent.removeChild(child);
+                    _this2.elements = _this2.elements - 1;
+                }).catch(function (err) {
+                    _this2._showAlert("Disculpa, ha ocurrido un error", "error");
+                });
+            } else {
+                parent.removeChild(child);
+                this.elements = this.elements - 1;
+            }
+        },
+        _constructNames: function _constructNames(e, i, item) {
+            var _this3 = this;
+
+            var value = e.target.options[e.target.selectedIndex].value;
+            if (value != "") {
+                var selected = item.find(function (el) {
+                    return el.id == value;
+                });
+                if (this.inserted.indexOf(i) > -1) {
+                    this.objectNames.spanish.splice(i, 1);
+                    this.objectNames.english.splice(i, 1);
+                    if (i == 0 || i % 2 == 0) {
+                        this.objectNames.spanish.splice(i, 1);
+                        this.objectNames.english.splice(i, 1);
+                        this.inserted.splice(i + 1, 1);
+                    }
+                } else {
+                    this.inserted.splice(i, 0, i);
+                }
+                this.objectNames.spanish.splice(i, 0, selected.name);
+                this.objectNames.english.splice(i, 0, selected.name_english);
+                this.form.name = "";
+                this.form.name_english = "";
+                this.objectNames.spanish.forEach(function (el, i) {
+                    if (_this3.objectNames.spanish.length - 1 == i) {
+                        _this3.form.name += el;
+                    } else {
+                        _this3.form.name += el + ' - ';
+                    }
+                });
+                this.objectNames.english.forEach(function (el, i) {
+                    if (_this3.objectNames.english.length - 1 == i) {
+                        _this3.form.name_english += el;
+                    } else {
+                        _this3.form.name_english += el + ' - ';
+                    }
+                });
+            } else {}
+        },
+        _addImage: function _addImage() {
+            // this.ids = this.form.images.length > 1 ? this.ids + 1 : this.ids
+            this.form.images.push({ file: "", id: 0 });
+            this.images = this.form.images;
+            this.elements = this.elements + 1;
         },
         _edit: function _edit(e) {
-            var _this = this;
+            var _this4 = this;
 
             var button = e.target;
             this.form.wholesale = this.form.wholesale == false ? 0 : 1;
@@ -82639,43 +82701,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             button.setAttribute('disabled', true);
             axios.post("admin/products/" + this.form.id, this._convertToFormData()).then(function (resp) {
                 if (resp.data.result) {
-                    _this._showAlert("Producto almacenado exitosamente", "success");
+                    _this4._showAlert("Producto almacenado exitosamente", "success");
                     setTimeout(function () {
                         // this.$emit('back', 0)
-                        // location.reload()
+                        location.reload();
                     }, 3000);
                 }
             }).catch(function (err) {
                 if (err.response.status === 422) {
-                    _this._showAlert(err.response.data.error, 'warning');
+                    _this4._showAlert(err.response.data.error, 'warning');
                     return false;
                 }
 
-                _this._showAlert("Disculpa, ha ocurrido un error", "error");
+                _this4._showAlert("Disculpa, ha ocurrido un error", "error");
             }).then(function (all) {
                 button.removeAttribute('disabled');
             });
         },
         _convertToFormData: function _convertToFormData() {
-            var _this2 = this;
+            var _this5 = this;
 
             var formData = new FormData();
             formData.append('_method', 'PATCH');
             Object.getOwnPropertyNames(this.form).forEach(function (key, i) {
                 var count = 0;
                 if (key === "images") {
-                    _this2.images.forEach(function (e, y) {
-                        if (e.file !== "") {
-                            count = count + 1;
-                            formData.append("file" + count, e.file);
-                        }
-                    });
-                    formData.append('count', count);
+                    // this.images.forEach((e, y) => {
+                    //     if (e.file !== "") {
+                    //         count = count + 1
+                    //         formData.append(`file${count}`, e.file);
+                    //     }                        
+                    // })
+                    // formData.append('count', count)
                 } else if (key != "__ob__") {
                     if (key == 'colors') {
-                        formData.append(key, JSON.stringify(_this2.form[key]));
+                        formData.append(key, JSON.stringify(_this5.form[key]));
                     } else {
-                        formData.append(key, _this2.form[key]);
+                        formData.append(key, _this5.form[key]);
                     }
                 }
             });
@@ -82694,7 +82756,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     mounted: function mounted() {
-        var _this3 = this;
+        var _this6 = this;
 
         this.tabs = M.Tabs.init(document.querySelector(".tabs"));
         this._setSubcategories(null, document.querySelector('#category_id'));
@@ -82703,7 +82765,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var images = new Array();
         this.form.images.forEach(function (el) {
             if (el.main == "1") {
-                _this3.form.main = el.file;
+                _this6.form.main = el.file;
             } else {
                 images.push(el);
             }
@@ -83582,7 +83644,7 @@ var render = function() {
                     },
                     on: {
                       file: function($event) {
-                        _vm._setFile(null, $event)
+                        _vm._setFile(null, null, $event)
                       }
                     }
                   })
@@ -83635,13 +83697,16 @@ var render = function() {
                     [
                       _c("input-file", {
                         attrs: {
-                          file: _vm._f("img")("img/products/" + file.file),
+                          file:
+                            file.file !== ""
+                              ? "" + (_vm.urlBase + "img/products/" + file.file)
+                              : "",
                           btn: false,
                           image: true
                         },
                         on: {
                           file: function($event) {
-                            _vm._setFile(index, $event)
+                            _vm._setFile(file.id, index, $event)
                           }
                         }
                       }),

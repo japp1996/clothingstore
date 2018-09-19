@@ -274,6 +274,48 @@ class ProductController extends Controller
         
     }
 
+    public function updateImage(Request $request)
+    {
+        $url = "img/products/";
+        if ($request->id == NULL || $request->id == 'null') {
+            $item = ProductImage::where('product_id', $request->product_id)->where('main', '1')->first();
+            $odlFile = $item->file;
+            $file = $request->file('file');
+            $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
+            $file->move($url, $file_name);
+            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
+            File::delete(public_path($url.$odlFile));
+            $item->file = $file_name;
+            $item->save();
+            $fileId = $item->id;
+        }
+        else if ($request->id == 0) {
+            $file = $request->file('file');
+            $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
+            $file->move($url, $file_name);
+            
+            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
+            $detail = new ProductImage;
+            $detail->file = $file_name;
+            $detail->product_id = $request->product_id;
+            $detail->save();
+            $fileId = $detail->id;
+        } else {
+            $item = ProductImage::find($request->id);
+            $odlFile = $item->file;
+            $file = $request->file('file');
+            $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
+            $file->move($url, $file_name);
+            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
+            File::delete(public_path($url.$odlFile));
+            $item->file = $file_name;
+            $item->save();
+            $fileId = $request->id;
+        }
+
+        return response()->json(['result' => true, 'id' => $fileId, 'file' => $file_name]);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -288,5 +330,16 @@ class ProductController extends Controller
         
         return response()->json(["result" => true, "message" => "Producto eliminado exitosamente."]);
         
+    }
+
+    public function delete(Request $request)
+    {
+        $url = "img/products/";
+        $item = ProductImage::find($request->id);
+        $file = $item->file;
+        File::delete(public_path($url.$file));
+        $item->delete();
+
+        return response()->json(['result' => true]);
     }
 }

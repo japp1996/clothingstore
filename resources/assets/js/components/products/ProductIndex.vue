@@ -183,7 +183,7 @@ export default {
     },
 
     mounted () {
-
+        this.modal.init = M.Modal.init(document.querySelector('.modal'));
     }
 }
 </script>
