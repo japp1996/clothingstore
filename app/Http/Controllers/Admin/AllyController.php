@@ -113,6 +113,8 @@ class AllyController extends Controller
         $ally->instagram = $request->instagram;
         $ally->direccion = $request->direccion;
         $ally->save();
+
+        return response()->json(['result' => true, 'message' => 'Aliado actualizado exitosamete.']);
     }
 
     public function updateImages(Request $request)
