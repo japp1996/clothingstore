@@ -41,7 +41,7 @@
 	    public function post(Request $request) {
 	    	$reglas = [
 	    		'name' => 'required',
-	    		'email' => 'required|email',
+	    		'email' => 'required|email|unique:users,email,'.Auth::id(),
 	    		'pais_id' => 'required',
 	    		'estado_id' => 'required',
 	    		'telefono' => 'required',
