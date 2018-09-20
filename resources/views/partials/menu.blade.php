@@ -46,4 +46,14 @@
             <img src="{{ asset('img/icons/ico-inicio.png') }}" alt="" class="img-responsive">Nosotros
         </a> 
     </li>
+    <li>
+        <a href="{{ url('/admin/allies') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Aliados">
+            <img src="{{ asset('img/icons/ico-inicio.png') }}" alt="" class="img-responsive">Aliados
+        </a> 
+    </li>
+    <li>
+        <a href="{{ url('/admin/blogs') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Blogs">
+            <img src="{{ asset('img/icons/ico-inicio.png') }}" alt="" class="img-responsive">Blogs
+        </a> 
+    </li>
 </ul>
