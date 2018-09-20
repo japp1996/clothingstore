@@ -128,7 +128,7 @@ class AllyController extends Controller
 
             $photo = new AliadoFoto;
             $photo->foto = $file_name;
-            $photo->aliado_id = $request->ally_id;
+            $photo->aliado_id = $request->aliado_id;
             $photo->save();
             $id = $photo->id;
         } else {

@@ -1,4 +1,4 @@
-<template>
+<template id="template-us-index">
     <section class="container-fluid">
         <div class="row">
             <div class="col s12 center-align">
@@ -63,6 +63,8 @@
 
 <script>
 export default {
+    template: "#template-us-index",
+
     props: {
         info: {
             type: Object,

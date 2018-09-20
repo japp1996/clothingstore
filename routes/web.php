@@ -114,11 +114,11 @@
 			Route::resource('us', 'UsController');
 			// Allies			
 			Route::resource('allies', 'AllyController');
-			Route::post('allies/update-image', 'AllyController@updateImage');
+			Route::post('allies/update-image', 'AllyController@updateImages');
 			Route::post('allies/delete-images', 'AllyController@delete');			
 			// Blogs			
 			Route::resource('blogs', 'BlogController');
-			Route::post('blogs/update-images', 'BlogController@updateImage');
+			Route::post('blogs/update-images', 'BlogController@updateImages');
 			Route::post('blogs/delete-images', 'BlogController@delete');
 			
 		});

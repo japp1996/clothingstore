@@ -105,6 +105,9 @@ Vue.component('change-form', require('./components/exchange_rate/ChangeForm'));
 
 // Us
 Vue.component('us-index', require('./components/us/UsIndex'));
+
+// Allies
+Vue.component('allies-index', require('./components/allies/AlliesIndex'));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
