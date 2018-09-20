@@ -146,7 +146,7 @@
 		        				<p class="almayor" v-if="form.cantidad < 12">@lang('Page.Tienda.Detal')</p>
 		        				<h5>@lang('Page.Tienda.Descripcion')</h5>
 		        				<p class="strong"><strong>@lang('Page.Tienda.Coleccion'):</strong> @if (\App::getLocale() == 'es') @{{ producto.collections.name }} @else @{{ producto.collections.name_english }} @endif</p>
-		        				<p class="strong"><strong>@lang('Page.Tienda.Diseno'):</strong> @if (\App::getLocale() == 'es') @{{ producto.designs.name }} @else @{{ producto.designs.name_english }} @endif</p>
+		        				<p v-if="producto.designs != null" class="strong"><strong>@lang('Page.Tienda.Diseno'):</strong> @if (\App::getLocale() == 'es') @{{ producto.designs.name }} @else @{{ producto.designs.name_english }} @endif</p>
 		        				<p class="strong"><strong>@lang('Page.Tienda.Colores'):</strong> @{{ getColors(producto.colors) }}</p>
 		        				<p class="strong"><strong>@lang('Page.Tienda.Tallas'):</strong> @{{ getTallas(producto.categories.sizes) }}</p>
 		        				<p class="descripcion ellipsis">
