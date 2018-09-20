@@ -112,7 +112,10 @@
 			Route::post('delete-images', 'ProductController@delete');
 			// Us			
 			Route::resource('us', 'UsController');
-			
+			// Allies			
+			Route::resource('allies', 'AllyController');			
+			// Blogs			
+			Route::resource('blogs', 'BlogController');
 			
 		});
 	});
