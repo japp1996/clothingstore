@@ -253,21 +253,21 @@ class ProductController extends Controller
             $first->file = $main_name;
             $first->save();
             File::delete(public_path($url.$old_main));
-            if ($request->count > 0) {
-                for ($i=1; $i <= $request->count; $i++) {
-                    if ($request->hasFile('file'.$i)) {
-                        $file = $request->file('file'.$i);
-                        $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
-                        $file->move($url, $file_name);
-                        ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
-                        $second = new ProductImage;
-                        $second->file = $file_name;
-                        $second->product_id = $product->id;
-                        $second->main = '0';
-                        $second->save();
-                    }                    
-                }
-            }
+            // if ($request->count > 0) {
+            //     for ($i=1; $i <= $request->count; $i++) {
+            //         if ($request->hasFile('file'.$i)) {
+            //             $file = $request->file('file'.$i);
+            //             $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
+            //             $file->move($url, $file_name);
+            //             ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
+            //             $second = new ProductImage;
+            //             $second->file = $file_name;
+            //             $second->product_id = $product->id;
+            //             $second->main = '0';
+            //             $second->save();
+            //         }                    
+            //     }
+            // }
         }
 
         return response()->json(['result' => true, 'message' => 'Producto actualizado exitosamente.']);
