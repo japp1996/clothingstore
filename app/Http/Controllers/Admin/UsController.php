@@ -16,8 +16,8 @@ class UsController extends Controller
      */
     public function index()
     {
-        $us = Nostros::first();
-        return view('admin.us.index')->with(['us' => $ud]);
+        $us = Nosotros::first();
+        return view('admin.us.index')->with(['us' => $us]);
     }
 
     /**

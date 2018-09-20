@@ -41,4 +41,9 @@
             <img src="{{ asset('img/icons/ico-inicio.png') }}" alt="" class="img-responsive">Productos
         </a> 
     </li>
+    <li>
+        <a href="{{ url('/admin/us') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Nosotros">
+            <img src="{{ asset('img/icons/ico-inicio.png') }}" alt="" class="img-responsive">Nosotros
+        </a> 
+    </li>
 </ul>

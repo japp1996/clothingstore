@@ -93,6 +93,8 @@
 		Route::post('login', 'AuthController@singIn');
 		
 		Route::group(['middleware' => 'Auth'], function() {
+			// Exchange rate			
+			Route::resource('exchange_rate', 'ExchangeRateController');			
 			Route::get('home', 'AdminController@home');
 			// Sizes			
 			Route::resource('sizes', 'SizeController');

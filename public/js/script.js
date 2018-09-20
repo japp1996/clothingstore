@@ -17959,6 +17959,9 @@ Vue.component('product-index', __webpack_require__(259));
 // Exchange Rate
 Vue.component('change-index', __webpack_require__(274));
 Vue.component('change-form', __webpack_require__(279));
+
+// Us
+Vue.component('us-index', __webpack_require__(288));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -73091,7 +73094,7 @@ var content = __webpack_require__(182);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("8aae94ce", content, false, {});
+var update = __webpack_require__(3)("71454aec", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -73264,7 +73267,7 @@ var content = __webpack_require__(188);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("22d2b4d2", content, false, {});
+var update = __webpack_require__(3)("64c2c02c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -73821,7 +73824,7 @@ var content = __webpack_require__(193);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("c17fc21c", content, false, {});
+var update = __webpack_require__(3)("2e651c45", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -74228,7 +74231,7 @@ var content = __webpack_require__(198);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("517c37ec", content, false, {});
+var update = __webpack_require__(3)("bf275882", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -74622,7 +74625,7 @@ var content = __webpack_require__(203);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("d73db8fa", content, false, {});
+var update = __webpack_require__(3)("195984d4", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -75528,7 +75531,7 @@ var content = __webpack_require__(217);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("71ae317a", content, false, {});
+var update = __webpack_require__(3)("5ebf68e6", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -76022,7 +76025,7 @@ var content = __webpack_require__(225);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("78e38424", content, false, {});
+var update = __webpack_require__(3)("7e445cb7", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -76300,7 +76303,7 @@ var content = __webpack_require__(229);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("799dac39", content, false, {});
+var update = __webpack_require__(3)("6945f546", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -77121,7 +77124,7 @@ var content = __webpack_require__(237);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("7b5b4cc1", content, false, {});
+var update = __webpack_require__(3)("8435dd58", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -78551,7 +78554,7 @@ var content = __webpack_require__(245);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("2b661d2a", content, false, {});
+var update = __webpack_require__(3)("087f7ff8", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -79402,7 +79405,7 @@ var content = __webpack_require__(251);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("91cf18c2", content, false, {});
+var update = __webpack_require__(3)("11640b72", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -79672,7 +79675,7 @@ var content = __webpack_require__(255);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("5dff850d", content, false, {});
+var update = __webpack_require__(3)("466fb24c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -80287,7 +80290,7 @@ var content = __webpack_require__(261);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("48471b48", content, false, {});
+var update = __webpack_require__(3)("43795dd6", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -80571,7 +80574,7 @@ var content = __webpack_require__(265);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("1864cdd7", content, false, {});
+var update = __webpack_require__(3)("ff57ab2c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -82198,7 +82201,7 @@ var content = __webpack_require__(270);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("4ee1318b", content, false, {});
+var update = __webpack_require__(3)("925ee3c4", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -84129,7 +84132,7 @@ var content = __webpack_require__(276);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("6b805271", content, false, {});
+var update = __webpack_require__(3)("0963b244", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -84450,7 +84453,7 @@ var content = __webpack_require__(281);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("9794b7a2", content, false, {});
+var update = __webpack_require__(3)("8d650408", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -84683,6 +84686,568 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 285 */,
+/* 286 */,
+/* 287 */,
+/* 288 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(289)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(291)
+/* template */
+var __vue_template__ = __webpack_require__(292)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/us/UsIndex.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-53faaa1a", Component.options)
+  } else {
+    hotAPI.reload("data-v-53faaa1a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 289 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(290);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("3e9a1e6d", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-53faaa1a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./UsIndex.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-53faaa1a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./UsIndex.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 290 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\ntextarea {\n  resize: none;\n  height: 10rem !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 291 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        info: {
+            type: Object,
+            default: {}
+        }
+    },
+
+    created: function created() {
+        if (Object.keys(this.info).length > 0) {
+            this._setAttributes(this.info);
+            this.action = 1;
+        } else {
+            this.action = 0;
+        }
+    },
+    data: function data() {
+        return {
+            action: 0,
+            form: {
+                id: 0,
+                texto: "",
+                mision: "",
+                vision: "",
+                english: "",
+                mision_english: "",
+                vision_english: ""
+            }
+        };
+    },
+
+
+    methods: {
+        _setAttributes: function _setAttributes(data) {
+            var _this = this;
+
+            Object.getOwnPropertyNames(data).forEach(function (key, i) {
+                _this.form[key] = data[key] != null ? data[key] : "";
+            });
+        },
+        _store: function _store(e) {
+            var btn = e.target;
+            btn.setAttribute('disabled', true);
+            axios.post('admin/us', this.form).then(function (res) {
+                swal({
+                    title: '',
+                    text: 'Información almacenada exitosamente',
+                    timer: 2000,
+                    showConfirmButton: false,
+                    type: "success"
+                }, function () {
+                    window.location.reload();
+                });
+            }).catch(function (err) {
+                if (err.response.status == 422) {
+                    return swal({
+                        title: '',
+                        text: err.response.data.error,
+                        timer: 3500,
+                        showConfirmButton: false,
+                        type: "warning"
+                    });
+                }
+                swal({
+                    title: 'Disculpa',
+                    text: "Ha ocurrido un error",
+                    timer: 3500,
+                    showConfirmButton: false,
+                    type: "error"
+                });
+            }).then(function (all) {
+                btn.removeAttribute('disabled');
+            });
+        },
+        _edit: function _edit(e) {
+            var btn = e.target;
+            btn.setAttribute('disabled', true);
+            axios.put("admin/us/" + this.form.id, this.form).then(function (res) {
+                swal({
+                    title: '',
+                    text: 'Información actualizada exitosamente',
+                    timer: 2000,
+                    showConfirmButton: false,
+                    type: "success"
+                }, function () {
+                    window.location.reload();
+                });
+            }).catch(function (err) {
+                if (err.response.status == 422) {
+                    return swal({
+                        title: '',
+                        text: err.response.data.error,
+                        timer: 3500,
+                        showConfirmButton: false,
+                        type: "warning"
+                    });
+                }
+                swal({
+                    title: 'Disculpa',
+                    text: "Ha ocurrido un error",
+                    timer: 3500,
+                    showConfirmButton: false,
+                    type: "error"
+                });
+            }).then(function (all) {
+                btn.removeAttribute('disabled');
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 292 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("section", { staticClass: "container-fluid" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        { staticClass: "container" },
+        [
+          _c(
+            "card-main",
+            [
+              _c("card-content", [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col s12 m6 l6 center-align" }, [
+                    _c(
+                      "label",
+                      { staticClass: "label-impegno", attrs: { for: "texto" } },
+                      [_vm._v("Texto (Español)")]
+                    ),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.texto,
+                          expression: "form.texto"
+                        }
+                      ],
+                      staticClass: "browser-default input-impegno",
+                      attrs: { name: "texto", id: "texto" },
+                      domProps: { value: _vm.form.texto },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "texto", $event.target.value)
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col s12 m6 l6 center-align" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "label-impegno",
+                        attrs: { for: "english" }
+                      },
+                      [_vm._v("Texto (Inglés)")]
+                    ),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.english,
+                          expression: "form.english"
+                        }
+                      ],
+                      staticClass: "browser-default input-impegno",
+                      attrs: { name: "english", id: "english" },
+                      domProps: { value: _vm.form.english },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "english", $event.target.value)
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col s12 m6 l6 center-align" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "label-impegno",
+                        attrs: { for: "mision" }
+                      },
+                      [_vm._v("Misión (Español)")]
+                    ),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.mision,
+                          expression: "form.mision"
+                        }
+                      ],
+                      staticClass: "browser-default input-impegno",
+                      attrs: { name: "mision", id: "mision" },
+                      domProps: { value: _vm.form.mision },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "mision", $event.target.value)
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col s12 m6 l6 center-align" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "label-impegno",
+                        attrs: { for: "mision_english" }
+                      },
+                      [_vm._v("Misión (Inglés)")]
+                    ),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.mision_english,
+                          expression: "form.mision_english"
+                        }
+                      ],
+                      staticClass: "browser-default input-impegno",
+                      attrs: { name: "mision_english", id: "mision_english" },
+                      domProps: { value: _vm.form.mision_english },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "mision_english",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col s12 m6 l6 center-align" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "label-impegno",
+                        attrs: { for: "vision" }
+                      },
+                      [_vm._v("Visión (Español)")]
+                    ),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.vision,
+                          expression: "form.vision"
+                        }
+                      ],
+                      staticClass: "browser-default input-impegno",
+                      attrs: { name: "vision", id: "vision" },
+                      domProps: { value: _vm.form.vision },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "vision", $event.target.value)
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col s12 m6 l6 center-align" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "label-impegno",
+                        attrs: { for: "vision_english" }
+                      },
+                      [_vm._v("Visión (Inglés)")]
+                    ),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.vision_english,
+                          expression: "form.vision_english"
+                        }
+                      ],
+                      staticClass: "browser-default input-impegno",
+                      attrs: { name: "vision_english", id: "vision_english" },
+                      domProps: { value: _vm.form.vision_english },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "vision_english",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col s12 center-align" }, [
+                    _vm.action == 0
+                      ? _c(
+                          "a",
+                          {
+                            staticClass: "btn btn-success",
+                            attrs: { href: "#!" },
+                            on: {
+                              click: function($event) {
+                                _vm._store($event)
+                              }
+                            }
+                          },
+                          [_vm._v("Guardar")]
+                        )
+                      : _c(
+                          "a",
+                          {
+                            staticClass: "btn btn-success",
+                            attrs: { href: "#!" },
+                            on: {
+                              click: function($event) {
+                                _vm._edit($event)
+                              }
+                            }
+                          },
+                          [_vm._v("Actualizar")]
+                        )
+                  ])
+                ])
+              ])
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col s12 center-align" }, [
+        _c("h1", [_vm._v("Nosotros")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-53faaa1a", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

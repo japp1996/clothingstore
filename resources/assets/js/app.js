@@ -102,6 +102,9 @@ Vue.component('product-index', require('./components/products/ProductIndex'));
 // Exchange Rate
 Vue.component('change-index', require('./components/exchange_rate/ChangeIndex'));
 Vue.component('change-form', require('./components/exchange_rate/ChangeForm'));
+
+// Us
+Vue.component('us-index', require('./components/us/UsIndex'));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
