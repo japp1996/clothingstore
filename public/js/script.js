@@ -17838,7 +17838,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(139);
-module.exports = __webpack_require__(284);
+module.exports = __webpack_require__(304);
 
 
 /***/ }),
@@ -17961,10 +17961,10 @@ Vue.component('change-index', __webpack_require__(274));
 Vue.component('change-form', __webpack_require__(279));
 
 // Us
-Vue.component('us-index', __webpack_require__(288));
+Vue.component('us-index', __webpack_require__(284));
 
 // Allies
-Vue.component('allies-index', __webpack_require__(293));
+Vue.component('allies-index', __webpack_require__(289));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -84686,27 +84686,18 @@ if (false) {
 
 /***/ }),
 /* 284 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 285 */,
-/* 286 */,
-/* 287 */,
-/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(289)
+  __webpack_require__(285)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(291)
+var __vue_script__ = __webpack_require__(287)
 /* template */
-var __vue_template__ = __webpack_require__(292)
+var __vue_template__ = __webpack_require__(288)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -84745,13 +84736,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 289 */
+/* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(290);
+var content = __webpack_require__(286);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -84771,7 +84762,7 @@ if(false) {
 }
 
 /***/ }),
-/* 290 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -84785,7 +84776,7 @@ exports.push([module.i, "\ntextarea {\n  resize: none;\n  height: 10rem !importa
 
 
 /***/ }),
-/* 291 */
+/* 287 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -84968,7 +84959,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 292 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -85255,19 +85246,19 @@ if (false) {
 }
 
 /***/ }),
-/* 293 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(294)
+  __webpack_require__(290)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(296)
+var __vue_script__ = __webpack_require__(292)
 /* template */
-var __vue_template__ = __webpack_require__(297)
+var __vue_template__ = __webpack_require__(303)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -85306,13 +85297,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 294 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(295);
+var content = __webpack_require__(291);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -85332,7 +85323,7 @@ if(false) {
 }
 
 /***/ }),
-/* 295 */
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -85346,14 +85337,14 @@ exports.push([module.i, "\ntextarea {\n  resize: none;\n  height: 10rem !importa
 
 
 /***/ }),
-/* 296 */
+/* 292 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AlliesAdd__ = __webpack_require__(298);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AlliesAdd__ = __webpack_require__(293);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AlliesAdd___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AlliesAdd__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AlliesUpdate__ = __webpack_require__(303);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AlliesUpdate__ = __webpack_require__(298);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AlliesUpdate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__AlliesUpdate__);
 //
 //
@@ -85494,307 +85485,58 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.form = item;
             this.options = 2;
         },
-        _delete: function _delete() {}
+        _confirm: function _confirm(item) {
+            this.modal.type.confirm = true;
+            this.modal.type.action = this._delete;
+            this.modal.data = item;
+            this.modal.init.open();
+        },
+        _delete: function _delete() {
+            var _this = this;
+
+            var index = this.allies.findIndex(function (e) {
+                return e.id == _this.modal.data.id;
+            });
+
+            this.modal.init.close();
+
+            axios.delete('admin/allies/' + this.modal.data.id).then(function (res) {
+                _this.allies.splice(index, 1);
+                _this._showAlert(res.data.message, "success");
+            }).catch(function (err) {
+                _this._showAlert('Disculpa, ha ocurrido un error', "error");
+            });
+        },
+        _showAlert: function _showAlert(text, type) {
+            swal({
+                title: "",
+                text: text,
+                timer: 3000,
+                showConfirmButton: false,
+                type: type
+            });
+        }
     },
 
-    mounted: function mounted() {}
+    mounted: function mounted() {
+        this.modal.init = M.Modal.init(document.querySelector('.modal'));
+    }
 });
 
 /***/ }),
-/* 297 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "section",
-    { staticClass: "container-fluid" },
-    [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col s12 center-align" }, [
-          _vm.options == 0 ? _c("h1", [_vm._v("Aliados")]) : _vm._e(),
-          _vm._v(" "),
-          _vm.options == 1 || _vm.options == 2
-            ? _c("h1", [
-                _vm._v(
-                  _vm._s(_vm.options == 1 ? "Registrar" : "Actualizar") +
-                    " Aliado"
-                )
-              ])
-            : _vm._e()
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c(
-          "div",
-          { staticClass: "col s12" },
-          [
-            _vm.options == 0
-              ? _c(
-                  "section",
-                  { staticClass: "table__content" },
-                  [
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col s12 container-btn-add" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn-add",
-                            on: {
-                              click: function($event) {
-                                _vm.options = 1
-                              }
-                            }
-                          },
-                          [
-                            _c("img", {
-                              staticClass: "img-responsive",
-                              attrs: {
-                                src: _vm._f("asset")("img/icons/new-msg.png"),
-                                alt: ""
-                              }
-                            })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "btn-add-text" }, [
-                          _vm._v(
-                            "\n                            Agregar nuevo\n                        "
-                          )
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "table-byte",
-                      {
-                        attrs: {
-                          "set-table": _vm.allies,
-                          filters: [
-                            "nombre",
-                            "facebook",
-                            "twitter",
-                            "instagram"
-                          ]
-                        },
-                        scopedSlots: _vm._u([
-                          {
-                            key: "table-head",
-                            fn: function(ref) {
-                              var item = ref.item
-                              return _c(
-                                "table-row",
-                                {},
-                                [
-                                  _c("table-head", [_vm._v("Nombre ")]),
-                                  _vm._v(" "),
-                                  _c("table-head", [_vm._v("Facebook")]),
-                                  _vm._v(" "),
-                                  _c("table-head", [_vm._v("Twitter ")]),
-                                  _vm._v(" "),
-                                  _c("table-head", [_vm._v("Instagram")]),
-                                  _vm._v(" "),
-                                  _c("table-head", [_vm._v("Acciones")])
-                                ],
-                                1
-                              )
-                            }
-                          },
-                          {
-                            key: "table-row",
-                            fn: function(ref) {
-                              var item = ref.item
-                              return _c(
-                                "table-row",
-                                {},
-                                [
-                                  _c("table-cell", [
-                                    _vm._v(_vm._s(item.nombre))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("table-cell", [
-                                    _vm._v(_vm._s(item.facebook))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("table-cell", [
-                                    _vm._v(_vm._s(item.twitter))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("table-cell", [
-                                    _vm._v(_vm._s(item.instagram))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("table-cell", [
-                                    _c(
-                                      "a",
-                                      {
-                                        staticClass: "btn-action",
-                                        attrs: { href: "#!" },
-                                        on: {
-                                          click: function($event) {
-                                            _vm._edit(item, "view")
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("img", {
-                                          staticClass: "img-responsive",
-                                          attrs: {
-                                            src: _vm._f("asset")(
-                                              "img/icons/ico-ver.png"
-                                            ),
-                                            alt: ""
-                                          }
-                                        })
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "a",
-                                      {
-                                        staticClass: "btn-action",
-                                        attrs: { href: "#!" },
-                                        on: {
-                                          click: function($event) {
-                                            _vm._edit(item, "edit")
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("img", {
-                                          staticClass: "img-responsive",
-                                          attrs: {
-                                            src: _vm._f("asset")(
-                                              "img/icons/ico-editar.png"
-                                            ),
-                                            alt: ""
-                                          }
-                                        })
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "a",
-                                      {
-                                        staticClass: "btn-action",
-                                        attrs: { href: "#!" },
-                                        on: {
-                                          click: function($event) {
-                                            _vm._confirm(item, "destroy")
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("img", {
-                                          staticClass: "img-responsive",
-                                          attrs: {
-                                            src: _vm._f("asset")(
-                                              "img/icons/ico-eliminar.png"
-                                            ),
-                                            alt: ""
-                                          }
-                                        })
-                                      ]
-                                    )
-                                  ])
-                                ],
-                                1
-                              )
-                            }
-                          }
-                        ])
-                      },
-                      [
-                        _c(
-                          "table-row",
-                          { attrs: { slot: "empty-rows" }, slot: "empty-rows" },
-                          [
-                            _c("table-cell", { attrs: { colspan: "3" } }, [
-                              _vm._v(
-                                "\n                            No se encontraron registros.\n                        "
-                              )
-                            ])
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.options == 1
-              ? _c("allies-add", { on: { back: _vm._resetView } })
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.options == 2
-              ? _c("allies-update", {
-                  attrs: { data: _vm.form },
-                  on: { back: _vm._resetView }
-                })
-              : _vm._e()
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c(
-        "byte-modal",
-        {
-          attrs: { confirm: _vm.modal.type.confirm },
-          on: { pressok: _vm._delete }
-        },
-        [
-          _c("div", { staticClass: "container-confirmation" }, [
-            _c("div", { staticClass: "confimation__icon" }, [
-              _c("i", { staticClass: "material-icons" }, [
-                _vm._v("error_outline")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "confirmation__text" }, [
-              _c("h5", [
-                _vm._v("¿Realmente deseas "),
-                _c("b", [_vm._v("eliminar")]),
-                _vm._v(" este aliado ?")
-              ])
-            ])
-          ])
-        ]
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-143b529a", module.exports)
-  }
-}
-
-/***/ }),
-/* 298 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(299)
+  __webpack_require__(294)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(301)
+var __vue_script__ = __webpack_require__(296)
 /* template */
-var __vue_template__ = __webpack_require__(302)
+var __vue_template__ = __webpack_require__(297)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -85833,13 +85575,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 299 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(300);
+var content = __webpack_require__(295);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -85859,7 +85601,7 @@ if(false) {
 }
 
 /***/ }),
-/* 300 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -85873,7 +85615,7 @@ exports.push([module.i, "\ntextarea {\n  resize: none;\n  height: 10rem !importa
 
 
 /***/ }),
-/* 301 */
+/* 296 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -86059,7 +85801,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 302 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -86360,19 +86102,19 @@ if (false) {
 }
 
 /***/ }),
-/* 303 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(304)
+  __webpack_require__(299)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(306)
+var __vue_script__ = __webpack_require__(301)
 /* template */
-var __vue_template__ = __webpack_require__(307)
+var __vue_template__ = __webpack_require__(302)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -86411,13 +86153,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 304 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(305);
+var content = __webpack_require__(300);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -86437,7 +86179,7 @@ if(false) {
 }
 
 /***/ }),
-/* 305 */
+/* 300 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -86451,7 +86193,7 @@ exports.push([module.i, "\n.progress {\n  opacity: 0;\n  -webkit-transition: all
 
 
 /***/ }),
-/* 306 */
+/* 301 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -86660,7 +86402,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 307 */
+/* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -86983,6 +86725,293 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-37a334b1", module.exports)
   }
 }
+
+/***/ }),
+/* 303 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "section",
+    { staticClass: "container-fluid" },
+    [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col s12 center-align" }, [
+          _vm.options == 0 ? _c("h1", [_vm._v("Aliados")]) : _vm._e(),
+          _vm._v(" "),
+          _vm.options == 1 || _vm.options == 2
+            ? _c("h1", [
+                _vm._v(
+                  _vm._s(_vm.options == 1 ? "Registrar" : "Actualizar") +
+                    " Aliado"
+                )
+              ])
+            : _vm._e()
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          { staticClass: "col s12" },
+          [
+            _vm.options == 0
+              ? _c(
+                  "section",
+                  { staticClass: "table__content" },
+                  [
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col s12 container-btn-add" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn-add",
+                            on: {
+                              click: function($event) {
+                                _vm.options = 1
+                              }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticClass: "img-responsive",
+                              attrs: {
+                                src: _vm._f("asset")("img/icons/new-msg.png"),
+                                alt: ""
+                              }
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "btn-add-text" }, [
+                          _vm._v(
+                            "\n                            Agregar nuevo\n                        "
+                          )
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "table-byte",
+                      {
+                        attrs: {
+                          "set-table": _vm.allies,
+                          filters: [
+                            "nombre",
+                            "facebook",
+                            "twitter",
+                            "instagram"
+                          ]
+                        },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "table-head",
+                            fn: function(ref) {
+                              var item = ref.item
+                              return _c(
+                                "table-row",
+                                {},
+                                [
+                                  _c("table-head", [_vm._v("Nombre ")]),
+                                  _vm._v(" "),
+                                  _c("table-head", [_vm._v("Facebook")]),
+                                  _vm._v(" "),
+                                  _c("table-head", [_vm._v("Twitter ")]),
+                                  _vm._v(" "),
+                                  _c("table-head", [_vm._v("Instagram")]),
+                                  _vm._v(" "),
+                                  _c("table-head", [_vm._v("Acciones")])
+                                ],
+                                1
+                              )
+                            }
+                          },
+                          {
+                            key: "table-row",
+                            fn: function(ref) {
+                              var item = ref.item
+                              return _c(
+                                "table-row",
+                                {},
+                                [
+                                  _c("table-cell", [
+                                    _vm._v(_vm._s(item.nombre))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("table-cell", [
+                                    _vm._v(_vm._s(item.facebook))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("table-cell", [
+                                    _vm._v(_vm._s(item.twitter))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("table-cell", [
+                                    _vm._v(_vm._s(item.instagram))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("table-cell", [
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "btn-action",
+                                        attrs: { href: "#!" },
+                                        on: {
+                                          click: function($event) {
+                                            _vm._edit(item, "view")
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("img", {
+                                          staticClass: "img-responsive",
+                                          attrs: {
+                                            src: _vm._f("asset")(
+                                              "img/icons/ico-ver.png"
+                                            ),
+                                            alt: ""
+                                          }
+                                        })
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "btn-action",
+                                        attrs: { href: "#!" },
+                                        on: {
+                                          click: function($event) {
+                                            _vm._edit(item, "edit")
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("img", {
+                                          staticClass: "img-responsive",
+                                          attrs: {
+                                            src: _vm._f("asset")(
+                                              "img/icons/ico-editar.png"
+                                            ),
+                                            alt: ""
+                                          }
+                                        })
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "btn-action",
+                                        attrs: { href: "#!" },
+                                        on: {
+                                          click: function($event) {
+                                            _vm._confirm(item, "destroy")
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("img", {
+                                          staticClass: "img-responsive",
+                                          attrs: {
+                                            src: _vm._f("asset")(
+                                              "img/icons/ico-eliminar.png"
+                                            ),
+                                            alt: ""
+                                          }
+                                        })
+                                      ]
+                                    )
+                                  ])
+                                ],
+                                1
+                              )
+                            }
+                          }
+                        ])
+                      },
+                      [
+                        _c(
+                          "table-row",
+                          { attrs: { slot: "empty-rows" }, slot: "empty-rows" },
+                          [
+                            _c("table-cell", { attrs: { colspan: "5" } }, [
+                              _vm._v(
+                                "\n                            No se encontraron registros.\n                        "
+                              )
+                            ])
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.options == 1
+              ? _c("allies-add", { on: { back: _vm._resetView } })
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.options == 2
+              ? _c("allies-update", {
+                  attrs: { data: _vm.form },
+                  on: { back: _vm._resetView }
+                })
+              : _vm._e()
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "byte-modal",
+        {
+          attrs: { confirm: _vm.modal.type.confirm },
+          on: { pressok: _vm._delete }
+        },
+        [
+          _c("div", { staticClass: "container-confirmation" }, [
+            _c("div", { staticClass: "confimation__icon" }, [
+              _c("i", { staticClass: "material-icons" }, [
+                _vm._v("error_outline")
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "confirmation__text" }, [
+              _c("h5", [
+                _vm._v("¿Realmente deseas "),
+                _c("b", [_vm._v("eliminar")]),
+                _vm._v(" este aliado ?")
+              ])
+            ])
+          ])
+        ]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-143b529a", module.exports)
+  }
+}
+
+/***/ }),
+/* 304 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);
