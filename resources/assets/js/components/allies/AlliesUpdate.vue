@@ -45,7 +45,7 @@
                             </div>                            
                         </div>
                         <div class="col l4 m6 s6 items__file" :key="index" v-for="(file, index) in items" :id="`file-${file.id}`">
-                            <input-file :btn="false" :file="file.foto !== '' ? `${urlBase + 'img/aliados/' + file.foto}` : ''" :image="true" v-on:file="_setFile(file.id, index, $event)"></input-file>
+                            <input-file :btn="false" :file="file.file !== '' ? `${urlBase + 'img/aliados/' + file.file}` : ''" :image="true" v-on:file="_setFile(file.id, index, $event)"></input-file>
                             <button class="file__claer" @click="_sliceItem(file.id, index)" v-if="items.length > 1"></button>
                             <div class="progress" :id="'progress-' + index">
                                 <div class="determinate" :style="`width: ${uploadPercentage}%`"></div>
