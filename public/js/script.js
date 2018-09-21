@@ -85485,10 +85485,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.form = item;
             this.options = 2;
         },
-        _delete: function _delete() {}
+        _confirm: function _confirm(item) {
+            this.modal.type.confirm = true;
+            this.modal.type.action = this._delete;
+            this.modal.data = item;
+            this.modal.init.open();
+        },
+        _delete: function _delete() {
+            var _this = this;
+
+            var index = this.allies.findIndex(function (e) {
+                return e.id == _this.modal.data.id;
+            });
+
+            this.modal.init.close();
+
+            axios.delete('admin/allies/' + this.modal.data.id).then(function (res) {
+                _this.allies.splice(index, 1);
+                _this._showAlert(res.data.message, "success");
+            }).catch(function (err) {
+                _this._showAlert('Disculpa, ha ocurrido un error', "error");
+            });
+        },
+        _showAlert: function _showAlert(text, type) {
+            swal({
+                title: "",
+                text: text,
+                timer: 3000,
+                showConfirmButton: false,
+                type: type
+            });
+        }
     },
 
-    mounted: function mounted() {}
+    mounted: function mounted() {
+        this.modal.init = M.Modal.init(document.querySelector('.modal'));
+    }
 });
 
 /***/ }),
@@ -86906,7 +86938,7 @@ var render = function() {
                           "table-row",
                           { attrs: { slot: "empty-rows" }, slot: "empty-rows" },
                           [
-                            _c("table-cell", { attrs: { colspan: "3" } }, [
+                            _c("table-cell", { attrs: { colspan: "5" } }, [
                               _vm._v(
                                 "\n                            No se encontraron registros.\n                        "
                               )

@@ -52,7 +52,7 @@
                         </table-row>
 
                         <table-row slot="empty-rows">
-                            <table-cell colspan="3">
+                            <table-cell colspan="5">
                                 No se encontraron registros.
                             </table-cell>
                         </table-row>
@@ -136,14 +136,44 @@ export default {
             this.options = 2
         },
 
-        _delete () {
+        _confirm(item) {
+            this.modal.type.confirm = true;
+            this.modal.type.action = this._delete;
+            this.modal.data = item;
+            this.modal.init.open();
+        },
 
+        _delete () {
+            let index = this.allies.findIndex(e => {
+                return e.id == this.modal.data.id
+            })
+            
+            this.modal.init.close();
+
+            axios.delete(`admin/allies/${this.modal.data.id}`)
+                .then(res => {
+                    this.allies.splice(index, 1)
+                    this._showAlert(res.data.message, "success");
+                })
+                .catch(err => {
+                    this._showAlert('Disculpa, ha ocurrido un error', "error")
+                });
+        },
+
+        _showAlert(text, type) {
+            swal({
+                title: "",
+                text: text,
+                timer: 3000,
+                showConfirmButton: false,
+                type: type
+            })
         }
 
     },
 
     mounted() {
-        
+        this.modal.init = M.Modal.init(document.querySelector('.modal'));
     }
 }
 </script>
