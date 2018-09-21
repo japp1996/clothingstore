@@ -26,7 +26,7 @@ class AllyController extends Controller
         $allies = Aliado::with([
             'fotos' => function ($query)
             {
-                $query->select('id', 'aliado_id', 'foto');
+                $query->select('id', 'aliado_id', 'file');
             }
         ])
         ->get();
@@ -67,7 +67,7 @@ class AllyController extends Controller
                 $file->move($this->url, $file_name);
                 ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $this->url);
                 $photo = new AliadoFoto;
-                $photo->foto = $file_name;
+                $photo->file = $file_name;
                 $photo->aliado_id = $ally->id;
                 $photo->save();
             }
@@ -127,13 +127,13 @@ class AllyController extends Controller
             ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $this->url);
 
             $photo = new AliadoFoto;
-            $photo->foto = $file_name;
+            $photo->file = $file_name;
             $photo->aliado_id = $request->aliado_id;
             $photo->save();
             $id = $photo->id;
         } else {
             $item = AliadoFoto::find($request->id);
-            $odlFile = $item->foto;
+            $odlFile = $item->file;
 
             $file = $request->file('file');
             $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
@@ -142,7 +142,7 @@ class AllyController extends Controller
             ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $this->url);
             File::delete(public_path($this->url.$odlFile));
 
-            $item->foto = $file_name;
+            $item->file = $file_name;
             $item->save();
             $id = $request->id;
         }
@@ -167,7 +167,7 @@ class AllyController extends Controller
     public function delete(Request $request)
     {
         $item = AliadoFoto::find($request->id);
-        $file = $item->foto;
+        $file = $item->file;
         File::delete(public_path($this->url.$file));
         $item->delete();
 
