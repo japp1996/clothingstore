@@ -73,10 +73,10 @@
                                 <h3>Categoría</h3>
                             </div>
                             <div class="col s12 m6">
-                                <span>Categoría (Español)</span>
+                                <span>Categoría (Español):</span> {{ modal.date.name }}
                             </div>
                             <div class="col s12 m6">
-                                <span>Categoría (Ingles)</span>
+                                <span>Categoría (Ingles):</span> {{ modal.date.name }}
                             </div>
                         </template>
                         
