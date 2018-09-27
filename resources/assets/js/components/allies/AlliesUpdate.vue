@@ -1,0 +1,205 @@
+<template id="template-allies-update">
+    <div class="col s12">
+        <div class="row">
+            <div class="col s12">
+                <a href="#!" class="btn btn-back" @click="_back()">
+                    <div class="btn-back__container">
+                        <div class="btn-back__ico"></div>
+                        <label for=""> Volver</label>
+                </div>
+                </a>
+            </div>
+        </div>
+        <card-main>
+            <card-content>
+                <div class="row">
+                    <div class="col s12 m6 l6 center-align">
+                        <label for="nombre" class="label-impegno">Nombre (Español)</label>
+                        <input type="text" name="nombre" id="nombre" v-model="form.nombre" class="browser-default input-impegno">
+                    </div>
+                    <div class="col s12 m6 l6 center-align">
+                        <label for="facebook" class="label-impegno">Facebook</label>
+                        <input type="text" name="facebook" id="facebook" v-model="form.facebook" class="browser-default input-impegno">
+                    </div>
+                    <div class="col s12 m6 l6 center-align">
+                        <label for="twitter" class="label-impegno">Twitter</label>
+                        <input type="text" name="twitter" id="twitter" v-model="form.twitter" class="browser-default input-impegno">
+                    </div>
+                    <div class="col s12 m6 l6 center-align">
+                        <label for="instagram" class="label-impegno">Instagram</label>
+                        <input type="text" name="instagram" id="instagram" v-model="form.instagram" class="browser-default input-impegno">
+                    </div>
+                    <div class="col s12 m6 l6 center-align">
+                        <label for="direccion" class="label-impegno">Dirección</label>
+                        <textarea name="direccion" id="direccion" v-model="form.direccion" class="browser-default input-impegno"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row gallery__items">
+                        <div class="col s12 container-btn-add">
+                            <button class="btn-add" @click="_addItem()">
+                                <img :src="'img/icons/new-msg.png' | asset" alt="" class="img-responsive">
+                            </button>
+                            <div class="btn-add-text">
+                                Agregar imagen
+                            </div>                            
+                        </div>
+                        <div class="col l4 m6 s6 items__file" :key="index" v-for="(file, index) in items" :id="`file-${file.id}`">
+                            <input-file :btn="false" :file="file.file !== '' ? `${urlBase + 'img/aliados/' + file.file}` : ''" :image="true" v-on:file="_setFile(file.id, index, $event)"></input-file>
+                            <button class="file__claer" @click="_sliceItem(file.id, index)" v-if="items.length > 1"></button>
+                            <div class="progress" :id="'progress-' + index">
+                                <div class="determinate" :style="`width: ${uploadPercentage}%`"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 center-align">
+                        <a href="#!" class="btn btn-success" @click="_edit($event)">Actualizar</a>
+                    </div>                    
+                </div> 
+            </card-content>
+        </card-main>
+    </div>    
+</template>
+
+<style lang="scss">
+    .progress {
+        opacity: 0;
+        transition: all ease-in-out 0.35s;
+    }
+    .progress-active {
+        opacity: 1;
+    }
+</style>
+
+<script>
+export default {
+    template: "#template-allies-update",
+
+    props: {
+        data: {
+            type: Object,
+            default: {}
+        }
+    },
+
+    created () {
+        this.form = this.data
+        this.items = this.form.fotos
+        this.form.files = this.items
+    },
+
+    data () {
+        return {
+            form: {
+                files: []
+            },
+            items: [],
+            files: [],
+            file: '',
+            ids: 0,
+            elements: 0,
+            urlBase: urlBase,
+            config: { onUploadProgress: progressEvent => console.log(progressEvent) },
+            uploadPercentage: 0,
+        }
+    },
+
+    methods: {
+        _back() {
+            this.$emit('back', 0)
+        },
+
+        _setFile(i, x, e) {
+            let progressElement = document.querySelector(`#progress-${x}`)
+            progressElement.classList.add('progress-active')
+            let formData = new FormData()
+            formData.append('id',  i)
+            formData.append('file', e.file)
+            formData.append('aliado_id', this.form.id)
+            axios.post('admin/allies/update-image', formData, {
+                onUploadProgress: function( progressEvent ) {
+                    this.uploadPercentage = parseInt( Math.round( ( progressEvent.loaded * 100 ) / progressEvent.total ))
+                }.bind(this)
+            })
+            .then(resp => {
+                this.items[x].id = resp.data.id
+                this.items[x].file = resp.data.file
+                progressElement.classList.remove('progress-active')
+            })
+            .catch(err => {
+                this._showAlert("Disculpa, ha ocurrido un error", "error")
+            })
+        },
+
+        _addItem() {
+            // this.ids = this.ids + 1
+            this.items.push({file: "", id: 0})
+            this.form.files = this.items
+            this.elements = this.elements + 1
+        },
+
+        _sliceItem (id, i) {
+            let parent = document.querySelector(".gallery__items")
+            let child = document.querySelector(`#file-${id}`)            
+            
+            if (id != 0) {
+                axios.post('admin/allies/delete-images', {id: id})
+                .then(resp => {
+                    parent.removeChild(child)
+                    this.elements = this.elements - 1
+                })
+                .catch(err => {
+                    this._showAlert("Disculpa, ha ocurrido un error", "error")
+                })
+            } else {
+                parent.removeChild(child)
+                this.elements = this.elements - 1
+            }
+        },
+        
+        _edit(e) {
+            let button = e.target
+            button.setAttribute('disabled', true)
+            axios.put(`admin/allies/${this.form.id}`, this.form)
+            .then(resp => {                
+                if (resp.data.result) {
+                    this._showAlert("Aliado actualizado exitosamente", "success")
+                    setTimeout(() => {
+                        window.location.reload()
+                    }, 3000);
+                }
+            })
+            .catch(err => {
+                if(err.response.status === 422){
+                    this._showAlert(err.response.data.error, 'warning')
+                    return false;
+                }
+                
+                this._showAlert("Disculpa, ha ocurrido un error", "error")
+            })
+            .then(all => {
+                button.removeAttribute('disabled')
+            })
+        },
+
+        _showAlert(text, type) {
+            swal({
+                title: "",
+                text: text,
+                timer: 3000,
+                showConfirmButton: false,
+                type: type
+            })
+        },
+    },
+
+    mounted() {        
+        this.ids = this.items[this.items.length - 1].id
+        setTimeout(() => {
+            this.elements = Array.from(document.querySelectorAll('.items__file')).length
+        }, 150);
+    }
+}
+</script>

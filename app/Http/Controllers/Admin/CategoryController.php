@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Subcategory;
 use App\Models\Size;
+use App\Models\Filter;
 use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
@@ -25,14 +26,18 @@ class CategoryController extends Controller
                 },
                 'sizes' => function ($q){
                     $q->select('sizes.id');
+                },
+                'filters' => function ($q) {
+                    $q->select('filters.id');
                 }
             ])
             ->withCount('products')
             ->get();
 
         $sizes = Size::where('status', '1')->get();
+        $filters = Filter::get();
 
-        return view('admin.categories.index')->with(['categories' => $categories, 'sizes' => $sizes]);
+        return view('admin.categories.index')->with(['categories' => $categories, 'sizes' => $sizes, 'filters' => $filters]);
     }
 
     /**
@@ -57,6 +62,10 @@ class CategoryController extends Controller
 
         foreach ($request->sizes as $key => $size) {
             $category->sizes()->attach($category->id, ['size_id' => $size]);
+        }
+
+        foreach ($request->filters as $key => $filter) {
+            $category->filters()->attach($category->id, ['filter_id' => $filter]);
         }
 
         foreach ($request->subcategories as $key => $subcategory) {
@@ -102,9 +111,14 @@ class CategoryController extends Controller
         $category->save();
 
         $category->sizes()->detach();
+        $category->filters()->detach();
 
         foreach ($request->sizes as $key => $size) {
             $category->sizes()->attach($category->id, ['size_id' => $size]);
+        }
+
+        foreach ($request->filters as $key => $filter) {
+            $category->filters()->attach($category->id, ['filter_id' => $filter]);
         }
         
         $sub_ids = [];

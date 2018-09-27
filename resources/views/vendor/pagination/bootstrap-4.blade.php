@@ -16,7 +16,7 @@
 
         <li class="page-item page-of disabled">
             <span class="page-link">
-                {{ $paginator->currentPage() }} de {{ $paginator->lastPage() }}
+                {{ $paginator->currentPage() }} {{ Lang::get('Page.De') }} {{ $paginator->lastPage() }}
             </span>
         </li>
 

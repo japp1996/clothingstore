@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-	Inicio
+	@lang('Page.Home.Inicio')
 @stop
 
 @section('content')
@@ -11,7 +11,7 @@
 		<div class="text-center">
 			<a href="{{ URL('home') }}">
 				<button class="btn btn-default">
-					Entrar
+					@lang('Page.Home.Entrar')
 				</button>
 			</a>
 		</div>

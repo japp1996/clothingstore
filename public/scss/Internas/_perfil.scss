@@ -1,5 +1,214 @@
 // Perfil
 
 #perfil {
-	
+	.bold {
+		font-family: 'Segoe Bold' !important;
+	}
+	.bold-gold {
+		font-family: 'Segoe Bold' !important;
+		color: $dorado;
+	}
+	padding-top: 70px !important;
+	@media (max-width: 991px) {
+		padding-top: 62.88px !important;
+	}
+	.bold-red {
+		color: $danger !important;
+	}
+	.bold-green {
+		color: $green !important;
+	}
+	.bold-status {
+		margin-bottom: 0px !important;
+	}
+	table {
+		thead {
+			th {
+				color: $white;
+				font-family: 'Segoe';
+				font-weight: normal;
+				border: 0px !important;
+			}
+		}
+		tbody {
+			td {
+				color: $white;
+				border: 0px !important;
+			}	
+			tr.borderGold > td {
+				border-top: 2px solid $dorado !important;
+			}
+			td.borderWhite {
+				border-top: 1px solid $white !important;
+			}
+		}
+	}
+	.no-items {
+		font-style: italic;
+		font-size: 30px;
+		color: $white;
+		margin-top: 30px;
+		margin-bottom: 30px;
+	}
+	h2 {
+		@include texto();
+		font-family: 'Bebas';
+		text-transform: uppercase;
+		font-size: 80px !important;
+		text-align: center;
+		@media (max-width: 991px) {
+			font-size: 60px !important;
+		}
+	}
+	.row, [class*="col-md-"], [class*="col-lg-"] {
+		padding: 0px !important;
+		margin: 0px !important;
+	}
+	.separacion {
+		@media (min-width: 992px) {
+			border-right: 2px solid $dorado;
+		}		
+		@include sizePerfil();
+		h2 {
+			padding-top: 20px;
+			border-bottom: 2px solid $dorado;
+			margin-bottom: 0px !important;
+		}
+		ul {
+			list-style: none;
+			padding-left: 0px !important;
+			@media (max-width: 991px) {
+				display: none;
+			}
+			li {
+				a {
+					text-decoration: none !important;
+					display: block;
+					padding: 15px;
+					padding-left: 25px;
+					padding-top: 8px;
+					padding-bottom: 8px;
+					color: $white !important;
+					border-bottom: 1px solid $white;
+					font-size: 20px !important;
+					&.bold {
+						font-family: 'Segoe Bold' !important;
+					}
+				}
+			}
+		}
+	}
+	.filtro-button {
+		width: 60px;
+		float: left;
+		margin-left: 20px;
+		margin-top: 15px;
+		margin-right: -60px;
+		@media(min-width: 992px) {
+			display: none;
+		}
+	}
+	.seccion {
+		padding: 40px;
+		padding-top: 57.5px !important;
+		@media (max-width: 767px) {
+			padding: 20px;
+		}
+		h3 {
+			color: $white !important;
+			font-family: 'Segoe SemiBold';
+			font-style: italic;
+			font-size: 40px;
+			text-indent: 20px;
+			@media (max-width: 767px) {
+				font-size: 25px;
+			}
+			&::after {
+				content: '';
+				display: block;
+				background-color: $white;
+				width: 100%;
+				height: 2px;
+				margin-top: 10px;
+				margin-bottom: 20px;
+				@media (max-width: 991px) {
+					display: none;
+				}
+			}
+		}
+		label {
+			color: $white;
+			margin-top: 10px;
+		}
+		.form-group {
+			width: 90%;
+			margin: 0 auto;
+		}
+	}
+	form {
+		button {
+			@include button();
+			font-family: 'Segoe Bold';
+			min-width: 120px;
+			margin-top: 30px;
+		}		
+	}
+	.filtro {
+		display: none;
+		position: fixed;
+		left: 0px;
+		top: 0px;
+		height: 100vh;
+		width: 100%;
+		background-color: rgba(#000,.5);
+		z-index: 99999999;
+	}
+	.filtro-container {
+		position: fixed;
+		box-shadow: 0 1px 3px rgba(#fff,0.12), 0 1px 2px rgba(#fff,0.24);
+		left: -500px;
+		top: 0px;
+		height: 100vh;
+		min-width: 350px;
+		ul {
+			list-style: none;
+			padding-left: 0px !important;
+			li {
+				a {
+					text-decoration: none !important;
+					display: block;
+					padding: 15px;
+					padding-left: 25px;
+					padding-top: 8px;
+					padding-bottom: 8px;
+					color: $white !important;
+					border-bottom: 1px solid $white;
+					font-size: 20px !important;
+					&.bold {
+						font-family: 'Segoe Bold' !important;
+					}
+				}
+			}
+		}
+		@media (max-width: 400px) {
+			min-width: 100%;
+		}
+		background-color: $black;
+		z-index: 99999999;
+		h2 {
+			padding: 10px;
+			font-family: 'Segoe Bold';
+			font-size: 50px !important;
+			color: #fff;
+			.close {
+				opacity: 1 !important;
+				color: #fff;
+				img {
+					width: 20px;
+					margin-top: 10px;
+					margin-right: 10px;
+				}
+			}
+		}
+	}
 }

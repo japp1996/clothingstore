@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CollectionRequest;
 use App\Models\Collection;
+use App\Models\Design;
 
 class CollectionController extends Controller
 {
@@ -16,7 +17,13 @@ class CollectionController extends Controller
      */
     public function index()
     {
-        $collections = Collection::where('status', '!=', '2')->get();
+        $collections = Collection::where('status', '1')
+        ->with([
+            'designs' => function($query) {
+                $query->select()->withCount('products');
+            }
+        ])
+        ->get();
 
         return view('admin.collection.index')->with([
             'collections' => $collections
@@ -41,7 +48,14 @@ class CollectionController extends Controller
      */
     public function store(CollectionRequest $request)
     {
-        Collection::create($request->all());
+        $collection = Collection::create($request->all());
+
+        foreach ($request->designs as $key => $design) {
+            $collection->designs()->create($design);
+        }
+
+        return response()->json(["result" => true, "message" => "Collección agregada exitosamente"]);
+        
     }
 
     /**
@@ -75,7 +89,21 @@ class CollectionController extends Controller
      */
     public function update(CollectionRequest $request, $id)
     {
-        Collection::find($id)->update(['name' => $request->name, 'name_english' => $request->name_english]);
+        $collection = Collection::find($id)->update(['name' => $request->name, 'name_english' => $request->name_english]);
+
+        $design_ids = array();
+
+        foreach ($request->designs as $key => $design) {
+            if($design['id'] > 0){
+                Design::find($design['id'])->update(['name' => $design['name'], 'name_english' => $design['name_english']]);
+            }else{
+                $design = Collection::find($id)->designs()->create($design);
+            }
+
+            $design_ids[] = $design['id'];
+        }
+
+        Design::where('collection_id', $id)->whereNotIn('id', $design_ids)->doesnthave('products')->update(['status' => '2']);
     }
 
     /**
@@ -89,5 +117,10 @@ class CollectionController extends Controller
         $collection = Collection::find($id);
             $collection->status = '2';
         $collection->save();
+
+        Design::where('collection_id', $id)->doesnthave('products')->update(['status' => '2']);
+
+        return response()->json(["result" => true, "message" => "Colección eliminada exitosamente"]);
+        
     }
 }

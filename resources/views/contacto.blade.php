@@ -1,17 +1,17 @@
 @extends('layouts.master')
 
 @section('title')
-	Contacto
+	@lang('Page.Contacto.Title')
 @stop
 
 @section('content')
 	<div class="contenido" id="contacto">
 		<div class="row">
 			<div class="col-md-5 text-center right-line-container">
-				<h2 class="title">Contáctanos</h2>
-				<p><strong>Teléfono:</strong> 000-000.0000</p>
-				<p><strong>Correo Electrónico:</strong> correo@gmail.com</p>
-				<p><strong>Ubicación:</strong> Venezuela</p>
+				<h2 class="title">@lang('Page.Contacto.Contactanos')</h2>
+				<p><strong>@lang('Page.Contacto.Telefono'):</strong> {{ $_sociales->phone }}</p>
+				<p><strong>@lang('Page.Contacto.Email'):</strong> {{ $_sociales->email }}</p>
+				<p><strong>@lang('Page.Contacto.Ubicacion'):</strong> {!! nl2br($_sociales->address) !!}</p>
 				<div class="right-line"></div>
 			</div>
 			<div class="col-md-7 text-center">
@@ -19,28 +19,28 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								{{ Form::label('nombre','Nombre Completo') }}
+								{{ Form::label('nombre',Lang::get('Page.Contacto.Nombre')) }}
 								{{ Form::text('nombre','',['class' => 'form-control','v-model' => 'form.nombre']) }}
 							</div>
 							<div class="form-group">
-								{{ Form::label('email','Correo Electrónico') }}
+								{{ Form::label('email',Lang::get('Page.Contacto.Email')) }}
 								{{ Form::text('email','',['class' => 'form-control','v-model' => 'form.email']) }}
 							</div>
 							<div class="form-group">
-								{{ Form::label('pais','País') }}
+								{{ Form::label('pais',Lang::get('Page.Contacto.Pais')) }}
 								{{ Form::select('pais',$paises,null,['class' => 'form-control','v-model' => 'form.pais']) }}
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								{{ Form::label('mensaje','Mensaje') }}
+								{{ Form::label('mensaje',Lang::get('Page.Contacto.Mensaje')) }}
 								{{ Form::textarea('mensaje','',['class' => 'form-control','v-model' => 'form.mensaje', 'rows' => 8]) }}
 							</div>
 						</div>
 					</div>
 					<div class="text-center">
 						<button class="btn btn-default" type="submit">
-							Enviar Mensaje
+							@lang('Page.Contacto.Enviar')
 						</button>
 					</div>
 				{{ Form::close() }}
@@ -51,7 +51,7 @@
 
 @section('scripts')
 	<script type="text/javascript">
-		new Vue({
+		var vue = new Vue({
 			el: '#contacto',
 			data: {
 				form: {
@@ -64,20 +64,20 @@
 			methods: {
 				submit() {
 					setLoader();
-					axios.post("{{ URL('contacto') }}",this.form)
-						.then(res => {
+					axios.post("{{ URL('contacto') }}",vue.form)
+						.then(function(res) {
 							if (res.data.result) {
-								swal('','Su mensaje ha sido enviado','success');
-								this.form = {};
+								swal('','{{ Lang::get('Page.Contacto.Success') }}','success');
+								vue.form = {};
 							}
 							else {
 								swal('',res.data.error,'warning');
 							}
 						})
-						.catch(err => {
-							swal('',"Se ha producido un error",'warning');
+						.catch(function(err) {
+							swal('',"{{ Lang::get('Page.Error') }}",'warning');
 						})
-						.then(() => {
+						.then(function() {
 							quitLoader();
 						});
 				}

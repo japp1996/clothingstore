@@ -5,40 +5,56 @@
 
 	class Cart {
 
-		public static $ids = [];
+		public static $items = [];
 		public static $name = "WaraCarrito";
 
 		private static function init() {
 			if (Cookie::get(self::$name) != null) {
-				self::$ids = Cookie::get(self::$name);
+				self::$items = Cookie::get(self::$name);
 			}
 		}
 
 		public static function count() {
 			self::init();
-			return count(self::$ids);
+			return count(self::$items);
 		}
 
 		public static function get() {
 			self::init();
-			return self::$ids;
+			return self::$items;
 		}
 
-		public static function in($id) {
+		public static function in($producto,$_index = false) {
 			self::init();
-			return in_array($id,self::$ids);
+			$in = false;
+			$index = null;
+			foreach(self::$items as $key => $item) {
+				if($producto['id'] == $item['id'] && $producto['talla'] == $item['talla'] && $producto['color'] == $item['color']) {
+					$in = true;
+					$index = $key;
+				}
+			}
+			if ($_index)
+				return $index;
+			else
+				return $in;
 		}
 
-		public static function set($id) {
+		public static function set($item) {
 			self::init();
-			self::$ids[] = $id;
-			Cookie::queue(self::$name,self::$ids, 2628000);
+			if (self::in($item)) {
+				self::$items[self::in($item,true)] = $item;
+			}
+			else {
+				self::$items[] = $item;
+			}
+			Cookie::queue(self::$name,self::$items, 2628000);
 		}
 
-		public static function delete($id) {
+		public static function delete($item) {
 			self::init();
-			self::$ids = array_diff(self::$ids,[$id]);
-			Cookie::queue(self::$name,self::$ids, 2628000);
+			array_splice(self::$items,self::in($item,true),1);
+			Cookie::queue(self::$name,self::$items, 2628000);
 		}
 
 		public static function destroy() {

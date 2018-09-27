@@ -16,11 +16,13 @@ import date from './filters/date'
 import money from './filters/money'
 import amountInLetters from './filters/amount-in-letters'
 import asset from './filters/asset'
+import image from './filters/image'
 
 Vue.use(date)
 Vue.use(money)
 Vue.use(amountInLetters)
 Vue.use(asset)
+Vue.use(image)
 
 import swal from "sweetalert";
 
@@ -65,6 +67,11 @@ Vue.component("card-main", require("./components/card/CardMain.vue"));
 Vue.component("card-content", require("./components/card/CardContent.vue"));
 Vue.component("card-title", require("./components/card/CardTitle.vue"));
 
+// Inputs
+Vue.component("input-autocomplete", require("./components/inputs/InputAutocomplete"));
+Vue.component("input-file", require("./components/inputs/InputFile"));
+Vue.component("input-document", require("./components/inputs/InputDocument"));
+
 // Table
 Vue.component('table-byte', require("./components/table/Table"));
 Vue.component("table-row", require("./components/table/TableRow"));
@@ -89,6 +96,18 @@ Vue.component('collection-index', require('./components/collection/CollectionInd
 // Design
 Vue.component('design-index', require('./components/designs/DesignIndex'));
 
+// Product
+Vue.component('product-index', require('./components/products/ProductIndex'));
+
+// Exchange Rate
+Vue.component('change-index', require('./components/exchange_rate/ChangeIndex'));
+Vue.component('change-form', require('./components/exchange_rate/ChangeForm'));
+
+// Us
+Vue.component('us-index', require('./components/us/UsIndex'));
+
+// Allies
+Vue.component('allies-index', require('./components/allies/AlliesIndex'));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

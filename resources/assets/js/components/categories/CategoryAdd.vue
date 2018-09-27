@@ -25,20 +25,39 @@
                             <label for="name_english" class="label-impegno">Categoría (Ingles)</label>
                             <input type="text" name="name_english" id="name_english" v-model="form.name_english" maxlength="50" class="browser-default input-impegno">
                         </div>
-
                         <div class="col s12">
-                            <div class="col s12">
-                                <p class="not-mb">
-                                    <input type="checkbox" id="size-all" class="with-gap" @click="_selectAll()">
-                                    <label for="size-all">Todo</label>
-                                </p>
-                            </div>
-                            <div class="col s12 m3" v-for="(size, i) in sizes" :key="'size-' + i">
-                                <p>
-                                    <input type="checkbox" :id="`size-${i}`" class="with-gap" :value="size.id" v-model="form.sizes">
-                                    <label :for="`size-${i}`">{{ size.name }}</label>
-                                </p>
-                            </div>
+                            <fieldset>
+                                <legend>Disponible para estos </legend>
+                                <div class="col s12">
+                                    <p class="not-mb">
+                                        <input type="checkbox" id="filter-all" class="with-gap" @click="_selectAllFilters()">
+                                        <label for="filter-all">Todo</label>
+                                    </p>
+                                </div>
+                                <div class="col s12 m3" v-for="(filter, i) in filters" :key="'filter-' + i">
+                                    <p>
+                                        <input type="checkbox" :id="`filter-${i}`" class="with-gap" :value="filter.id" v-model="form.filters">
+                                        <label :for="`filter-${i}`">{{ filter.name }}</label>
+                                    </p>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col s12">
+                            <fieldset>
+                                <legend>Tallas</legend>
+                                <div class="col s12">
+                                    <p class="not-mb">
+                                        <input type="checkbox" id="size-all" class="with-gap" @click="_selectAll()">
+                                        <label for="size-all">Todo</label>
+                                    </p>
+                                </div>
+                                <div class="col s12 m3" v-for="(size, i) in sizes" :key="'size-' + i">
+                                    <p>
+                                        <input type="checkbox" :id="`size-${i}`" class="with-gap" :value="size.id" v-model="form.sizes">
+                                        <label :for="`size-${i}`">{{ size.name }}</label>
+                                    </p>
+                                </div>
+                            </fieldset>                            
                         </div>
 
                         <div class="row">
@@ -69,9 +88,10 @@
                                         <input type="text" name="name" id="name" v-model="subcategory.name_english" maxlength="50" class="browser-default input-impegno">
                                     </div>
 
-                                    <div class="col s2">
-                                        <a href="#!" class="btn-floating red" @click="_delete(index)" v-if="subcategory.enabled == true || subcategory.enabled == null">
-                                            <i class="material-icons">delete</i>
+                                    <div class="col s2 margin-botton">
+
+                                        <a href="#!" class="btn-action" @click="_delete(index)" v-if="subcategory.enabled == true || subcategory.enabled == null">
+                                            <img :src="'img/icons/ico-eliminar.png' | asset" alt="" class="img-responsive">
                                         </a>
 
                                         <span v-else>Tiene productos</span>
@@ -118,6 +138,16 @@
             font-weight: bold;
         }
     }
+    fieldset{
+        margin: 1rem 0;
+        border-radius: .6rem;
+        legend{
+            padding: 0 10px;
+        }
+    }
+    .margin-botton{
+        margin-bottom: .8rem;
+    }
 </style>
 
 <script>
@@ -126,6 +156,12 @@ export default {
 
     props: {
         sizes: {
+            type: Array,
+            default () {
+                return []
+            }
+        },
+        filters: {
             type: Array,
             default () {
                 return []
@@ -146,6 +182,7 @@ export default {
                 name: "",
                 name_english: "",
                 sizes: [],
+                filters: [],
                 subcategories: []
             }
         }
@@ -171,6 +208,17 @@ export default {
                     this.form.sizes.push(val.id);
                 });
             }            
+        },
+
+        _selectAllFilters() {            
+            this.form.filters = [];
+            if (event.target.checked) {
+                this.filters.forEach(val => {
+                    this.form.filters.push(val.id)
+                })
+            }
+            console.log(this.form);
+            
         },
 
         _submit(){
@@ -205,7 +253,7 @@ export default {
         },
 
         update(){
-            this.form._method = "PUT";
+            this.form._method = "PATCH";
 
             axios.post(`admin/categories/${this.form.id}`, this.form)
                 .then(res => {
@@ -236,6 +284,10 @@ export default {
             
             this.setForm.sizes.forEach(s => {
                 this.form.sizes.push(s.id);
+            });
+
+            this.setForm.filters.forEach(f => {
+                this.form.filters.push(f.id);
             });
 
             this.setForm.subcategories.forEach((s, i) => {

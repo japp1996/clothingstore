@@ -2,15 +2,31 @@
 
 #nosotros {
 	background-image: url('../img/nosotros/fondo.png');
+	@media (max-width: 767px) {
+		background-image: url('../img/nosotros-responsive.jpg');
+	}
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center center;
 	@include size();
 
+	.vision-no-responsive {
+		@media (max-width: 767px) {
+			display: none;
+		}
+	}
+
+	.vision-responsive {
+		display: none;
+		@media (max-width: 767px) {
+			display: block;
+		}
+	}
+
 	h2 {
 		@include texto();
 		text-transform: uppercase;
-		font-size: 80px;
+		font-size: 50px;
 		font-family: 'Bebas';
 		text-align: center;
 	}
@@ -32,8 +48,8 @@
 		justify-content: center;
 		align-center: center;
 		margin: 0 auto;
-		@media (max-width: 767px) {
-			display: none;
-		}
+		// @media (max-width: 767px) {
+		// 	display: none;
+		// }
 	}
 }

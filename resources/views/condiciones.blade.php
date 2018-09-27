@@ -1,20 +1,20 @@
 @extends('layouts.master')
 
 @section('title')
-	Condiciones de Compra
+	@lang('Page.Condiciones.Title')
 @stop
 
 @section('content')
 	<div class="contenido" id="condiciones">
 		<h3 class="title title-line">
-			Condiciones de Compra
+			@lang('Page.Condiciones.Title')
 		</h3>
 		<p>
-			{!! nl2br($condiciones->texto) !!}
+			{!! \App::getLocale() == 'es' ? nl2br($condiciones->texto) : nl2br($condiciones->english) !!}
 		</p>
 		<p class="item-right">
 			{{ HTML::Image('img/icons/right.png') }}
-			Condiciones de Envío con DHL
+			@lang('Page.Condiciones.DHL')
 		</p>			
 	</div>
 @stop

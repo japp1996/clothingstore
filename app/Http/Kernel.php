@@ -20,6 +20,8 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\LangMiddleware::class,
         \App\Http\Middleware\SocialMiddleware::class,
+        \App\Http\Middleware\IpMiddleware::class,
+        \App\Http\Middleware\ExchangeMiddleware::class,
     ];
 
     /**
@@ -60,8 +62,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'active' => \App\Http\Middleware\ActiveMiddleware::class,
         'auth' => \App\Http\Middleware\AuthMiddleware::class,
+        'Auth' => \App\Http\Middleware\AuthAdminMiddleware::class,
         'login' => \App\Http\Middleware\LoginMiddleware::class,
         'intro' => \App\Http\Middleware\IntroMiddleware::class,
-        'Auth' => \App\Http\Middleware\AuthAdminMiddleware::class,
     ];
 }

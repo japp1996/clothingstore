@@ -26,12 +26,20 @@
 
 @mixin button() {
   @include degradado();
+  border: 0px !important;
   font-family: 'Segoe SemiBold';
   font-size: 20px;
 }
 
 @mixin size() {
-  min-height: calc(100vh - 64px);
+  min-height: calc(100vh - 84px);
+}
+
+@mixin sizePerfil() {
+  min-height: calc(100vh - 84px - 70px);
+  @media (max-width: 991px) {
+    min-height: auto !important;
+  }
 }
 
 @mixin shadow() {

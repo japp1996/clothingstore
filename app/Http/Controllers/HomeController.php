@@ -8,8 +8,10 @@
 	use App\Models\Slider;
 	use App\Models\Pais;
 	use App\Models\Aliado;
+	use App\Models\Terminos;
 	use Validator;
 	use Mail;
+	use Lang;
 
 	class HomeController extends Controller {
 	    
@@ -33,12 +35,21 @@
 	    	return View('condiciones')->with(['condiciones' => $condiciones]);
 	    }
 
+	    public function terminos() {
+	    	$terminos = Terminos::orderBy('id','desc')->first();
+	    	return View('terminos')->with(['terminos' => $terminos]);
+	    }
+
 	    public function intro() {
 	    	return View('intro');
 	    }
 
 	    public function getContacto() {
-	    	$paises = Pais::orderBy('nombre','asc')->get()->pluck('nombre','nombre');
+	    	if (\App::getLocale() == 'es')
+	    		$paises = Pais::orderBy('nombre','asc')->get()->pluck('nombre','nombre');
+	    	else
+	    		$paises = Pais::orderBy('english','asc')->get()->pluck('english','english');
+
 	    	return View('contacto')->with(['paises' => $paises]);
 	    }
 
@@ -49,17 +60,13 @@
 	    		'pais' => 'required',
 	    		'mensaje' => 'required'
 	    	];
-	    	$mensajes = [
-	    		'required' => 'El campo :attribute es requerido',
-	    		'email' => 'El correo electrónico no es válido'
-	    	];
 	    	$atributos = [
-	    		'nombre' => 'Nombre Completo',
-	    		'email' => 'Correo Electrónico',
-	    		'mensaje' => 'Mensaje',
-	    		'pais' => 'País'
+	    		'nombre' => Lang::get('Controllers.Atributos.Nombre'),
+	    		'email' => Lang::get('Controllers.Atributos.Email'),
+	    		'mensaje' => Lang::get('Controllers.Atributos.Mensaje'),
+	    		'pais' => Lang::get('Controllers.Atributos.Pais')
 	    	];
-	    	$validacion = Validator::make($request->all(),$reglas,$mensajes);
+	    	$validacion = Validator::make($request->all(),$reglas);
 	    	$validacion->setAttributeNames($atributos);
 	    	if ($validacion->fails()) {
 	    		return response()->json([
@@ -68,6 +75,20 @@
 	    		]);
 	    	}
 	    	else {
+
+	    		$data = [
+	    			'nombre' => $request->nombre,
+	    			'email' => $request->email,
+	    			'pais' => $request->pais,
+	    			'mensaje' => $request->mensaje
+	    		];
+
+	    		Mail::send('emails.contacto',$data, function ($m) use ($request) {
+		            $m->to(env('MAIL_CONTACTO'))
+		              ->from($request->email,$request->nombre)
+		              ->subject(Lang::get('Page.Contacto.Correo.Title').' | Wará');
+		        });
+
 	    		return response()->json([
 	    			'result' => true
 	    		]);

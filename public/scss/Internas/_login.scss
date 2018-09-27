@@ -1,6 +1,11 @@
 // Login
 
 #login {
+	.right {
+		@media (max-width: 767px) {
+			display: none;
+		}
+	}
 	.right-line-container {
 		position: relative;
 	}

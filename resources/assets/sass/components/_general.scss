@@ -15,7 +15,7 @@ body {
         bottom: 0;
         right: 0;
         opacity: 0.1;
-        background-image: url('../img/logo.png') !important;
+        // background-image: url('../img/logo.png') !important;
         background-position: 70% center;
         background-size: 10%;
         // background-repeat: no-repeat;
@@ -280,6 +280,22 @@ h1{
     text-align: right;
 }
 
+.btn-remove, .btn-remove:hover, .btn-remove:active, .btn-remove:focus{
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: transparent;
+    border: none;
+    padding: .5rem;
+    background-color: rgba($dark, .62);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img{
+        width: 1.5rem;
+    }
+}
+
 .btn--block{
     width: 100%;
 }
@@ -316,11 +332,11 @@ h1{
     right: 0.75rem;
     top: 0;
     border: none;
-    height: 3.5rem;
-    width: 3.5rem;
-    background-color: rgba(255,255,255, 0.5);
-    background-image: url('../img/icons/ico-eliminar.png');
-    background-size: 65%;
+    height: 2.5rem;
+    width: 2.5rem;
+    background-color: rgba($dark, .62);
+    background-image: url('../img/icons/cancelar_white.png');
+    background-size: 1.5rem;
     background-repeat: no-repeat;
     background-position: center center;
     opacity: 0;
@@ -435,7 +451,7 @@ h1{
 .tabs .tab  {
     height: 75px !important;
     line-height: 20px !important;
-    border: 1px solid $color-blue;
+    border: 1px solid $dark;
 }
 
 .tabs .tab a {
@@ -447,7 +463,7 @@ h1{
 }
 
 .tabs .tab a.active {
-    background: $color-blue !important;
+    background: $dark !important;
     color: white !important;
 }
 
@@ -525,6 +541,19 @@ select {
 
     &--center{
         text-align: center;
+    }
+}
+
+.textarea-impegno{
+    background-color: rgba(255,255,255,1) !important;
+    padding: 10px;
+    border-radius: .8rem;
+    border: 1px solid rgba(0, 0,0, 0.35);
+    height: 8rem;
+    width: 100%;
+    resize: none;
+    &:focus {
+        outline: 0;
     }
 }
 
