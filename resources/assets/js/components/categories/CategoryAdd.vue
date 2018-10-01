@@ -233,6 +233,7 @@ export default {
         _store(){
             axios.post(`admin/categories`, this.form)
                 .then(res => {
+                    quiLoading();
                     swal({
                         title: '',
                         text: 'Se registro la categoría exitosamente',
@@ -244,6 +245,7 @@ export default {
                     })
                 })
                 .catch(err => {
+                    quiLoading();
                     let message = "Disculpe, ha ocurrido un error";
                     if(err.response.status === 422){
                         message = err.response.data.error;
@@ -257,6 +259,7 @@ export default {
 
             axios.post(`admin/categories/${this.form.id}`, this.form)
                 .then(res => {
+                    quiLoading();
                     swal({
                         title: '',
                         text: 'Se edito la categoría exitosamente',
@@ -264,10 +267,11 @@ export default {
                         showConfirmButton: false,
                         type: "success"
                     }, () => {
-                        window.location = urlBase + "admin/categories";
-                    })
+                        window.location = `${urlBase}admin/categories`;
+                    });
                 })
                 .catch(err => {
+                    quiLoading();
                     let message = "Disculpe, ha ocurrido un error";
                     if(err.response.status === 422){
                         message = err.response.data.error;

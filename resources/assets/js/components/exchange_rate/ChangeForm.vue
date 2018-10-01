@@ -59,20 +59,20 @@ export default {
             }
             e.target.setAttribute('disabled', true)
             axios.post('admin/exchange_rate', this.form)
-            .then(res => {
-                this._showAlert(res.data.message, "success")
-                setTimeout(() => {
-                    location.reload();
-                }, 3001);
-                
-            })
-            .catch(err => {
-                let message = "Disculpe, ha ocurrido un error";
-                this._showAlert(message, "error")
-            })
-            .then(all => {
-                e.target.removeAttribute('disabled')
-            })
+                .then(res => {
+                    this._showAlert(res.data.message, "success")
+                    setTimeout(() => {
+                        location.reload();
+                    }, 3001);
+                    
+                })
+                .catch(err => {
+                    let message = "Disculpe, ha ocurrido un error";
+                    this._showAlert(message, "error")
+                })
+                .then(all => {
+                    e.target.removeAttribute('disabled')
+                })
         },
 
         _showAlert(text, type) {

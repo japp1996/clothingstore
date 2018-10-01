@@ -193,6 +193,17 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, $id)
     {
+        $colors_delete = json_decode($request->colors_delete);
+
+        if(count($colors_delete) > 0){
+            foreach ($colors_delete as $color) {
+                foreach ($color->sizes as $size) {
+                    if($size->amount > 0){
+                        return response()->json(["error" => "No se pudo eliminar el color " . $color->name . ". Coloque 0 en inventario por talla antes de eliminar"], 422);
+                    }
+                }
+            }
+        }
 
         $product = Product::find($id);
         $product->name = $request->name;
@@ -211,7 +222,8 @@ class ProductController extends Controller
         $product->save();
 
         $color_ids = [];
-        foreach (json_decode($request->colors) as $key => $colors) {
+        $color_decode = json_decode($request->colors);
+        foreach ($color_decode as $key => $colors) {
             if($colors->id > 0){
                 $color = ProductColor::find($colors->id)->update(['name' => $colors->name, 'name_english' => $colors->name_english]);
                 $color_id = $colors->id;
@@ -235,11 +247,20 @@ class ProductController extends Controller
                 
             }
         }
-        ProductColor::where('product_id', $id)
-        ->whereNotIn('id', $color_ids)
-        ->whereHas('amounts', function ($query) {
-            $query->where('amount', '=', '0');
-        })->update(['status' => '0']);
+        
+        // return $productos_color_validate = ProductColor::where('product_id', $id)->whereNotIn('id', $color_ids)->with(['amounts'])->get();
+
+        // foreach ($productos_color_validate as $product) {
+        //     foreach ($product->amounts as $amount) {
+        //         if($amount->amount > 0){
+        //             return response()->json(["error" => "Este color no puede "]);
+        //         }
+        //     }
+        // }
+
+        ProductColor::where('product_id', $id)->whereNotIn('id', $color_ids)->whereHas('amounts', function ($query) {
+                $query->where('amount', '=', '0');
+            })->update(['status' => '0']);
 
         // Images
         $url = "img/products/";
@@ -253,21 +274,6 @@ class ProductController extends Controller
             $first->file = $main_name;
             $first->save();
             File::delete(public_path($url.$old_main));
-            // if ($request->count > 0) {
-            //     for ($i=1; $i <= $request->count; $i++) {
-            //         if ($request->hasFile('file'.$i)) {
-            //             $file = $request->file('file'.$i);
-            //             $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
-            //             $file->move($url, $file_name);
-            //             ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
-            //             $second = new ProductImage;
-            //             $second->file = $file_name;
-            //             $second->product_id = $product->id;
-            //             $second->main = '0';
-            //             $second->save();
-            //         }                    
-            //     }
-            // }
         }
 
         return response()->json(['result' => true, 'message' => 'Producto actualizado exitosamente.']);

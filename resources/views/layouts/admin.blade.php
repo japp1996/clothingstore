@@ -73,7 +73,6 @@
                         {{--end brand --}}
                         {{--Left sidebar body--}}
                         <div class="left-sidebar-body">
-                            
                             {{--sidebar menu--}}
                             @include("partials.menu")
                             {{--End sidebar menu--}}

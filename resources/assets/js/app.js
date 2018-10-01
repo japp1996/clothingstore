@@ -30,6 +30,12 @@ window.showLoading = function () {
     $("#prepage-loader").fadeIn('fast');
 };
 
+window.quiLoading = function() {
+  $("#prepage-loader").fadeOut("fast", () => {
+      $("#prepage-loader").hide();
+  });
+};
+
 window.pickDateI18n = {
     nextMonth: 'Mes siguiente',
     previousMonth: 'Mes anterior',
