@@ -5,10 +5,11 @@
                 <h1 v-if="options == 0">Categorías</h1>
                 <h1 v-if="options == 1 || options == 2">{{ options == 1 ? 'Registrar' : 'Actualizar' }} Categoría</h1>
             </div>
+
         </div>
         <div class="row">
             <div class="col s12">
-                <section class="table__content" v-if="options == 0">
+                <section class="table__content" v-show="options == 0">
                     <div class="row">
                         <div class="col s12 container-btn-add">
                             <button class="btn-add" @click="options = 1">
@@ -21,7 +22,8 @@
                     </div>
 
                     <table-byte :set-table="dataTable" :filters="['name']">
-                        <table-row slot="table-head" slot-scope="{ item }">
+
+                        <table-row slot="table-head">
                             <table-head>Categoría (Español)</table-head>
                             <table-head>Categoría (Ingles)</table-head>
                             <table-head>Acciones</table-head>
@@ -32,7 +34,7 @@
                             <table-cell>{{ item.name_english }}</table-cell>
                             <table-cell>
 
-                                <a href="#!" class="btn-action" @click="_edit(item, 'view')">
+                                <a href="#!" class="btn-action" @click="_view(item, 'view')">
                                     <img :src="'img/icons/ico-ver.png' | asset" alt="" class="img-responsive">
                                 </a>
 
@@ -73,10 +75,33 @@
                                 <h3>Categoría</h3>
                             </div>
                             <div class="col s12 m6">
-                                <span>Categoría (Español):</span> {{ modal.date.name }}
+                                <span>Categoría (Español):</span> {{ modal.data.name }}
                             </div>
                             <div class="col s12 m6">
-                                <span>Categoría (Ingles):</span> {{ modal.date.name }}
+                                <span>Categoría (Ingles):</span> {{ modal.data.name_english }}
+                            </div>
+
+                            <div class="col s12">
+                                <h3>Tallas</h3>
+                            </div>
+
+                            <div class="col s12">
+                                <div class="col s2" v-for="(size, i) in modal.data.sizes" :key="'sub-' + i">
+                                    {{ size.name }}
+                                </div>
+                            </div>
+
+                            <div class="col s12">
+                                <h3>Subcategorías</h3>
+                            </div>
+
+                            <div class="col s12" v-for="(sub, i) in modal.data.subcategories" :key="'sub-' + i">
+                                <div class="col s12 m6" >
+                                    {{ sub.name }}
+                                </div>
+                                <div class="col s12 m6">
+                                    {{ sub.name_english }}
+                                </div>
                             </div>
                         </template>
                         
@@ -142,9 +167,7 @@ export default {
                     confirm: false,
                     action: 'view'
                 },
-                data: {
-                    name: ''
-                }
+                data: {}
             },
             edit: {},
         }
@@ -152,10 +175,11 @@ export default {
 
     methods: {
         _resetView(option) {
-            this.options = option
+            this.options = option;
         },
 
         _view(data, action){
+            console.log(data);
             this.modal.type.action = action;
             this.modal.type.confirm = false;
             this.modal.data = data;
@@ -168,10 +192,12 @@ export default {
         },
 
         _confirm(data, action){
+            console.log(data, action);
             this.modal.type.action = action;
             this.modal.type.confirm = true;
             this.modal.data = data;
             this.modal.init.open();
+
         },
 
         _delete() {

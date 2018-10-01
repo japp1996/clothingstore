@@ -9866,6 +9866,10 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
+.sweet-alert fieldset {
+  display: none;
+}
+
 .left-sidebar {
   background: #fff !important;
   border-right: 1px solid #b7b7bb !important;

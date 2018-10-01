@@ -124,6 +124,8 @@
 			Route::post('blogs/delete-images', 'BlogController@delete');
 			*/
 			
+
+			Route::get('profile', 'ProfileController@profile');
 		});
 	});
 	

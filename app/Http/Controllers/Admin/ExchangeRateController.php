@@ -42,10 +42,12 @@ class ExchangeRateController extends Controller
     public function store(Request $request)
     {
         $change = new ExchangeRate;
-        $change->change = $request->change;
+            $change->change = $request->change;
         $change->save();
-
-        return response()->json(['result' => true, 'message' => 'Tasa de cambio actualizada']);
+        
+        $change = ExchangeRate::select('id', 'change', DB::raw('DATE_FORMAT(created_at, "%d-%m-%Y %h:%i:%s %p") as date'))->where('id', $change->id)->first();
+        
+        return response()->json(['result' => true, 'message' => 'Tasa de cambio actualizada', 'change' => $change]);
     }
 
     /**

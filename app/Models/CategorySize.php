@@ -10,5 +10,8 @@
         public function size() {
         	return $this->belongsTo(Size::class,'size_id');
         }
-        
+
+        public function productAmount() {
+        	return $this->hasMany(ProductAmount::class);
+        }
     }

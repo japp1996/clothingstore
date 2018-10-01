@@ -29,7 +29,7 @@
                         <table-row slot="table-row" slot-scope="{ item }">
                             <table-cell>{{ item.name }}</table-cell>
                             <table-cell>
-                                <a href="#!" class="btn-action">
+                                <a href="#!" class="btn-action" @click="_view(item)">
                                     <img :src="'img/icons/ico-ver.png' | asset" alt="" class="img-responsive">
                                 </a>
 
@@ -57,21 +57,140 @@
                 <product-edit v-if="options == 2" @back="_resetView" :data="form" :categories="categories" :designs="designs" :collections="collections" @reload="_updateData"></product-edit>
             </div>
         </div>
-        <byte-modal v-on:pressok="modal.type.action" :confirm="modal.type.confirm">
-            <div class="container-confirmation">
-                <div class="confimation__icon">
-                    <i class="material-icons">error_outline</i>
+        <byte-modal v-on:pressok="_delete" :confirm="modal.type.confirm">
+
+            <template v-if="modal.type.action == 'delete'">
+                <div class="container-confirmation">
+                    <div class="confimation__icon">
+                        <i class="material-icons">error_outline</i>
+                    </div>
+                    <div class="confirmation__text">
+                        <h5>¿ Realmente deseas <b>Eliminar</b> este Producto ?</h5>
+                    </div>
                 </div>
-                <div class="confirmation__text">
-                    <h5>¿ Realmente deseas <b>Eliminar</b> este Producto ?</h5>
+            </template>
+
+            <template v-else>
+                <div class="col s12">
+                    <h3>Información del Producto</h3>
                 </div>
-            </div>
+
+                <div class="col s12 m6">
+                    <span>Producto (Español):</span> {{ modal.data.name }}
+                </div>
+                <div class="col s12 m6">
+                    <span>Producto (Ingles):</span> {{ modal.data.name_english }}
+                </div>
+
+                <div class="col s12 m6">
+                    <span>Descripción (Español):</span> {{ modal.data.description }}
+                </div>
+
+                <div class="col s12 m6">
+                    <span>Descripción (Ingles):</span> {{ modal.data.description }}
+                </div>
+
+                <div class="col s12 m6">
+                    <span>Precio (Detal):</span> {{ modal.data.coin == "1" ? '$' : "Bs. S" }}{{ modal.data.price_1 }}
+                </div>
+
+                <div class="col s12 m6">
+                    <span>Precio (Mayor):</span> {{ modal.data.coin == "1" ? '$' : "Bs. S" }}{{ modal.data.price_2 }}
+                </div>
+
+                <div class="col s12 m6">
+                    <span>Tipo de venta: </span> {{ modal.data.retail == "1" ? 'Detal' : "Mayor" }}
+                </div>
+
+                <div class="col s12">
+                    <h3>Diseño</h3>
+                </div>
+
+                <div class="col s12 m6">
+                    <span>Diseño (Español): </span> {{ modal.data.designs.name }}
+                </div>
+
+                <div class="col s12 m6">
+                    <span>Diseño (Ingles): </span> {{ modal.data.designs.name_english }}
+                </div>
+
+                <div class="col s12">
+                    <h3>Colecciones</h3>
+                </div>
+
+                <div class="col s12 m6">
+                    <span>Colecciones (Español): </span> {{ modal.data.collections.name }}
+                </div>
+
+                <div class="col s12 m6">
+                    <span>Colecciones (Ingles): </span> {{ modal.data.collections.name_english }}
+                </div>
+
+                <div class="col s12">
+                    <h3>Colores</h3>
+                </div>
+
+                <div class="col s12" v-for="(color, i) in modal.data.colors" :key="'color-' + i">
+                    <div class="col s12 m6 no-padding">
+                        <span>Color (Español): </span> {{ color.name }}
+                    </div>
+
+                    <div class="col s12 m6 no-padding">
+                        <span>Color (Ingles): </span> {{ color.name_english }}
+                    </div>
+                </div>
+
+                <div class="col s12">
+                    <h3>Categoría</h3>
+                </div>
+
+                <div class="col s12 m6">
+                    <span>Categoría (Ingles): </span> {{ modal.data.categories.name }}
+                </div>
+
+                <div class="col s12 m6">
+                    <span>Categoría (Ingles): </span> {{ modal.data.categories.name_english }}
+                </div>
+
+                <div class="col s12">
+                    <h3>Subcategoría</h3>
+                </div>
+
+                <div class="col s12 m6">
+                    <span>Subcategoría (Ingles): </span> {{ modal.data.subcategories.name }}
+                </div>
+
+                <div class="col s12 m6">
+                    <span>Subcategoría (Ingles): </span> {{ modal.data.subcategories.name_english }}
+                </div>
+
+                <div class="col s12">
+                    <h3>Imagenen Principal</h3>
+                </div>
+
+                <div class="col s12 m6" v-for="(img, i) in modal.data.images" :key="'img-main' + i" v-if="img.main == 1">
+                    <img class="img-products" :src="`img/products/${img.file}` | asset" alt="">
+                </div>
+
+                <div class="col s12">
+                    <h3>Imagenenes Secundarias</h3>
+                </div>
+
+                <div class="col s12 m6" v-for="(img, i) in modal.data.images" :key="'img-main' + i" v-if="img.main == 0">
+                    <img class="img-products" :src="`img/products/${img.file}` | asset" alt="">
+                </div>
+            </template>
+
         </byte-modal>
     </section>
 </template>
 
 <style lang="scss">
-
+    .img-products{
+        height: 80%;
+        width: 80%;
+        object-fit: contain
+    }
 </style>
 
 <script>
@@ -120,7 +239,10 @@ export default {
                     action: 'view'
                 },
                 data: {
-                    name: ''
+                    collections: {},
+                    categories: {},
+                    subcategories: {},
+                    designs: {}
                 }
             }
         }
@@ -132,10 +254,19 @@ export default {
             this.options = option
         },
 
+        _view(item){
+            console.log(item);
+            this.modal.type.confirm = false;
+            this.modal.type.action = "view";
+            this.modal.data = item;
+            this.modal.init.open();
+        },
+
         _confirm(item) {
             this.modal.type.confirm = true;
             this.modal.type.action = this._delete;
             this.modal.data = item;
+            this.modal.type.action = "delete";
             this.modal.init.open();
         },
 
