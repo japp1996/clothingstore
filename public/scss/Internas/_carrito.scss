@@ -171,6 +171,7 @@
 		}
 		.modal-body {
 			@include degradado();
+			padding: 8px;
 		}		
 		button {
 			@include button();

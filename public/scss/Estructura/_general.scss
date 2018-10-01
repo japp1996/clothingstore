@@ -38,13 +38,14 @@ body {
 	margin-bottom: 10px;
 	display: inline-flex;
 	border-radius: 10px;
-	background-color: $white;
-	border: 1px solid $dorado !important;
+	background-color: transparent;
+	border: 2px solid $white !important;
 	a, li, .page-link, .page-item {
 		outline: 0px !important;
 		box-shadow: none !important;
 		border: 0px !important;
-		color: $dorado !important;
+		color: $white !important;
+		font-family: 'Segoe Bold';
 		background-color: transparent !important;
 	}
 }
@@ -74,6 +75,16 @@ select::-ms-expand {
 .sa-confirm-button-container {
 	button {
 		@include degradado();
+		color: $black;
+		font-family: 'Segoe Bold';
+	}
+}
+
+.sa-button-container {
+	.cancel {
+		@include degradado();
+		color: $black;
+		font-family: 'Segoe Bold';
 	}
 }
 
@@ -108,7 +119,7 @@ button {
 			height: 2px;
 			@include degradado();
 			width: 100%;
-			display: block;
+			display: inline-block;
 		}
 	}	
 }
@@ -336,11 +347,11 @@ footer {
 		}
 	}
 	.text-degradado {
-		font-size: 25px;
+		font-size: 20px;
 		font-family: 'Segoe SemiBold';
 		text-decoration: none !important;
 		img {
-			width: 20px;
+			width: 15px;
 			margin-top: -5px;
 		}
 	}

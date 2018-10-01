@@ -60,16 +60,26 @@
 	    public function getCarrito() {
 	    	$carrito = Cart::get();
 	    	for($n = 0; $n < count($carrito); $n++) {
-	    		$carrito[$n]['producto'] = Product::with(['designs','collections','images','categories' => function($q) {
-		    		$q->with(['sizes']);
-		    	},'colors'])->where('status','1')->where('id',$carrito[$n]['id'])->first();
 
-		    	$carrito[$n]['producto']['talla'] = Size::find($carrito[$n]['talla'])->first();
-		    	$carrito[$n]['producto']['color'] = ProductColor::find($carrito[$n]['color']);
-		    	$category_size = CategorySize::where('category_id',$carrito[$n]['producto']['category_id'])->where('size_id',$carrito[$n]['talla'])->first();
-		    	$carrito[$n]['producto']['amount'] = ProductAmount::where('product_color_id',$carrito[$n]['color'])
-																	->where('category_size_id',$category_size->id)
-																	->first();
+	    		$producto = Product::with(['designs','collections','images','categories' => function($q) {
+			    		$q->with(['sizes']);
+			    	},'colors'])->where('status','1')->where('id',$carrito[$n]['id'])->first();
+
+	    		if (count($producto) > 0) {
+					$carrito[$n]['producto'] = $producto;
+
+			    	$carrito[$n]['producto']['talla'] = Size::find($carrito[$n]['talla'])->first();
+			    	$carrito[$n]['producto']['color'] = ProductColor::find($carrito[$n]['color']);
+			    	$category_size = CategorySize::where('category_id',$carrito[$n]['producto']['category_id'])->where('size_id',$carrito[$n]['talla'])->first();
+			    	$carrito[$n]['producto']['amount'] = ProductAmount::where('product_color_id',$carrito[$n]['color'])
+																		->where('category_size_id',$category_size->id)
+																		->first();
+	    		}
+	    		else {
+	    			Cart::delete($carrito[$n]);
+	    			array_splice($carrito,$n,1);
+	    		}
+	    		
 	    	}
 	    	return $carrito;
 	    }

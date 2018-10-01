@@ -20,7 +20,10 @@
 		}
 		h3 {
 			color: $white;
-			font-family: 'Segoe Bold';
+			// @include texto();
+			text-transform: uppercase;
+			font-family: 'Bebas';
+			font-size: 35px;
 		}
 		select {
 			max-width: 250px;
@@ -40,6 +43,20 @@
 		background-color: #000;
 		-webkit-transition: background-image 0.2s ease-in-out;
 		transition: background-image 0.2s ease-in-out;
+		position: relative;
+		.close {
+			display: none;
+			position: absolute;
+			top: 5px;
+			right: 20px;
+			@media (max-width: 767px) {
+				display: inline-block !important;
+				i {
+					display: inline-block !important;
+					font-size: 30px;
+				}
+			}
+		}
 		i {
 			@media (max-width: 767px) {
 				display: none;
@@ -312,11 +329,12 @@
 			margin-right: 10px;
 		}
 		h3 {
-			font-family: 'Segoe Bold';
+			font-family: 'Bebas';
 			text-align: center;
 			display: block;
 			margin-bottom: 30px !important;
 			margin-top: 20px !important;
+			font-size: 35px;
 		}
 		h2 {
 			border-bottom: 1px solid #c0c0c0;
