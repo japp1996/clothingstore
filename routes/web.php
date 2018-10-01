@@ -126,6 +126,7 @@
 			
 
 			Route::get('profile', 'ProfileController@profile');
+			Route::post('profile', 'ProfileController@update');
 		});
 	});
 	

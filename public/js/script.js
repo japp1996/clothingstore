@@ -17838,7 +17838,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(139);
-module.exports = __webpack_require__(317);
+module.exports = __webpack_require__(304);
 
 
 /***/ }),
@@ -17973,9 +17973,13 @@ Vue.component('us-index', __webpack_require__(284));
 Vue.component('allies-index', __webpack_require__(289));
 
 //Blogs
-Vue.component('blog-index', __webpack_require__(304));
-Vue.component('blog-create', __webpack_require__(307));
-Vue.component('blog-edit', __webpack_require__(312));
+Vue.component('blog-index', __webpack_require__(308));
+Vue.component('blog-create', __webpack_require__(311));
+Vue.component('blog-edit', __webpack_require__(316));
+
+// Profile
+Vue.component('profile-form', __webpack_require__(321));
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -18065,7 +18069,7 @@ if (token) {
   var undefined;
 
   /** Used as the semantic version number. */
-  var VERSION = '4.17.11';
+  var VERSION = '4.17.10';
 
   /** Used as the size to enable large array optimizations. */
   var LARGE_ARRAY_SIZE = 200;
@@ -18329,7 +18333,7 @@ if (token) {
   var reHasUnicode = RegExp('[' + rsZWJ + rsAstralRange  + rsComboRange + rsVarRange + ']');
 
   /** Used to detect strings that need a more robust regexp to match words. */
-  var reHasUnicodeWord = /[a-z][A-Z]|[A-Z]{2}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/;
+  var reHasUnicodeWord = /[a-z][A-Z]|[A-Z]{2,}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/;
 
   /** Used to assign default `context` object properties. */
   var contextProps = [
@@ -19275,6 +19279,20 @@ if (token) {
       }
     }
     return result;
+  }
+
+  /**
+   * Gets the value at `key`, unless `key` is "__proto__".
+   *
+   * @private
+   * @param {Object} object The object to query.
+   * @param {string} key The key of the property to get.
+   * @returns {*} Returns the property value.
+   */
+  function safeGet(object, key) {
+    return key == '__proto__'
+      ? undefined
+      : object[key];
   }
 
   /**
@@ -21734,7 +21752,7 @@ if (token) {
           if (isArguments(objValue)) {
             newValue = toPlainObject(objValue);
           }
-          else if (!isObject(objValue) || isFunction(objValue)) {
+          else if (!isObject(objValue) || (srcIndex && isFunction(objValue))) {
             newValue = initCloneObject(srcValue);
           }
         }
@@ -24655,22 +24673,6 @@ if (token) {
         array[length] = isIndex(index, arrLength) ? oldArray[index] : undefined;
       }
       return array;
-    }
-
-    /**
-     * Gets the value at `key`, unless `key` is "__proto__".
-     *
-     * @private
-     * @param {Object} object The object to query.
-     * @param {string} key The key of the property to get.
-     * @returns {*} Returns the property value.
-     */
-    function safeGet(object, key) {
-      if (key == '__proto__') {
-        return;
-      }
-
-      return object[key];
     }
 
     /**
@@ -48795,7 +48797,7 @@ module.exports = function spread(callback) {
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * Materialize v1.0.0 (http://materializecss.com)
+ * Materialize v1.0.0-rc.2 (http://materializecss.com)
  * Copyright 2014-2017 Materialize
  * MIT License (https://raw.githubusercontent.com/Dogfalo/materialize/master/LICENSE)
  */
@@ -49880,8 +49882,6 @@ if (true) {
   }
   exports.default = M;
 }
-
-M.version = '1.0.0';
 
 M.keys = {
   TAB: 9,
@@ -51306,11 +51306,7 @@ $jscomp.polyfill = function (e, r, p, m) {
           var $activatableElement = $(focusedElement).find('a, button').first();
 
           // Click a or button tag if exists, otherwise click li tag
-          if (!!$activatableElement.length) {
-            $activatableElement[0].click();
-          } else if (!!focusedElement) {
-            focusedElement.click();
-          }
+          !!$activatableElement.length ? $activatableElement[0].click() : focusedElement.click();
 
           // Close dropdown on ESC
         } else if (e.which === M.keys.ESC && this.isOpen) {
@@ -51490,7 +51486,8 @@ $jscomp.polyfill = function (e, r, p, m) {
 
             // onOpenEnd callback
             if (typeof _this11.options.onOpenEnd === 'function') {
-              _this11.options.onOpenEnd.call(_this11, _this11.el);
+              var elem = anim.animatables[0].target;
+              _this11.options.onOpenEnd.call(elem, _this11.el);
             }
           }
         });
@@ -51521,6 +51518,7 @@ $jscomp.polyfill = function (e, r, p, m) {
 
             // onCloseEnd callback
             if (typeof _this12.options.onCloseEnd === 'function') {
+              var elem = anim.animatables[0].target;
               _this12.options.onCloseEnd.call(_this12, _this12.el);
             }
           }
@@ -51650,7 +51648,7 @@ $jscomp.polyfill = function (e, r, p, m) {
 
   Dropdown._dropdowns = [];
 
-  M.Dropdown = Dropdown;
+  window.M.Dropdown = Dropdown;
 
   if (M.jQueryLoaded) {
     M.initializeJqueryWrapper(Dropdown, 'dropdown', 'M_Dropdown');
@@ -53221,7 +53219,7 @@ $jscomp.polyfill = function (e, r, p, m) {
     return Tabs;
   }(Component);
 
-  M.Tabs = Tabs;
+  window.M.Tabs = Tabs;
 
   if (M.jQueryLoaded) {
     M.initializeJqueryWrapper(Tabs, 'tabs', 'M_Tabs');
@@ -54891,7 +54889,7 @@ $jscomp.polyfill = function (e, r, p, m) {
 
   Sidenav._sidenavs = [];
 
-  M.Sidenav = Sidenav;
+  window.M.Sidenav = Sidenav;
 
   if (M.jQueryLoaded) {
     M.initializeJqueryWrapper(Sidenav, 'sidenav', 'M_Sidenav');
@@ -60634,20 +60632,10 @@ $jscomp.polyfill = function (e, r, p, m) {
           // Add callback for centering selected option when dropdown content is scrollable
           dropdownOptions.onOpenEnd = function (el) {
             var selectedOption = $(_this71.dropdownOptions).find('.selected').first();
-
-            if (selectedOption.length) {
-              // Focus selected option in dropdown
-              M.keyDown = true;
-              _this71.dropdown.focusedIndex = selectedOption.index();
-              _this71.dropdown._focusFocusedItem();
-              M.keyDown = false;
-
-              // Handle scrolling to selected option
-              if (_this71.dropdown.isScrollable) {
-                var scrollOffset = selectedOption[0].getBoundingClientRect().top - _this71.dropdownOptions.getBoundingClientRect().top; // scroll to selected option
-                scrollOffset -= _this71.dropdownOptions.clientHeight / 2; // center in dropdown
-                _this71.dropdownOptions.scrollTop = scrollOffset;
-              }
+            if (_this71.dropdown.isScrollable && selectedOption.length) {
+              var scrollOffset = selectedOption[0].getBoundingClientRect().top - _this71.dropdownOptions.getBoundingClientRect().top; // scroll to selected option
+              scrollOffset -= _this71.dropdownOptions.clientHeight / 2; // center in dropdown
+              _this71.dropdownOptions.scrollTop = scrollOffset;
             }
           };
 
@@ -73124,7 +73112,7 @@ var content = __webpack_require__(182);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("8aae94ce", content, false, {});
+var update = __webpack_require__(3)("71454aec", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -73297,7 +73285,7 @@ var content = __webpack_require__(188);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("22d2b4d2", content, false, {});
+var update = __webpack_require__(3)("64c2c02c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -73854,7 +73842,7 @@ var content = __webpack_require__(193);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("c17fc21c", content, false, {});
+var update = __webpack_require__(3)("2e651c45", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -74261,7 +74249,7 @@ var content = __webpack_require__(198);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("517c37ec", content, false, {});
+var update = __webpack_require__(3)("bf275882", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -74655,7 +74643,7 @@ var content = __webpack_require__(203);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("d73db8fa", content, false, {});
+var update = __webpack_require__(3)("195984d4", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -75561,7 +75549,7 @@ var content = __webpack_require__(217);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("71ae317a", content, false, {});
+var update = __webpack_require__(3)("5ebf68e6", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -76055,7 +76043,7 @@ var content = __webpack_require__(225);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("78e38424", content, false, {});
+var update = __webpack_require__(3)("7e445cb7", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -76333,7 +76321,7 @@ var content = __webpack_require__(229);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("799dac39", content, false, {});
+var update = __webpack_require__(3)("6945f546", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -77179,7 +77167,7 @@ var content = __webpack_require__(237);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("7b5b4cc1", content, false, {});
+var update = __webpack_require__(3)("8435dd58", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -78658,7 +78646,7 @@ var content = __webpack_require__(245);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("2b661d2a", content, false, {});
+var update = __webpack_require__(3)("087f7ff8", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -79509,7 +79497,7 @@ var content = __webpack_require__(251);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("91cf18c2", content, false, {});
+var update = __webpack_require__(3)("11640b72", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -79779,7 +79767,7 @@ var content = __webpack_require__(255);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("5dff850d", content, false, {});
+var update = __webpack_require__(3)("466fb24c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -80394,7 +80382,7 @@ var content = __webpack_require__(261);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("48471b48", content, false, {});
+var update = __webpack_require__(3)("43795dd6", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -80808,7 +80796,7 @@ var content = __webpack_require__(265);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("1864cdd7", content, false, {});
+var update = __webpack_require__(3)("ff57ab2c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -82440,7 +82428,7 @@ var content = __webpack_require__(270);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("4ee1318b", content, false, {});
+var update = __webpack_require__(3)("925ee3c4", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -84604,7 +84592,7 @@ var content = __webpack_require__(276);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("6b805271", content, false, {});
+var update = __webpack_require__(3)("0963b244", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -85016,7 +85004,7 @@ var content = __webpack_require__(281);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("9794b7a2", content, false, {});
+var update = __webpack_require__(3)("8d650408", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -85306,7 +85294,7 @@ var content = __webpack_require__(286);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("e3828f4c", content, false, {});
+var update = __webpack_require__(3)("3e9a1e6d", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -85867,7 +85855,7 @@ var content = __webpack_require__(291);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("7b9e2bb0", content, false, {});
+var update = __webpack_require__(3)("550dbf7a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -86145,7 +86133,7 @@ var content = __webpack_require__(295);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("fdd1f3c2", content, false, {});
+var update = __webpack_require__(3)("103c0372", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -86723,7 +86711,7 @@ var content = __webpack_require__(300);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("48ee503a", content, false, {});
+var update = __webpack_require__(3)("85e714a0", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -87569,14 +87557,23 @@ if (false) {
 
 /***/ }),
 /* 304 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 305 */,
+/* 306 */,
+/* 307 */,
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(305)
+var __vue_script__ = __webpack_require__(309)
 /* template */
-var __vue_template__ = __webpack_require__(306)
+var __vue_template__ = __webpack_require__(310)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -87615,7 +87612,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 305 */
+/* 309 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -87748,7 +87745,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 306 */
+/* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -87990,19 +87987,19 @@ if (false) {
 }
 
 /***/ }),
-/* 307 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(308)
+  __webpack_require__(312)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(310)
+var __vue_script__ = __webpack_require__(314)
 /* template */
-var __vue_template__ = __webpack_require__(311)
+var __vue_template__ = __webpack_require__(315)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -88041,17 +88038,17 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 308 */
+/* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(309);
+var content = __webpack_require__(313);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("037d760a", content, false, {});
+var update = __webpack_require__(3)("20738b17", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -88067,7 +88064,7 @@ if(false) {
 }
 
 /***/ }),
-/* 309 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -88081,7 +88078,7 @@ exports.push([module.i, "", ""]);
 
 
 /***/ }),
-/* 310 */
+/* 314 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -88239,7 +88236,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 311 */
+/* 315 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -88547,19 +88544,19 @@ if (false) {
 }
 
 /***/ }),
-/* 312 */
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(313)
+  __webpack_require__(317)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(315)
+var __vue_script__ = __webpack_require__(319)
 /* template */
-var __vue_template__ = __webpack_require__(316)
+var __vue_template__ = __webpack_require__(320)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -88598,17 +88595,17 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 313 */
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(314);
+var content = __webpack_require__(318);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("bc422b00", content, false, {});
+var update = __webpack_require__(3)("c0fe4266", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -88624,7 +88621,7 @@ if(false) {
 }
 
 /***/ }),
-/* 314 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -88638,7 +88635,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 
 /***/ }),
-/* 315 */
+/* 319 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -88823,7 +88820,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 316 */
+/* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -89137,10 +89134,381 @@ if (false) {
 }
 
 /***/ }),
-/* 317 */
-/***/ (function(module, exports) {
+/* 321 */
+/***/ (function(module, exports, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(322)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(324)
+/* template */
+var __vue_template__ = __webpack_require__(325)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/profile/ProfileForm.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-9a845480", Component.options)
+  } else {
+    hotAPI.reload("data-v-9a845480", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 322 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(323);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("b69e627c", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-9a845480\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ProfileForm.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-9a845480\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ProfileForm.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 323 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.err {\n    color: #F44336 !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 324 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            form: {
+                // first_name: '',
+                // second_name: '',
+                // surname: '',
+                // middle_name: '',
+                email: '',
+                // phone: '',
+                password: '',
+                password_confirmation: ''
+            },
+            errors: {
+                password: '',
+                password_confirmation: ''
+            }
+        };
+    },
+
+    props: {
+        user: {
+            type: Object,
+            default: function _default() {
+                return {};
+            }
+        }
+    },
+    watch: {
+        form: {
+            handler: function handler(form) {
+                if (form.password && !form.password_confirmation) {
+                    this.errors.password_confirmation = 'Debe confirmar la contraseña nueva';
+                    return;
+                } else {
+                    this.errors.password_confirmation = '';
+                }
+
+                if (form.password || form.password_confirmation) {
+                    // Si alguno de los dos tiene datos
+                    if (form.password != form.password_confirmation) {
+                        this.errors.password = 'Las contarseñas no coinciden';
+                    } else {
+                        this.errors.password = '';
+                    }
+                }
+            },
+
+            deep: true
+        }
+    },
+    computed: {
+        passwordError: function passwordError() {
+            var changingPassword = this.form.password != '' || this.form.password_confirmation != '';
+            var errorPassword = this.errors.password != '' || this.errors.password_confirmation != '';
+
+            return changingPassword && errorPassword;
+        }
+    },
+    methods: {
+        store: function store() {
+            axios.post('admin/profile', this.form).then(function (res) {
+                swal('', 'Se actualizó el perfil correctamente');
+            }).catch(function (err) {
+                if (err.response.status === 422) {
+                    swal("", err.response.data.error, "error");
+                    return;
+                }
+
+                swal({
+                    title: "",
+                    text: 'Algo ha ocurrido',
+                    timer: 2000,
+                    showConfirmButton: false,
+                    type: "error"
+                });
+            });
+        }
+    },
+    mounted: function mounted() {
+        // this.form.first_name = this.user.person.first_name
+        // this.form.surname = this.user.person.surname
+
+        // if(this.user.level == 2 || this.user.level == 1) {
+        //     this.form.middle_name = this.user.person.middle_name
+        //     this.form.second_name = this.user.person.second_name
+        // }
+
+        // this.form.phone = this.user.person.phone
+        this.form.email = this.user.email;
+    }
+});
+
+/***/ }),
+/* 325 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("section", { staticClass: "row" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "col s12" },
+      [
+        _c(
+          "card-main",
+          [
+            _c("card-content", [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col s6 input-field" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.email,
+                        expression: "form.email"
+                      }
+                    ],
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.form.email },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "email", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "" } }, [_vm._v("Email")])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col s12 input-field" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.password,
+                        expression: "form.password"
+                      }
+                    ],
+                    attrs: { type: "password" },
+                    domProps: { value: _vm.form.password },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "password", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "" } }, [
+                    _vm._v("Cambiar contraseña")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col s12 input-field" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.password_confirmation,
+                        expression: "form.password_confirmation"
+                      }
+                    ],
+                    attrs: { type: "password" },
+                    domProps: { value: _vm.form.password_confirmation },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.form,
+                          "password_confirmation",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "" } }, [
+                    _vm._v("Repetir contraseña")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col s12 center-align" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success",
+                      attrs: { disabled: _vm.passwordError },
+                      on: { click: _vm.store }
+                    },
+                    [_vm._v("Actualizar perfil")]
+                  )
+                ])
+              ])
+            ])
+          ],
+          1
+        )
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col s12 center-align" }, [
+      _c("h1", [_vm._v("Perfil")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-9a845480", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
