@@ -159,7 +159,7 @@ export default {
                 {
                     this.files.forEach((e, y) => {
                         if (e.file !== "") {
-                            count = count + 1
+                            count = count + card
                             formData.append(`file${count}`, e.file);
                         }                        
                     })
