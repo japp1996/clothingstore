@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\CategorySize;
 use App\Models\Subcategory;
 use App\Models\Size;
 use App\Models\Filter;
@@ -25,7 +26,7 @@ class CategoryController extends Controller
                     $q->select('id', 'name', 'name_english', 'category_id')->withCount('products');
                 },
                 'sizes' => function ($q){
-                    $q->select('sizes.id');
+                    $q->select('sizes.id', 'sizes.name');
                 },
                 'filters' => function ($q) {
                     $q->select('filters.id');
@@ -105,16 +106,43 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, $id)
     {
+        $category_sizes = CategorySize::select('category_sizes.id', 'sizes.name')
+            ->where('category_id', $id)
+            ->whereNotIn('size_id', $request->sizes)
+            ->join('sizes', 'category_sizes.size_id', '=', 'sizes.id')
+            ->withCount('productAmount')
+            ->get();
+
+        $hasProduct = false;
+        $sizeName = "";
+
+        foreach ($category_sizes as $size) {
+            if($size->product_amount_count > 0){
+                $hasProduct = true;
+                $sizeName = $size->name;
+            }
+        }
+
+        if($hasProduct){
+            return response()->json(["error" => "La talla $sizeName tiene productos registrados, proceda ha eliminarlos"], 422);
+        }
+
         $category = Category::find($id);
             $category->name = $request->name;
             $category->name_english = $request->name_english;
         $category->save();
 
-        $category->sizes()->detach();
         $category->filters()->detach();
 
+        $category_sizes = CategorySize::select('category_sizes.id', 'sizes.name')
+            ->where('category_id', $id)
+            ->whereNotIn('size_id', $request->sizes)
+            ->delete();
+
         foreach ($request->sizes as $key => $size) {
-            $category->sizes()->attach($category->id, ['size_id' => $size]);
+            if(CategorySize::select('category_sizes.id', 'sizes.name')->where('category_id', $id)->where('size_id', $size)->count() == 0){
+                $category->sizes()->attach($category->id, ['size_id' => $size]);
+            }
         }
 
         foreach ($request->filters as $key => $filter) {

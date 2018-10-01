@@ -290,7 +290,8 @@ export default {
                     file: ""
                 },
                 images: [],
-                colors: []
+                colors: [],
+                colors_delete: []
             },
             subcategories: [],
             arrayDesigns: [],
@@ -308,7 +309,9 @@ export default {
     },
 
     created() {
-        this.form = this.data
+        this.form = this.data;
+        this.form.colors_delete = [];
+
         this.urlBase = urlBase     
     },
 
@@ -354,7 +357,8 @@ export default {
         },
 
         _removeColor(i) {
-            this.form.colors.splice(i, 1);
+            let color_delete = this.form.colors.splice(i, 1);
+            this.form.colors_delete.push(color_delete[0]);
         },
 
         _setFile(i, x, e) {
@@ -471,11 +475,15 @@ export default {
             axios.post(`admin/products/${this.form.id}`, this._convertToFormData())
             .then(resp => {                
                 if (resp.data.result) {
-                    this._showAlert("Producto almacenado exitosamente", "success")
-                    setTimeout(() => {
-                        // this.$emit('back', 0)
-                        location.reload()
-                    }, 3000);
+                    swal({
+                        title: '',
+                        text: 'Producto editado exitosamente',
+                        timer: 2000,
+                        showConfirmButton: false,
+                        type: "success"
+                    }, () => {
+                        // location.reload();
+                    })
                 }
             })
             .catch(err => {
@@ -508,6 +516,8 @@ export default {
                     // formData.append('count', count)
                 }else if(key != "__ob__"){
                     if (key == 'colors') {
+                        formData.append(key, JSON.stringify(this.form[key]));
+                    }else if(key == 'colors_delete'){
                         formData.append(key, JSON.stringify(this.form[key]));
                     }else {
                         formData.append(key, this.form[key]);
@@ -544,7 +554,6 @@ export default {
         })
         this.form.images = images
         // Set Colors
-        console.log(this.form.colors);
         
         // let MainColors = this.form.colors
         let colors = new Array()
@@ -557,8 +566,6 @@ export default {
             colors.push({id: el.id, name: el.name, name_english: el.name_english, sizes: sizesArray})
         })
         this.form.colors = colors
-        console.log(this.form.colors);
-        
     }
 }
 </script>

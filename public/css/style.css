@@ -6078,9 +6078,6 @@ label {
 ::-webkit-input-placeholder {
   color: #d1d1d1;
 }
-:-ms-input-placeholder {
-  color: #d1d1d1;
-}
 ::-ms-input-placeholder {
   color: #d1d1d1;
 }
@@ -6519,7 +6516,7 @@ textarea.materialize-textarea + label:after, .select-wrapper + label:after {
           transform-origin: 0 0;
 }
 
-.input-field > input[type]:-webkit-autofill:not(.browser-default) + label,
+.input-field > input[type]:-webkit-autofill:not(.browser-default):not([type="search"]) + label,
 .input-field > input[type=date]:not(.browser-default) + label,
 .input-field > input[type=time]:not(.browser-default) + label {
   -webkit-transform: translateY(-14px) scale(0.8);
@@ -8454,10 +8451,10 @@ input[type=range]::-ms-thumb {
   visibility: visible;
   -webkit-animation: pulse-animation 1s cubic-bezier(0.24, 0, 0.38, 1) infinite;
           animation: pulse-animation 1s cubic-bezier(0.24, 0, 0.38, 1) infinite;
-  -webkit-transition: opacity .3s, visibility 0s 1s, -webkit-transform .3s;
-  transition: opacity .3s, visibility 0s 1s, -webkit-transform .3s;
-  transition: opacity .3s, transform .3s, visibility 0s 1s;
-  transition: opacity .3s, transform .3s, visibility 0s 1s, -webkit-transform .3s;
+  -webkit-transition: opacity .3s, visibility 0s 1s, -webkit-transform .3s;
+  transition: opacity .3s, visibility 0s 1s, -webkit-transform .3s;
+  transition: opacity .3s, transform .3s, visibility 0s 1s;
+  transition: opacity .3s, transform .3s, visibility 0s 1s, -webkit-transform .3s;
 }
 
 .tap-target {
@@ -8510,10 +8507,10 @@ input[type=range]::-ms-thumb {
 
 .tap-target-wave::after {
   visibility: hidden;
-  -webkit-transition: opacity .3s, visibility 0s, -webkit-transform .3s;
-  transition: opacity .3s, visibility 0s, -webkit-transform .3s;
-  transition: opacity .3s, transform .3s, visibility 0s;
-  transition: opacity .3s, transform .3s, visibility 0s, -webkit-transform .3s;
+  -webkit-transition: opacity .3s, visibility 0s, -webkit-transform .3s;
+  transition: opacity .3s, visibility 0s, -webkit-transform .3s;
+  transition: opacity .3s, transform .3s, visibility 0s;
+  transition: opacity .3s, transform .3s, visibility 0s, -webkit-transform .3s;
   z-index: -1;
 }
 
@@ -9869,6 +9866,10 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
+.sweet-alert fieldset {
+  display: none;
+}
+
 .left-sidebar {
   background: #fff !important;
   border-right: 1px solid #b7b7bb !important;
@@ -10329,4 +10330,67 @@ body::-webkit-scrollbar-thumb {
   background: -webkit-gradient(left top, right top, color-stop(0%, #bd8f3e), color-stop(51%, #f3e17e), color-stop(100%, #dbbf58));
   background: -webkit-gradient(linear, left top, right top, from(#bd8f3e), color-stop(51%, #f3e17e), to(#dbbf58));
   background: linear-gradient(to right, #bd8f3e 0%, #f3e17e 51%, #dbbf58 100%);
+}
+
+.textarea-wara {
+  min-height: 7rem;
+  resize: none;
+}
+
+.content-image {
+  margin-bottom: 10px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.margin-top {
+  margin-top: 20px;
+}
+
+.container-options {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.container-options label {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 100%;
+          flex: 1 1 100%;
+}
+
+fieldset {
+  margin: 10px 2px !important;
+  border: 1px solid #efefefec !important;
+  padding: 1rem !important;
+  position: relative;
+}
+
+.label-impegno {
+  font-weight: bold;
+}
+
+.items__file {
+  position: relative;
+}
+
+.names {
+  margin-bottom: 1rem;
+}
+
+.sizes_stop {
+  margin: .5rem .2rem !important;
+  border-color: rgba(0, 0, 0, 0.3);
+  border-radius: .4rem;
+}
+
+.sizes_stop legend {
+  font-weight: bold;
+  padding: 0 10px;
 }

@@ -3,7 +3,7 @@
     {{-- <li class="navigation">Menú</li> --}}
 
     <li>
-        <a href="{{ url('/admin') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Inicio">
+        <a href="{{ url('/admin/home') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Inicio">
             <img src="{{ asset('img/icons/ico-inicio.png') }}" alt="" class="img-responsive">Inicio
         </a>
     </li>

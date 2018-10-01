@@ -468,28 +468,33 @@ export default {
                     }               
                 }                
             }
-            button.setAttribute('disabled', true)
+
+            button.setAttribute('disabled', true);
+
             axios.post('admin/products', this._convertToFormData())
-            .then(resp => {                
-                if (resp.data.result) {
-                    this._showAlert("Producto almacenado exitosamente", "success")
-                    setTimeout(() => {
-                        this.$emit('back', 0)
-                        // this.$emit('reset')
-                    }, 3000);
-                }
-            })
-            .catch(err => {
-                if(err.response.status === 422){
-                    this._showAlert(err.response.data.error, 'warning')
-                    return false;
-                }
-                
-                this._showAlert("Disculpa, ha ocurrido un error", "error")
-            })
-            .then(all => {
-                button.removeAttribute('disabled')
-            })
+                .then(resp => {                
+                    if (resp.data.result) {
+                        swal({
+                            title: '',
+                            text: 'Producto registrado exitosamente',
+                            timer: 2000,
+                            showConfirmButton: false,
+                            type: "success"
+                        }, () => {
+                            window.location.reload();
+                        })
+                    }
+                })
+                .catch(err => {
+                    if(err.response.status === 422){
+                        this._showAlert(err.response.data.error, 'warning')
+                        return false;
+                    }
+                    this._showAlert("Disculpa, ha ocurrido un error", "error")
+                })
+                .then(all => {
+                    button.removeAttribute('disabled')
+                })
         },
 
         _convertToFormData(){
