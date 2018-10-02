@@ -17838,7 +17838,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(139);
-module.exports = __webpack_require__(317);
+module.exports = __webpack_require__(319);
 
 
 /***/ }),
@@ -17974,8 +17974,8 @@ Vue.component('allies-index', __webpack_require__(289));
 
 //Blogs
 Vue.component('blog-index', __webpack_require__(304));
-Vue.component('blog-create', __webpack_require__(307));
-Vue.component('blog-edit', __webpack_require__(312));
+Vue.component('blog-create', __webpack_require__(309));
+Vue.component('blog-edit', __webpack_require__(314));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -82934,7 +82934,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
             for (var x = 0; x < this.form.colors.length; x++) {
                 if (this.form.colors[x].name == "" || this.form.colors[x].name_english == "") {
-                    this._showAlert("Debes completar los campos referentes a los colores del producto", "warning");
+                    this._showAlert("Debes completar los camposimage: , referentes a los colores del producto", "warning");
                     return false;
                 }
                 for (var y = 0; y < this.form.colors[x].sizes.length; y++) {
@@ -87572,15 +87572,19 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(305)
+}
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(305)
+var __vue_script__ = __webpack_require__(307)
 /* template */
-var __vue_template__ = __webpack_require__(306)
+var __vue_template__ = __webpack_require__(308)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -87616,10 +87620,90 @@ module.exports = Component.exports
 
 /***/ }),
 /* 305 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(306);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("384a6ea6", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-93577f4c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./BlogIndex.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-93577f4c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./BlogIndex.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 306 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.icon-margin{\n    width: 195px;\n}\n.img-width{\n    width:100%;\n    height: 300px;\n    -o-object-fit: contain;\n       object-fit: contain;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 307 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -87712,20 +87796,55 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            setTable: []
+            setTable: [],
+            modal: {
+                init: {},
+                title: "",
+                type: {
+                    confirm: false,
+                    action: "view"
+                },
+                data: {}
+            }
         };
     },
 
 
     methods: {
         _view: function _view(item) {
-            console.log(item);
             this.modal.type.confirm = false;
             this.modal.type.action = "view";
             this.modal.data = item;
             this.modal.init.open();
         },
-        _confirm: function _confirm(item, destroy) {}
+        _confirm: function _confirm(item) {
+            this.modal.type.confirm = true;
+            this.modal.type.action = "destroy";
+            this.modal.data = item;
+            this.modal.init.open();
+        },
+        _delete: function _delete() {
+            var _this = this;
+
+            axios.delete("/admin/blogs/" + this.modal.data.id).then(function (resp) {
+                _this.modal.init.close();
+                swal({
+                    title: '',
+                    text: 'El blog ha sido borrado exitosamente',
+                    timer: 2000,
+                    showConfirmButton: false,
+                    type: 'success'
+                }, function () {
+                    window.location = urlBase + "/admin/blogs";
+                });
+            }).catch(function (err) {
+                var message = "Disculpe, ha ocurrido un error";
+                if (err.response.status == 422) {
+                    message = err.response.data.error;
+                }
+                swal("asd", message, "error");
+            });
+        }
     },
 
     props: {
@@ -87748,7 +87867,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 306 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -87762,7 +87881,7 @@ var render = function() {
       _c("div", { staticClass: "col s12" }, [
         _c(
           "section",
-          { staticClass: "table_content" },
+          { staticClass: "table__content" },
           [
             _c("div", { staticClass: "row" }, [
               _c(
@@ -87813,7 +87932,7 @@ var render = function() {
                             _vm._v(_vm._s(item.description_min))
                           ]),
                           _vm._v(" "),
-                          _c("table-cell", [
+                          _c("table-cell", { staticClass: "icon-margin" }, [
                             _c(
                               "a",
                               {
@@ -87821,7 +87940,7 @@ var render = function() {
                                 attrs: { href: "#!" },
                                 on: {
                                   click: function($event) {
-                                    _vm._view(item, "view")
+                                    _vm._view(item)
                                   }
                                 }
                               },
@@ -87924,22 +88043,86 @@ var render = function() {
               "byte-modal",
               {
                 attrs: { confirm: _vm.modal.type.confirm },
-                on: { pressok: _vm.modal.type.action }
+                on: { pressok: _vm._delete }
               },
               [
                 _vm.modal.type.action == "view"
                   ? [
                       _c("div", { staticClass: "col s12" }, [
-                        _c("h3", [_vm._v("Título")])
+                        _c("h3", [_vm._v("Detalles del Blog")])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col s12 m6" }, [
+                        _c("div", { staticClass: "col s12" }, [
+                          _c("h3", [_vm._v("Título")])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col s12" }, [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(_vm.modal.data.title) +
+                              "\n                            "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col s12" }, [
+                          _c("h3", [_vm._v("Descripción")])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col s12" }, [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(_vm.modal.data.description) +
+                              "\n                            "
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col s12 m6" }, [
+                        _c("div", { staticClass: "col s12" }, [
+                          _c("h3", [_vm._v("Título (Inglés)")])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col s12" }, [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(_vm.modal.data.title_english) +
+                              "\n                            "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col s12" }, [
+                          _c("h3", [_vm._v("Descripción (Inglés)")])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col s12" }, [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(_vm.modal.data.description_english) +
+                              "\n                            "
+                          )
+                        ])
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "col s12" }, [
-                        _c("h3", [_vm._v("Descripción")])
+                        _c("h3", [_vm._v("Imágenes")])
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col s12" }, [
-                        _c("h3", [_vm._v("Título (Inglés)")])
-                      ])
+                      _vm._l(_vm.modal.data.images, function(img, i) {
+                        return _c(
+                          "div",
+                          { key: "img-" + i, staticClass: "col s12 m6" },
+                          [
+                            _c("img", {
+                              staticClass: "img-width",
+                              attrs: {
+                                src: _vm._f("asset")("img/blogs/" + img.file),
+                                alt: ""
+                              }
+                            })
+                          ]
+                        )
+                      })
                     ]
                   : [
                       _c("div", { staticClass: "container-confirmation" }, [
@@ -87953,7 +88136,7 @@ var render = function() {
                           _c("h5", [
                             _vm._v("¿ Realmente deseas "),
                             _c("b", [_vm._v("Eliminar")]),
-                            _vm._v(" este Producto ?")
+                            _vm._v(" ésta Publicación ?")
                           ])
                         ])
                       ])
@@ -87990,19 +88173,19 @@ if (false) {
 }
 
 /***/ }),
-/* 307 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(308)
+  __webpack_require__(310)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(310)
+var __vue_script__ = __webpack_require__(312)
 /* template */
-var __vue_template__ = __webpack_require__(311)
+var __vue_template__ = __webpack_require__(313)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -88041,13 +88224,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 308 */
+/* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(309);
+var content = __webpack_require__(311);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -88067,7 +88250,7 @@ if(false) {
 }
 
 /***/ }),
-/* 309 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -88081,7 +88264,7 @@ exports.push([module.i, "", ""]);
 
 
 /***/ }),
-/* 310 */
+/* 312 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -88172,7 +88355,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 description: "",
                 description_english: "",
                 images: []
-            }
+            },
+            url: urlBase
         };
     },
 
@@ -88195,11 +88379,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.images = this.form.images;
         },
         _sliceItem: function _sliceItem(id, i) {
+            var parent = document.querySelector(".gallery__items");
+            var child = document.querySelector("#file-" + id);
             this.images = this.form.images.filter(function (el) {
                 return el.id != id;
             });
-            var parent = document.querySelector(".gallery__items");
-            var child = document.querySelector("#file-" + id);
+
             parent.removeChild(child);
         },
         _store: function _store() {
@@ -88221,7 +88406,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     showConfirmButton: false,
                     type: 'success'
                 }, function () {
-                    window.location = urlBase + "admin/blogs/create";
+                    window.location = urlBase + "admin/blogs";
                 });
             }).catch(function (err) {
                 var message = "Disculpe, ha ocurrido un error";
@@ -88239,7 +88424,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 311 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -88252,7 +88437,18 @@ var render = function() {
     [
       _vm._m(0),
       _vm._v(" "),
-      _vm._m(1),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col s12" }, [
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-back",
+              attrs: { href: _vm.url + "admin/blogs" }
+            },
+            [_vm._m(1)]
+          )
+        ])
+      ]),
       _vm._v(" "),
       _c(
         "card-main",
@@ -88266,7 +88462,7 @@ var render = function() {
                 on: {
                   submit: function($event) {
                     $event.preventDefault()
-                    return _vm.store($event)
+                    return _vm._store($event)
                   }
                 }
               },
@@ -88524,16 +88720,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col s12" }, [
-        _c("a", { staticClass: "btn btn-back", attrs: { href: "#!" } }, [
-          _c("div", { staticClass: "btn-back__container" }, [
-            _c("div", { staticClass: "btn-back__ico" }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "" } }, [_vm._v(" Volver")])
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "btn-back__container" }, [
+      _c("div", { staticClass: "btn-back__ico" }),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "" } }, [_vm._v(" Volver")])
     ])
   }
 ]
@@ -88547,19 +88737,19 @@ if (false) {
 }
 
 /***/ }),
-/* 312 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(313)
+  __webpack_require__(315)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(315)
+var __vue_script__ = __webpack_require__(317)
 /* template */
-var __vue_template__ = __webpack_require__(316)
+var __vue_template__ = __webpack_require__(318)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -88598,13 +88788,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 313 */
+/* 315 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(314);
+var content = __webpack_require__(316);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -88624,7 +88814,7 @@ if(false) {
 }
 
 /***/ }),
-/* 314 */
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -88638,7 +88828,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 
 /***/ }),
-/* 315 */
+/* 317 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -88724,12 +88914,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             form: {
+                main: {
+                    file: ""
+                },
                 title: "",
                 title_english: "",
                 description: "",
                 description_english: "",
-                images: []
-            }
+                images: [],
+                image: ""
+            },
+            url: urlBase,
+            elements: 0
         };
     },
 
@@ -88758,36 +88954,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
-        _setFile: function _setFile(i, file) {
-            if (i == null) {
-                this.image = file.file;
-                this.form.main = file.file;
-            } else {
-                this.form.images[i].file = file.file;
-                this.files = this.form.images;
-            }
+        _setFile: function _setFile(id, i, file) {
+            var _this = this;
+
+            var formData = new FormData();
+            formData.append('id', id);
+            formData.append('file', file.file);
+            formData.append('blog_id', this.form.id);
+            axios.post("admin/blogs/update-image", formData).then(function (resp) {
+                if (id == null) {
+                    _this.form.images[i].id = resp.data.id;
+                    _this.form.images[i].file = resp.data.file;
+                }
+            }).catch(function (err) {
+                var message = "Disculpe, ha ocurrido un error";
+                if (err.response.status == 422) {
+                    message = err.response.data.error;
+                }
+                swal("", message, "error");
+            });
         },
         _addImage: function _addImage() {
-            this.ids = this.form.images.length > 1 ? this.ids + 1 : this.ids;
-            this.form.images.push({ file: "", id: this.ids });
+            this.form.images.push({ file: "", id: 0 });
             this.images = this.form.images;
-        },
-        _sliceItem: function _sliceItem(id, i) {
-            this.images = this.form.images.filter(function (el) {
-                return el.id != id;
-            });
-            var parent = document.querySelector(".gallery__items");
-            var child = document.querySelector("#file-" + id);
-            parent.removeChild(child);
+            this.elements += 1;
         },
         _edit: function _edit() {
+
             var formData = new FormData();
+
             formData.append('title', this.form.title);
             formData.append('title_english', this.form.title_english);
             formData.append('description', this.form.description);
             formData.append('description_english', this.form.description_english);
             formData.append('_method', 'PUT');
             formData.append('id', this.form.id);
+
             axios.post("admin/blogs/" + this.form.id, formData).then(function (resp) {
                 swal({
                     title: '',
@@ -88805,11 +89007,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
                 swal("", message, "error");
             });
+        },
+        _sliceItem: function _sliceItem(id, i) {
+            var parent = document.querySelector(".gallery__items");
+            var child = document.querySelector("#file-" + id);
+
+            if (id != 0) {
+                axios.post('admin/blogs/delete-image', { id: id }).then(function (resp) {
+                    parent.removeChild(child);
+                }).catch(function (err) {
+                    var message = "Disculpe, ha ocurrido un error";
+                    if (err.response.status == 422) {
+                        message = err.response.data.error;
+                    }
+                    swal("", message, "error");
+                });
+            } else {
+                parent.removeChild(child);
+            }
         }
     },
 
     mounted: function mounted() {
-        var _this = this;
+        var _this2 = this;
 
         this.form.title = this.setForm.title;
         this.form.title_english = this.setForm.title_english;
@@ -88817,13 +89037,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.form.description_english = this.setForm.description_english;
         this.form.id = this.setForm.id;
         this.setImages.forEach(function (img) {
-            _this.form.images.push(img);
+            _this2.form.images.push(img);
         });
     }
 });
 
 /***/ }),
-/* 316 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -88836,7 +89056,18 @@ var render = function() {
     [
       _vm._m(0),
       _vm._v(" "),
-      _vm._m(1),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col s12" }, [
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-back",
+              attrs: { href: _vm.url + "admin/blogs" }
+            },
+            [_vm._m(1)]
+          )
+        ])
+      ]),
       _vm._v(" "),
       _c(
         "card-main",
@@ -89045,20 +89276,22 @@ var render = function() {
                               _c("input-file", {
                                 attrs: {
                                   btn: false,
-                                  file: _vm._f("asset")(
-                                    "img/blogs/" + file.file
-                                  ),
+                                  file:
+                                    file.file !== ""
+                                      ? _vm.url + "img/blogs/" + file.file
+                                      : "",
                                   image: true
                                 },
                                 on: {
                                   file: function($event) {
-                                    _vm._setFile(index, $event)
+                                    _vm._setFile(file.id, index, $event)
                                   }
                                 }
                               }),
                               _vm._v(" "),
                               _c("button", {
                                 staticClass: "file__claer",
+                                attrs: { type: "button" },
                                 on: {
                                   click: function($event) {
                                     _vm._sliceItem(file.id, index)
@@ -89114,16 +89347,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col s12" }, [
-        _c("a", { staticClass: "btn btn-back", attrs: { href: "#!" } }, [
-          _c("div", { staticClass: "btn-back__container" }, [
-            _c("div", { staticClass: "btn-back__ico" }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "" } }, [_vm._v(" Volver")])
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "btn-back__container" }, [
+      _c("div", { staticClass: "btn-back__ico" }),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "" } }, [_vm._v(" Volver")])
     ])
   }
 ]
@@ -89137,7 +89364,7 @@ if (false) {
 }
 
 /***/ }),
-/* 317 */
+/* 319 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

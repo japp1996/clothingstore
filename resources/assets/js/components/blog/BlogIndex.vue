@@ -7,7 +7,7 @@
         </div>
         <div class="row">
             <div class="col s12">
-                <section class="table_content">
+                <section class="table__content">
                     <div class="row">
                         <a :href="url + '/create'" class="col s12 container-btn-add">
                             <button class="btn-add">
@@ -28,9 +28,9 @@
                         <table-row slot="table-row" slot-scope="{ item }">
                             <table-cell>{{ item.title }}</table-cell>
                             <table-cell>{{ item.description_min }}</table-cell>
-                            <table-cell>
+                            <table-cell class="icon-margin">
 
-                                <a href="#!" class="btn-action" @click="_view(item, 'view')">
+                                <a href="#!" class="btn-action" @click="_view(item)">
                                     <img :src="'img/icons/ico-ver.png' | asset" alt="" class="img-responsive">
                                 </a>
 
@@ -53,16 +53,44 @@
 
                     </table-byte>
                     
-                    <byte-modal v-on:pressok="modal.type.action" :confirm="modal.type.confirm">
+                    <byte-modal v-on:pressok="_delete" :confirm="modal.type.confirm">
                         <template v-if="modal.type.action == 'view'">
                             <div class="col s12">
-                                <h3>Título</h3>
+                                <h3>Detalles del Blog</h3>
                             </div>
-                            <div class="col s12">
-                                <h3>Descripción</h3>
+                            <div class="col s12 m6">
+                                <div class="col s12">
+                                    <h3>Título</h3>
+                                </div>
+                                <div class="col s12">
+                                    {{ modal.data.title }}
+                                </div>
+                                <div class="col s12">
+                                    <h3>Descripción</h3>
+                                </div>      
+                                <div class="col s12">
+                                    {{ modal.data.description }}
+                                </div>
                             </div>
+                            <div class="col s12 m6">
+                                <div class="col s12">
+                                    <h3>Título (Inglés)</h3>
+                                </div>
+                                <div class="col s12">
+                                    {{ modal.data.title_english }}
+                                </div>
+                                <div class="col s12">
+                                    <h3>Descripción (Inglés)</h3>
+                                </div>
+                                <div class="col s12">
+                                    {{ modal.data.description_english }}
+                                </div>
+                            </div>              
                             <div class="col s12">
-                                <h3>Título (Inglés)</h3>
+                                <h3>Imágenes</h3>
+                            </div>
+                            <div class="col s12 m6" v-for="(img,i) in modal.data.images" :key="'img-' + i">
+                                <img :src="'img/blogs/' + img.file | asset " class="img-width"  alt="">
                             </div>
                         </template>
                         <template v-else>
@@ -71,7 +99,7 @@
                                     <i class="material-icons">error_outline</i>
                                 </div>
                                 <div class="confirmation__text">
-                                    <h5>¿ Realmente deseas <b>Eliminar</b> este Producto ?</h5>
+                                    <h5>¿ Realmente deseas <b>Eliminar</b> ésta Publicación ?</h5>
                                 </div>
                             </div>
                         </template>
@@ -84,27 +112,77 @@
 
     </section>
 </template>
+<style>
+    .icon-margin{
+        width: 195px;
+    }
+
+    .img-width{
+        width:100%;
+        height: 300px;
+        object-fit: contain;
+    }
+</style>
+
 <script>
 export default {
     template: "#template-blog-index",
 
     data(){
         return {
-            setTable: []
+            setTable: [],
+            modal: {
+                init: {},
+                title: "",
+                type: {
+                    confirm: false,
+                    action: "view"
+                },
+                data: {}
+            }
         }
     },
 
     methods: {
         _view(item){
-            console.log(item);
             this.modal.type.confirm = false;
             this.modal.type.action = "view";
             this.modal.data = item;
             this.modal.init.open();
         },
 
-        _confirm(item, destroy){
-
+        _confirm(item){
+            this.modal.type.confirm = true;
+            this.modal.type.action = "destroy";
+            this.modal.data = item;
+            this.modal.init.open();
+        },
+        _delete() {
+            axios.delete(
+                "/admin/blogs/"+this.modal.data.id
+            ).then(
+                resp=> {
+                    this.modal.init.close();
+                    swal({
+                        title: '',
+                        text: 'El blog ha sido borrado exitosamente',
+                        timer: 2000,
+                        showConfirmButton: false,
+                        type: 'success'
+                    },
+                    ()=>{
+                        window.location = urlBase+"/admin/blogs"
+                    });
+                }
+            ).catch(
+                err=> {
+                    let message = "Disculpe, ha ocurrido un error";
+                    if (err.response.status == 422) {
+                        message = err.response.data.error;
+                    }
+                    swal("asd", message,"error");
+                }
+            )
         }
     },
     

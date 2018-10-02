@@ -461,7 +461,7 @@ export default {
             }           
             for (let x = 0; x < this.form.colors.length; x++) {
                 if (this.form.colors[x].name == "" || this.form.colors[x].name_english == "") {
-                    this._showAlert("Debes completar los campos referentes a los colores del producto", "warning")
+                    this._showAlert("Debes completar los camposimage: , referentes a los colores del producto", "warning")
                     return false
                 }                
                 for (let y = 0; y < this.form.colors[x].sizes.length; y++) {

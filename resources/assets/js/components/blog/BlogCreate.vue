@@ -8,7 +8,7 @@
     <!-- <div class="col s12"> -->
         <div class="row">
             <div class="col s12">
-                <a href="#!" class="btn btn-back">
+                <a :href="url+'admin/blogs'" class="btn btn-back">
                     <div class="btn-back__container">
                         <div class="btn-back__ico"></div>
                         <label for=""> Volver</label>
@@ -18,7 +18,7 @@
         </div>
         <card-main class="row">
             <card-content>
-                <form action="" @submit.prevent="store">
+                <form action="" @submit.prevent="_store">
                     <div class="col s6 center-align">
                         <label for="title" class="label-impegno">Título (Español)</label>
                         <input type="text" name="title" id="title" v-model="form.title" class="browser-default input-impegno">
@@ -83,8 +83,9 @@ export default {
                 title_english: "",
                 description: "",
                 description_english: "",
-                images: []
-            }
+                images: [],
+            },
+            url: urlBase
         }
     },
     methods: {
@@ -108,11 +109,12 @@ export default {
         },
 
         _sliceItem (id, i) {            
-           this.images = this.form.images.filter((el) => {
+            let parent = document.querySelector(".gallery__items")
+            let child = document.querySelector(`#file-${id}`)
+            this.images = this.form.images.filter((el) => {
                 return (el.id != id)
             })
-            let parent = document.querySelector(".gallery__items")
-            let child = document.querySelector(`#file-${id}`)            
+         
             parent.removeChild(child)
         },
 
@@ -135,7 +137,7 @@ export default {
                     showConfirmButton: false,
                     type: 'success'
                 },()=>{
-                    window.location = urlBase+"admin/blogs/create";
+                    window.location = urlBase+"admin/blogs";
                 });
             }).catch(err=>{
                 let message = "Disculpe, ha ocurrido un error";

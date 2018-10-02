@@ -118,6 +118,8 @@
 			Route::post('allies/delete-images', 'AllyController@delete');			
 			// Blogs			
 			Route::resource('blogs','GenerateBlogController');
+			Route::post('blogs/update-image', 'GenerateBlogController@updateImage');
+			Route::post('blogs/delete-image', 'GenerateBlogController@deleteImage');
 
 			/*Route::resource('blogs', 'BlogController');
 			Route::post('blogs/update-images', 'BlogController@updateImages');
