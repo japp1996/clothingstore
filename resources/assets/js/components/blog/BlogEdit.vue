@@ -8,7 +8,7 @@
     <!-- <div class="col s12"> -->
         <div class="row">
             <div class="col s12">
-                <a href="#!" class="btn btn-back">
+                <a :href="url+'admin/blogs'" class="btn btn-back">
                     <div class="btn-back__container">
                         <div class="btn-back__ico"></div>
                         <label for=""> Volver</label>
@@ -51,8 +51,8 @@
                                     </div>                            
                                 </div>
                                 <div class="col l4 m6 s6 items__file" :key="index" v-for="(file, index) in form.images" :id="`file-${file.id}`">
-                                    <input-file :btn="false" :file="'img/blogs/'+file.file | asset"  :image="true" v-on:file="_setFile(index, $event)"></input-file>
-                                    <button class="file__claer" @click="_sliceItem(file.id, index)"></button>
+                                    <input-file :btn="false" :file="file.file !== '' ? `${url}img/blogs/${file.file}` : ''"  :image="true" v-on:file="_setFile(file.id, index, $event)"></input-file>
+                                    <button type="button" class="file__claer" @click="_sliceItem(file.id, index)"></button>
                                 </div>
                             </div>
                         </div>
@@ -79,12 +79,18 @@ export default {
     data(){
         return {
             form: {
+                main: {
+                    file: ""
+                },
                 title: "",
                 title_english: "",
                 description: "",
                 description_english: "",
-                images: []
-            }
+                images: [],
+                image: ""
+            },
+            url: urlBase,
+            elements: 0
         }
     },
 
@@ -112,62 +118,86 @@ export default {
     },
 
     methods: {
-        _setFile(i, file) {
-            if (i == null) {
-                this.image = file.file
-                this.form.main = file.file
-            }else {
-                this.form.images[i].file = file.file
-                this.files = this.form.images
-            }            
+        _setFile(id, i, file) {
+            let formData = new FormData;
+            formData.append('id', id);
+            formData.append('file', file.file);
+            formData.append('blog_id', this.form.id);
+            axios.post("admin/blogs/update-image", formData)
+            .then( resp => {
+                if (id == null) {
+                    this.form.images[i].id = resp.data.id
+                    this.form.images[i].file = resp.data.file
+                } 
+            })
+            .catch( err => {
+                let message  = "Disculpe, ha ocurrido un error";
+                if (err.response.status == 422) {
+                    message = err.response.data.error;
+                }
+                swal("", message, "error");
+            })
         },
         _addImage() {
-            this.ids = this.form.images.length > 1 ? this.ids + 1 : this.ids
-            this.form.images.push({file: "", id: this.ids})
-            this.images = this.form.images
-        },
-        _sliceItem (id, i) {            
-           this.images = this.form.images.filter((el) => {
-                return (el.id != id)
-            })
-            let parent = document.querySelector(".gallery__items")
-            let child = document.querySelector(`#file-${id}`)            
-            parent.removeChild(child)
+            this.form.images.push({file: "", id: 0});
+            this.images = this.form.images;
+            this.elements += 1;
+
         },
         _edit(){
+            
             let formData = new FormData;
+            
             formData.append('title', this.form.title);
             formData.append('title_english', this.form.title_english);
             formData.append('description', this.form.description);
             formData.append('description_english', this.form.description_english);
             formData.append('_method', 'PUT');
             formData.append('id', this.form.id);
-            axios.post(
-                "admin/blogs/"+this.form.id,
-                formData
-            ).then(
-                resp=>{
-                    swal({
-                        title: '',
-                        text: 'Se ha actualizado el blog con éxito',
-                        timer: 2000,
-                        showConfirmButton: false,
-                        type: 'success'
-                    },
-                    ()=>{
-                        window.location = urlBase+"admin/blogs";
-                    });
-                }
-            ).catch(
-                err=>{
-                    let message  = "Disculpe, ha ocurrido un error";
-                    if (err.response.status == 422) {
+            
+            axios.post("admin/blogs/"+this.form.id, formData)
+                .then( resp => {
+                        swal({
+                            title: '',
+                            text: 'Se ha actualizado el blog con éxito',
+                            timer: 2000,
+                            showConfirmButton: false,
+                            type: 'success'
+                        },
+                        ()=>{
+                            window.location = urlBase+"admin/blogs";
+                        });
+                    }
+                ).catch( err => {
+                        let message  = "Disculpe, ha ocurrido un error";
+                        if (err.response.status == 422) {
+                            message = err.response.data.error;
+                        }
+                        swal("", message, "error");
+                    }
+                )
+        },
+        _sliceItem (id, i) {
+            let parent = document.querySelector(".gallery__items");
+            let child = document.querySelector(`#file-${id}`);
+            
+            if (id != 0) {
+                axios.post('admin/blogs/delete-image', {id: id})
+                .then(resp => {
+                    parent.removeChild(child);
+                })
+                .catch(err => {
+                    let message = "Disculpe, ha ocurrido un error";
+                    if (err.response.status == 422){
                         message = err.response.data.error;
                     }
                     swal("", message, "error");
-                }
-            )
-        }
+                })
+            } else {
+                parent.removeChild(child)
+            }
+        },
+
     },
     
     mounted() {

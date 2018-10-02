@@ -9,6 +9,7 @@ use App\Models\Blog;
 use App\Models\BlogImage;
 use App\Libraries\ResizeImage;
 use App\Libraries\SetNameImage;
+use File;
 
 
 class GenerateBlogController extends Controller
@@ -17,6 +18,9 @@ class GenerateBlogController extends Controller
     public function index(){
         $blog = Blog::select('id', 'title', 'title_english', 'description', 'description as description_min', 'description_english', 'created_at')
             ->where('status', "!=", '2')
+            ->with(["images" => function ($query){
+                $query->select('blog_id', 'file');
+            }])
             ->get();
         
         return view('admin.blogs.index')->with(['posts' => $blog]);
@@ -72,7 +76,47 @@ class GenerateBlogController extends Controller
         $blog->save();
     }
 
-    public function delete(){
 
+    public function updateImage(Request $request){
+        $url = "img/blogs/";
+        if ($request->id == 0) {
+            $file = $request->file('file');
+            $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
+            $file->move($url, $file_name);
+            
+            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
+            $detail = new BlogImage;
+            $detail->file = $file_name;
+            $detail->blog_id = $request->blog_id;
+            $detail->save();
+            $fileId = $detail->id;
+        } else {
+            $item = BlogImage::find($request->id);
+            $odlFile = $item->file;
+            $file = $request->file('file');
+            $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
+            $file->move($url, $file_name);
+            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
+            File::delete(public_path($url.$odlFile));
+            $item->file = $file_name;
+            $item->save();
+            $fileId = $request->id;
+        }
+        return response()->json(['result' => true, 'id' => $fileId, 'file' => $file_name]);
+    }
+
+    public function deleteImage(Request $request){
+        $url = "img/blogs/";
+        $item = BlogImage::find($request->id);
+        $file = $item->file;
+        File::delete(public_path($url.$file));
+        $item->delete();
+        return response()->json(['result' => true]);
+    }
+
+    public function destroy($id){
+        $blog = Blog::find($id);
+        $blog->status = "2";
+        $blog->save();
     }
 }

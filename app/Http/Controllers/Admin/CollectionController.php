@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CollectionRequest;
 use App\Models\Collection;
 use App\Models\Design;
+use App\Models\Product;
 
 class CollectionController extends Controller
 {
@@ -115,6 +116,15 @@ class CollectionController extends Controller
     public function destroy($id)
     {
         $collection = Collection::find($id);
+
+        $products = Product::where('collection_id', $id)->where('status', '!=', '2')->get();
+
+        if(count($products) > 0){
+            return response()->json([
+                'result' => false,
+                'error' => "Disculpe, no se pudo eliminar la colección " . $collection->name . ". Esta asociada a un producto"
+            ]);
+        }
             $collection->status = '2';
         $collection->save();
 

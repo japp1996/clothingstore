@@ -119,6 +119,10 @@ Vue.component('allies-index', require('./components/allies/AlliesIndex'));
 Vue.component('blog-index', require('./components/blog/BlogIndex'));
 Vue.component('blog-create', require('./components/blog/BlogCreate'));
 Vue.component('blog-edit', require('./components/blog/BlogEdit'));
+
+// Profile
+Vue.component('profile-form', require('./components/profile/ProfileForm'));
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

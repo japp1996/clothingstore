@@ -45,7 +45,7 @@ class ProductController extends Controller
         ->where('status', '1')
         ->get();
 
-        $products = Product::where('status', '1')
+        $products = Product::whereIn('status', ['1', '0'])
         ->with([
             'categories' => function ($category) {
                 $category->select('id', 'name', 'name_english');
@@ -330,12 +330,15 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
+        return $purchase = ProductAmount::where("products_amount.product_id", $id)
+            ->join("purchase_details", "products_amount.id", "=", 'purchase_details.product_amount_id')
+            ->first();
+
         $destroy = Product::find($id);
         $destroy->status = "2";
         $destroy->save();
         
         return response()->json(["result" => true, "message" => "Producto eliminado exitosamente."]);
-        
     }
 
     public function delete(Request $request)
@@ -347,5 +350,15 @@ class ProductController extends Controller
         $item->delete();
 
         return response()->json(['result' => true]);
+    }
+
+    public function postear($id){
+        $destroy = Product::find($id);
+        $destroy->status = $destroy->status == "0" ? "1" : "0";
+        $destroy->save();
+        
+        $negation = $destroy->status == "1" ? "" : "no";
+
+        return response()->json(["result" => true, "message" => "El producto ya $negation es visible para los clientes.", "status" => $destroy->status]);
     }
 }
