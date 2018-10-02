@@ -330,12 +330,15 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
+        return $purchase = ProductAmount::where("products_amount.product_id", $id)
+            ->join("purchase_details", "products_amount.id", "=", 'purchase_details.product_amount_id')
+            ->first();
+
         $destroy = Product::find($id);
         $destroy->status = "2";
         $destroy->save();
         
         return response()->json(["result" => true, "message" => "Producto eliminado exitosamente."]);
-        
     }
 
     public function delete(Request $request)

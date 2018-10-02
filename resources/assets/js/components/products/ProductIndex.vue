@@ -80,7 +80,7 @@
                         <i class="material-icons">error_outline</i>
                     </div>
                     <div class="confirmation__text">
-                        <h5>¿ Realmente deseas <b>{{ modal.data.status == 1 ? 'Quitar' : 'Publicar' }}</b> este Producto ?</h5>
+                        <h5>¿ Realmente deseas <b>{{ modal.data.status == 1 ? 'Desactivar ' : 'Publicar' }}</b> este Producto ?</h5>
                     </div>
                 </div>
             </template>
