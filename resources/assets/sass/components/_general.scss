@@ -3,7 +3,8 @@
 //***************
 body {
     font-family: $font-family;
-    
+    background: #fff !important;
+
     position: relative;
     &:after{
         position: absolute;
@@ -30,7 +31,7 @@ aside#menu {
 #logo {
     height: 180px;
     text-align: center;
-    background: $dark !important;
+    background: $black !important;
     border: 1px solid rgba($black, .8);
     padding: 2px 30px;
     color: $white;
@@ -46,8 +47,8 @@ aside#menu {
 }
 
 main#app{
-    background: transparent;
-    // background-image: url('../img/logo-intro.png');
+    //background: transparent;
+    background: url(../img/icons/background-panel.png)!important;
 }
 
 // main.bg-impegno{
@@ -92,6 +93,15 @@ h1{
 
 #prepage-loader{
     z-index: 1000020;
+}
+
+.logo-image {
+    width: 100%;
+}
+
+.ico-dollar {
+    width: 17px!important;
+    margin-left: 8% !important;
 }
 
 .ico-user {

@@ -10,7 +10,7 @@
             <li id="user-account-box">
                 <a href="javascript:void(0)" class="hrz-menu dropdown-button dropdown-belowOrigin dropdown-widthChange" data-activates='user-account-dropdown'>
                     {{-- <i class="material-icons">account_circle</i> --}}
-                    <img src="{{ asset('img/icons/ico-user.png') }}" alt="" class="img-responsive ico-user">       
+                    <img src="{{ asset('img/icons/ico-user-i.png') }}" alt="" class="img-responsive ico-user">       
                 </a>
             </li>
         </ul>

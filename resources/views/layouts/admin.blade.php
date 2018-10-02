@@ -67,7 +67,7 @@
                     <div class="left-sidebar-overlay"></div>
                     <div class="left-sidebar">
                         <div id="logo">
-                            <img src="{{ asset('img/logo.png') }}" alt="">
+                            <img class="logo-image" src="{{ asset('img/logo.png') }}" alt="">
                             {{--  <h1 class="impegno">Wará</h1>  --}}
                         </div>
                         {{--end brand --}}

@@ -6078,9 +6078,6 @@ label {
 ::-webkit-input-placeholder {
   color: #d1d1d1;
 }
-:-ms-input-placeholder {
-  color: #d1d1d1;
-}
 ::-ms-input-placeholder {
   color: #d1d1d1;
 }
@@ -6519,7 +6516,7 @@ textarea.materialize-textarea + label:after, .select-wrapper + label:after {
           transform-origin: 0 0;
 }
 
-.input-field > input[type]:-webkit-autofill:not(.browser-default) + label,
+.input-field > input[type]:-webkit-autofill:not(.browser-default):not([type="search"]) + label,
 .input-field > input[type=date]:not(.browser-default) + label,
 .input-field > input[type=time]:not(.browser-default) + label {
   -webkit-transform: translateY(-14px) scale(0.8);
@@ -8454,10 +8451,10 @@ input[type=range]::-ms-thumb {
   visibility: visible;
   -webkit-animation: pulse-animation 1s cubic-bezier(0.24, 0, 0.38, 1) infinite;
           animation: pulse-animation 1s cubic-bezier(0.24, 0, 0.38, 1) infinite;
-  -webkit-transition: opacity .3s, visibility 0s 1s, -webkit-transform .3s;
-  transition: opacity .3s, visibility 0s 1s, -webkit-transform .3s;
-  transition: opacity .3s, transform .3s, visibility 0s 1s;
-  transition: opacity .3s, transform .3s, visibility 0s 1s, -webkit-transform .3s;
+  -webkit-transition: opacity .3s, visibility 0s 1s, -webkit-transform .3s;
+  transition: opacity .3s, visibility 0s 1s, -webkit-transform .3s;
+  transition: opacity .3s, transform .3s, visibility 0s 1s;
+  transition: opacity .3s, transform .3s, visibility 0s 1s, -webkit-transform .3s;
 }
 
 .tap-target {
@@ -8510,10 +8507,10 @@ input[type=range]::-ms-thumb {
 
 .tap-target-wave::after {
   visibility: hidden;
-  -webkit-transition: opacity .3s, visibility 0s, -webkit-transform .3s;
-  transition: opacity .3s, visibility 0s, -webkit-transform .3s;
-  transition: opacity .3s, transform .3s, visibility 0s;
-  transition: opacity .3s, transform .3s, visibility 0s, -webkit-transform .3s;
+  -webkit-transition: opacity .3s, visibility 0s, -webkit-transform .3s;
+  transition: opacity .3s, visibility 0s, -webkit-transform .3s;
+  transition: opacity .3s, transform .3s, visibility 0s;
+  transition: opacity .3s, transform .3s, visibility 0s, -webkit-transform .3s;
   z-index: -1;
 }
 
@@ -9076,6 +9073,7 @@ h1 {
 
 body {
   font-family: "Lato";
+  background: #fff !important;
   position: relative;
 }
 
@@ -9101,7 +9099,7 @@ aside#menu {
 #logo {
   height: 180px;
   text-align: center;
-  background: #151b26 !important;
+  background: #000 !important;
   border: 1px solid rgba(0, 0, 0, 0.8);
   padding: 2px 30px;
   color: #fff;
@@ -9117,7 +9115,7 @@ aside#menu {
 }
 
 main#app {
-  background: transparent;
+  background: url(../img/icons/background-panel.png) !important;
 }
 
 #action-form {
@@ -9156,6 +9154,15 @@ h1 {
 
 #prepage-loader {
   z-index: 1000020;
+}
+
+.logo-image {
+  width: 100%;
+}
+
+.ico-dollar {
+  width: 17px !important;
+  margin-left: 8% !important;
 }
 
 .ico-user {
