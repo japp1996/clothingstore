@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Size;
 use App\Http\Requests\SizeRequest;
+use App\Models\CategorySize;
 
 class SizeController extends Controller
 {
@@ -101,7 +102,17 @@ class SizeController extends Controller
      */
     public function destroy($id)
     {
+        $category = CategorySize::where('size_id', $id)->get();
         $size = Size::find($id);
+
+        if(count($category) > 0){
+            return response()->json([
+                'result' => false,
+                'error' => "Disculpe, no se pudo eliminar La talla " . $size->name . ". Esta asociada a una categoría"
+            ]);
+        }
+
+        
         $size->status = '2';
         $size->save();
 

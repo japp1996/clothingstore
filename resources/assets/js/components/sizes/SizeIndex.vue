@@ -147,8 +147,13 @@ export default {
 
             axios.delete(`admin/sizes/${this.modal.data.id}`)
                 .then(res => {
-                    this.sizesArray.splice(index, 1)
-                    this._showAlert(res.data.message, "success");
+                    if(res.data.result){
+                        this.sizesArray.splice(index, 1)
+                        this._showAlert(res.data.message, "success");
+                        return
+                    }
+
+                    this._showAlert(res.data.error, "error");
                 })
                 .catch(err => {
                     this._showAlert('Disculpa, ha ocurrido un error', "error")

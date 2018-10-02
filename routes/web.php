@@ -93,37 +93,37 @@
 		Route::post('login', 'AuthController@singIn');
 		
 		Route::group(['middleware' => 'Auth'], function() {
-			// Exchange rate			
+			// Exchange rate
 			Route::resource('exchange_rate', 'ExchangeRateController');			
 			Route::get('home', 'AdminController@home');
-			// Sizes			
+			// Sizes
 			Route::resource('sizes', 'SizeController');
 			Route::get('sizes-all', 'SizeController@all');
-			// Categories			
+			// Categories
 			Route::resource('categories', 'CategoryController');			
 			// Collection
 			Route::resource('collections', 'CollectionController');
-			// Desigs			
+			// Desigs
 			Route::resource('designs', 'DesignController');
 			Route::get('designs-all', 'DesignController@allData');
-			// Products			
+			// Products
 			Route::resource('products', 'ProductController');
+			Route::post('product/postear/{id}', 'ProductController@postear');
 			Route::post('update-images', 'ProductController@updateImage');
 			Route::post('delete-images', 'ProductController@delete');
-			// Us			
+			// Us
 			Route::resource('us', 'UsController');
-			// Allies			
+			// Allies
 			Route::resource('allies', 'AllyController');
 			Route::post('allies/update-image', 'AllyController@updateImages');
 			Route::post('allies/delete-images', 'AllyController@delete');			
-			// Blogs			
+			// Blogs
 			Route::resource('blogs','GenerateBlogController');
 
 			/*Route::resource('blogs', 'BlogController');
 			Route::post('blogs/update-images', 'BlogController@updateImages');
 			Route::post('blogs/delete-images', 'BlogController@delete');
 			*/
-			
 
 			Route::get('profile', 'ProfileController@profile');
 			Route::post('profile', 'ProfileController@update');

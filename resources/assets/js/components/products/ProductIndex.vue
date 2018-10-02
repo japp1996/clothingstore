@@ -37,10 +37,14 @@
                                     <img :src="'img/icons/ico-editar.png' | asset" alt="" class="img-responsive">
                                 </a>
 
-                                <a href="#!" class="btn-action" @click="_confirm(item, 'destroy')">
-                                    <img :src="'img/icons/ico-eliminar.png' | asset" alt="" class="img-responsive">
+                                <a href="#!" class="btn-action" @click="_confirm(item, 'postear')">
+                                    <img :src="'img/icons/ico-toggle-on.svg' | asset" alt="" class="img-responsive" style="width: 36px; margin: 0;" v-if="item.status == '1'">
+                                    <img :src="'img/icons/ico-toggle-off.svg' | asset" alt="" class="img-responsive" style="width: 36px; margin: 0;" v-if="item.status == '0'">
                                 </a>
 
+                                <a href="#!" class="btn-action" @click="_confirm(item, 'delete')">
+                                    <img :src="'img/icons/ico-eliminar.png' | asset" alt="" class="img-responsive">
+                                </a>
                             </table-cell>
                         </table-row>
 
@@ -57,7 +61,7 @@
                 <product-edit v-if="options == 2" @back="_resetView" :data="form" :categories="categories" :designs="designs" :collections="collections" @reload="_updateData"></product-edit>
             </div>
         </div>
-        <byte-modal v-on:pressok="_delete" :confirm="modal.type.confirm">
+        <byte-modal v-on:pressok="modal.action" :confirm="modal.type.confirm">
 
             <template v-if="modal.type.action == 'delete'">
                 <div class="container-confirmation">
@@ -66,6 +70,17 @@
                     </div>
                     <div class="confirmation__text">
                         <h5>¿ Realmente deseas <b>Eliminar</b> este Producto ?</h5>
+                    </div>
+                </div>
+            </template>
+
+            <template v-else-if="modal.type.action == 'postear'">
+                <div class="container-confirmation">
+                    <div class="confimation__icon">
+                        <i class="material-icons">error_outline</i>
+                    </div>
+                    <div class="confirmation__text">
+                        <h5>¿ Realmente deseas <b>{{ modal.data.status == 1 ? 'Quitar' : 'Publicar' }}</b> este Producto ?</h5>
                     </div>
                 </div>
             </template>
@@ -238,6 +253,7 @@ export default {
                     confirm: false,
                     action: 'view'
                 },
+                action: {},
                 data: {
                     collections: {},
                     categories: {},
@@ -262,11 +278,21 @@ export default {
             this.modal.init.open();
         },
 
-        _confirm(item) {
+        _confirm(item, action) {
             this.modal.type.confirm = true;
             this.modal.type.action = this._delete;
             this.modal.data = item;
-            this.modal.type.action = "delete";
+
+            if(action == "delete"){
+                this.modal.type.action = "delete";
+                this.modal.action = this._delete;
+            }
+
+            if(action == "postear"){
+                this.modal.type.action = "postear";
+                this.modal.action = this._postear;
+            }
+
             this.modal.init.open();
         },
 
@@ -286,6 +312,26 @@ export default {
                 .then(res => {
                     this.dataTable.splice(index, 1)
                     this._showAlert(res.data.message, "success");
+                })
+                .catch(err => {
+                    this._showAlert('Disculpa, ha ocurrido un error', "error")
+                });
+        },
+
+        _postear(){
+            let index = this.dataTable.findIndex(e => {
+                return e.id == this.modal.data.id
+            })
+            
+            this.modal.init.close();
+
+            axios.post(`admin/product/postear/${this.modal.data.id}`)
+                .then(res => {
+                    console.log(this.dataTable[index]);
+                    this.dataTable[index].status = res.data.status;
+                    // this..splice(index, 1);
+                    swal("", res.data.message, "success");
+                    // this._showAlert(res.data.message, "success");
                 })
                 .catch(err => {
                     this._showAlert('Disculpa, ha ocurrido un error', "error")
