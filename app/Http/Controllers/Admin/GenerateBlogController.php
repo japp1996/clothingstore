@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-<<<<<<< HEAD
 use App\Http\Requests\BlogRequest;
 use App\Models\Blog;
 use App\Models\BlogImage;
@@ -75,36 +74,5 @@ class GenerateBlogController extends Controller
 
     public function delete(){
 
-=======
-
-class GenerateBlogController extends Controller
-{
-    public function index(){
-
-    }
-
-    public function create(){
-
-    }
-
-    public function store(){
-
-    }
-
-    public function show(){
-
-    }
-
-    public function edit(){
-
-    }
-
-    public function update(){
-
-    }
-
-    public function delete(){
-        
->>>>>>> d62eac9afe32975df76815793f2974c30899db29
     }
 }
