@@ -482,7 +482,7 @@ export default {
                         showConfirmButton: false,
                         type: "success"
                     }, () => {
-                        // location.reload();
+                        location.reload();
                     })
                 }
             })

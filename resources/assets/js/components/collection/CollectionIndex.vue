@@ -134,8 +134,13 @@ export default {
 
             axios.delete(`admin/collections/${this.modal.data.id}`)
                 .then(res => {
-                    this.setTable.splice(index, 1)
-                    swal('', 'Se ha eliminado la colección', "success");
+                    if(res.data.result){
+                        this.setTable.splice(index, 1)
+                        swal('', 'Se ha eliminado la colección', "success");
+                        return;
+                    }
+
+                    swal('', res.data.error, "error");
                 })
                 .catch(err => {
                     swal('', 'Disculpe, ha ocurrido un error', "error")
