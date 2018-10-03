@@ -15,7 +15,7 @@
                 <div class="row">
                     <div class="col s12 m6 l6 center-align">
                         <label for="nombre" class="label-impegno">Nombre (Español)</label>
-                        <input type="text" name="nombre" id="nombre" v-model="form.nombre" class="browser-default input-impegno">
+                        <input type="text" name="nombre" id="nombre" v-model="form.name" class="browser-default input-impegno">
                     </div>
                     <div class="col s12 m6 l6 center-align">
                         <label for="facebook" class="label-impegno">Facebook</label>
@@ -31,7 +31,7 @@
                     </div>
                     <div class="col s12 m6 l6 center-align">
                         <label for="direccion" class="label-impegno">Dirección</label>
-                        <textarea name="direccion" id="direccion" v-model="form.direccion" class="browser-default input-impegno"></textarea>
+                        <textarea name="direccion" id="direccion" v-model="form.address" class="browser-default input-impegno"></textarea>
                     </div>
                 </div>
                 <div class="row">
@@ -108,7 +108,8 @@ export default {
 
     methods: {
         _back() {
-            this.$emit('back', 0)
+            //this.$emit('back', 0)
+            window.location = urlBase + "admin/allies";
         },
 
         _setFile(i, x, e) {
@@ -148,14 +149,14 @@ export default {
                 axios.post('admin/allies/delete-images', {id: id})
                 .then(resp => {
                     parent.removeChild(child)
-                    this.elements = this.elements - 1
+                    this.elements = this.elements - 1;
                 })
                 .catch(err => {
                     this._showAlert("Disculpa, ha ocurrido un error", "error")
                 })
             } else {
-                parent.removeChild(child)
-                this.elements = this.elements - 1
+                parent.removeChild(child);
+                this.elements = this.elements - 1;
             }
         },
         
@@ -164,20 +165,15 @@ export default {
             button.setAttribute('disabled', true)
             axios.put(`admin/allies/${this.form.id}`, this.form)
             .then(resp => {                
-                if (resp.data.result) {
-                    this._showAlert("Aliado actualizado exitosamente", "success")
-                    setTimeout(() => {
-                        window.location.reload()
-                    }, 3000);
-                }
+                this._showAlert("Aliado actualizado exitosamente", "success")
             })
             .catch(err => {
-                if(err.response.status === 422){
-                    this._showAlert(err.response.data.error, 'warning')
-                    return false;
+                let message = "Disculpe, ha ocurrido un error";
+                if(err.response.status == 422){
+                    message = err.response.data.error;
                 }
-                
-                this._showAlert("Disculpa, ha ocurrido un error", "error")
+                this._showAlert(message, 'error'); 
+
             })
             .then(all => {
                 button.removeAttribute('disabled')
@@ -188,7 +184,7 @@ export default {
             swal({
                 title: "",
                 text: text,
-                timer: 3000,
+                timer: 2000,
                 showConfirmButton: false,
                 type: type
             })

@@ -20,7 +20,7 @@
                     </div>
                     <table-byte :set-table="setTable" :filters="['title', 'description']">
                         <table-row slot="table-head">
-                            <table-head>Título </table-head>
+                            <table-head class="th">Título </table-head>
                             <table-head>Descripción</table-head>
                             <table-head>Acción</table-head>
                         </table-row>
@@ -121,6 +121,10 @@
         width:100%;
         height: 300px;
         object-fit: contain;
+    }
+
+    .th {
+        width: 200px;
     }
 </style>
 
