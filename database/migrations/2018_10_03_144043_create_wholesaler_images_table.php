@@ -17,7 +17,7 @@ class CreateWholesalerImagesTable extends Migration
             $table->increments('id');
             $table->string('file');
             $table->integer('wholesaler_id')->unsigned();
-            $table->foreign('wholesaler_id')->references('id')->on('wholesalrs')->onDelete('cascade');
+            $table->foreign('wholesaler_id')->references('id')->on('wholesalers')->onDelete('cascade');
             $table->enum('main', ['0', '1'])->default('0')->comment('0: Secundarias; 1: Principal');
             $table->timestamps();
         });
