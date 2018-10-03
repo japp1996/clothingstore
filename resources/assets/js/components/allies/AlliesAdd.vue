@@ -14,8 +14,8 @@
             <card-content>
                 <div class="row">
                     <div class="col s12 m6 l6 center-align">
-                        <label for="nombre" class="label-impegno">Nombre (Español)</label>
-                        <input type="text" name="nombre" id="nombre" v-model="form.nombre" class="browser-default input-impegno">
+                        <label for="name" class="label-impegno">Nombre (Español)</label>
+                        <input type="text" name="name" id="name" v-model="form.name" class="browser-default input-impegno">
                     </div>
                     <div class="col s12 m6 l6 center-align">
                         <label for="facebook" class="label-impegno">Facebook</label>
@@ -30,18 +30,19 @@
                         <input type="text" name="instagram" id="instagram" v-model="form.instagram" class="browser-default input-impegno">
                     </div>
                     <div class="col s12 m6 l6 center-align">
-                        <label for="direccion" class="label-impegno">Dirección</label>
-                        <textarea name="direccion" id="direccion" v-model="form.direccion" class="browser-default input-impegno"></textarea>
+                        <label for="address" class="label-impegno">Dirección</label>
+                        <textarea name="address" id="address" v-model="form.address" class="browser-default input-impegno"></textarea>
                     </div>
                 </div>
+                
                 <div class="row">
                     <div class="row gallery__items">
                         <div class="col s12 container-btn-add">
-                            <button class="btn-add" @click="_addItem()">
+                            <button type="button" class="btn-add" @click="_addItem()">
                                 <img :src="'img/icons/new-msg.png' | asset" alt="" class="img-responsive">
                             </button>
                             <div class="btn-add-text">
-                                Agregar imagen
+                                Agregar imágenes
                             </div>                            
                         </div>
                         <div class="col l4 m6 s6 items__file" :key="index" v-for="(file, index) in form.files" :id="`file-${file.id}`">
@@ -53,8 +54,8 @@
                 <div class="row">
                     <div class="col s12 center-align">
                         <a href="#!" class="btn btn-success" @click="_store($event)">Guardar</a>
-                    </div>                    
-                </div> 
+                    </div>
+                </div>
             </card-content>
         </card-main>
     </div>
@@ -85,35 +86,39 @@ export default {
     data () {
         return {
             form: {
-                nombre: "",
+                name: "",
                 facebook: "",
                 twitter: "",
                 instagram: "",
-                direccion: "",
-                files: [{file: "", id: 0}]
+                address: "",
+                files: []
             },
-            files: [],
-            ids: 0
         }
     },
 
     methods: {
         _back() {
-            this.$emit('back', 0)
+            //this.$emit('back', 0)
+            window.location  = urlBase + "admin/allies";
+        },
+        
+        _setFile (i, file) {
+            if (i == null) {
+                this.file = file.file
+                this.form.main = file.file
+            }else {
+                this.form.files[i].file = file.file
+                this.files = this.form.files
+            }
         },
 
         _addItem() {
             this.ids = this.form.files.length > 1 ? this.ids + 1 : this.ids
             this.form.files.push({file: "", id: this.ids})
-            this.files = this.form.files         
-        },
-
-        _setFile (i, file) {
-            this.form.files[i].file = file.file
             this.files = this.form.files
         },
 
-        _sliceItem (id, i) {            
+        _sliceItem(id, i) {            
            this.files = this.form.files.filter((el) => {
                 return (el.id != id)
             })
@@ -122,61 +127,47 @@ export default {
             parent.removeChild(child)
         },
 
-        _store (e) {
-            let button = e.target
-            if (this.files.length == 0) {
-                this._showAlert("Disculpa debes cargar al menos una archivo", "warning")
-                return false   
+        _store(e) {
+            let button = e.target;
+            if (this.form.files.length == 0) {
+                this._showAlert("Disculpa debes cargar al menos una archivo", "error");
+                return false;
             }
             button.setAttribute('disabled', true)
-            axios.post('admin/allies', this._convertToFormData())
-            .then(resp => {                
-                if (resp.data.result) {
-                    this._showAlert("Aliado almacenado exitosamente", "success")
-                    setTimeout(() => {
-                        window.location.reload()
-                    }, 3000);
-                }
+            
+            let formData = new FormData();
+            formData.append("name",this.form.name);
+            formData.append("facebook",this.form.facebook);
+            formData.append("twitter",this.form.twitter);
+            formData.append("instagram", this.form.instagram);
+            formData.append("address", this.form.address);
+            // formData.append("images",this.form.images);
+            this.form.files.forEach((file, index) => {
+                formData.append("image"+index, file.file);
+            });
+            formData.append("count", this.form.files.length);
+            axios.post('admin/allies', formData)
+            .then( resp => {
+                console.log(this.form);
+                this._showAlert("Aliado almacenado exitosamente", "success");
             })
-            .catch(err => {
-                if(err.response.status === 422){
-                    this._showAlert(err.response.data.error, 'warning')
-                    return false;
+            .catch( err => {
+                let message = "Disculpe, ha ocurrido un error";
+                if(err.response.status == 422){
+                    message = err.response.data.error;
                 }
-                
-                this._showAlert("Disculpa, ha ocurrido un error", "error")
+                this._showAlert(message, 'error');
             })
-            .then(all => {
+            .then( all => {
                 button.removeAttribute('disabled')
             })
-        },
-
-        _convertToFormData(){
-            let formData = new FormData();
-            Object.getOwnPropertyNames(this.form).forEach((key, i) => {
-                let count = 0;
-                if(key === "files")
-                {
-                    this.files.forEach((e, y) => {
-                        if (e.file !== "") {
-                            count = count + card
-                            formData.append(`file${count}`, e.file);
-                        }                        
-                    })
-                    formData.append('count', count)
-                }else if(key != "__ob__"){
-                    formData.append(key, this.form[key]);
-                }
-            });
-
-            return formData;
         },
 
         _showAlert(text, type) {
             swal({
                 title: "",
                 text: text,
-                timer: 3000,
+                timer: 2000,
                 showConfirmButton: false,
                 type: type
             })
@@ -184,7 +175,8 @@ export default {
     },
 
     mounted() {
-        this.ids = this.form.files.length
+        this.ids = this.form.files.length;
+        this.form.files.push({file: "", id: 1});
     }
 }
 </script>

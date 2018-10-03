@@ -8,7 +8,7 @@
         </div>
         <div class="row">
             <div class="col s12">
-                <section class="table__content" v-if="options == 0">
+                <section class="table__content" v-show="options == 0">
                     <div class="row">
                         <div class="col s12 container-btn-add">
                             <button class="btn-add" @click="options = 1">
@@ -16,7 +16,7 @@
                             </button>
                             <div class="btn-add-text">
                                 Agregar nuevo
-                            </div>                            
+                            </div>
                         </div>
                     </div>
 
@@ -26,17 +26,17 @@
                             <table-head>Facebook</table-head>
                             <table-head>Twitter </table-head>
                             <table-head>Instagram</table-head>
-                            <table-head>Acciones</table-head>
+                            <table-head class="th-action">Acciones</table-head>
                         </table-row>
 
                         <table-row slot="table-row" slot-scope="{ item }">
-                            <table-cell>{{ item.nombre }}</table-cell>
+                            <table-cell>{{ item.name }}</table-cell>
                             <table-cell>{{ item.facebook }}</table-cell>
                             <table-cell>{{ item.twitter }}</table-cell>
                             <table-cell>{{ item.instagram }}</table-cell>
                             <table-cell>
 
-                                <a href="#!" class="btn-action" @click="_edit(item, 'view')">
+                                <a href="#!" class="btn-action" @click="_view(item)">
                                     <img :src="'img/icons/ico-ver.png' | asset" alt="" class="img-responsive">
                                 </a>
 
@@ -58,6 +58,65 @@
                         </table-row>
 
                     </table-byte>
+                    <byte-modal v-on:pressok="_delete" :confirm="modal.type.confirm">
+                        <template v-if="modal.type.action == 'view'">
+                            <div class="col s12">
+                                <h3>Detalles del Aliado</h3>
+                            </div>
+                            <div class="col s12 m6">
+                                <div class="col s12">
+                                    <h3>Nombre</h3>
+                                </div>
+                                <div class="col s12">
+                                    {{ modal.data.name }}
+                                </div>
+                                <div class="col s12">
+                                    <h3>Facebook</h3>
+                                </div>      
+                                <div class="col s12">
+                                    {{ modal.data.facebook }}
+                                </div>
+                            </div>
+                            <div class="col s12 m6">
+                                <div class="col s12">
+                                    <h3>Twitter</h3>
+                                </div>
+                                <div class="col s12">
+                                    {{ modal.data.twitter }}
+                                </div>
+                                <div class="col s12">
+                                    <h3>Instagram</h3>
+                                </div>
+                                <div class="col s12">
+                                    {{ modal.data.instagram }}
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <div class="col s12">
+                                    <h3>Dirección</h3>
+                                </div>
+                                <div class="col s12">
+                                   {{ modal.data.address}}
+                                </div>
+                            </div>              
+                            <div class="col s12">
+                                <h3>Imágenes</h3>
+                            </div>
+                            <div class="col s12 m6" v-for="(img,i) in modal.data.fotos" :key="'img-' + i">
+                                <img :src="'img/aliados/' + img.file | asset " class="img-width"  alt="">
+                            </div>
+                        </template>
+                        <template v-else>
+                            <div class="container-confirmation">
+                                <div class="confimation__icon">
+                                    <i class="material-icons">error_outline</i>
+                                </div>
+                                <div class="confirmation__text">
+                                    <h5>¿ Realmente deseas <b>Eliminar</b> ésta Publicación ?</h5>
+                                </div>
+                            </div>
+                        </template>
+                    </byte-modal>
                 </section>
 
                 <allies-add v-if="options == 1" @back="_resetView"></allies-add>
@@ -86,6 +145,15 @@
     }
     .items__file{
         position: relative;
+    }
+
+    .img-width{
+        width:100%;
+        height: 300px;
+        object-fit: contain;
+    }
+    .th-action{
+        width: 200px;
     }
 </style>
 
@@ -119,10 +187,9 @@ export default {
                     confirm: false,
                     action: 'view'
                 },
-                data: {
-                    name: ''
-                }
+                data: {}
             },
+            setTable: []
         }
     },
 
@@ -135,7 +202,12 @@ export default {
             this.form = item
             this.options = 2
         },
-
+        _view(item){
+            this.modal.type.confirm = false;
+            this.modal.type.action = "view";
+            this.modal.data = item;
+            this.modal.init.open();
+        },
         _confirm(item) {
             this.modal.type.confirm = true;
             this.modal.type.action = this._delete;
@@ -174,6 +246,7 @@ export default {
 
     mounted() {
         this.modal.init = M.Modal.init(document.querySelector('.modal'));
+        this.setTable = this.allies; 
     }
 }
 </script>
