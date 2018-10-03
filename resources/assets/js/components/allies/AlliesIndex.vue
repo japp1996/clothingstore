@@ -26,7 +26,7 @@
                             <table-head>Facebook</table-head>
                             <table-head>Twitter </table-head>
                             <table-head>Instagram</table-head>
-                            <table-head>Acciones</table-head>
+                            <table-head class="th-action">Acciones</table-head>
                         </table-row>
 
                         <table-row slot="table-row" slot-scope="{ item }">
@@ -151,6 +151,9 @@
         width:100%;
         height: 300px;
         object-fit: contain;
+    }
+    .th-action{
+        width: 200px;
     }
 </style>
 

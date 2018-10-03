@@ -86038,7 +86038,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\ntextarea {\n  resize: none;\n  height: 10rem !important;\n}\n.items__file {\n  position: relative;\n}\n.img-width {\n  width: 100%;\n  height: 300px;\n  -o-object-fit: contain;\n     object-fit: contain;\n}\n", ""]);
+exports.push([module.i, "\ntextarea {\n  resize: none;\n  height: 10rem !important;\n}\n.items__file {\n  position: relative;\n}\n.img-width {\n  width: 100%;\n  height: 300px;\n  -o-object-fit: contain;\n     object-fit: contain;\n}\n.th-action {\n  width: 200px;\n}\n", ""]);
 
 // exports
 
@@ -86053,6 +86053,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AlliesAdd___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AlliesAdd__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AlliesUpdate__ = __webpack_require__(298);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AlliesUpdate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__AlliesUpdate__);
+//
+//
+//
 //
 //
 //
@@ -87593,7 +87596,9 @@ var render = function() {
                               _vm._v(" "),
                               _c("table-head", [_vm._v("Instagram")]),
                               _vm._v(" "),
-                              _c("table-head", [_vm._v("Acciones")])
+                              _c("table-head", { staticClass: "th-action" }, [
+                                _vm._v("Acciones")
+                              ])
                             ],
                             1
                           )
