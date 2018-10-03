@@ -31,6 +31,12 @@
             <img src="{{ asset('img/icons/ico-colecciones.png') }}" alt="" class="img-responsive">Colecciones
         </a>
     </li>
+
+    <li>
+        <a href="{{ url('/admin/wholesalers') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Colecciones">
+            <img src="{{ asset('img/icons/ico-colecciones.png') }}" alt="" class="img-responsive">Colecciones al mayor
+        </a>
+    </li>
     {{--  <li>
         <a href="{{ url('/admin/designs') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Diseños">
             <img src="{{ asset('img/icons/ico-inicio.png') }}" alt="" class="img-responsive">Diseños

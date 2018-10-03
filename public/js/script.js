@@ -73112,7 +73112,7 @@ var content = __webpack_require__(182);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("8aae94ce", content, false, {});
+var update = __webpack_require__(3)("71454aec", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -73285,7 +73285,7 @@ var content = __webpack_require__(188);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("22d2b4d2", content, false, {});
+var update = __webpack_require__(3)("64c2c02c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -73842,7 +73842,7 @@ var content = __webpack_require__(193);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("c17fc21c", content, false, {});
+var update = __webpack_require__(3)("2e651c45", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -74249,7 +74249,7 @@ var content = __webpack_require__(198);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("517c37ec", content, false, {});
+var update = __webpack_require__(3)("bf275882", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -74643,7 +74643,7 @@ var content = __webpack_require__(203);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("d73db8fa", content, false, {});
+var update = __webpack_require__(3)("195984d4", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -75549,7 +75549,7 @@ var content = __webpack_require__(217);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("71ae317a", content, false, {});
+var update = __webpack_require__(3)("5ebf68e6", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -76043,7 +76043,7 @@ var content = __webpack_require__(225);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("78e38424", content, false, {});
+var update = __webpack_require__(3)("7e445cb7", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -76326,7 +76326,7 @@ var content = __webpack_require__(229);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("799dac39", content, false, {});
+var update = __webpack_require__(3)("6945f546", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -77172,7 +77172,7 @@ var content = __webpack_require__(237);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("7b5b4cc1", content, false, {});
+var update = __webpack_require__(3)("8435dd58", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -78656,7 +78656,7 @@ var content = __webpack_require__(245);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("2b661d2a", content, false, {});
+var update = __webpack_require__(3)("087f7ff8", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -79507,7 +79507,7 @@ var content = __webpack_require__(251);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("91cf18c2", content, false, {});
+var update = __webpack_require__(3)("11640b72", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -79777,7 +79777,7 @@ var content = __webpack_require__(255);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("5dff850d", content, false, {});
+var update = __webpack_require__(3)("466fb24c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -80392,7 +80392,7 @@ var content = __webpack_require__(261);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("48471b48", content, false, {});
+var update = __webpack_require__(3)("43795dd6", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -80851,7 +80851,7 @@ var content = __webpack_require__(265);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("1864cdd7", content, false, {});
+var update = __webpack_require__(3)("ff57ab2c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -82483,7 +82483,7 @@ var content = __webpack_require__(270);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("4ee1318b", content, false, {});
+var update = __webpack_require__(3)("925ee3c4", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -84735,7 +84735,7 @@ var content = __webpack_require__(276);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("6b805271", content, false, {});
+var update = __webpack_require__(3)("0963b244", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -85147,7 +85147,7 @@ var content = __webpack_require__(281);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("9794b7a2", content, false, {});
+var update = __webpack_require__(3)("8d650408", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -85437,7 +85437,7 @@ var content = __webpack_require__(286);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("e3828f4c", content, false, {});
+var update = __webpack_require__(3)("3e9a1e6d", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -85998,7 +85998,7 @@ var content = __webpack_require__(291);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("7b9e2bb0", content, false, {});
+var update = __webpack_require__(3)("550dbf7a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -86022,7 +86022,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\ntextarea {\n  resize: none;\n  height: 10rem !important;\n}\n.items__file {\n  position: relative;\n}\n", ""]);
+exports.push([module.i, "\ntextarea {\n  resize: none;\n  height: 10rem !important;\n}\n.items__file {\n  position: relative;\n}\n.img-width {\n  width: 100%;\n  height: 300px;\n  -o-object-fit: contain;\n     object-fit: contain;\n}\n.th-action {\n  width: 200px;\n}\n", ""]);
 
 // exports
 
@@ -86037,6 +86037,74 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AlliesAdd___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AlliesAdd__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AlliesUpdate__ = __webpack_require__(298);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AlliesUpdate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__AlliesUpdate__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -86158,10 +86226,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     confirm: false,
                     action: 'view'
                 },
-                data: {
-                    name: ''
-                }
-            }
+                data: {}
+            },
+            setTable: []
         };
     },
 
@@ -86175,6 +86242,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.form = item;
             this.options = 2;
+        },
+        _view: function _view(item) {
+            this.modal.type.confirm = false;
+            this.modal.type.action = "view";
+            this.modal.data = item;
+            this.modal.init.open();
         },
         _confirm: function _confirm(item) {
             this.modal.type.confirm = true;
@@ -86211,6 +86284,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     mounted: function mounted() {
         this.modal.init = M.Modal.init(document.querySelector('.modal'));
+        this.setTable = this.allies;
     }
 });
 
@@ -86276,7 +86350,7 @@ var content = __webpack_require__(295);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("fdd1f3c2", content, false, {});
+var update = __webpack_require__(3)("103c0372", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -86383,6 +86457,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     template: "#template-allies-add",
@@ -86393,30 +86468,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             form: {
-                nombre: "",
+                name: "",
                 facebook: "",
                 twitter: "",
                 instagram: "",
-                direccion: "",
-                files: [{ file: "", id: 0 }]
-            },
-            files: [],
-            ids: 0
+                address: "",
+                files: []
+            }
         };
     },
 
 
     methods: {
         _back: function _back() {
-            this.$emit('back', 0);
+            //this.$emit('back', 0)
+            window.location = urlBase + "admin/allies";
+        },
+        _setFile: function _setFile(i, file) {
+            if (i == null) {
+                this.file = file.file;
+                this.form.main = file.file;
+            } else {
+                this.form.files[i].file = file.file;
+                this.files = this.form.files;
+            }
         },
         _addItem: function _addItem() {
             this.ids = this.form.files.length > 1 ? this.ids + 1 : this.ids;
             this.form.files.push({ file: "", id: this.ids });
-            this.files = this.form.files;
-        },
-        _setFile: function _setFile(i, file) {
-            this.form.files[i].file = file.file;
             this.files = this.form.files;
         },
         _sliceItem: function _sliceItem(id, i) {
@@ -86431,55 +86510,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             var button = e.target;
-            if (this.files.length == 0) {
-                this._showAlert("Disculpa debes cargar al menos una archivo", "warning");
+            if (this.form.files.length == 0) {
+                this._showAlert("Disculpa debes cargar al menos una archivo", "error");
                 return false;
             }
             button.setAttribute('disabled', true);
-            axios.post('admin/allies', this._convertToFormData()).then(function (resp) {
-                if (resp.data.result) {
-                    _this._showAlert("Aliado almacenado exitosamente", "success");
-                    setTimeout(function () {
-                        window.location.reload();
-                    }, 3000);
-                }
-            }).catch(function (err) {
-                if (err.response.status === 422) {
-                    _this._showAlert(err.response.data.error, 'warning');
-                    return false;
-                }
 
-                _this._showAlert("Disculpa, ha ocurrido un error", "error");
+            var formData = new FormData();
+            formData.append("name", this.form.name);
+            formData.append("facebook", this.form.facebook);
+            formData.append("twitter", this.form.twitter);
+            formData.append("instagram", this.form.instagram);
+            formData.append("address", this.form.address);
+            // formData.append("images",this.form.images);
+            this.form.files.forEach(function (file, index) {
+                formData.append("image" + index, file.file);
+            });
+            formData.append("count", this.form.files.length);
+            axios.post('admin/allies', formData).then(function (resp) {
+                console.log(_this.form);
+                _this._showAlert("Aliado almacenado exitosamente", "success");
+            }).catch(function (err) {
+                var message = "Disculpe, ha ocurrido un error";
+                if (err.response.status == 422) {
+                    message = err.response.data.error;
+                }
+                _this._showAlert(message, 'error');
             }).then(function (all) {
                 button.removeAttribute('disabled');
             });
-        },
-        _convertToFormData: function _convertToFormData() {
-            var _this2 = this;
-
-            var formData = new FormData();
-            Object.getOwnPropertyNames(this.form).forEach(function (key, i) {
-                var count = 0;
-                if (key === "files") {
-                    _this2.files.forEach(function (e, y) {
-                        if (e.file !== "") {
-                            count = count + card;
-                            formData.append("file" + count, e.file);
-                        }
-                    });
-                    formData.append('count', count);
-                } else if (key != "__ob__") {
-                    formData.append(key, _this2.form[key]);
-                }
-            });
-
-            return formData;
         },
         _showAlert: function _showAlert(text, type) {
             swal({
                 title: "",
                 text: text,
-                timer: 3000,
+                timer: 2000,
                 showConfirmButton: false,
                 type: type
             });
@@ -86488,6 +86553,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     mounted: function mounted() {
         this.ids = this.form.files.length;
+        this.form.files.push({ file: "", id: 1 });
     }
 });
 
@@ -86529,7 +86595,7 @@ var render = function() {
               _c("div", { staticClass: "col s12 m6 l6 center-align" }, [
                 _c(
                   "label",
-                  { staticClass: "label-impegno", attrs: { for: "nombre" } },
+                  { staticClass: "label-impegno", attrs: { for: "name" } },
                   [_vm._v("Nombre (Español)")]
                 ),
                 _vm._v(" "),
@@ -86538,19 +86604,19 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.form.nombre,
-                      expression: "form.nombre"
+                      value: _vm.form.name,
+                      expression: "form.name"
                     }
                   ],
                   staticClass: "browser-default input-impegno",
-                  attrs: { type: "text", name: "nombre", id: "nombre" },
-                  domProps: { value: _vm.form.nombre },
+                  attrs: { type: "text", name: "name", id: "name" },
+                  domProps: { value: _vm.form.name },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.form, "nombre", $event.target.value)
+                      _vm.$set(_vm.form, "name", $event.target.value)
                     }
                   }
                 })
@@ -86649,7 +86715,7 @@ var render = function() {
               _c("div", { staticClass: "col s12 m6 l6 center-align" }, [
                 _c(
                   "label",
-                  { staticClass: "label-impegno", attrs: { for: "direccion" } },
+                  { staticClass: "label-impegno", attrs: { for: "address" } },
                   [_vm._v("Dirección")]
                 ),
                 _vm._v(" "),
@@ -86658,19 +86724,19 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.form.direccion,
-                      expression: "form.direccion"
+                      value: _vm.form.address,
+                      expression: "form.address"
                     }
                   ],
                   staticClass: "browser-default input-impegno",
-                  attrs: { name: "direccion", id: "direccion" },
-                  domProps: { value: _vm.form.direccion },
+                  attrs: { name: "address", id: "address" },
+                  domProps: { value: _vm.form.address },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.form, "direccion", $event.target.value)
+                      _vm.$set(_vm.form, "address", $event.target.value)
                     }
                   }
                 })
@@ -86687,6 +86753,7 @@ var render = function() {
                       "button",
                       {
                         staticClass: "btn-add",
+                        attrs: { type: "button" },
                         on: {
                           click: function($event) {
                             _vm._addItem()
@@ -86706,7 +86773,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "btn-add-text" }, [
                       _vm._v(
-                        "\n                            Agregar imagen\n                        "
+                        "\n                            Agregar imágenes\n                        "
                       )
                     ])
                   ]),
@@ -86854,7 +86921,7 @@ var content = __webpack_require__(300);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("48ee503a", content, false, {});
+var update = __webpack_require__(3)("85e714a0", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -87001,12 +87068,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         _back: function _back() {
-            this.$emit('back', 0);
+            //this.$emit('back', 0)
+            window.location = urlBase + "admin/allies";
         },
         _setFile: function _setFile(i, x, e) {
             var _this = this;
 
-            var progressElement = document.querySelector('#progress-' + x);
+            var progressElement = document.querySelector("#progress-" + x);
             progressElement.classList.add('progress-active');
             var formData = new FormData();
             formData.append('id', i);
@@ -87034,7 +87102,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this2 = this;
 
             var parent = document.querySelector(".gallery__items");
-            var child = document.querySelector('#file-' + id);
+            var child = document.querySelector("#file-" + id);
 
             if (id != 0) {
                 axios.post('admin/allies/delete-images', { id: id }).then(function (resp) {
@@ -87053,20 +87121,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             var button = e.target;
             button.setAttribute('disabled', true);
-            axios.put('admin/allies/' + this.form.id, this.form).then(function (resp) {
-                if (resp.data.result) {
-                    _this3._showAlert("Aliado actualizado exitosamente", "success");
-                    setTimeout(function () {
-                        window.location.reload();
-                    }, 3000);
-                }
+            axios.put("admin/allies/" + this.form.id, this.form).then(function (resp) {
+                _this3._showAlert("Aliado actualizado exitosamente", "success");
             }).catch(function (err) {
-                if (err.response.status === 422) {
-                    _this3._showAlert(err.response.data.error, 'warning');
-                    return false;
+                var message = "Disculpe, ha ocurrido un error";
+                if (err.response.status == 422) {
+                    message = err.response.data.error;
                 }
-
-                _this3._showAlert("Disculpa, ha ocurrido un error", "error");
+                _this3._showAlert(message, 'error');
             }).then(function (all) {
                 button.removeAttribute('disabled');
             });
@@ -87075,7 +87137,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             swal({
                 title: "",
                 text: text,
-                timer: 3000,
+                timer: 2000,
                 showConfirmButton: false,
                 type: type
             });
@@ -87139,19 +87201,19 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.form.nombre,
-                      expression: "form.nombre"
+                      value: _vm.form.name,
+                      expression: "form.name"
                     }
                   ],
                   staticClass: "browser-default input-impegno",
                   attrs: { type: "text", name: "nombre", id: "nombre" },
-                  domProps: { value: _vm.form.nombre },
+                  domProps: { value: _vm.form.name },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.form, "nombre", $event.target.value)
+                      _vm.$set(_vm.form, "name", $event.target.value)
                     }
                   }
                 })
@@ -87259,19 +87321,19 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.form.direccion,
-                      expression: "form.direccion"
+                      value: _vm.form.address,
+                      expression: "form.address"
                     }
                   ],
                   staticClass: "browser-default input-impegno",
                   attrs: { name: "direccion", id: "direccion" },
-                  domProps: { value: _vm.form.direccion },
+                  domProps: { value: _vm.form.address },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.form, "direccion", $event.target.value)
+                      _vm.$set(_vm.form, "address", $event.target.value)
                     }
                   }
                 })
@@ -87449,201 +87511,322 @@ var render = function() {
           "div",
           { staticClass: "col s12" },
           [
-            _vm.options == 0
-              ? _c(
-                  "section",
-                  { staticClass: "table__content" },
-                  [
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col s12 container-btn-add" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn-add",
-                            on: {
-                              click: function($event) {
-                                _vm.options = 1
-                              }
-                            }
-                          },
-                          [
-                            _c("img", {
-                              staticClass: "img-responsive",
-                              attrs: {
-                                src: _vm._f("asset")("img/icons/new-msg.png"),
-                                alt: ""
-                              }
-                            })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "btn-add-text" }, [
-                          _vm._v(
-                            "\n                            Agregar nuevo\n                        "
-                          )
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
+            _c(
+              "section",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.options == 0,
+                    expression: "options == 0"
+                  }
+                ],
+                staticClass: "table__content"
+              },
+              [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col s12 container-btn-add" }, [
                     _c(
-                      "table-byte",
+                      "button",
                       {
-                        attrs: {
-                          "set-table": _vm.allies,
-                          filters: [
-                            "nombre",
-                            "facebook",
-                            "twitter",
-                            "instagram"
-                          ]
-                        },
-                        scopedSlots: _vm._u([
-                          {
-                            key: "table-head",
-                            fn: function(ref) {
-                              var item = ref.item
-                              return _c(
-                                "table-row",
-                                {},
-                                [
-                                  _c("table-head", [_vm._v("Nombre ")]),
-                                  _vm._v(" "),
-                                  _c("table-head", [_vm._v("Facebook")]),
-                                  _vm._v(" "),
-                                  _c("table-head", [_vm._v("Twitter ")]),
-                                  _vm._v(" "),
-                                  _c("table-head", [_vm._v("Instagram")]),
-                                  _vm._v(" "),
-                                  _c("table-head", [_vm._v("Acciones")])
-                                ],
-                                1
-                              )
-                            }
-                          },
-                          {
-                            key: "table-row",
-                            fn: function(ref) {
-                              var item = ref.item
-                              return _c(
-                                "table-row",
-                                {},
-                                [
-                                  _c("table-cell", [
-                                    _vm._v(_vm._s(item.nombre))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("table-cell", [
-                                    _vm._v(_vm._s(item.facebook))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("table-cell", [
-                                    _vm._v(_vm._s(item.twitter))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("table-cell", [
-                                    _vm._v(_vm._s(item.instagram))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("table-cell", [
-                                    _c(
-                                      "a",
-                                      {
-                                        staticClass: "btn-action",
-                                        attrs: { href: "#!" },
-                                        on: {
-                                          click: function($event) {
-                                            _vm._edit(item, "view")
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("img", {
-                                          staticClass: "img-responsive",
-                                          attrs: {
-                                            src: _vm._f("asset")(
-                                              "img/icons/ico-ver.png"
-                                            ),
-                                            alt: ""
-                                          }
-                                        })
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "a",
-                                      {
-                                        staticClass: "btn-action",
-                                        attrs: { href: "#!" },
-                                        on: {
-                                          click: function($event) {
-                                            _vm._edit(item, "edit")
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("img", {
-                                          staticClass: "img-responsive",
-                                          attrs: {
-                                            src: _vm._f("asset")(
-                                              "img/icons/ico-editar.png"
-                                            ),
-                                            alt: ""
-                                          }
-                                        })
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "a",
-                                      {
-                                        staticClass: "btn-action",
-                                        attrs: { href: "#!" },
-                                        on: {
-                                          click: function($event) {
-                                            _vm._confirm(item, "destroy")
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("img", {
-                                          staticClass: "img-responsive",
-                                          attrs: {
-                                            src: _vm._f("asset")(
-                                              "img/icons/ico-eliminar.png"
-                                            ),
-                                            alt: ""
-                                          }
-                                        })
-                                      ]
-                                    )
-                                  ])
-                                ],
-                                1
-                              )
-                            }
+                        staticClass: "btn-add",
+                        on: {
+                          click: function($event) {
+                            _vm.options = 1
                           }
-                        ])
+                        }
                       },
                       [
-                        _c(
-                          "table-row",
-                          { attrs: { slot: "empty-rows" }, slot: "empty-rows" },
-                          [
-                            _c("table-cell", { attrs: { colspan: "5" } }, [
-                              _vm._v(
-                                "\n                            No se encontraron registros.\n                        "
-                              )
-                            ])
-                          ],
-                          1
-                        )
+                        _c("img", {
+                          staticClass: "img-responsive",
+                          attrs: {
+                            src: _vm._f("asset")("img/icons/new-msg.png"),
+                            alt: ""
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "btn-add-text" }, [
+                      _vm._v(
+                        "\n                            Agregar nuevo\n                        "
+                      )
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "table-byte",
+                  {
+                    attrs: {
+                      "set-table": _vm.allies,
+                      filters: ["nombre", "facebook", "twitter", "instagram"]
+                    },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "table-head",
+                        fn: function(ref) {
+                          var item = ref.item
+                          return _c(
+                            "table-row",
+                            {},
+                            [
+                              _c("table-head", [_vm._v("Nombre ")]),
+                              _vm._v(" "),
+                              _c("table-head", [_vm._v("Facebook")]),
+                              _vm._v(" "),
+                              _c("table-head", [_vm._v("Twitter ")]),
+                              _vm._v(" "),
+                              _c("table-head", [_vm._v("Instagram")]),
+                              _vm._v(" "),
+                              _c("table-head", { staticClass: "th-action" }, [
+                                _vm._v("Acciones")
+                              ])
+                            ],
+                            1
+                          )
+                        }
+                      },
+                      {
+                        key: "table-row",
+                        fn: function(ref) {
+                          var item = ref.item
+                          return _c(
+                            "table-row",
+                            {},
+                            [
+                              _c("table-cell", [_vm._v(_vm._s(item.name))]),
+                              _vm._v(" "),
+                              _c("table-cell", [_vm._v(_vm._s(item.facebook))]),
+                              _vm._v(" "),
+                              _c("table-cell", [_vm._v(_vm._s(item.twitter))]),
+                              _vm._v(" "),
+                              _c("table-cell", [
+                                _vm._v(_vm._s(item.instagram))
+                              ]),
+                              _vm._v(" "),
+                              _c("table-cell", [
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "btn-action",
+                                    attrs: { href: "#!" },
+                                    on: {
+                                      click: function($event) {
+                                        _vm._view(item)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("img", {
+                                      staticClass: "img-responsive",
+                                      attrs: {
+                                        src: _vm._f("asset")(
+                                          "img/icons/ico-ver.png"
+                                        ),
+                                        alt: ""
+                                      }
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "btn-action",
+                                    attrs: { href: "#!" },
+                                    on: {
+                                      click: function($event) {
+                                        _vm._edit(item, "edit")
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("img", {
+                                      staticClass: "img-responsive",
+                                      attrs: {
+                                        src: _vm._f("asset")(
+                                          "img/icons/ico-editar.png"
+                                        ),
+                                        alt: ""
+                                      }
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "btn-action",
+                                    attrs: { href: "#!" },
+                                    on: {
+                                      click: function($event) {
+                                        _vm._confirm(item, "destroy")
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("img", {
+                                      staticClass: "img-responsive",
+                                      attrs: {
+                                        src: _vm._f("asset")(
+                                          "img/icons/ico-eliminar.png"
+                                        ),
+                                        alt: ""
+                                      }
+                                    })
+                                  ]
+                                )
+                              ])
+                            ],
+                            1
+                          )
+                        }
+                      }
+                    ])
+                  },
+                  [
+                    _c(
+                      "table-row",
+                      { attrs: { slot: "empty-rows" }, slot: "empty-rows" },
+                      [
+                        _c("table-cell", { attrs: { colspan: "5" } }, [
+                          _vm._v(
+                            "\n                            No se encontraron registros.\n                        "
+                          )
+                        ])
                       ],
                       1
                     )
                   ],
                   1
+                ),
+                _vm._v(" "),
+                _c(
+                  "byte-modal",
+                  {
+                    attrs: { confirm: _vm.modal.type.confirm },
+                    on: { pressok: _vm._delete }
+                  },
+                  [
+                    _vm.modal.type.action == "view"
+                      ? [
+                          _c("div", { staticClass: "col s12" }, [
+                            _c("h3", [_vm._v("Detalles del Aliado")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col s12 m6" }, [
+                            _c("div", { staticClass: "col s12" }, [
+                              _c("h3", [_vm._v("Nombre")])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col s12" }, [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(_vm.modal.data.name) +
+                                  "\n                            "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col s12" }, [
+                              _c("h3", [_vm._v("Facebook")])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col s12" }, [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(_vm.modal.data.facebook) +
+                                  "\n                            "
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col s12 m6" }, [
+                            _c("div", { staticClass: "col s12" }, [
+                              _c("h3", [_vm._v("Twitter")])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col s12" }, [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(_vm.modal.data.twitter) +
+                                  "\n                            "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col s12" }, [
+                              _c("h3", [_vm._v("Instagram")])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col s12" }, [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(_vm.modal.data.instagram) +
+                                  "\n                            "
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col s12" }, [
+                            _c("div", { staticClass: "col s12" }, [
+                              _c("h3", [_vm._v("Dirección")])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col s12" }, [
+                              _vm._v(
+                                "\n                               " +
+                                  _vm._s(_vm.modal.data.address) +
+                                  "\n                            "
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col s12" }, [
+                            _c("h3", [_vm._v("Imágenes")])
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.modal.data.fotos, function(img, i) {
+                            return _c(
+                              "div",
+                              { key: "img-" + i, staticClass: "col s12 m6" },
+                              [
+                                _c("img", {
+                                  staticClass: "img-width",
+                                  attrs: {
+                                    src: _vm._f("asset")(
+                                      "img/aliados/" + img.file
+                                    ),
+                                    alt: ""
+                                  }
+                                })
+                              ]
+                            )
+                          })
+                        ]
+                      : [
+                          _c("div", { staticClass: "container-confirmation" }, [
+                            _c("div", { staticClass: "confimation__icon" }, [
+                              _c("i", { staticClass: "material-icons" }, [
+                                _vm._v("error_outline")
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "confirmation__text" }, [
+                              _c("h5", [
+                                _vm._v("¿ Realmente deseas "),
+                                _c("b", [_vm._v("Eliminar")]),
+                                _vm._v(" ésta Publicación ?")
+                              ])
+                            ])
+                          ])
+                        ]
+                  ],
+                  2
                 )
-              : _vm._e(),
+              ],
+              1
+            ),
             _vm._v(" "),
             _vm.options == 1
               ? _c("allies-add", { on: { back: _vm._resetView } })
@@ -87760,7 +87943,7 @@ var content = __webpack_require__(306);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("384a6ea6", content, false, {});
+var update = __webpack_require__(3)("cb114400", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -87784,7 +87967,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n.icon-margin{\n    width: 195px;\n}\n.img-width{\n    width:100%;\n    height: 300px;\n    -o-object-fit: contain;\n       object-fit: contain;\n}\n", ""]);
+exports.push([module.i, "\n.icon-margin{\n    width: 195px;\n}\n.img-width{\n    width:100%;\n    height: 300px;\n    -o-object-fit: contain;\n       object-fit: contain;\n}\n.th {\n    width: 200px;\n}\n", ""]);
 
 // exports
 
@@ -87795,6 +87978,10 @@ exports.push([module.i, "\n.icon-margin{\n    width: 195px;\n}\n.img-width{\n   
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
 //
 //
 //
@@ -88145,7 +88332,9 @@ var render = function() {
                   "table-row",
                   { attrs: { slot: "table-head" }, slot: "table-head" },
                   [
-                    _c("table-head", [_vm._v("Título ")]),
+                    _c("table-head", { staticClass: "th" }, [
+                      _vm._v("Título ")
+                    ]),
                     _vm._v(" "),
                     _c("table-head", [_vm._v("Descripción")]),
                     _vm._v(" "),
@@ -88365,7 +88554,7 @@ var content = __webpack_require__(311);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("037d760a", content, false, {});
+var update = __webpack_require__(3)("20738b17", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -88929,7 +89118,7 @@ var content = __webpack_require__(316);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("bc422b00", content, false, {});
+var update = __webpack_require__(3)("c0fe4266", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -89556,7 +89745,7 @@ var content = __webpack_require__(321);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("4a6536ef", content, false, {});
+var update = __webpack_require__(3)("b69e627c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags

@@ -26,7 +26,7 @@ class AllyRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => [
+            'name' => [
                 'required',
                 Rule::unique('aliados')->ignore($this->id)->where(function ($query) {
                     return $query->where('deleted_at', NULL);
@@ -35,18 +35,18 @@ class AllyRequest extends FormRequest
             'facebook' => 'required',
             'twitter' => 'required',
             'instagram' => 'required',
-            'direccion' => 'required|min:3',
+            'address' => 'required|min:3',
         ];
     }
 
     public function attributes()
     {
         return [
-            'nombre' => 'Nombre del Aliado',
+            'name' => 'Nombre del Aliado',
             'facebook' => 'facebook',
             'twitter' => 'twitter',
             'instagram' => 'instagram',
-            'direccion' => 'Dirección'
+            'address' => 'Dirección'
         ];
     }
 

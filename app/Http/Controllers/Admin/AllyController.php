@@ -52,25 +52,23 @@ class AllyController extends Controller
      */
     public function store(AllyRequest $request)
     {
+
         $ally = new Aliado;
-        $ally->nombre = $request->nombre;
+        $ally->name = $request->name;
         $ally->facebook = $request->facebook;
         $ally->twitter = $request->twitter;
         $ally->instagram = $request->instagram;
-        $ally->direccion = $request->direccion;
+        $ally->address = $request->address;
         $ally->save();
-
-        if ($request->count > 0) {
-            for ($i=1; $i <= $request->count; $i++) { 
-                $file = $request->file('file'.$i);
-                $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
-                $file->move($this->url, $file_name);
-                ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $this->url);
-                $photo = new AliadoFoto;
-                $photo->file = $file_name;
-                $photo->aliado_id = $ally->id;
-                $photo->save();
-            }
+        for ($i=0; $i < $request->count; $i++) {
+            $file = $request->file('image'.$i);
+            $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
+            $file->move($this->url, $file_name);
+            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $this->url);
+            $photo = new AliadoFoto;
+            $photo->file = $file_name;
+            $photo->aliado_id = $ally->id;
+            $photo->save();
         }
         return response()->json(['result' => true, 'message' => 'Aliado registrado exitosamente']);
     }
@@ -107,11 +105,11 @@ class AllyController extends Controller
     public function update(AllyRequest $request, $id)
     {
         $ally = Aliado::find($id);
-        $ally->nombre = $request->nombre;
+        $ally->name = $request->name;
         $ally->facebook = $request->facebook;
         $ally->twitter = $request->twitter;
         $ally->instagram = $request->instagram;
-        $ally->direccion = $request->direccion;
+        $ally->address = $request->address;
         $ally->save();
 
         return response()->json(['result' => true, 'message' => 'Aliado actualizado exitosamete.']);
@@ -134,11 +132,9 @@ class AllyController extends Controller
         } else {
             $item = AliadoFoto::find($request->id);
             $odlFile = $item->file;
-
             $file = $request->file('file');
             $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
             $file->move($this->url, $file_name);
-
             ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $this->url);
             File::delete(public_path($this->url.$odlFile));
 
