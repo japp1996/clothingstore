@@ -3,7 +3,7 @@
 	namespace App\Http\Controllers;
 
 	use Illuminate\Http\Request;
-	use ArmorPayments/ArmorPayments;
+	use ArmorPayments\ArmorPayments;
 	use App\Libraries\IpCheck;
 	use App\Libraries\Cart;
 
