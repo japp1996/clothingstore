@@ -37,7 +37,7 @@
 
 			$('.item').animate({
 				opacity: '1'
-			},1500);
+			},0);
 		});
 	</script>
 @stop

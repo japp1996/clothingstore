@@ -140,7 +140,7 @@
 
 			$('.item-column').animate({
 				opacity: '1'
-			},1500);
+			},0);
 		});
 
 		var vue = new Vue({
