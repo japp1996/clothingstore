@@ -17977,6 +17977,9 @@ Vue.component('blog-index', __webpack_require__(304));
 Vue.component('blog-create', __webpack_require__(309));
 Vue.component('blog-edit', __webpack_require__(314));
 
+//Wholesalers
+Vue.component('wholesaler-index', __webpack_require__(328));
+
 // Profile
 Vue.component('profile-form', __webpack_require__(319));
 
@@ -90065,6 +90068,39 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 325 */,
+/* 326 */,
+/* 327 */,
+/* 328 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = null
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/wholesalers/WholesalerIndex.vue"
+
+module.exports = Component.exports
+
 
 /***/ })
 /******/ ]);

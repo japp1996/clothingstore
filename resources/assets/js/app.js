@@ -121,7 +121,7 @@ Vue.component('blog-create', require('./components/blog/BlogCreate'));
 Vue.component('blog-edit', require('./components/blog/BlogEdit'));
 
 //Wholesalers
-Vue.component('wholesaler-index', require('./components/wholesalr/WholesalerIndex'));
+Vue.component('wholesaler-index', require('./components/wholesalers/WholesalerIndex'));
 
 // Profile
 Vue.component('profile-form', require('./components/profile/ProfileForm'));
