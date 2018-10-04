@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Wholesaler;
+use App\Models\WholesalerImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Filter;
 
 class WholesalerController extends Controller
 {
+    
+    private $url = "img/wholesalers/";
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +19,9 @@ class WholesalerController extends Controller
      */
     public function index()
     {
-        return view('admin.wholesalers.index', [
+        //dd(Wholesaler::orderBy('id', 'desc')->get());
+        return view('admin.wholesalers.index', 
+        [
             'wholesalers' => Wholesaler::orderBy('id', 'desc')->get()
         ]);
     }
@@ -41,7 +46,9 @@ class WholesalerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $wholesaler = Wholesaler::create($request->all());
+
+        return $wholesaler;
     }
 
     /**
@@ -87,5 +94,10 @@ class WholesalerController extends Controller
     public function destroy(Wholesaler $wholesaler)
     {
         //
+    }
+
+    public function getFilters() 
+    {
+        return Filter::pluck('name', 'id');
     }
 }
