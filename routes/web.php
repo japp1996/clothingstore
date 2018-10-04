@@ -122,6 +122,9 @@
 			Route::post('blogs/update-image', 'GenerateBlogController@updateImage');
 			Route::post('blogs/delete-image', 'GenerateBlogController@deleteImage');
 
+			//Wholesalers
+			Route::resource('wholesaler', 'WholesalerController');
+
 			/*Route::resource('blogs', 'BlogController');
 			Route::post('blogs/update-images', 'BlogController@updateImages');
 			Route::post('blogs/delete-images', 'BlogController@delete');
