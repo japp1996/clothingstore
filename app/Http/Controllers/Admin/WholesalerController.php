@@ -7,6 +7,8 @@ use App\Models\WholesalerImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Filter;
+use App\Libraries\SetNameImage;
+use App\Libraries\ResizeImage;
 
 class WholesalerController extends Controller
 {
@@ -47,8 +49,33 @@ class WholesalerController extends Controller
     public function store(Request $request)
     {
         $wholesaler = Wholesaler::create($request->all());
+        // return $request->file('main');
+        // Images
+        $url = "img/mayoristas/";
+        $main = $request->file('main');
+        $main_name = SetNameImage::set($main->getClientOriginalName(), $main->getClientOriginalExtension());
+        $main->move($url, $main_name);
+        ResizeImage::dimenssion($main_name, $main->getClientOriginalExtension(), $url);
+        $first = new WholesalerImage;
+        $first->file = $main_name;
+        $first->wholesaler_id = $wholesaler->id;
+        $first->main = '1';
+        $first->save();
+        
 
-        return $wholesaler;
+        for ($i=1; $i <= $request->count; $i++) { 
+            $file = $request->file('file'.$i);
+            $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
+            $file->move($url, $file_name);
+            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
+            $second = new WholesalerImage;
+            $second->file = $file_name;
+            $second->wholesaler_id = $wholesaler->id;
+            $second->main = '0';
+            $second->save();
+        }
+
+        return $wholesaler->load('images');
     }
 
     /**
