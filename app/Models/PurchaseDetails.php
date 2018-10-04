@@ -6,7 +6,7 @@
 
 	class PurchaseDetails extends Model {
 	    protected $table="purchase_details";
-	    protected $appends = ['product','product_color','product_size'];
+	    protected $appends = ['product','product_color','product_size','wholesaler'];
 
 	    public function purchase() {
 	    	return $this->belongsTo('App\Models\Purchase','purchase_id');
@@ -14,6 +14,10 @@
 
 	    public function product_amount() {
 	    	return $this->belongsTo('App\Models\ProductAmount','product_amount_id');
+	    }
+
+	    public function wholesaler() {
+	    	return $this->belongsTo('App\Models\Wholesaler','wholesalers_id');
 	    }
 
 	    public function getProductAttribute($value) {

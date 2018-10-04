@@ -12,6 +12,7 @@
 	use Validator;
 	use Lang;
 	use Auth;
+	use App\Models\Wholesaler;
 
 	class TiendaController extends Controller {
 	    
@@ -41,12 +42,12 @@
 	    		]);
 	    	}
 	    	else {
-	    		if (Auth::check() && Auth::user()->type == '2' && $request->cantidad < 12) {
-					return response()->json([
-		    			'result' => false,
-		    			'error' => Lang::get('Page.Carrito.Piezas')
-		    		]);
-	    		}
+	    // 		if (Auth::check() && Auth::user()->type == '2' && $request->cantidad < 12) {
+					// return response()->json([
+		   //  			'result' => false,
+		   //  			'error' => Lang::get('Page.Carrito.Piezas')
+		   //  		]);
+	    // 		}
 
 	    		$item = [
 	    			'cantidad' => $request->cantidad,
@@ -78,9 +79,14 @@
 	    }
 
 	    public function getProducto(Request $request) {
-	    	$producto = Product::with(['designs','collections','images','categories' => function($q) {
-	    		$q->with(['sizes']);
-	    	},'colors'])->where('status','1')->where('id',$request->id)->first();
+	    	if (!Auth::check() || (Auth::check() && Auth::user()->type == 1)) {
+	    		$producto = Product::with(['designs','collections','images','categories' => function($q) {
+		    		$q->with(['sizes']);
+		    	},'colors'])->where('status','1')->where('id',$request->id)->first();
+	    	}
+	    	else {
+	    		$producto = Wholesaler::with(['images'])->where('status','1')->where('id',$request->id)->first();
+	    	}	    	
 			return response()->json([
 				'result' => true,
 				'producto' => $producto,
@@ -89,15 +95,20 @@
 	    }
 
 	    public function ajax(Request $request) {
-	    	$query = Product::with(['designs','collections','images','categories' => function($q) {
-	    		$q->with(['sizes']);
-	    	},'colors'])->whereHas('categories',function($q) use ($request) {
-	    		if ($request->has('catalogo')) {
-	    			$q->whereHas('filters',function($q) use ($request) {
-	    				$q->where('filters.id',$request->catalogo);
-	    			});
-	    		}
-	    	});
+	    	if (!Auth::check() || (Auth::check() && Auth::user()->type == 1)) {
+		    	$query = Product::with(['designs','collections','images','categories' => function($q) {
+		    		$q->with(['sizes']);
+		    	},'colors'])->whereHas('categories',function($q) use ($request) {
+		    		if ($request->has('catalogo')) {
+		    			$q->whereHas('filters',function($q) use ($request) {
+		    				$q->where('filters.id',$request->catalogo);
+		    			});
+		    		}
+		    	});
+		    }
+		    else {
+		    	$query = Wholesaler::with(['images']);
+		    }
 
 	    	if ($request->has('catalogo')) {
 	    		if ($request->has('categorias') && count($request->categorias) > 0) {
