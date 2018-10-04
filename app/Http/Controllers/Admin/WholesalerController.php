@@ -46,7 +46,9 @@ class WholesalerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $wholesaler = Wholesaler::create($request->all());
+
+        return $wholesaler;
     }
 
     /**
@@ -92,5 +94,10 @@ class WholesalerController extends Controller
     public function destroy(Wholesaler $wholesaler)
     {
         //
+    }
+
+    public function getFilters() 
+    {
+        return Filter::pluck('name', 'id');
     }
 }

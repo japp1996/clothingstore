@@ -34,7 +34,7 @@
 
     <li>
         <a href="{{ url('/admin/wholesalers') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Colecciones">
-            <img src="{{ asset('img/icons/ico-colecciones.png') }}" alt="" class="img-responsive">Colecciones al mayor
+            <img src="{{ asset('img/icons/ico-colecciones.png') }}" alt="" class="img-responsive">Colecciones mayoristas
         </a>
     </li>
     {{--  <li>

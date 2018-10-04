@@ -123,7 +123,8 @@
 			Route::post('blogs/delete-image', 'GenerateBlogController@deleteImage');
 
 			//Wholesalers
-			Route::resource('wholesaler', 'WholesalerController');
+			Route::resource('wholesalers', 'WholesalerController');
+			Route::get('filters/get', 'WholesalerController@getFilters');
 
 			/*Route::resource('blogs', 'BlogController');
 			Route::post('blogs/update-images', 'BlogController@updateImages');

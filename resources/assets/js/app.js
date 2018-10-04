@@ -17,6 +17,7 @@ import money from './filters/money'
 import amountInLetters from './filters/amount-in-letters'
 import asset from './filters/asset'
 import image from './filters/image'
+import store from './store'
 
 Vue.use(date)
 Vue.use(money)
@@ -133,5 +134,6 @@ Vue.component('profile-form', require('./components/profile/ProfileForm'));
  */
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    store
 });
