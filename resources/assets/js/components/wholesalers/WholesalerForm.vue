@@ -106,12 +106,12 @@
                             <div class="row">
                                 <div class="col s12 center-align">
                                     <label for="" class="label-impegno">Imagen Principal</label>
-                                    <input-file :btn="false"   image v-on:file="setImage(true, $event)"></input-file>
+                                    <input-file :btn="false"   image v-on:file="setImage(null, $event)"></input-file>
                                 </div>
                             </div>
                             <div class="row gallery__items">
                                 <div class="col s12 container-btn-add">
-                                    <button class="btn-add" @click="setImage(null, $event)">
+                                    <button class="btn-add" @click="addImage()">
                                         <img :src="'img/icons/new-msg.png' | asset" 
                                             alt="" 
                                             class="img-responsive">
@@ -174,7 +174,8 @@ export default {
                 price: null,
                 description: null,
                 description_english: null,
-                images: []
+                images: [],
+                main: ""
             },
             images: [],
             image: "",
@@ -222,11 +223,41 @@ export default {
                 }) 
         },
         store () {
-            this.$store.dispatch('wholesalers/addWholesaler', this.form)
-            // this.$store.dispatch('wholesalers/changeOption', 1)
+            this.$store.dispatch('wholesalers/addWholesaler', this.convertToFormData())
+
         },
         update () {
 
+        },
+        cleanForm() {
+            Object.getOwnPropertyNames(this.form).forEach((key, i) => {
+                // if(key === "images") {
+                //     this.
+                // }else {
+
+                // }
+                formData.append(key, this.form[key]);         
+            })
+        },
+        convertToFormData(){
+            let formData = new FormData();
+            Object.getOwnPropertyNames(this.form).forEach((key, i) => {
+                let count = 0;
+                if(key === "images")
+                {
+                    this.images.forEach((e, y) => {
+                        if (e.file !== "") {
+                            count = count + 1
+                            formData.append(`file${count}`, e.file);
+                        }                        
+                    })
+                    formData.append('count', count)
+                }else if(key != "__ob__"){
+                    formData.append(key, this.form[key]);                       
+                }
+            });
+
+            return formData;
         }
     },
     mounted () {

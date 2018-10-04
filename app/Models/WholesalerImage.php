@@ -10,7 +10,7 @@
     {
         // use SoftDeletes;
 
-        protected $table = "wholesaler_images";
+        // protected $table = "wholesaler_images";
 
         // public $timestamp = false;
 

@@ -89147,7 +89147,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 price: null,
                 description: null,
                 description_english: null,
-                images: []
+                images: [],
+                main: ""
             },
             images: [],
             image: "",
@@ -89197,10 +89198,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         store: function store() {
-            this.$store.dispatch('wholesalers/addWholesaler', this.form);
-            // this.$store.dispatch('wholesalers/changeOption', 1)
+            this.$store.dispatch('wholesalers/addWholesaler', this.convertToFormData());
         },
-        update: function update() {}
+        update: function update() {},
+        cleanForm: function cleanForm() {
+            var _this2 = this;
+
+            Object.getOwnPropertyNames(this.form).forEach(function (key, i) {
+                // if(key === "images") {
+                //     this.
+                // }else {
+
+                // }
+                formData.append(key, _this2.form[key]);
+            });
+        },
+        convertToFormData: function convertToFormData() {
+            var _this3 = this;
+
+            var formData = new FormData();
+            Object.getOwnPropertyNames(this.form).forEach(function (key, i) {
+                var count = 0;
+                if (key === "images") {
+                    _this3.images.forEach(function (e, y) {
+                        if (e.file !== "") {
+                            count = count + 1;
+                            formData.append('file' + count, e.file);
+                        }
+                    });
+                    formData.append('count', count);
+                } else if (key != "__ob__") {
+                    formData.append(key, _this3.form[key]);
+                }
+            });
+
+            return formData;
+        }
     },
     mounted: function mounted() {
         this.getFilters();
@@ -89587,7 +89620,7 @@ var render = function() {
                       attrs: { btn: false, image: "" },
                       on: {
                         file: function($event) {
-                          _vm.setImage(true, $event)
+                          _vm.setImage(null, $event)
                         }
                       }
                     })
@@ -89607,7 +89640,7 @@ var render = function() {
                         staticClass: "btn-add",
                         on: {
                           click: function($event) {
-                            _vm.setImage(null, $event)
+                            _vm.addImage()
                           }
                         }
                       },
