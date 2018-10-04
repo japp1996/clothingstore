@@ -90258,8 +90258,8 @@ var waraService = __WEBPACK_IMPORTED_MODULE_0_axios___default.a.create({
 
 "use strict";
 var configService = {
-    // apiUrl: 'http://200.44.165.156/Wara/public'
-    apiUrl: 'http://localhost/Wara/public'
+    apiUrl: 'http://200.44.165.156/Wara/public'
+    // apiUrl: 'http://localhost/Wara/public'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (configService);
