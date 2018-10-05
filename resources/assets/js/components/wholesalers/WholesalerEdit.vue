@@ -206,8 +206,6 @@ export default {
         },
 
          _setFile(i, x, e) {
-            // let progressElement = document.querySelector(`#progress-${x}`)
-            // progressElement.classList.add('progress-active')
             let formData = new FormData()
             formData.append('id',  i)
             formData.append('file', e.file)
