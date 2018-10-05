@@ -119,7 +119,21 @@
 	    }
 
 	    public function check() {
-	    	$carrito = $this->getCarrito();
+	    	$carrito = Cart::get();
+	    	for($n = 0; $n < count($carrito); $n++) {
+
+	    		$producto = Wholesaler::with(['images'])->where('status','1')->where('id',$carrito[$n]['id'])->first();
+
+	    		if ($producto->status != '1')
+		    		return response()->json([
+			    		'result' => false,
+			    		'error' => Lang::get('Page.Carrito.ProductoEliminado',[
+			    			'producto' => \App::getLocale() == 'es' ? $producto->name : $producto->name_english
+			    		])
+			    	]);
+	    		
+				$carrito[$n]['producto'] = $producto;
+	    	}
 
 	    	foreach($carrito as $item) {	    		
 	    		if ($item['cantidad'] > $item['producto']['quantity']) {

@@ -155,7 +155,7 @@
 				</li>
 			</ul>
 			<div class="text-center">
-				<button class="btn btn-default" v-on:click="close(); load()">
+				<button class="btn btn-default" v-on:click="page = 1; close(); load()">
 					@lang('Page.Tienda.Filtrar')
 				</button>
 			</div>

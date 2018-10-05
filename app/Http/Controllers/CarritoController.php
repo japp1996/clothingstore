@@ -70,7 +70,7 @@
 			    		$q->with(['sizes']);
 			    	},'colors'])->where('status','1')->where('id',$carrito[$n]['id'])->first();
 
-	    		if (count($producto) > 0) {
+	    		if ($producto != null) {
 					$carrito[$n]['producto'] = $producto;
 
 			    	$carrito[$n]['producto']['talla'] = Size::find($carrito[$n]['talla'])->first();
@@ -79,6 +79,11 @@
 			    	$carrito[$n]['producto']['amount'] = ProductAmount::where('product_color_id',$carrito[$n]['color'])
 																		->where('category_size_id',$category_size->id)
 																		->first();
+
+					if (!isset($carrito[$n]['producto'])) {
+						Cart::delete($carrito[$n]);
+	    				array_splice($carrito,$n,1);
+					}
 	    		}
 	    		else {
 	    			Cart::delete($carrito[$n]);
@@ -140,16 +145,38 @@
 	    }
 
 	    public function check() {
-	    	$carrito = $this->getCarrito();
+	    	$carrito = Cart::get();
+	    	for($n = 0; $n < count($carrito); $n++) {
+
+	    		$producto = Product::with(['designs','collections','images','categories' => function($q) {
+			    		$q->with(['sizes']);
+			    	},'colors'])->where('id',$carrito[$n]['id'])->first();
+
+	    		if ($producto->status != '1')
+		    		return response()->json([
+			    		'result' => false,
+			    		'error' => Lang::get('Page.Carrito.ProductoEliminado',[
+			    			'producto' => \App::getLocale() == 'es' ? $producto->name : $producto->name_english
+			    		])
+			    	]);
+	    		
+				$carrito[$n]['producto'] = $producto;
+
+		    	$carrito[$n]['producto']['talla'] = Size::find($carrito[$n]['talla'])->first();
+		    	$carrito[$n]['producto']['color'] = ProductColor::find($carrito[$n]['color']);
+		    	$category_size = CategorySize::where('category_id',$carrito[$n]['producto']['category_id'])->where('size_id',$carrito[$n]['talla'])->first();
+		    	$carrito[$n]['producto']['amount'] = ProductAmount::where('product_color_id',$carrito[$n]['color'])
+																	->where('category_size_id',$category_size->id)
+																	->first();
+
+				if (!isset($carrito[$n]['producto'])) {
+					Cart::delete($carrito[$n]);
+    				array_splice($carrito,$n,1);
+				}
+	    		
+	    	}
 
 	    	foreach($carrito as $item) {
-	    		if (Auth::check() && Auth::user()->type == '2' && $item['cantidad'] < 12) {
-					return response()->json([
-		    			'result' => false,
-		    			'error' => Lang::get('Page.Carrito.PiezasName',['producto' => \App::getLocale() == 'es' ? $item['producto']['name'] : $item['producto']['name_english']])
-		    		]);
-	    		}
-	    		
 	    		if ($item['cantidad'] > $item['producto']['amount']['amount']) {
 	    			return response()->json([
 			    		'result' => false,
