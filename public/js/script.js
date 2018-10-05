@@ -89139,7 +89139,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "col s12 m6" }, [
-                    _c("span", [_vm._v("Precio (Detal):")]),
+                    _c("span", [_vm._v("Precio docena:")]),
                     _vm._v(
                       " " +
                         _vm._s(_vm.modal.data.coin == "1" ? "$" : "Bs. S") +

@@ -175,7 +175,7 @@
                 </div>
 
                 <div class="col s12 m6">
-                    <span>Precio (Detal):</span> {{ modal.data.coin == "1" ? '$' : "Bs. S" }}{{ modal.data.price }}
+                    <span>Precio docena:</span> {{ modal.data.coin == "1" ? '$' : "Bs. S" }}{{ modal.data.price }}
                 </div>
 
 

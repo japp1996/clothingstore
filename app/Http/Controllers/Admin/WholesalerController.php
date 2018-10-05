@@ -23,7 +23,7 @@ class WholesalerController extends Controller
     public function index()
     {
         return view('admin.wholesalers.index', [
-            'wholesalers' => Wholesaler::where('status', '!=', '2')->orderBy('id', 'desc')->get()
+            'wholesalers' => Wholesaler::where('status', '!=', '2')->orderBy('id', 'desc')->with('images')->get()
         ]);
     }
 
