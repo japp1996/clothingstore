@@ -71457,7 +71457,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 var state = {
     all: [],
     option: 1,
-    savedStatus: false,
+    sending: false,
     errMessage: '',
     selected: {}
 };
@@ -71472,6 +71472,7 @@ var actions = {
     },
     addWholesaler: function addWholesaler(_ref2, data) {
         var commit = _ref2.commit;
+
 
         __WEBPACK_IMPORTED_MODULE_0__services_wara_wholesaler__["a" /* default */].store(data).then(function (wholesalerSaved) {
             swal('', 'Se registro la colección correctamente', 'success');
@@ -89070,7 +89071,7 @@ var render = function() {
                     _c("h5", [
                       _vm._v("¿ Realmente deseas "),
                       _c("b", [_vm._v("Eliminar")]),
-                      _vm._v(" este Producto ?")
+                      _vm._v(" esta colección ?")
                     ])
                   ])
                 ])
@@ -89142,7 +89143,7 @@ var render = function() {
                     _c("span", [_vm._v("Precio docena:")]),
                     _vm._v(
                       " " +
-                        _vm._s(_vm.modal.data.coin == "1" ? "$" : "Bs. S") +
+                        _vm._s(_vm.modal.data.coin == "2" ? "$" : "Bs. S") +
                         _vm._s(_vm.modal.data.price) +
                         "\n            "
                     )
@@ -89156,10 +89157,10 @@ var render = function() {
                     return img.main == 1
                       ? _c(
                           "div",
-                          { key: "img-main" + i, staticClass: "col s12 m6" },
+                          { key: "img-main" + i, staticClass: "col s12 m3" },
                           [
                             _c("img", {
-                              staticClass: "img-products",
+                              staticClass: "img-products responsive-img",
                               attrs: {
                                 src: _vm._f("asset")(
                                   "img/products/" + img.file
@@ -89180,10 +89181,10 @@ var render = function() {
                     return img.main == 0
                       ? _c(
                           "div",
-                          { key: "img-main" + i, staticClass: "col s12 m6" },
+                          { key: "img-main" + i, staticClass: "col s12 m3" },
                           [
                             _c("img", {
-                              staticClass: "img-products",
+                              staticClass: "img-products responsive-img",
                               attrs: {
                                 src: _vm._f("asset")(
                                   "img/products/" + img.file

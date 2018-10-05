@@ -3,7 +3,7 @@ import wholesalerService from '../../services/wara/wholesaler'
 const state = {
     all: [],
     option: 1,
-    savedStatus: false,
+    sending: false,
     errMessage: '',
     selected: {}
 }
@@ -16,6 +16,7 @@ const actions = {
     },
 
     addWholesaler ({commit}, data) {
+        
         wholesalerService.store(data)
             .then(wholesalerSaved => {
                 swal('', 'Se registro la colección correctamente', 'success')

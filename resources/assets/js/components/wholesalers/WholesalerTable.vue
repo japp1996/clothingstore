@@ -138,7 +138,7 @@
                         <i class="material-icons">error_outline</i>
                     </div>
                     <div class="confirmation__text">
-                        <h5>¿ Realmente deseas <b>Eliminar</b> este Producto ?</h5>
+                        <h5>¿ Realmente deseas <b>Eliminar</b> esta colección ?</h5>
                     </div>
                 </div>
             </template>
@@ -175,7 +175,7 @@
                 </div>
 
                 <div class="col s12 m6">
-                    <span>Precio docena:</span> {{ modal.data.coin == "1" ? '$' : "Bs. S" }}{{ modal.data.price }}
+                    <span>Precio docena:</span> {{ modal.data.coin == "2" ? '$' : "Bs. S" }}{{ modal.data.price }}
                 </div>
 
 
@@ -183,16 +183,16 @@
                     <h3>Imagenen Principal</h3>
                 </div>
 
-                <div class="col s12 m6" v-for="(img, i) in modal.data.images" :key="'img-main' + i" v-if="img.main == 1">
-                    <img class="img-products" :src="`img/products/${img.file}` | asset" alt="">
+                <div class="col s12 m3" v-for="(img, i) in modal.data.images" :key="'img-main' + i" v-if="img.main == 1">
+                    <img class="img-products responsive-img" :src="`img/products/${img.file}` | asset" alt="">
                 </div>
 
                 <div class="col s12">
                     <h3>Imagenenes Secundarias</h3>
                 </div>
 
-                <div class="col s12 m6" v-for="(img, i) in modal.data.images" :key="'img-main' + i" v-if="img.main == 0">
-                    <img class="img-products" :src="`img/products/${img.file}` | asset" alt="">
+                <div class="col s12 m3" v-for="(img, i) in modal.data.images" :key="'img-main' + i" v-if="img.main == 0">
+                    <img class="img-products responsive-img" :src="`img/products/${img.file}` | asset" alt="">
                 </div>
             </template>
 
