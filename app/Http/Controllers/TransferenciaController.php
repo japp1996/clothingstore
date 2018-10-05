@@ -95,7 +95,7 @@
 
 	    		return response()->json([
 	    			'result' => true,
-	    			'url' => \URL('carrito')
+	    			'url' => \URL('juridico/carrito')
 	    		]);
 	    	}
 	    }

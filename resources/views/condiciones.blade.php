@@ -12,9 +12,9 @@
 		<p>
 			{!! \App::getLocale() == 'es' ? nl2br($condiciones->texto) : nl2br($condiciones->english) !!}
 		</p>
-		<p class="item-right">
+{{-- 		<p class="item-right">
 			{{ HTML::Image('img/icons/right.png') }}
 			@lang('Page.Condiciones.DHL')
-		</p>			
+		</p>	 --}}		
 	</div>
 @stop

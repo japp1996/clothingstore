@@ -96,6 +96,7 @@
 										{{ HTML::Image('img/icons/add.png') }}
 									</button>
 								</div>
+								<p class="almayor" style="margin-top: 20px; margin-bottom: -10px;">@lang('Page.Tienda.CantidadesDocena')</p>
 								<button class="btn btn-default btn-add" v-on:click="add()">
 									{{ HTML::Image('img/icons/cart_black.png') }}
 								</button>
@@ -104,6 +105,7 @@
 		        				<h4>@if (\App::getLocale() == 'es') @{{ producto.name }} @else @{{ producto.name_english }} @endif</h4>
 	        					<p class="precio" v-if="currency == 1">@{{ getPrice(producto.price,producto.coin) | VES }}</p>
 	        					<p class="precio" v-if="currency == 2">@{{ getPrice(producto.price,producto.coin) | USD }}</p>
+	        					{{-- <p class="almayor">@lang('Page.Tienda.CantidadesDocena')</p> --}}
 		        				<h5>@lang('Page.Tienda.Descripcion')</h5>
 		        				<p class="descripcion ellipsis">
 		        					@if (\App::getLocale() == 'es') @{{ producto.description }} @else @{{ producto.description_english }} @endif

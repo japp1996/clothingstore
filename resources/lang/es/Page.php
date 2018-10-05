@@ -225,7 +225,8 @@
 			'VerProducto' => 'Ver Producto',
 			'Condiciones' => 'Condiciones de Compra',
 			'AgregadoCarrito' => 'Agregado al Carrito',
-			'Filtrar' => 'Filtrar'
+			'Filtrar' => 'Filtrar',
+			'CantidadesDocena' => 'Las cantidades son por docena'
 		],
 
 		'ResetPassword' => [

@@ -31,10 +31,15 @@
 			$index = null;
 			foreach(self::$items as $key => $item) {
 				if (!Auth::check() || Auth::user()->type == 1) {
-					if ($producto['id'] == $item['id'] && $producto['talla'] == $item['talla'] && $producto['color'] == $item['color']) {
-						$in = true;
-						$index = $key;
+					try {
+						if ($producto['id'] == $item['id'] && $producto['talla'] == $item['talla'] && $producto['color'] == $item['color']) {
+							$in = true;
+							$index = $key;
+						}
 					}
+					catch(\Exception $e) {
+						
+					}					
 				}
 				else {
 					if ($producto['id'] == $item['id']) {

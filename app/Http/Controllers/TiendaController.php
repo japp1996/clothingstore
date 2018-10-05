@@ -107,7 +107,7 @@
 
 	    	$productos = $query->where('status','1')->paginate(8);
 
-	    	$categorias = Category::orderBy('name','asc')->with(['filters'])->get();
+	    	$categorias = Category::orderBy('name','asc')->with(['filters'])->where('status','1')->get();
 	    	$filtros = Filter::orderBy('name','asc')->with(['categories'])->get();
 
 	    	return response()->json([

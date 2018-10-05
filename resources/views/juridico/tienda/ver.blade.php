@@ -38,6 +38,7 @@
 						<button class="btn btn-default btn-add" v-on:click="add()">
 							{{ HTML::Image('img/icons/cart_black.png') }}
 						</button>
+						<p class="almayor" style="margin-top: 20px; margin-bottom: -10px;">@lang('Page.Tienda.CantidadesDocena')</p>
 						<a href="{{ URL('condiciones') }}" target="_blank">
 							@lang('Page.Tienda.Condiciones')
 						</a>

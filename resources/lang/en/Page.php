@@ -225,7 +225,8 @@
 			'VerProducto' => 'See Product',
 			'Condiciones' => 'Purchase conditions',
 			'AgregadoCarrito' => 'Added to Cart',
-			'Filtrar' => 'Filter'
+			'Filtrar' => 'Filter',
+			'CantidadesDocena' => 'The quantities are per dozen'
 		],
 
 		'ResetPassword' => [
