@@ -35,7 +35,7 @@
                             <table-cell>{{ item.name }}</table-cell>
                             <table-cell>{{ item.quantity }}</table-cell>
                             <table-cell>{{ item.price }}</table-cell>
-                            <table-cell>{{ item.coin }}</table-cell>
+                            <table-cell>{{ item.coin == 1 ? 'Bs. S' : 'USD' }}</table-cell>
                             <table-cell>{{ item.description }}</table-cell>
                             <table-cell class="icon-margin">
 
@@ -43,11 +43,11 @@
                                     <img :src="'img/icons/ico-ver.png' | asset" alt="" class="img-responsive">
                                 </a>
 
-                                <a :href="`/${item.id}/edit`" class="btn-action">
+                                <a class="btn-action" :href="`admin/wholesalers/${item.id}/edit` | asset">
                                     <img :src="'img/icons/ico-editar.png' | asset" alt="" class="img-responsive">
                                 </a>
 
-                                <a href="#!" class="btn-action" @click="_confirm(item, 'destroy')">
+                                <a href="#!" class="btn-action" @click="_confirm(item, 'delete')">
                                     <img :src="'img/icons/ico-eliminar.png' | asset" alt="" class="img-responsive">
                                 </a>
 
@@ -130,6 +130,73 @@
                 </section>
             </div>
         </div>
+         <byte-modal v-on:pressok="modal.action" :confirm="modal.type.confirm">
+
+            <template v-if="modal.type.action == 'delete'">
+                <div class="container-confirmation">
+                    <div class="confimation__icon">
+                        <i class="material-icons">error_outline</i>
+                    </div>
+                    <div class="confirmation__text">
+                        <h5>¿ Realmente deseas <b>Eliminar</b> este Producto ?</h5>
+                    </div>
+                </div>
+            </template>
+
+            <template v-else-if="modal.type.action == 'postear'">
+                <div class="container-confirmation">
+                    <div class="confimation__icon">
+                        <i class="material-icons">error_outline</i>
+                    </div>
+                    <div class="confirmation__text">
+                        <h5>¿ Realmente deseas <b>{{ modal.data.status == 1 ? 'Desactivar ' : 'Publicar' }}</b> este Producto ?</h5>
+                    </div>
+                </div>
+            </template>
+
+            <template v-else>
+                <div class="col s12">
+                    <h3>Información del Producto</h3>
+                </div>
+
+                <div class="col s12 m6">
+                    <span>Producto (Español):</span> {{ modal.data.name }}
+                </div>
+                <div class="col s12 m6">
+                    <span>Producto (Ingles):</span> {{ modal.data.name_english }}
+                </div>
+
+                <div class="col s12 m6">
+                    <span>Descripción (Español):</span> {{ modal.data.description }}
+                </div>
+
+                <div class="col s12 m6">
+                    <span>Descripción (Ingles):</span> {{ modal.data.description_english }}
+                </div>
+
+                <div class="col s12 m6">
+                    <span>Precio (Detal):</span> {{ modal.data.coin == "1" ? '$' : "Bs. S" }}{{ modal.data.price }}
+                </div>
+
+
+                <div class="col s12">
+                    <h3>Imagenen Principal</h3>
+                </div>
+
+                <div class="col s12 m6" v-for="(img, i) in modal.data.images" :key="'img-main' + i" v-if="img.main == 1">
+                    <img class="img-products" :src="`img/products/${img.file}` | asset" alt="">
+                </div>
+
+                <div class="col s12">
+                    <h3>Imagenenes Secundarias</h3>
+                </div>
+
+                <div class="col s12 m6" v-for="(img, i) in modal.data.images" :key="'img-main' + i" v-if="img.main == 0">
+                    <img class="img-products" :src="`img/products/${img.file}` | asset" alt="">
+                </div>
+            </template>
+
+        </byte-modal>
     </article>
 </template>
 
@@ -148,7 +215,8 @@ export default {
                     confirm: false,
                     action: "view"
                 },
-                data: {}
+                data: {},
+                action: {},
             }
         }
     },
@@ -166,14 +234,39 @@ export default {
             this.modal.init.open();
         },
 
-        _confirm(item){
+        selectItem(item) {
+            this.$store.commit('wholesaler/setSelected', item.id)
+            this.$store.dispatch('wholesalers/changeOption', 3)
+        },
+
+        _confirm(item, action) {
             this.modal.type.confirm = true;
-            this.modal.type.action = "destroy";
+            this.modal.type.action = this._delete;
             this.modal.data = item;
+
+            if(action == "delete"){
+                this.modal.type.action = "delete";
+                this.modal.action = this._delete;
+            }
+
+            if(action == "postear"){
+                this.modal.type.action = "postear";
+                this.modal.action = this._postear;
+            }
+
             this.modal.init.open();
         },
         _delete() {
-
+            this.modal.init.close();
+            this.$store.dispatch('wholesalers/deleteWholesaler', this.modal.data.id)
+            // axios.delete(`admin/products/${this.modal.data.id}`)
+            //     .then(res => {
+            //         this.dataTable.splice(index, 1)
+            //         this._showAlert(res.data.message, "success");
+            //     })
+            //     .catch(err => {
+            //         this._showAlert('Disculpa, ha ocurrido un error', "error")
+            //     });
         }
     },
 

@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Filter;
 use App\Libraries\SetNameImage;
 use App\Libraries\ResizeImage;
+use App\Http\Requests\StoreWholesalerRequest;
 
 class WholesalerController extends Controller
 {
@@ -21,10 +22,8 @@ class WholesalerController extends Controller
      */
     public function index()
     {
-        //dd(Wholesaler::orderBy('id', 'desc')->get());
-        return view('admin.wholesalers.index', 
-        [
-            'wholesalers' => Wholesaler::orderBy('id', 'desc')->get()
+        return view('admin.wholesalers.index', [
+            'wholesalers' => Wholesaler::where('status', '!=', '2')->orderBy('id', 'desc')->get()
         ]);
     }
 
@@ -46,12 +45,12 @@ class WholesalerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreWholesalerRequest $request)
     {
         $wholesaler = Wholesaler::create($request->all());
         // return $request->file('main');
         // Images
-        $url = "img/mayoristas/";
+        $url = "img/products/";
         $main = $request->file('main');
         $main_name = SetNameImage::set($main->getClientOriginalName(), $main->getClientOriginalExtension());
         $main->move($url, $main_name);
@@ -120,7 +119,8 @@ class WholesalerController extends Controller
      */
     public function destroy(Wholesaler $wholesaler)
     {
-        //
+        $wholesaler->status = 2;
+        $wholesaler->save();
     }
 
     public function getFilters() 

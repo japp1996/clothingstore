@@ -1,10 +1,11 @@
-import whosalerService from '../../services/wara/wholesaler'
+import wholesalerService from '../../services/wara/wholesaler'
 
 const state = {
     all: [],
     option: 1,
     savedStatus: false,
-    errMessage: ''
+    errMessage: '',
+    selected: {}
 }
 
 const getters = {}
@@ -15,18 +16,32 @@ const actions = {
     },
 
     addWholesaler ({commit}, data) {
-        whosalerService.store(data)
+        wholesalerService.store(data)
             .then(wholesalerSaved => {
                 swal('', 'Se registro la colección correctamente', 'success')
                 commit('add', wholesalerSaved)
                 commit('setOption', 1)
+                location.reload()
             })
             .catch(err => {
                 if(err.response.status === 422) {
-                    swal('',  err.response.data.error, 'error')
+                    swal('', err.response.data.error, 'error')
                 }else {
-                    swal('',  'Algo ha ocurridom, intente nuevamente', 'error')
+                    swal('',  'Algo ha ocurrido, intente nuevamente', 'error')
                 }
+            })
+    },
+
+    deleteWholesaler ({ commit }, id) {
+        wholesalerService.destroy(id)
+            .then(res => {
+                commit('delete', id)
+                swal('', 'Se eliminó la colección correctamente', 'success')
+                console.log(res)
+            })
+            .catch(err => {
+                swal('',  'Algo ha ocurrido, intente nuevamente', 'error')
+                console.log(err)
             })
     }
 }
@@ -46,6 +61,19 @@ const mutations = {
 
     setSaveStatus (state, status) {
         state.savedStatus = status
+    },
+
+    delete (state, id) {
+        console.log(id)
+        let obj = state.all.find(wholesaler => wholesaler.id == id)
+        console.log(obj)
+        state.all.splice(state.all.indexOf(obj), 1)
+    },
+
+    setSelected (state, id) {
+        wholesaler = state.all.find(wholesaler => wholesaler.id == id)
+        state.selected = wholesaler
+        console.log(wholesaler)
     }
 }
 

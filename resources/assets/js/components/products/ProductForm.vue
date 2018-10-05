@@ -78,14 +78,14 @@
                             <label class="label-impegno">Moneda</label>
                             <p>
                                 <label>
-                                    <input name="group1" value="1" type="radio" v-model="form.coin" checked />
-                                    <span>USD</span>
+                                    <input name="group1" value="1" type="radio" v-model="form.coin" />
+                                    <span>Bs. S</span>
                                 </label>
                             </p>
                             <p>
                                 <label>
-                                    <input name="group1" value="2" type="radio" v-model="form.coin" />
-                                    <span>Bs. S</span>
+                                    <input name="group1" value="2" type="radio" v-model="form.coin" checked />
+                                    <span>USD</span>
                                 </label>
                             </p>
                         </div>

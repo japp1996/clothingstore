@@ -2,6 +2,7 @@
     <section class="container-fluid">
         <wholesaler-table v-show="option === 1"></wholesaler-table>
         <wholesaler-form v-show="option === 2"></wholesaler-form>
+        <wholesaler-edit v-show="option === 3"></wholesaler-edit>
     </section>
 </template>
 
@@ -9,6 +10,7 @@
 import { mapState } from 'vuex'
 import WholesalerTable from './WholesalerTable.vue'
 import WholesalerForm from './WholesalerForm.vue'
+import WholesalerEdit from './WholesalerEdit.vue'
 
 export default {
     name: 'wholesaler-index',
@@ -25,7 +27,8 @@ export default {
     }),
     components: {
         WholesalerTable,
-        WholesalerForm
+        WholesalerForm,
+        WholesalerEdit
     },
     mounted () {
         console.log('se monto el componente')

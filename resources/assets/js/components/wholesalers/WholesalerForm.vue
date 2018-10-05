@@ -88,14 +88,14 @@
                                 <label class="label-impegno">Moneda</label>
                                 <p>
                                     <label>
-                                        <input name="group1" value="1" type="radio" v-model="form.coin" checked />
-                                        <span>USD</span>
+                                        <input name="group1" value="1" type="radio" v-model="form.coin" />
+                                        <span>Bs. S</span>
                                     </label>
                                 </p>
                                 <p>
                                     <label>
-                                        <input name="group1" value="2" type="radio" v-model="form.coin" />
-                                        <span>Bs. S</span>
+                                        <input name="group1" value="2" type="radio" v-model="form.coin" checked />
+                                        <span>USD</span>
                                     </label>
                                 </p>
                             </div>
@@ -142,7 +142,7 @@
                 </div>
                 <div class="col s12 m12 l12 margin-top center-align">
                     <a href="#!" class="btn btn-success" @click="store" v-if="option === 2">Guardar</a>
-                    <a href="#!" class="btn btn-success" @click="update" v-else>Actualizar</a>
+                    <!-- <a href="#!" class="btn btn-success" @click="update" v-else>Actualizar</a> -->
                 </div>
             </div>
         </div>
@@ -167,13 +167,13 @@ export default {
         return {
             form: {
                 filter_id: '',
-                name: null,
-                name_english: null,
-                quantity: null,
+                name: '',
+                name_english: '',
+                quantity: '',
                 coin: '1',
-                price: null,
-                description: null,
-                description_english: null,
+                price: '',
+                description: '',
+                description_english: '',
                 images: [],
                 main: ""
             },
@@ -224,19 +224,24 @@ export default {
         },
         store () {
             this.$store.dispatch('wholesalers/addWholesaler', this.convertToFormData())
-
+            this.cleanForm()
         },
         update () {
-
+            
         },
         cleanForm() {
             Object.getOwnPropertyNames(this.form).forEach((key, i) => {
-                // if(key === "images") {
-                //     this.
-                // }else {
-
-                // }
-                formData.append(key, this.form[key]);         
+                if(key === "coin") {
+                    this.form.coin = '1'
+                }else if(key === "images") {
+                    this.images = []
+                    this.image = ''
+                    this.form.images = []
+                }else {
+                    if(key != "__ob__"){ 
+                        formData.append(key, this.form[key]);   
+                    }      
+                }
             })
         },
         convertToFormData(){
