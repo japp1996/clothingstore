@@ -79,8 +79,12 @@
 
 	    public function getProducto(Request $request) {
 	    	$producto = Product::with(['designs','collections','images','categories' => function($q) {
-	    		$q->with(['sizes']);
-	    	},'colors'])->where('status','1')->where('id',$request->id)->first();
+	    		$q->with(['sizes' => function($q) {
+	    			$q->where('status','1');
+	    		}]);
+	    	},'colors' => function($q) {
+	    		$q->where('status','1');
+	    	}])->where('status','1')->where('id',$request->id)->first();
 			return response()->json([
 				'result' => true,
 				'producto' => $producto,
@@ -90,8 +94,12 @@
 
 	    public function ajax(Request $request) {
 	    	$query = Product::with(['designs','collections','images','categories' => function($q) {
-	    		$q->with(['sizes']);
-	    	},'colors'])->whereHas('categories',function($q) use ($request) {
+	    		$q->with(['sizes' => function($q) {
+					$q->where('status','1');
+	    		}]);
+	    	},'colors' => function($q) {
+	    		$q->where('status','1');
+	    	}])->whereHas('categories',function($q) use ($request) {
 	    		if ($request->has('catalogo')) {
 	    			$q->whereHas('filters',function($q) use ($request) {
 	    				$q->where('filters.id',$request->catalogo);
@@ -108,7 +116,9 @@
 	    	$productos = $query->where('status','1')->paginate(8);
 
 	    	$categorias = Category::orderBy('name','asc')->with(['filters'])->where('status','1')->get();
-	    	$filtros = Filter::orderBy('name','asc')->with(['categories'])->get();
+	    	$filtros = Filter::orderBy('name','asc')->with(['categories' => function($q) {
+	    		$q->where('status','1');
+	    	}])->get();
 
 	    	return response()->json([
 	    		'result' => true,
