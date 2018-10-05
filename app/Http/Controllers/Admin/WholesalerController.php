@@ -48,8 +48,6 @@ class WholesalerController extends Controller
     public function store(StoreWholesalerRequest $request)
     {
         $wholesaler = Wholesaler::create($request->all());
-        // return $request->file('main');
-        // Images
         $url = "img/products/";
         $main = $request->file('main');
         $main_name = SetNameImage::set($main->getClientOriginalName(), $main->getClientOriginalExtension());
@@ -96,7 +94,7 @@ class WholesalerController extends Controller
      */
     public function edit(Wholesaler $wholesaler)
     {
-        //
+        return view('admin.Wholesalers.edit', ['wholesaler' => $wholesaler]);
     }
 
     /**

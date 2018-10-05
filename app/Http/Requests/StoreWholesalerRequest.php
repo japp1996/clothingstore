@@ -31,9 +31,10 @@ class StoreWholesalerRequest extends FormRequest
             'description' => 'required',
             'description_english' => 'required',
             'price' => 'required',
+            'quantity' => 'required',
             'main' => 'required',
             'coin' => 'required',
-            'filter_id' => 'required'
+            'filter_id' => 'required',
         ];
     }
 
@@ -45,9 +46,10 @@ class StoreWholesalerRequest extends FormRequest
             'description' => 'descripción en español',
             'description_english' => 'descripción en ingles',
             'price' => 'precio',
+            'quantity' => 'cantidad',
             'main' => 'imagen principal',
             'coin' => 'moneda',
-            'filter_id' => 'genero'
+            'filter_id' => 'dispobilidad'
         ];
     }
 

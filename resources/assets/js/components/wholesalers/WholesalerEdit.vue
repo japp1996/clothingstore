@@ -28,6 +28,12 @@
 import { mapState } from 'vuex'
 
 export default {
+    props: {
+        wholesaler: {
+            type: Object,
+            default: {}
+        }
+    },
     data () {
         return {
             form: {
@@ -126,6 +132,23 @@ export default {
     },
     mounted () {
         this.getFilters()
+        
+        Object.getOwnPropertyNames(this.wholesaler).forEach((key, i) => {
+            let count = 0;
+            if(key === "images") {
+                this.images.forEach((e, y) => {
+                    if (e.file !== "") {
+                        count = count + 1
+                        formData.append(`file${count}`, e.file);
+                    }                        
+                })
+                formData.append('count', count)
+            }else if(key != "__ob__"){
+                formData.append(key, this.form[key]);                       
+            }
+        });
+
+        
     }
 }
 </script>
