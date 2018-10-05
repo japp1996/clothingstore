@@ -4,11 +4,132 @@
             <div class="col m8 offset-m2">
                 <div class="row">
                     <div class="col s12 center-align">
-                        <h1>Crear Colección Mayorista</h1>
+                        <h1>Editar Colección Jurídica</h1>
                     </div>
                 </div>
 
-                
+                <div class="row">
+                    <div class="col s12">
+                        <a href="#!" class="btn btn-back" @click="setOption(1)">
+                            <div class="btn-back__container">
+                                <div class="btn-back__ico"></div>
+                                <label for=""> Volver</label>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <ul class="tabs">
+                            <li class="tab col s6"><a class="active" href="#test1">Información</a></li>
+                            <li class="tab col s6"><a href="#test3">Imágenes</a></li>
+                        </ul>
+                    </div>
+                    <div id="test1" class="col s12">
+                        <div class="row container-form">
+                            <!-- <div class="col s12">
+                                <p><b>Nota:</b> El nombre (Español/Inglés) se irá construyendo con los campos que seleccionará a continuación.</p>
+                            </div> -->
+                            
+
+                            <div class="col s12 m6 l6 center-align">
+                                <label for="name_english" class="label-impegno">Nombre (Español)</label>
+                                <input 
+                                    type="text" 
+                                    name="name" id="name" 
+                                    v-model="form.name" 
+                                    class="browser-default input-impegno">
+                            </div>
+
+                            <div class="col s12 m6 l6 center-align">
+                                <label for="description_english" class="label-impegno">Nombre (Ingles)</label>
+                                <input 
+                                    type="text" 
+                                    name="name" id="name" 
+                                    v-model="form.name_english" 
+                                    class="browser-default input-impegno">
+                            </div>
+
+                            <div class="col s12 m6 l6 center-align">
+                                <label for="name_english" class="label-impegno">Precio</label>
+                                <input 
+                                    type="text" 
+                                    name="name" id="name" 
+                                    v-model="form.price" 
+                                    class="browser-default input-impegno">
+                            </div>
+
+                            <div class="col s12 m6 l6 center-align">
+                                <label for="description_english" class="label-impegno">Cantidad existente</label>
+                                <input 
+                                    type="text" 
+                                    name="name" id="name" 
+                                    v-model="form.quantity" 
+                                    class="browser-default input-impegno">
+                            </div>
+
+                            <div class="col s12 m6 l6 center-align">
+                                <label for="description" class="label-impegno">Descripción (Español)</label>
+                                <textarea name="description" id="description" v-model="form.description" class="browser-default textarea-impegno"></textarea>
+                            </div>
+
+                            <div class="col s12 m6 l6 center-align">
+                                <label for="description_english" class="label-impegno">Descripción (Inglés)</label>
+                                <textarea name="description_english" id="description_english" v-model="form.description_english" class="browser-default textarea-impegno"></textarea>
+                            </div>
+                            <div class="col s12 m6 l6 center-align">
+                                <label for="filter_id" class="label-impegno">Disponible para</label>
+                                <select name="filter_id" id="filter_id" class="browser-default" v-model="form.filter_id">
+                                    <option value="">Seleccione</option>
+                                    <option :value="id" :key="id" v-for="(filter, id) in filters">{{ filter }}</option>
+                                </select>
+                            </div>
+                            <div class="col s12 m6 l6 center-align container-options">
+                                <label class="label-impegno">Moneda</label>
+                                <p>
+                                    <label>
+                                        <input name="group1" value="1" type="radio" v-model="form.coin" />
+                                        <span>Bs. S</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input name="group1" value="2" type="radio" v-model="form.coin" checked />
+                                        <span>USD</span>
+                                    </label>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="test3" class="col s12">
+                        <div class="row container-form">
+                            <div class="row">
+                                <div class="col s12 center-align">
+                                    <label for="" class="label-impegno">Imagen Principal</label>
+                                    <input-file :file="`img/products/${form.main}` | img" :btn="false" :image="true" @file="_setFile(null, null, $event)"></input-file>
+                                </div>
+                            </div>
+                            <div class="row gallery__items">
+                                <div class="col s12 container-btn-add">
+                                    <button class="btn-add" @click="_addImage()">
+                                        <img :src="'img/icons/new-msg.png' | asset" alt="" class="img-responsive">
+                                    </button>
+                                    <div class="btn-add-text">
+                                        Agregar nueva imagen secundaria
+                                    </div>                            
+                                </div>
+                                <div class="col l4 m6 s6 items__file" :key="index" v-for="(file, index) in form.images" :id="`file-${file.id}`">
+                                    <input-file :file="file.file !== '' ? `${urlBase + 'img/products/' + file.file}` : ''" :btn="false" :image="true" @file="_setFile(file.id, index, $event)"></input-file>
+                                    <button class="file__claer" @click="_sliceItem(file.id, index)"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m12 l12 margin-top center-align">
+                    <a href="#!" class="btn btn-success" @click="update" :disabled="sending">Guardar</a>
+                    <!-- <a href="#!" class="btn btn-success" @click="update" v-else>Actualizar</a> -->
+                </div>
             </div>
         </div>
     </section>
@@ -27,6 +148,7 @@
 <script>
 import { mapState } from 'vuex'
 
+
 export default {
     props: {
         wholesaler: {
@@ -36,6 +158,7 @@ export default {
     },
     data () {
         return {
+            urlBase: urlBase,
             form: {
                 filter_id: '',
                 name: null,
@@ -54,35 +177,70 @@ export default {
             filters: [],
         }
     },
-    computed: mapState({
-        option: state => state.wholesalers.option
+    computed: 
+        mapState({
+            option: state => state.wholesalers.option,
+            sending: state => state.wholesalers.sending
     }),
     methods: {
-        addImage () {
-            this.ids = this.form.images.length > 1 ? this.ids + 1 : this.ids
-            this.form.images.push({file: "", id: this.ids})
+        _addImage() {
+            this.form.images.push({file: "", id: 0})
             this.images = this.form.images
+            this.elements = this.elements + 1
+        },
+        _setFile(i, x, e) {
+            let formData = new FormData()
+            formData.append('id',  i)
+            formData.append('file', e.file)
+            formData.append('product_id', this.form.id)
+            axios.post('admin/update-images', formData)
+                .then(resp => {
+                    if (i != null) {
+                        this.form.images[x].id = resp.data.id
+                        this.form.images[x].file = resp.data.file
+                    }
+                })
+                .catch(err => {
+                    this._showAlert("Disculpa, ha ocurrido un error", "error")
+                })
         },
 
-        quitImage (id, i) {            
-            this.images = this.form.images.filter((el) => {
-                return (el.id != id)
+         _setFile(i, x, e) {
+            // let progressElement = document.querySelector(`#progress-${x}`)
+            // progressElement.classList.add('progress-active')
+            let formData = new FormData()
+            formData.append('id',  i)
+            formData.append('file', e.file)
+            formData.append('product_id', this.form.id)
+            axios.post('admin/update-images-collection', formData)
+            .then(resp => {
+                if (i != null) {
+                    this.form.images[x].id = resp.data.id
+                    this.form.images[x].file = resp.data.file
+                }
             })
+            .catch(err => {
+                this._showAlert("Disculpa, ha ocurrido un error", "error")
+            })
+        },
+
+        _sliceItem (id, i) {
             let parent = document.querySelector(".gallery__items")
             let child = document.querySelector(`#file-${id}`)            
-            parent.removeChild(child)
-        },
-        setImage(i, file) {
-            if (i == null) {
-                this.image = file.file
-                this.form.main = file.file
-            }else {
-                this.form.images[i].file = file.file
-                this.files = this.form.images
-            }            
-        },
-        setOption (option) {
-            this.$store.dispatch('wholesalers/changeOption', option)
+            
+            if (id != 0) {
+                axios.post('admin/delete-images', {id: id})
+                .then(resp => {
+                    parent.removeChild(child)
+                    this.elements = this.elements - 1
+                })
+                .catch(err => {
+                    this._showAlert("Disculpa, ha ocurrido un error", "error")
+                })
+            } else {
+                parent.removeChild(child)
+                this.elements = this.elements - 1
+            }
         },
         getFilters () {
             axios.get('admin/filters/get')
@@ -95,60 +253,20 @@ export default {
         },
         update () {
                
-        },
-        cleanForm() {
-            Object.getOwnPropertyNames(this.form).forEach((key, i) => {
-                if(key === "images") {
-                    this.images = []
-                    this.image = ''
-                    this.form.images = []
-                }else {
-                    if(key != "__ob__"){ 
-                        formData.append(key, this.form[key]);   
-                    }      
-                }
-            })
-        },
-        convertToFormData(){
-            let formData = new FormData();
-            Object.getOwnPropertyNames(this.form).forEach((key, i) => {
-                let count = 0;
-                if(key === "images")
-                {
-                    this.images.forEach((e, y) => {
-                        if (e.file !== "") {
-                            count = count + 1
-                            formData.append(`file${count}`, e.file);
-                        }                        
-                    })
-                    formData.append('count', count)
-                }else if(key != "__ob__"){
-                    formData.append(key, this.form[key]);                       
-                }
-            });
-
-            return formData;
         }
     },
     mounted () {
         this.getFilters()
-        
-        Object.getOwnPropertyNames(this.wholesaler).forEach((key, i) => {
-            let count = 0;
-            if(key === "images") {
-                this.images.forEach((e, y) => {
-                    if (e.file !== "") {
-                        count = count + 1
-                        formData.append(`file${count}`, e.file);
-                    }                        
-                })
-                formData.append('count', count)
-            }else if(key != "__ob__"){
-                formData.append(key, this.form[key]);                       
+        this.form = this.wholesaler
+        let images = new Array()
+        this.form.images.forEach(el => {            
+            if (el.main == "1") {
+                this.form.main = el.file                
+            } else {
+                images.push(el)
             }
-        });
-
-        
+        })
+        this.form.images = images
     }
 }
 </script>

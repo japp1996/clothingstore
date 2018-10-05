@@ -2,7 +2,7 @@
     <article>
         <div class="row">
             <div class="col s12 center-align">
-                <h1>Colecciones Mayoristas</h1>
+                <h1>Colecciones Jurídicas</h1>
             </div>
         </div>
 

@@ -2,7 +2,6 @@
     <section class="container-fluid">
         <wholesaler-table v-show="option === 1"></wholesaler-table>
         <wholesaler-form v-show="option === 2"></wholesaler-form>
-        <wholesaler-edit v-show="option === 3"></wholesaler-edit>
     </section>
 </template>
 

@@ -4,7 +4,7 @@
             <div class="col m8 offset-m2">
                 <div class="row">
                     <div class="col s12 center-align">
-                        <h1>Crear Colección Mayorista</h1>
+                        <h1>Crear Colección Jurídica</h1>
                     </div>
                 </div>
 
