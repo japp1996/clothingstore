@@ -194,7 +194,8 @@
 			'Metodos' => 'Métodos de Pago',
 			'Eliminar' => '¿Desea eliminar el producto?',
 			"NoCantidad" => 'Lo sentimos, no hay suficientes unidades del producto. Disponible: ',
-			"NoCantidadProducto" => 'Lo sentimos, no hay suficientes unidades del producto ":producto". Disponible: :cantidad'
+			"NoCantidadProducto" => 'Lo sentimos, no hay suficientes unidades del producto ":producto". Disponible: :cantidad',
+			'ProductoEliminado' => 'Lo sentimos, el producto ":producto" ha sido eliminado. Por favor, retirelo del carrito'
 		],
 
 		'Tienda' => [

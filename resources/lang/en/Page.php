@@ -194,7 +194,8 @@
 			'Metodos' => 'Payment methods',
 			'Eliminar' => 'Do you want to delete the product?',
 			"NoCantidad" => 'Sorry, there are not enough units of the product. Available: ',
-			"NoCantidadProducto" => 'Sorry, there are not enough units of the product ":producto". Available: :cantidad'
+			"NoCantidadProducto" => 'Sorry, there are not enough units of the product ":producto". Available: :cantidad',
+			'ProductoEliminado' => 'Sorry, the product ": product" has been removed. Please, remove it from the cart.', 
 		],
 
 		'Tienda' => [
