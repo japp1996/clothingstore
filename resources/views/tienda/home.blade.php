@@ -287,7 +287,7 @@
 				</li> --}}
 			</ul>
 			<div class="text-center">
-				<button class="btn btn-default" v-on:click="close(); load()">
+				<button class="btn btn-default" v-on:click="page = 1; close(); load()">
 					@lang('Page.Tienda.Filtrar')
 				</button>
 			</div>
@@ -325,11 +325,6 @@
 				vue = this;
 				vue.load();
 			},
-			// watch: {
-			// 	catalogo(item) {
-			// 		vue.categorias_selected = [];
-			// 	}
-			// },
 			methods: {
 				closeModal() {
 					$('.modal').modal('hide');
@@ -423,8 +418,6 @@
 							if (res.data.result) {
 								vue.load();
 								swal('','{{ Lang::get('Page.Tienda.Agregado') }}','success');
-								// vue.carrito = res.data.carrito;
-								// vue_header.cart = vue.carrito.length;
 								$('#modal-producto').modal('hide');
 							}
 							else {
