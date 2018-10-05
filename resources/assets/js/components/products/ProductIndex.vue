@@ -102,7 +102,7 @@
                 </div>
 
                 <div class="col s12 m6">
-                    <span>Descripción (Ingles):</span> {{ modal.data.description }}
+                    <span>Descripción (Ingles):</span> {{ modal.data.description_english }}
                 </div>
 
                 <div class="col s12 m6">

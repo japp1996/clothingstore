@@ -83191,7 +83191,7 @@ var render = function() {
                     _c("span", [_vm._v("Descripción (Ingles):")]),
                     _vm._v(
                       " " +
-                        _vm._s(_vm.modal.data.description) +
+                        _vm._s(_vm.modal.data.description_english) +
                         "\n            "
                     )
                   ]),
@@ -86551,7 +86551,7 @@ var render = function() {
                               _c("h5", [
                                 _vm._v("¿ Realmente deseas "),
                                 _c("b", [_vm._v("Eliminar")]),
-                                _vm._v(" ésta Publicación ?")
+                                _vm._v(" el aliado ?")
                               ])
                             ])
                           ])
@@ -90511,7 +90511,7 @@ var render = function() {
               "a",
               {
                 staticClass: "btn btn-back",
-                attrs: { href: "#!" },
+                attrs: { href: _vm._f("asset")("admin/wholesalers") },
                 on: {
                   click: function($event) {
                     _vm.setOption(1)

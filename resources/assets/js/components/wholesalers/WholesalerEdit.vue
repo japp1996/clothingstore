@@ -10,7 +10,7 @@
 
                 <div class="row">
                     <div class="col s12">
-                        <a href="#!" class="btn btn-back" @click="setOption(1)">
+                        <a :href="'admin/wholesalers' | asset" class="btn btn-back" @click="setOption(1)">
                             <div class="btn-back__container">
                                 <div class="btn-back__ico"></div>
                                 <label for=""> Volver</label>

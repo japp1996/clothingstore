@@ -112,7 +112,7 @@
                                     <i class="material-icons">error_outline</i>
                                 </div>
                                 <div class="confirmation__text">
-                                    <h5>¿ Realmente deseas <b>Eliminar</b> ésta Publicación ?</h5>
+                                    <h5>¿ Realmente deseas <b>Eliminar</b> el aliado ?</h5>
                                 </div>
                             </div>
                         </template>
