@@ -167,16 +167,16 @@
                     <span>Categoría (Ingles): </span> {{ modal.data.categories.name_english }}
                 </div>
 
-                <div class="col s12">
+                <div class="col s12" v-if="modal.data.subcategories">
                     <h3>Subcategoría</h3>
                 </div>
 
-                <div class="col s12 m6">
-                    <span>Subcategoría (Ingles): </span> {{ modal.data.subcategories.name }}
+                <div class="col s12 m6" v-if="modal.data.subcategories">
+                    <!-- <span>Subcategoría (Ingles): </span> {{ modal.data.subcategories.name }} -->
                 </div>
 
-                <div class="col s12 m6">
-                    <span>Subcategoría (Ingles): </span> {{ modal.data.subcategories.name_english }}
+                <div class="col s12 m6" v-if="modal.data.subcategories">
+                    <!-- <span>Subcategoría (Ingles): </span> {{ modal.data.subcategories.name_english }} -->
                 </div>
 
                 <div class="col s12">

@@ -473,30 +473,30 @@ export default {
             }
             button.setAttribute('disabled', true)
             axios.post(`admin/products/${this.form.id}`, this._convertToFormData())
-            .then(resp => {                
-                if (resp.data.result) {
-                    swal({
-                        title: '',
-                        text: 'Producto editado exitosamente',
-                        timer: 2000,
-                        showConfirmButton: false,
-                        type: "success"
-                    }, () => {
-                        location.reload();
-                    })
-                }
-            })
-            .catch(err => {
-                if(err.response.status === 422){
-                    this._showAlert(err.response.data.error, 'warning')
-                    return false;
-                }
-                
-                this._showAlert("Disculpa, ha ocurrido un error", "error")
-            })
-            .then(all => {
-                button.removeAttribute('disabled')
-            })
+                .then(resp => {                
+                    if (resp.data.result) {
+                        swal({
+                            title: '',
+                            text: 'Producto editado exitosamente',
+                            timer: 2000,
+                            showConfirmButton: false,
+                            type: "success"
+                        }, () => {
+                            location.reload();
+                        })
+                    }
+                })
+                .catch(err => {
+                    if(err.response.status === 422){
+                        this._showAlert(err.response.data.error, 'warning')
+                        return false;
+                    }
+                    
+                    this._showAlert("Disculpa, ha ocurrido un error", "error")
+                })
+                .then(all => {
+                    button.removeAttribute('disabled')
+                })
         },
 
 
