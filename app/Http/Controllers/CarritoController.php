@@ -64,7 +64,6 @@
 
 	    public function getCarrito() {
 	    	$carrito = Cart::get();
-	    	dd($carrito);
 	    	for($n = 0; $n < count($carrito); $n++) {
 
 	    		$producto = Product::with(['designs','collections','images','categories' => function($q) {
