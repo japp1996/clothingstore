@@ -8,6 +8,7 @@
 	use Hash;
 	use App\Models\Pais;
 	use App\Models\Estado;
+	use App\Libraries\Cart;
 	use App\User;
 	use Lang;
 
@@ -39,7 +40,10 @@
 	    			'email' => $request->email,
 	    			'password' => $request->password
 	    		];
-	    		if (Auth::attempt($data,true))
+	    		if (Auth::attempt($data,true)) {
+	    			if (Auth::user()->type == 2) {
+	    				Cart::destroy();
+	    			}
 	    			if (Auth::user()->nivel == '1') {
 	    				return response()->json([
 			    			'result' => true,
@@ -52,6 +56,7 @@
 			    			'url' => \URL('home')
 			    		]);
 	    			}
+	    		}
 	    		else
 	    			return response()->json([
 	    				'result' => false,
@@ -138,6 +143,9 @@
 	    }
 
 	    public function logout() {
+	    	if (Auth::user()->type == 2) {
+	    		Cart::destroy();
+	    	}
 	    	Auth::logout();
 	    	return Redirect('home');
 	    }

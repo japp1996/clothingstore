@@ -2,6 +2,7 @@
 
 	namespace App\Libraries;
 	use Cookie;
+	use Auth;
 
 	class Cart {
 
@@ -29,10 +30,18 @@
 			$in = false;
 			$index = null;
 			foreach(self::$items as $key => $item) {
-				if($producto['id'] == $item['id'] && $producto['talla'] == $item['talla'] && $producto['color'] == $item['color']) {
-					$in = true;
-					$index = $key;
+				if (!Auth::check() || Auth::user()->type == 1) {
+					if ($producto['id'] == $item['id'] && $producto['talla'] == $item['talla'] && $producto['color'] == $item['color']) {
+						$in = true;
+						$index = $key;
+					}
 				}
+				else {
+					if ($producto['id'] == $item['id']) {
+						$in = true;
+						$index = $key;
+					}
+				}				
 			}
 			if ($_index)
 				return $index;

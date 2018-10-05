@@ -14,7 +14,6 @@
 	use App\Models\CategorySize;
 	use App\Models\ExchangeRate;
 	use App\Libraries\IpCheck;
-	use App\Models\Wholesaler;
 	use MP;
 	use Auth;
 	use Lang;
@@ -62,27 +61,19 @@
 	    	$carrito = Cart::get();
 	    	for($n = 0; $n < count($carrito); $n++) {
 
-	    		if (!Auth::check() || (Auth::check() && Auth::user()->type == 1)) {
-	    			$producto = Product::with(['designs','collections','images','categories' => function($q) {
+	    		$producto = Product::with(['designs','collections','images','categories' => function($q) {
 			    		$q->with(['sizes']);
 			    	},'colors'])->where('status','1')->where('id',$carrito[$n]['id'])->first();
-	    		}
-	    		else {
-	    			$producto = Wholesaler::with(['images'])->where('status','1')->where('id',$carrito[$n]['id'])->first();
-	    		}
 
 	    		if (count($producto) > 0) {
 					$carrito[$n]['producto'] = $producto;
 
-					if (!Auth::check() || (Auth::check() && Auth::user()->type == 1)) {
-
-				    	$carrito[$n]['producto']['talla'] = Size::find($carrito[$n]['talla'])->first();
-				    	$carrito[$n]['producto']['color'] = ProductColor::find($carrito[$n]['color']);
-				    	$category_size = CategorySize::where('category_id',$carrito[$n]['producto']['category_id'])->where('size_id',$carrito[$n]['talla'])->first();
-				    	$carrito[$n]['producto']['amount'] = ProductAmount::where('product_color_id',$carrito[$n]['color'])
-																			->where('category_size_id',$category_size->id)
-																			->first();
-					}
+			    	$carrito[$n]['producto']['talla'] = Size::find($carrito[$n]['talla'])->first();
+			    	$carrito[$n]['producto']['color'] = ProductColor::find($carrito[$n]['color']);
+			    	$category_size = CategorySize::where('category_id',$carrito[$n]['producto']['category_id'])->where('size_id',$carrito[$n]['talla'])->first();
+			    	$carrito[$n]['producto']['amount'] = ProductAmount::where('product_color_id',$carrito[$n]['color'])
+																		->where('category_size_id',$category_size->id)
+																		->first();
 	    		}
 	    		else {
 	    			Cart::delete($carrito[$n]);
@@ -147,12 +138,12 @@
 	    	$carrito = $this->getCarrito();
 
 	    	foreach($carrito as $item) {
-	    // 		if (Auth::check() && Auth::user()->type == '2' && $item['cantidad'] < 12) {
-					// return response()->json([
-		   //  			'result' => false,
-		   //  			'error' => Lang::get('Page.Carrito.PiezasName',['producto' => \App::getLocale() == 'es' ? $item['producto']['name'] : $item['producto']['name_english']])
-		   //  		]);
-	    // 		}
+	    		if (Auth::check() && Auth::user()->type == '2' && $item['cantidad'] < 12) {
+					return response()->json([
+		    			'result' => false,
+		    			'error' => Lang::get('Page.Carrito.PiezasName',['producto' => \App::getLocale() == 'es' ? $item['producto']['name'] : $item['producto']['name_english']])
+		    		]);
+	    		}
 	    		
 	    		if ($item['cantidad'] > $item['producto']['amount']['amount']) {
 	    			return response()->json([
