@@ -80022,7 +80022,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         _this.form.name_english += el + ' - ';
                     }
                 });
-            } else {}
+            }
         },
         _removeColor: function _removeColor(i) {
             this.form.colors.splice(i, 1);
@@ -82227,12 +82227,7 @@ var render = function() {
                           expression: "form.coin"
                         }
                       ],
-                      attrs: {
-                        name: "group1",
-                        value: "1",
-                        type: "radio",
-                        checked: ""
-                      },
+                      attrs: { name: "group1", value: "1", type: "radio" },
                       domProps: { checked: _vm._q(_vm.form.coin, "1") },
                       on: {
                         change: function($event) {
@@ -82241,7 +82236,7 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _c("span", [_vm._v("USD")])
+                    _c("span", [_vm._v("Bs. S")])
                   ])
                 ]),
                 _vm._v(" "),
@@ -82265,7 +82260,7 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _c("span", [_vm._v("Bs. S")])
+                    _c("span", [_vm._v("USD")])
                   ])
                 ])
               ]

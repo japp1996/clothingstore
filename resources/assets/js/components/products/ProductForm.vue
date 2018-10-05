@@ -399,8 +399,6 @@ export default {
                         this.form.name_english += el + ' - '
                     }
                 })      
-            } else {
-
             }
         },
 
