@@ -141,7 +141,7 @@
                     </div>
                 </div>
                 <div class="col s12 m12 l12 margin-top center-align">
-                    <a href="#!" class="btn btn-success" @click="store" v-if="option === 2">Guardar</a>
+                    <a href="#!" class="btn btn-success" @click="store" :disabled="sending">Guardar</a>
                     <!-- <a href="#!" class="btn btn-success" @click="update" v-else>Actualizar</a> -->
                 </div>
             </div>
@@ -183,8 +183,10 @@ export default {
             filters: [],
         }
     },
-    computed: mapState({
-        option: state => state.wholesalers.option
+    computed: 
+        mapState({
+            option: state => state.wholesalers.option,
+            sending: state => state.wholesalers.sending
     }),
     methods: {
         addImage () {

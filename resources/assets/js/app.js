@@ -123,6 +123,7 @@ Vue.component('blog-edit', require('./components/blog/BlogEdit'));
 
 //Wholesalers
 Vue.component('wholesaler-index', require('./components/wholesalers/WholesalerIndex'));
+Vue.component('wholesaler-edit', require('./components/wholesalers/WholesalerEdit'));
 
 // Profile
 Vue.component('profile-form', require('./components/profile/ProfileForm'));

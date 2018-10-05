@@ -16,7 +16,7 @@ const actions = {
     },
 
     addWholesaler ({commit}, data) {
-        
+        commit('setSending', true)
         wholesalerService.store(data)
             .then(wholesalerSaved => {
                 swal('', 'Se registro la colección correctamente', 'success')
@@ -30,6 +30,7 @@ const actions = {
                 }else {
                     swal('',  'Algo ha ocurrido, intente nuevamente', 'error')
                 }
+                commit('setSending', false)
             })
     },
 
@@ -75,6 +76,10 @@ const mutations = {
         wholesaler = state.all.find(wholesaler => wholesaler.id == id)
         state.selected = wholesaler
         console.log(wholesaler)
+    },
+
+    setSending (state, status) {
+        state.sending = status
     }
 }
 

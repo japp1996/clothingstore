@@ -29898,6 +29898,7 @@ Vue.component('blog-edit', __webpack_require__(319));
 
 //Wholesalers
 Vue.component('wholesaler-index', __webpack_require__(324));
+Vue.component('wholesaler-edit', __webpack_require__(334));
 
 // Profile
 Vue.component('profile-form', __webpack_require__(340));
@@ -71473,7 +71474,7 @@ var actions = {
     addWholesaler: function addWholesaler(_ref2, data) {
         var commit = _ref2.commit;
 
-
+        commit('setSending', true);
         __WEBPACK_IMPORTED_MODULE_0__services_wara_wholesaler__["a" /* default */].store(data).then(function (wholesalerSaved) {
             swal('', 'Se registro la colección correctamente', 'success');
             commit('add', wholesalerSaved);
@@ -71485,6 +71486,7 @@ var actions = {
             } else {
                 swal('', 'Algo ha ocurrido, intente nuevamente', 'error');
             }
+            commit('setSending', false);
         });
     },
     deleteWholesaler: function deleteWholesaler(_ref3, id) {
@@ -71528,6 +71530,9 @@ var mutations = {
         });
         state.selected = wholesaler;
         console.log(wholesaler);
+    },
+    setSending: function setSending(state, status) {
+        state.sending = status;
     }
 };
 
@@ -71586,8 +71591,8 @@ var waraService = __WEBPACK_IMPORTED_MODULE_0_axios___default.a.create({
 
 "use strict";
 var configService = {
-    apiUrl: 'http://200.44.165.156/Wara/public'
-    // apiUrl: 'http://localhost/Wara/public'
+    // apiUrl: 'http://200.44.165.156/Wara/public'
+    apiUrl: 'http://localhost/Wara/public'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (configService);
@@ -89512,6 +89517,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapState */])({
         option: function option(state) {
             return state.wholesalers.option;
+        },
+        sending: function sending(state) {
+            return state.wholesalers.sending;
         }
     }),
     methods: {
@@ -90058,17 +90066,15 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col s12 m12 l12 margin-top center-align" }, [
-          _vm.option === 2
-            ? _c(
-                "a",
-                {
-                  staticClass: "btn btn-success",
-                  attrs: { href: "#!" },
-                  on: { click: _vm.store }
-                },
-                [_vm._v("Guardar")]
-              )
-            : _vm._e()
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-success",
+              attrs: { href: "#!", disabled: _vm.sending },
+              on: { click: _vm.store }
+            },
+            [_vm._v("Guardar")]
+          )
         ])
       ])
     ])
@@ -90251,6 +90257,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        wholesaler: {
+            type: Object,
+            default: {}
+        }
+    },
     data: function data() {
         return {
             form: {
@@ -90351,7 +90363,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     mounted: function mounted() {
+        var _this4 = this;
+
         this.getFilters();
+
+        Object.getOwnPropertyNames(this.wholesaler).forEach(function (key, i) {
+            var count = 0;
+            if (key === "images") {
+                _this4.images.forEach(function (e, y) {
+                    if (e.file !== "") {
+                        count = count + 1;
+                        formData.append('file' + count, e.file);
+                    }
+                });
+                formData.append('count', count);
+            } else if (key != "__ob__") {
+                formData.append(key, _this4.form[key]);
+            }
+        });
     }
 });
 

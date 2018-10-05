@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title','Collecciones mayoristas')
+@section('title','Colecciones juríducas')
 @section('content')
 <wholesaler-index :wholesaler="{{ $wholesalers }}"></wholesaler-index>
 @endsection
