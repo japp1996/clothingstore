@@ -34,7 +34,9 @@
 	    public function pedidos() {
 	    	$pedidos = Purchase::where('user_id',Auth::id())->with(['exchange','details' => function($q) {
 	    		$q->with(['wholesaler']);
-	    	},'transfer'])->orderBy('id','desc')->paginate(5);
+	    	},'transfer'])->whereHas('details',function($q) {
+	    		$q->whereNotNull('wholesalers_id')->has('wholesaler');
+	    	})->orderBy('id','desc')->paginate(5);
 	    	return response()->json([
 	    		'result' => true,
 	    		'pedidos' => $pedidos

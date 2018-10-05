@@ -133,7 +133,7 @@
 			$token = $request->get('token');
 
 			if (empty($payerId) || empty($token)) {
-				return \Redirect('carrito')
+				return \Redirect('juridico/carrito')
 					->with('errors', Lang::get('Page.PayPal.NoProcesar'));
 			}
 
@@ -152,10 +152,10 @@
 					"code" => $payment_id,
 					"transaction" => $request->all(),
 				]);
-				return \Redirect('carrito')
+				return \Redirect('juridico/carrito')
 					->with('success', Lang::get('Page.PayPal.Success'));
 			}
-			return \Redirect('carrito')
+			return \Redirect('juridico/carrito')
 				->with('errors', Lang::get('Page.PayPal.NoProcesar'));
 		}
 	}

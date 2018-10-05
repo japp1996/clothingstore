@@ -65,7 +65,10 @@
 						<td class="envio">
 							@lang('Page.Carrito.Envio')
 						</td>
-						<td class="envio">
+						<td class="envio" v-if="currency == '1'">
+							<i class="circle-gold"></i> ZOOM, TEALCA, SEREX
+						</td>
+						<td class="envio" v-if="currency == '2'">
 							<i class="circle-gold"></i> DHL
 						</td>
 						<td></td>
@@ -165,7 +168,7 @@
 		        		<div class="col-md-6 text-center" v-if="currency == '1'">
 		        			{{ HTML::Image('img/mercadopago.png','',['class' => 'img-pago']) }}
 		        			<p>@lang('Page.Carrito.MercadoPago')</p>
-		        			<a v-on:click.prevent="check('{{ URL('mercadopago') }}')" href="#">
+		        			<a v-on:click.prevent="check('{{ URL('juridico/mercadopago') }}')" href="#">
 		        				<button class="btn btn-default">
 		        					@lang('Page.Carrito.Seleccionar')
 		        				</button>
@@ -174,7 +177,7 @@
 		        		<div class="col-md-6 text-center" v-if="currency == '1'">
 		        			{{ HTML::Image('img/transferencias.png','',['class' => 'img-pago']) }}
 		        			<p>@lang('Page.Carrito.Transferencias')</p>
-		        			<a v-on:click.prevent="check('{{ URL('transferencia') }}')" href="#">
+		        			<a v-on:click.prevent="check('{{ URL('juridico/transferencia') }}')" href="#">
 		        				<button class="btn btn-default">
 		        					@lang('Page.Carrito.Seleccionar')
 		        				</button>
@@ -183,7 +186,7 @@
 		        		<div class="col-md-6 offset-md-3 text-center" v-if="currency == '2'">
 		        			{{ HTML::Image('img/paypal.png','',['class' => 'img-pago']) }}
 		        			<p>@lang('Page.Carrito.Paypal')</p>
-		        			<a v-on:click.prevent="check('{{ URL('payment') }}')" href="#">
+		        			<a v-on:click.prevent="check('{{ URL('juridico/payment') }}')" href="#">
 		        				<button class="btn btn-default">
 		        					@lang('Page.Carrito.Seleccionar')
 		        				</button>

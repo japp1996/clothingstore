@@ -36,8 +36,8 @@
 			        ]
 			    ],
 		    	"back_urls" => [
-			      "success" => URL('carrito/response'),
-			      "failure" => URL('carrito/response')
+			      "success" => URL('juridico/carrito/response'),
+			      "failure" => URL('juridico/carrito/response')
 			    ]
 			];
 	    	$currency = 'VES';
@@ -74,9 +74,9 @@
 					"code" => $payment_id,
 					"transaction" => $request->all()
 				]);
-				return Redirect('carrito')->with('success', Lang::get('Page.PayPal.Success'));
+				return Redirect('juridico/carrito')->with('success', Lang::get('Page.PayPal.Success'));
 			}
-			return Redirect('carrito')->with('errors', Lang::get('Page.PayPal.NoProcesar'));
+			return Redirect('juridico/carrito')->with('errors', Lang::get('Page.PayPal.NoProcesar'));
 	}
 
 

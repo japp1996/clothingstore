@@ -71,7 +71,10 @@
 						<td class="envio">
 							@lang('Page.Carrito.Envio')
 						</td>
-						<td class="envio">
+						<td class="envio" v-if="currency == '1'">
+							<i class="circle-gold"></i> ZOOM, TEALCA, SEREX
+						</td>
+						<td class="envio" v-if="currency == '2'">
 							<i class="circle-gold"></i> DHL
 						</td>
 						<td></td>

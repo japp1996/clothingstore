@@ -34,13 +34,18 @@
 	    	$carrito = $this->getCarrito();
 
             foreach($carrito as $item) {
-                if ($item['producto']['quantity'] <= 0) {
-                    Cart::delete($item);
-                }
-                if ($item['cantidad'] > $item['producto']['quantity']) {
-                    $item['cantidad'] = $item['producto']['quantity'];
-                    Cart::set($item);
-                }
+            	try {
+            		if ($item['producto']['quantity'] <= 0) {
+	                    Cart::delete($item);
+	                }
+	                if ($item['cantidad'] > $item['producto']['quantity']) {
+	                    $item['cantidad'] = $item['producto']['quantity'];
+	                    Cart::set($item);
+	                }
+            	}
+            	catch(\Excepcion $e) {
+            		Cart::delete($item);
+            	}                
             }
 	    	return View('juridico.carrito.home');
 	    }	    	

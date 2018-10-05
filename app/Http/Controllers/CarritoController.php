@@ -38,13 +38,18 @@
 	    	$carrito = $this->getCarrito();
 
             foreach($carrito as $item) {
-                if ($item['producto']['amount']['amount'] <= 0) {
-                    Cart::delete($item);
-                }
-                if ($item['cantidad'] > $item['producto']['amount']['amount']) {
-                    $item['cantidad'] = $item['producto']['amount']['amount'];
-                    Cart::set($item);
-                }
+            	try {
+            		if ($item['producto']['amount']['amount'] <= 0) {
+	                    Cart::delete($item);
+	                }
+	                if ($item['cantidad'] > $item['producto']['amount']['amount']) {
+	                    $item['cantidad'] = $item['producto']['amount']['amount'];
+	                    Cart::set($item);
+	                }
+            	}
+            	catch(\Exception $e) {
+            		Cart::delete($item);
+            	}                
             }
 	    	return View('carrito.home');
 	    }	    	
