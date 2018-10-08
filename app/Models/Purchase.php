@@ -7,6 +7,11 @@
 	class Purchase extends Model {
 	    protected $table="purchases";
 
+		public function user()
+		{
+			return $this->belongsTo(\App\User::class);
+		}
+
 	    public function details() {
 	    	return $this->hasMany('App\Models\PurchaseDetails','purchase_id');
 	    }

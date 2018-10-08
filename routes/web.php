@@ -171,6 +171,8 @@
 			//Wholesalers
 			Route::resource('wholesalers', 'WholesalerController');
 			Route::get('filters/get', 'WholesalerController@getFilters');
+			Route::get('purchases', 'PurchaseController@index');
+			Route::get('purchases/{init}/{end}/date', 'PurchaseController@date');
 
 			/*Route::resource('blogs', 'BlogController');
 			Route::post('blogs/update-images', 'BlogController@updateImages');

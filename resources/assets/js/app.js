@@ -128,6 +128,9 @@ Vue.component('wholesaler-edit', require('./components/wholesalers/WholesalerEdi
 // Profile
 Vue.component('profile-form', require('./components/profile/ProfileForm'));
 
+// Purchase
+Vue.component('purchase-index', require('./components/purchase/PurchaseIndex'));
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
