@@ -41,8 +41,7 @@
                             <table-cell>{{ item.created_at | date }}</table-cell>
                             <table-cell>{{ item.user.name }}</table-cell>
                             <table-cell>{{ getTotal(item) }} 
-                                <span v-if="item.coin == 1">Bs. S.</span>
-                                <span v-else>USD</span>
+                                {{ findCurrency(item) }}
                             </table-cell>
                             <table-cell>{{ pay_types[item.payment_type] }}</table-cell>
                             <table-cell>
@@ -88,7 +87,7 @@
                                         </tr>
                                         <tr>
                                             <td colspan="3" class="right-align"><b>Total</b></td>
-                                            <td>{{ getTotal(modal.data) }} {{ modal.data.coin == 1 ? 'Bs. S' : 'USD' }}</td>
+                                            <td>{{ getTotal(modal.data) }} {{ findCurrency(modal.data) }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -136,6 +135,15 @@ export default {
         _view(item){
             this.modal.data = item;
             this.modal.init.open();
+        },
+
+        findCurrency (item) {
+            let currency = 1
+            item.details.forEach(e => {
+                currency = e.coin
+            })
+
+            return currency == 1 ? 'Bs. S' : 'USD'
         },
 
         getTotal (item) {

@@ -91602,7 +91602,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'purchase-index',
@@ -91637,6 +91636,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _view: function _view(item) {
             this.modal.data = item;
             this.modal.init.open();
+        },
+        findCurrency: function findCurrency(item) {
+            var currency = 1;
+            item.details.forEach(function (e) {
+                currency = e.coin;
+            });
+
+            return currency == 1 ? 'Bs. S' : 'USD';
         },
         getTotal: function getTotal(item) {
             var total = 0;
@@ -91846,11 +91853,10 @@ var render = function() {
                           _c("table-cell", [
                             _vm._v(
                               _vm._s(_vm.getTotal(item)) +
-                                " \n                            "
-                            ),
-                            item.coin == 1
-                              ? _c("span", [_vm._v("Bs. S.")])
-                              : _c("span", [_vm._v("USD")])
+                                " \n                            " +
+                                _vm._s(_vm.findCurrency(item)) +
+                                "\n                        "
+                            )
                           ]),
                           _vm._v(" "),
                           _c("table-cell", [
@@ -91990,11 +91996,7 @@ var render = function() {
                                   _vm._v(
                                     _vm._s(_vm.getTotal(_vm.modal.data)) +
                                       " " +
-                                      _vm._s(
-                                        _vm.modal.data.coin == 1
-                                          ? "Bs. S"
-                                          : "USD"
-                                      )
+                                      _vm._s(_vm.findCurrency(_vm.modal.data))
                                   )
                                 ])
                               ])
