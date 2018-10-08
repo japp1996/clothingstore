@@ -28,17 +28,23 @@
 
                     <table-byte :set-table="dataTable" :filters="['name']">
                         <table-row slot="table-head" slot-scope="{ item }">
-                            <table-head>Codigo de referencia</table-head>
+                            <table-head>ID transacción </table-head>
+                            <table-head>Fecha</table-head>
                             <table-head>Cliente</table-head>
-                            <table-head>Cambio</table-head>
+                            <table-head>Total</table-head>
+                            <table-head>Medio de pago</table-head>
                             <table-head>Acciones</table-head>
                         </table-row>
 
                         <table-row slot="table-row" slot-scope="{ item }">
                             <table-cell>{{ item.transaction_code }}</table-cell>
+                            <table-cell>{{ item.created_at | date }}</table-cell>
                             <table-cell>{{ item.user.name }}</table-cell>
-                            <table-cell>{{ item.exchange.change }}</table-cell>
-                            <!-- <table-cell>{{ item.transaction_code }}</table-cell> -->
+                            <table-cell>{{ getTotal(item) }} 
+                                <span v-if="item.coin == 1">Bs. S.</span>
+                                <span v-else>USD</span>
+                            </table-cell>
+                            <table-cell>{{ pay_types[item.payment_type] }}</table-cell>
                             <table-cell>
                                 <a href="#!" class="btn-action" @click="_view(item)">
                                     <img :src="'img/icons/ico-ver.png' | asset" alt="" class="img-responsive">
@@ -53,6 +59,43 @@
                         </table-row>
 
                     </table-byte>
+
+                    <byte-modal>
+                        <template>
+                            <div class="col s12">
+                                <h3>Detalle del pedido</h3>
+                            </div>
+                            
+                            <div class="col s12 m12"><b>ID transacción:</b> {{ modal.data.transaction_code }}</div>
+                            <div class="col s12 m6" v-if="modal.data.user"><b>Cliente:</b> {{ modal.data.user.name }}</div>
+                            <div class="col s12 m6"><b>Fecha:</b> {{ modal.data.created_at | date }}</div>
+                            <div class="col s12 m6"><b>Medio de pago:</b> {{ pay_types[modal.data.payment_type] }}</div>
+
+                            <div class="col s12">
+                                <table>
+                                    <thead>
+                                        <th>Producto</th>
+                                        <th>Precio</th>
+                                        <th>Cantidad</th>
+                                        <th>subtotal</th>
+                                    </thead>
+                                    <tbody v-if="modal.data.details">
+                                        <tr v-for="(d,i ) in modal.data.details" :key="i">
+                                            <td>{{ d.product_amount_id }}</td>
+                                            <td>{{ d.price }}</td>
+                                            <td>{{ d.quantity }}</td>
+                                            <td>{{ d.price * d.quantity }} {{ d.coin == 1 ? 'Bs. S' : 'USD' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" class="right-align"><b>Total</b></td>
+                                            <td>{{ getTotal(modal.data) }} {{ modal.data.coin == 1 ? 'Bs. S' : 'USD' }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </template>
+
+                    </byte-modal>
                 </section>
             </div>
         </div>
@@ -72,7 +115,15 @@ export default {
         return {
             dataTable: [],
             init: '',
-            end: ''
+            end: '',
+            pay_types: ['MercadoPago', 'Paypal', 'Transferencia'],
+            modal: {
+                init: '',
+                data: {},
+                type: {
+                    action: 'view'
+                }
+            }
         }
     },
     methods: {
@@ -80,6 +131,26 @@ export default {
             this.dataTable = this.purchases
             this.init = ''
             this.end = ''
+        },
+
+        _view(item){
+            this.modal.data = item;
+            this.modal.init.open();
+        },
+
+        getTotal (item) {
+            let total = 0
+            item.details.forEach(e => {
+                let subtotal = e.price * e.quantity
+                total += parseFloat(subtotal)
+                // if(e.coin == 1) {
+                //     total += parseFloat(subtotal * item.exchange.change)    
+                // }else {
+                //     total += parseFloat(subtotal / item.exchange.change) 
+                // }
+            })
+
+            return total
         },
         _search () {
             axios.get(`admin/purchases/${this.init}/${this.end}/date`)
@@ -118,6 +189,8 @@ export default {
                 i18n: pickDateI18n
             });
         }, 100);
+
+        this.modal.init = M.Modal.init(document.querySelector('.modal'));
     }
 }
 </script>
