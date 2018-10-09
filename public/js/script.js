@@ -91602,12 +91602,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         getTotal: function getTotal(item) {
             var total = 0;
+
+            var subtotal = 0;
+            var price = 0;
             item.details.forEach(function (e) {
-                var subtotal = e.price * e.quantity;
-                total += parseFloat(subtotal);
+                if (item.payment_type == 2) {
+                    // Si es PAYPAL
+
+                    if (e.coin == 1) {
+                        price = parseFloat(e.price / item.exchange.change).toFixed(2);
+                    } else {
+                        price = e.price;
+                    }
+                } else {
+
+                    if (e.coin == 1) {
+                        price = e.price;
+                    } else {
+                        price = parseFloat(e.price * item.exchange.change).toFixed(2);
+                    }
+                }
+                console.log(price);
+                subtotal = price * e.quantity;
+
+                total += subtotal;
             });
 
-            return total;
+            return total.toFixed(2);
         },
         _search: function _search() {
             var _this = this;
