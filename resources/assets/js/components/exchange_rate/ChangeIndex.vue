@@ -96,7 +96,7 @@ export default {
         _store (e) {
             e.preventDefault()
             if (this.form.change == "") {
-                this._showAlert("Disculpa, debes cargar la tasa de cambio", "success")
+                this._showAlert("Disculpa, debes cargar la tasa de cambio", "warning")
                 return false
             }
             e.target.setAttribute('disabled', true);
