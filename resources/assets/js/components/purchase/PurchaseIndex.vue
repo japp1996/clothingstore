@@ -40,9 +40,7 @@
                             <table-cell>{{ item.payment_type == 3 ?  item.transfer.number : item.transaction_code }}</table-cell>
                             <table-cell>{{ item.created_at | date }}</table-cell>
                             <table-cell>{{ item.user.name }}</table-cell>
-                            <table-cell>{{ getTotal(item) }} 
-                                {{ findCurrency(item) }}
-                            </table-cell>
+                            <table-cell>{{ getTotal(item) }}</table-cell>
                             <table-cell>{{ pay_types[item.payment_type] }}</table-cell>
                             <table-cell>
                                 <a href="#!" class="btn-action" @click="_view(item)">
@@ -157,12 +155,34 @@ export default {
 
         getTotal (item) {
             let total = 0
+                
+            let subtotal = 0; 
+            let price = 0;
             item.details.forEach(e => {
-                let subtotal = e.price * e.quantity
-                total += parseFloat(subtotal)
+                if(item.payment_type == 2) { // Si es PAYPAL
+
+                    if(e.coin == 1) {
+                        price = parseFloat(e.price / item.exchange.change).toFixed(2)
+                    }else {
+                        price = e.price
+                    }
+                    
+                }else {
+
+                    if(e.coin == 1) {
+                        price = e.price
+                    }else {
+                        price = parseFloat(e.price * item.exchange.change).toFixed(2)
+                    }
+
+                }
+                console.log(price)
+                subtotal = price * e.quantity
+                
+                total += subtotal
             })
 
-            return total
+            return total.toFixed(2)
         },
         _search () {
             axios.get(`admin/purchases/${this.init}/${this.end}/date`)

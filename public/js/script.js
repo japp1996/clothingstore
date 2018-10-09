@@ -29806,7 +29806,7 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(143);
-module.exports = __webpack_require__(353);
+module.exports = __webpack_require__(355);
 
 
 /***/ }),
@@ -29958,7 +29958,7 @@ Vue.component('profile-form', __webpack_require__(340));
 Vue.component('purchase-index', __webpack_require__(345));
 
 // Clients
-Vue.component('client-index', __webpack_require__(348));
+Vue.component('client-index', __webpack_require__(350));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -91422,13 +91422,13 @@ if (false) {
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(357)
+  __webpack_require__(346)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(346)
+var __vue_script__ = __webpack_require__(348)
 /* template */
-var __vue_template__ = __webpack_require__(347)
+var __vue_template__ = __webpack_require__(349)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -91468,12 +91468,50 @@ module.exports = Component.exports
 
 /***/ }),
 /* 346 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(347);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("c6398a52", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-c99a3e0c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PurchaseIndex.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-c99a3e0c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PurchaseIndex.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 347 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.sweet-alert {\n    z-index: 99999999;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 348 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
 //
 //
 //
@@ -91629,12 +91667,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         getTotal: function getTotal(item) {
             var total = 0;
+
+            var subtotal = 0;
+            var price = 0;
             item.details.forEach(function (e) {
-                var subtotal = e.price * e.quantity;
-                total += parseFloat(subtotal);
+                if (item.payment_type == 2) {
+                    // Si es PAYPAL
+
+                    if (e.coin == 1) {
+                        price = parseFloat(e.price / item.exchange.change).toFixed(2);
+                    } else {
+                        price = e.price;
+                    }
+                } else {
+
+                    if (e.coin == 1) {
+                        price = e.price;
+                    } else {
+                        price = parseFloat(e.price * item.exchange.change).toFixed(2);
+                    }
+                }
+                console.log(price);
+                subtotal = price * e.quantity;
+
+                total += subtotal;
             });
 
-            return total;
+            return total.toFixed(2);
         },
         _search: function _search() {
             var _this = this;
@@ -91691,7 +91750,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 347 */
+/* 349 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -91848,12 +91907,7 @@ var render = function() {
                           _c("table-cell", [_vm._v(_vm._s(item.user.name))]),
                           _vm._v(" "),
                           _c("table-cell", [
-                            _vm._v(
-                              _vm._s(_vm.getTotal(item)) +
-                                " \n                            " +
-                                _vm._s(_vm.findCurrency(item)) +
-                                "\n                        "
-                            )
+                            _vm._v(_vm._s(_vm.getTotal(item)))
                           ]),
                           _vm._v(" "),
                           _c("table-cell", [
@@ -92050,19 +92104,19 @@ if (false) {
 }
 
 /***/ }),
-/* 348 */
+/* 350 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(349)
+  __webpack_require__(351)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(351)
+var __vue_script__ = __webpack_require__(353)
 /* template */
-var __vue_template__ = __webpack_require__(352)
+var __vue_template__ = __webpack_require__(354)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -92101,13 +92155,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 349 */
+/* 351 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(350);
+var content = __webpack_require__(352);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -92127,7 +92181,7 @@ if(false) {
 }
 
 /***/ }),
-/* 350 */
+/* 352 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -92141,7 +92195,7 @@ exports.push([module.i, "\n.underline {\n    border-bottom: 3px solid #000000;\n
 
 
 /***/ }),
-/* 351 */
+/* 353 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -92317,7 +92371,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 352 */
+/* 354 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -92626,53 +92680,10 @@ if (false) {
 }
 
 /***/ }),
-/* 353 */
+/* 355 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 354 */,
-/* 355 */,
-/* 356 */,
-/* 357 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(358);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(3)("c6398a52", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-c99a3e0c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PurchaseIndex.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-c99a3e0c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PurchaseIndex.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 358 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.sweet-alert {\n    z-index: 99999999;\n}\n", ""]);
-
-// exports
-
 
 /***/ })
 /******/ ]);
