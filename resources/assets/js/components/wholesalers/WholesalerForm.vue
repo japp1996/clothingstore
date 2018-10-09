@@ -227,24 +227,6 @@ export default {
         store () {
             this.$store.dispatch('wholesalers/addWholesaler',  this.convertToFormData())
         },
-        update () {
-            
-        },
-        cleanForm() {
-            Object.getOwnPropertyNames(this.form).forEach((key, i) => {
-                if(key === "coin") {
-                    this.form.coin = '1'
-                }else if(key === "images") {
-                    this.images = []
-                    this.image = ''
-                    this.form.images = []
-                }else {
-                    if(key != "__ob__"){ 
-                        formData.append(key, this.form[key]);   
-                    }      
-                }
-            })
-        },
         convertToFormData(){
             var formData = new FormData();
             Object.getOwnPropertyNames(this.form).forEach((key, i) => {

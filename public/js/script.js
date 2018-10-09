@@ -71531,7 +71531,6 @@ var actions = {
     addWholesaler: function addWholesaler(_ref2, data) {
         var commit = _ref2.commit;
 
-        console.log(data);
         commit('setSending', true);
         __WEBPACK_IMPORTED_MODULE_0__services_wara_wholesaler__["a" /* default */].store(data).then(function (wholesalerSaved) {
             swal('', 'Se registro la colección correctamente', 'success');
@@ -71649,8 +71648,8 @@ var waraService = __WEBPACK_IMPORTED_MODULE_0_axios___default.a.create({
 
 "use strict";
 var configService = {
-    // apiUrl: 'http://200.44.165.156/Wara/public'
-    apiUrl: 'http://localhost/Wara/public'
+    apiUrl: 'http://200.44.165.156/Wara/public'
+    // apiUrl: 'http://localhost/Wara/public'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (configService);
@@ -89604,32 +89603,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         store: function store() {
             this.$store.dispatch('wholesalers/addWholesaler', this.convertToFormData());
         },
-        update: function update() {},
-        cleanForm: function cleanForm() {
-            var _this2 = this;
-
-            Object.getOwnPropertyNames(this.form).forEach(function (key, i) {
-                if (key === "coin") {
-                    _this2.form.coin = '1';
-                } else if (key === "images") {
-                    _this2.images = [];
-                    _this2.image = '';
-                    _this2.form.images = [];
-                } else {
-                    if (key != "__ob__") {
-                        formData.append(key, _this2.form[key]);
-                    }
-                }
-            });
-        },
         convertToFormData: function convertToFormData() {
-            var _this3 = this;
+            var _this2 = this;
 
             var formData = new FormData();
             Object.getOwnPropertyNames(this.form).forEach(function (key, i) {
                 var count = 0;
                 if (key === "images") {
-                    _this3.images.forEach(function (e, y) {
+                    _this2.images.forEach(function (e, y) {
                         if (e.file !== "") {
                             count = count + 1;
                             formData.append('file' + count, e.file);
@@ -89637,7 +89618,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     });
                     formData.append('count', count);
                 } else if (key != "__ob__") {
-                    formData.append(key, _this3.form[key]);
+                    formData.append(key, _this2.form[key]);
                 }
             });
 
