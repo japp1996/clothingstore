@@ -27,7 +27,7 @@
 	    	$total = 0;
 
     		foreach($productos as $producto) {
-    			$total = $total + round((\App('\App\Http\Controllers\CarritoController')->getPrice(
+    			$total = $total + (round(\App('\App\Http\Controllers\CarritoController')->getPrice(
 	            	$producto['producto']['price_1'],
     				$producto['producto']['price_2'],
     				$producto['producto']['coin'],

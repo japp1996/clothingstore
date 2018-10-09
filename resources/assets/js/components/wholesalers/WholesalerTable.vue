@@ -27,7 +27,7 @@
                             <table-head>Precio</table-head>
                             <table-head>Moneda</table-head>
                             <table-head>Descripción</table-head>
-                            <table-head>Acción</table-head>
+                            <table-head class="head-actions">Acción</table-head>
 
                         </table-row>
 
