@@ -25,7 +25,7 @@ class AllyRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $contenido = [
             'name' => [
                 'required',
                 Rule::unique('aliados')->ignore($this->id)->where(function ($query) {
@@ -35,8 +35,12 @@ class AllyRequest extends FormRequest
             'facebook' => 'required',
             'twitter' => 'required',
             'instagram' => 'required',
-            'address' => 'required|min:3',
+            'address' => 'required|min:3'
         ];
+        for ($i = 0; $i < $this->count; $i++) {
+            $contenido['image'.$i] = 'mimes:jpg,png,jpeg,gif'; 
+        }
+        return $contenido;
     }
 
     public function attributes()
@@ -56,6 +60,7 @@ class AllyRequest extends FormRequest
             'required' => 'El campo :attribute es requerido',
             'min' => 'El campo :attribute no puede contener menos de :min caracteres',
             'unique' => 'Ya existe un aliado registrado con este nombre',
+            'mimes' => 'La imágen tiene un formato incorrecto'
         ];
     }
 
