@@ -103,6 +103,13 @@
     </section>
 </template>
 
+<style>
+    .sweet-alert {
+        z-index: 99999999;
+    }
+</style>
+
+
 <script>
 export default {
     name: 'purchase-index',
@@ -170,18 +177,31 @@ export default {
         },
         
         getEnd(date){
-            this.end = moment(date).format('DD-MM-Y')
+            if (this.init && moment(date).isBefore(moment(this.init))) {
+                swal('', 'No puedes poner una fecha anterior de la de inicio, vuelva a seleccionarla')
+                document.querySelector('#date_picker_init').value = ""
+                this.init = ""
+                return
+            }
+            this.end = moment(date).format('Y-MM-DD')
         },
-
+        
         getInit(date){
-            this.init = moment(date).format('DD-MM-Y')
+            if (this.end && moment(date).isAfter(moment(this.end))) {
+                swal('', 'No puedes poner una fecha superior a la de fin, vuelva a seleccionarla')
+                document.querySelector('#date_picker_end').value = ""
+                this.end = ""
+                return
+            }
+            this.init = moment(date).format('Y-MM-DD')
         },
     },
     mounted() {
+
         this.dataTable = this.purchases
         setTimeout(() => {
             M.Datepicker.init(document.querySelector('#date_picker_init'), {
-                format: "dd-mm-yyyy",
+                format: "yyyy-mm-dd",
                 onSelect: this.getInit,
                 i18n: pickDateI18n
             });
@@ -189,7 +209,7 @@ export default {
 
         setTimeout(() => {
             M.Datepicker.init(document.querySelector('#date_picker_end'), {
-                format: "dd-mm-yyyy",
+                format: "yyyy-mm-dd",
                 onSelect: this.getEnd,
                 i18n: pickDateI18n
             });

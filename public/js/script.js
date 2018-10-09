@@ -91420,6 +91420,10 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(357)
+}
 var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(346)
@@ -91428,7 +91432,7 @@ var __vue_template__ = __webpack_require__(347)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -91468,6 +91472,13 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -91637,10 +91648,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return;
         },
         getEnd: function getEnd(date) {
-            this.end = moment(date).format('DD-MM-Y');
+            if (this.init && moment(date).isBefore(moment(this.init))) {
+                swal('', 'No puedes poner una fecha anterior de la de inicio, vuelva a seleccionarla');
+                document.querySelector('#date_picker_init').value = "";
+                this.init = "";
+                return;
+            }
+            this.end = moment(date).format('Y-MM-DD');
         },
         getInit: function getInit(date) {
-            this.init = moment(date).format('DD-MM-Y');
+            if (this.end && moment(date).isAfter(moment(this.end))) {
+                swal('', 'No puedes poner una fecha superior a la de fin, vuelva a seleccionarla');
+                document.querySelector('#date_picker_end').value = "";
+                this.end = "";
+                return;
+            }
+            this.init = moment(date).format('Y-MM-DD');
         }
     },
     mounted: function mounted() {
@@ -91649,7 +91672,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.dataTable = this.purchases;
         setTimeout(function () {
             M.Datepicker.init(document.querySelector('#date_picker_init'), {
-                format: "dd-mm-yyyy",
+                format: "yyyy-mm-dd",
                 onSelect: _this2.getInit,
                 i18n: pickDateI18n
             });
@@ -91657,7 +91680,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         setTimeout(function () {
             M.Datepicker.init(document.querySelector('#date_picker_end'), {
-                format: "dd-mm-yyyy",
+                format: "yyyy-mm-dd",
                 onSelect: _this2.getEnd,
                 i18n: pickDateI18n
             });
@@ -92607,6 +92630,49 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 354 */,
+/* 355 */,
+/* 356 */,
+/* 357 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(358);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("c6398a52", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-c99a3e0c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PurchaseIndex.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-c99a3e0c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PurchaseIndex.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 358 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.sweet-alert {\n    z-index: 99999999;\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);
