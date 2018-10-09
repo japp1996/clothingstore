@@ -58,12 +58,12 @@
         </a> 
     </li>
     <li>
-        <a href="{{ url('/admin/purchases') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Aliados">
+        <a href="{{ url('/admin/purchases') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Pedidos">
             <img src="{{ asset('img/icons/ico-pedidos.png') }}" alt="" class="img-responsive">Pedidos
         </a> 
     </li>
     <li>
-        <a href="{{ url('/admin/clients') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Aliados">
+        <a href="{{ url('/admin/clients') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Clientes">
             <img src="{{ asset('img/icons/ico-clients.png') }}" alt="" class="img-responsive">Clientes
         </a> 
     </li>

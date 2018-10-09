@@ -51,7 +51,7 @@
                                     <div class="col s12 m6"><b>Telefono:</b> {{ modal.data.telefono }}</div>
                                     <div class="col s12 m6"><b>Correo electrónico:</b> {{ modal.data.email }}</div>
                                                                         
-                                    <div class="col s12 m6"><b>Empresa:</b> {{ modal.data.empresa }}</div>
+                                    <div class="col s12 m6" v-if="modal.data.nivel == 2"><b>Empresa:</b> {{ modal.data.empresa }}</div>
                                     <div class="col s12 m6"><b>Codigo postal:</b> {{ modal.data.codigo }}</div>
                                     
                                     <div class="col s12 m12"><b>Dirección:</b> {{ modal.data.direccion }}</div>
