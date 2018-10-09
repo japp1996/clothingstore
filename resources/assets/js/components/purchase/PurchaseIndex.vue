@@ -80,7 +80,7 @@
                                     </thead>
                                     <tbody v-if="modal.data.details">
                                         <tr v-for="(d,i ) in modal.data.details" :key="i">
-                                            <td>{{ d.product_amount_id }}</td>
+                                            <td>{{ d.product }}</td>
                                             <td>{{ d.price }}</td>
                                             <td>{{ d.quantity }}</td>
                                             <td>{{ d.price * d.quantity }} {{ d.coin == 1 ? 'Bs. S' : 'USD' }}</td>
@@ -151,11 +151,6 @@ export default {
             item.details.forEach(e => {
                 let subtotal = e.price * e.quantity
                 total += parseFloat(subtotal)
-                // if(e.coin == 1) {
-                //     total += parseFloat(subtotal * item.exchange.change)    
-                // }else {
-                //     total += parseFloat(subtotal / item.exchange.change) 
-                // }
             })
 
             return total

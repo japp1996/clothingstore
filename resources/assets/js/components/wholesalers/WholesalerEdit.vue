@@ -128,7 +128,6 @@
                 </div>
                 <div class="col s12 m12 l12 margin-top center-align">
                     <a href="#!" class="btn btn-success" @click="update" :disabled="sending">Guardar</a>
-                    <!-- <a href="#!" class="btn btn-success" @click="update" v-else>Actualizar</a> -->
                 </div>
             </div>
         </div>
@@ -169,7 +168,8 @@ export default {
                 description: null,
                 description_english: null,
                 images: [],
-                main: ""
+                main: "",
+                _method: 'PUT'
             },
             images: [],
             image: "",
@@ -192,8 +192,8 @@ export default {
             let formData = new FormData()
             formData.append('id',  i)
             formData.append('file', e.file)
-            formData.append('product_id', this.form.id)
-            axios.post('admin/update-images', formData)
+            formData.append('wholesaler_id', this.form.id)
+            axios.post('admin/wholesalers/update-images', formData)
                 .then(resp => {
                     if (i != null) {
                         this.form.images[x].id = resp.data.id
@@ -201,25 +201,8 @@ export default {
                     }
                 })
                 .catch(err => {
-                    this._showAlert("Disculpa, ha ocurrido un error", "error")
+                    console.log(err)
                 })
-        },
-
-         _setFile(i, x, e) {
-            let formData = new FormData()
-            formData.append('id',  i)
-            formData.append('file', e.file)
-            formData.append('product_id', this.form.id)
-            axios.post('admin/update-images-collection', formData)
-            .then(resp => {
-                if (i != null) {
-                    this.form.images[x].id = resp.data.id
-                    this.form.images[x].file = resp.data.file
-                }
-            })
-            .catch(err => {
-                this._showAlert("Disculpa, ha ocurrido un error", "error")
-            })
         },
 
         _sliceItem (id, i) {
@@ -250,8 +233,46 @@ export default {
                 }) 
         },
         update () {
-               
-        }
+            console.log(this._convertToFormData())
+            axios.put(`admin/wholesalers/${this.wholesaler.id}`, this.form)
+                .then(res => {
+                    console.log(res)
+                    this._showAlert('Se actualizó la colección correctamente', 'success')
+                    setTimeout(() => {
+                        window.location = urlBase + 'admin/wholesalers'
+                    },2000)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        },
+
+        _showAlert(text, type) {
+            swal({
+                title: "",
+                text: text,
+                timer: 3000,
+                showConfirmButton: false,
+                type: type
+            })
+        },
+
+        _convertToFormData(){
+            let formData = new FormData();
+            formData.append('_method', 'PATCH');
+            Object.getOwnPropertyNames(this.form).forEach((key, i) => {
+                let count = 0;
+                if(key === "images") { 
+
+                }else if(key != "__ob__"){
+                    
+                    formData.append(key, this.form[key]);
+                                      
+                }
+            });
+
+            return formData;
+        },
     },
     mounted () {
         this.getFilters()

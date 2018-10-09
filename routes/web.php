@@ -155,7 +155,7 @@
 			// Products
 			Route::resource('products', 'ProductController');
 			Route::post('product/postear/{id}', 'ProductController@postear');
-			Route::post('update-images', 'ProductController@updateImage');
+			Route::post('update-images', 'ProductController@updateImages');
 			Route::post('delete-images', 'ProductController@delete');
 			// Us
 			Route::resource('us', 'UsController');
@@ -169,6 +169,7 @@
 			Route::post('blogs/delete-image', 'GenerateBlogController@deleteImage');
 
 			//Wholesalers
+			Route::post('wholesalers/update-images', 'WholesalerController@updateImages');
 			Route::resource('wholesalers', 'WholesalerController');
 			Route::get('filters/get', 'WholesalerController@getFilters');
 			Route::get('purchases', 'PurchaseController@index');
@@ -178,7 +179,7 @@
 			Route::post('blogs/update-images', 'BlogController@updateImages');
 			Route::post('blogs/delete-images', 'BlogController@delete');
 			*/
-
+			Route::get('clients', 'ClientController@index');
 			Route::get('profile', 'ProfileController@profile');
 			Route::post('profile', 'ProfileController@update');
 		});

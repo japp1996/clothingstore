@@ -10,6 +10,7 @@ use App\Models\Filter;
 use App\Libraries\SetNameImage;
 use App\Libraries\ResizeImage;
 use App\Http\Requests\StoreWholesalerRequest;
+use File;
 
 class WholesalerController extends Controller
 {
@@ -83,7 +84,7 @@ class WholesalerController extends Controller
      */
     public function show(Wholesaler $wholesaler)
     {
-        //
+       
     }
 
     /**
@@ -106,7 +107,16 @@ class WholesalerController extends Controller
      */
     public function update(Request $request, Wholesaler $wholesaler)
     {
-        //
+        $wholesaler->name = $request->name;
+        $wholesaler->name_english = $request->name_english;
+        $wholesaler->price = $request->price;
+        $wholesaler->quantity = $request->quantity;
+        $wholesaler->description = $request->description;
+        $wholesaler->description_english = $request->description_english;
+        $wholesaler->filter_id = $request->filter_id;
+        $wholesaler->coin = $request->coin;
+
+        $wholesaler->save();
     }
 
     /**
@@ -124,5 +134,47 @@ class WholesalerController extends Controller
     public function getFilters() 
     {
         return Filter::pluck('name', 'id');
+    }
+
+    public function updateImages(Request $request)
+    {
+        $url = "img/products/";
+        if ($request->id == NULL || $request->id == 'null') {
+            $item = WholesalerImage::where('wholesaler_id', $request->wholesaler_id)->where('main', '1')->first();
+            $odlFile = $item->file;
+            $file = $request->file('file');
+            $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
+            $file->move($url, $file_name);
+            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
+            File::delete(public_path($url.$odlFile));
+            $item->file = $file_name;
+            $item->save();
+            $fileId = $item->id;
+        }
+        else if ($request->id == 0) {
+            $file = $request->file('file');
+            $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
+            $file->move($url, $file_name);
+            
+            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
+            $detail = new WholesalerImage;
+            $detail->file = $file_name;
+            $detail->wholesaler_id = $request->wholesaler_id;
+            $detail->save();
+            $fileId = $detail->id;
+        } else {
+            $item = WholesalerImage::find($request->id);
+            $odlFile = $item->file;
+            $file = $request->file('file');
+            $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
+            $file->move($url, $file_name);
+            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
+            File::delete(public_path($url.$odlFile));
+            $item->file = $file_name;
+            $item->save();
+            $fileId = $request->id;
+        }
+
+        return response()->json(['result' => true, 'id' => $fileId, 'file' => $file_name]);
     }
 }

@@ -131,6 +131,9 @@ Vue.component('profile-form', require('./components/profile/ProfileForm'));
 // Purchase
 Vue.component('purchase-index', require('./components/purchase/PurchaseIndex'));
 
+// Clients
+Vue.component('client-index', require('./components/clients/ClientIndex'));
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

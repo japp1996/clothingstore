@@ -29957,6 +29957,9 @@ Vue.component('profile-form', __webpack_require__(340));
 // Purchase
 Vue.component('purchase-index', __webpack_require__(345));
 
+// Clients
+Vue.component('client-index', __webpack_require__(352));
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -90216,11 +90219,6 @@ exports.push([module.i, "\n.container-form{\n       background-color: #fff;\n   
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(6);
-var _methods;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
 //
 //
 //
@@ -90390,7 +90388,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 description: null,
                 description_english: null,
                 images: [],
-                main: ""
+                main: "",
+                _method: 'PUT'
             },
             images: [],
             image: "",
@@ -90407,7 +90406,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             return state.wholesalers.sending;
         }
     }),
-    methods: (_methods = {
+    methods: {
         _addImage: function _addImage() {
             this.form.images.push({ file: "", id: 0 });
             this.images = this.form.images;
@@ -90419,66 +90418,91 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             var formData = new FormData();
             formData.append('id', i);
             formData.append('file', e.file);
-            formData.append('product_id', this.form.id);
-            axios.post('admin/update-images', formData).then(function (resp) {
+            formData.append('wholesaler_id', this.form.id);
+            axios.post('admin/wholesalers/update-images', formData).then(function (resp) {
                 if (i != null) {
                     _this.form.images[x].id = resp.data.id;
                     _this.form.images[x].file = resp.data.file;
                 }
             }).catch(function (err) {
-                _this._showAlert("Disculpa, ha ocurrido un error", "error");
+                console.log(err);
             });
-        }
-    }, _defineProperty(_methods, '_setFile', function _setFile(i, x, e) {
-        var _this2 = this;
+        },
+        _sliceItem: function _sliceItem(id, i) {
+            var _this2 = this;
 
-        var formData = new FormData();
-        formData.append('id', i);
-        formData.append('file', e.file);
-        formData.append('product_id', this.form.id);
-        axios.post('admin/update-images-collection', formData).then(function (resp) {
-            if (i != null) {
-                _this2.form.images[x].id = resp.data.id;
-                _this2.form.images[x].file = resp.data.file;
-            }
-        }).catch(function (err) {
-            _this2._showAlert("Disculpa, ha ocurrido un error", "error");
-        });
-    }), _defineProperty(_methods, '_sliceItem', function _sliceItem(id, i) {
-        var _this3 = this;
+            var parent = document.querySelector(".gallery__items");
+            var child = document.querySelector('#file-' + id);
 
-        var parent = document.querySelector(".gallery__items");
-        var child = document.querySelector('#file-' + id);
-
-        if (id != 0) {
-            axios.post('admin/delete-images', { id: id }).then(function (resp) {
+            if (id != 0) {
+                axios.post('admin/delete-images', { id: id }).then(function (resp) {
+                    parent.removeChild(child);
+                    _this2.elements = _this2.elements - 1;
+                }).catch(function (err) {
+                    _this2._showAlert("Disculpa, ha ocurrido un error", "error");
+                });
+            } else {
                 parent.removeChild(child);
-                _this3.elements = _this3.elements - 1;
-            }).catch(function (err) {
-                _this3._showAlert("Disculpa, ha ocurrido un error", "error");
-            });
-        } else {
-            parent.removeChild(child);
-            this.elements = this.elements - 1;
-        }
-    }), _defineProperty(_methods, 'getFilters', function getFilters() {
-        var _this4 = this;
+                this.elements = this.elements - 1;
+            }
+        },
+        getFilters: function getFilters() {
+            var _this3 = this;
 
-        axios.get('admin/filters/get').then(function (res) {
-            _this4.filters = res.data;
-        }).catch(function (err) {
-            console.log(err);
-        });
-    }), _defineProperty(_methods, 'update', function update() {}), _methods),
+            axios.get('admin/filters/get').then(function (res) {
+                _this3.filters = res.data;
+            }).catch(function (err) {
+                console.log(err);
+            });
+        },
+        update: function update() {
+            var _this4 = this;
+
+            console.log(this._convertToFormData());
+            axios.put('admin/wholesalers/' + this.wholesaler.id, this.form).then(function (res) {
+                console.log(res);
+                _this4._showAlert('Se actualizó la colección correctamente', 'success');
+                setTimeout(function () {
+                    window.location = urlBase + 'admin/wholesalers';
+                }, 2000);
+            }).catch(function (err) {
+                console.log(err);
+            });
+        },
+        _showAlert: function _showAlert(text, type) {
+            swal({
+                title: "",
+                text: text,
+                timer: 3000,
+                showConfirmButton: false,
+                type: type
+            });
+        },
+        _convertToFormData: function _convertToFormData() {
+            var _this5 = this;
+
+            var formData = new FormData();
+            formData.append('_method', 'PATCH');
+            Object.getOwnPropertyNames(this.form).forEach(function (key, i) {
+                var count = 0;
+                if (key === "images") {} else if (key != "__ob__") {
+
+                    formData.append(key, _this5.form[key]);
+                }
+            });
+
+            return formData;
+        }
+    },
     mounted: function mounted() {
-        var _this5 = this;
+        var _this6 = this;
 
         this.getFilters();
         this.form = this.wholesaler;
         var images = new Array();
         this.form.images.forEach(function (el) {
             if (el.main == "1") {
-                _this5.form.main = el.file;
+                _this6.form.main = el.file;
             } else {
                 images.push(el);
             }
@@ -91650,11 +91674,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             item.details.forEach(function (e) {
                 var subtotal = e.price * e.quantity;
                 total += parseFloat(subtotal);
-                // if(e.coin == 1) {
-                //     total += parseFloat(subtotal * item.exchange.change)    
-                // }else {
-                //     total += parseFloat(subtotal / item.exchange.change) 
-                // }
             });
 
             return total;
@@ -91964,9 +91983,7 @@ var render = function() {
                             [
                               _vm._l(_vm.modal.data.details, function(d, i) {
                                 return _c("tr", { key: i }, [
-                                  _c("td", [
-                                    _vm._v(_vm._s(d.product_amount_id))
-                                  ]),
+                                  _c("td", [_vm._v(_vm._s(d.product))]),
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(d.price))]),
                                   _vm._v(" "),
@@ -92043,6 +92060,378 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 349 */,
+/* 350 */,
+/* 351 */,
+/* 352 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(353)
+/* template */
+var __vue_template__ = __webpack_require__(354)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/clients/ClientIndex.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4222b64e", Component.options)
+  } else {
+    hotAPI.reload("data-v-4222b64e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 353 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: '',
+    props: {
+        clients: {
+            type: Array,
+            default: []
+        }
+    },
+    data: function data() {
+        return {
+            dataTable: [],
+            modal: {
+                init: '',
+                data: {},
+                type: {
+                    action: 'view'
+                }
+            }
+        };
+    },
+
+    methods: {
+        _view: function _view(item) {
+            this.modal.data = item;
+            this.modal.init.open();
+        }
+    },
+    mounted: function mounted() {
+        console.log(this.clients);
+        this.dataTable = this.clients;
+        this.modal.init = M.Modal.init(document.querySelector('.modal'));
+    }
+});
+
+/***/ }),
+/* 354 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("section", { staticClass: "container-fluid" }, [
+    _c("div", { staticClass: "row" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col s12" }, [
+          _c("section", { staticClass: "table__content" }, [
+            _c(
+              "div",
+              { staticClass: "row" },
+              [
+                _c(
+                  "table-byte",
+                  {
+                    attrs: { "set-table": _vm.dataTable, filters: ["name"] },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "table-head",
+                        fn: function(ref) {
+                          var item = ref.item
+                          return _c(
+                            "table-row",
+                            {},
+                            [
+                              _c("table-head", [_vm._v("Nombre")]),
+                              _vm._v(" "),
+                              _c("table-head", [_vm._v("Identificación")]),
+                              _vm._v(" "),
+                              _c("table-head", [_vm._v("Tipo")]),
+                              _vm._v(" "),
+                              _c("table-head", [_vm._v("Fecha de registro")]),
+                              _vm._v(" "),
+                              _c("table-head", [_vm._v("Teléfono")]),
+                              _vm._v(" "),
+                              _c("table-head", [_vm._v("Acciones")])
+                            ],
+                            1
+                          )
+                        }
+                      },
+                      {
+                        key: "table-row",
+                        fn: function(ref) {
+                          var item = ref.item
+                          return _c(
+                            "table-row",
+                            {},
+                            [
+                              _c("table-cell", [_vm._v(_vm._s(item.name))]),
+                              _vm._v(" "),
+                              _c("table-cell", [
+                                _vm._v(_vm._s(item.identificacion))
+                              ]),
+                              _vm._v(" "),
+                              _c("table-cell", [_vm._v(_vm._s(item.type))]),
+                              _vm._v(" "),
+                              _c("table-cell", [
+                                _vm._v(_vm._s(_vm._f("date")(item.created_at)))
+                              ]),
+                              _vm._v(" "),
+                              _c("table-cell", [
+                                _vm._v(_vm._s(item.telefono) + " ")
+                              ]),
+                              _vm._v(" "),
+                              _c("table-cell", [
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "btn-action",
+                                    attrs: { href: "#!" },
+                                    on: {
+                                      click: function($event) {
+                                        _vm._view(item)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("img", {
+                                      staticClass: "img-responsive",
+                                      attrs: {
+                                        src: _vm._f("asset")(
+                                          "img/icons/ico-ver.png"
+                                        ),
+                                        alt: ""
+                                      }
+                                    })
+                                  ]
+                                )
+                              ])
+                            ],
+                            1
+                          )
+                        }
+                      }
+                    ])
+                  },
+                  [
+                    _c(
+                      "table-row",
+                      { attrs: { slot: "empty-rows" }, slot: "empty-rows" },
+                      [
+                        _c("table-cell", { attrs: { colspan: "3" } }, [
+                          _vm._v(
+                            "\n                                    No se encontraron registros.\n                                "
+                          )
+                        ])
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "byte-modal",
+                  [
+                    [
+                      _c("div", { staticClass: "col s12" }, [
+                        _c("h3", [_vm._v("Datos del cliente")])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col s12 m6" }, [
+                        _c("b", [_vm._v("Nombre:")]),
+                        _vm._v(" " + _vm._s(_vm.modal.data.name))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col s12 m6" }, [
+                        _c("b", [_vm._v("Identificación:")]),
+                        _vm._v(" " + _vm._s(_vm.modal.data.identificacion))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col s12 m6" }, [
+                        _c("b", [_vm._v("Telefono:")]),
+                        _vm._v(" " + _vm._s(_vm.modal.data.telefono))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col s12 m6" }, [
+                        _c("b", [_vm._v("Correo electrónico:")]),
+                        _vm._v(" " + _vm._s(_vm.modal.data.email))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col s12 m6" }, [
+                        _c("b", [_vm._v("Empresa:")]),
+                        _vm._v(" " + _vm._s(_vm.modal.data.empresa))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col s12 m6" }, [
+                        _c("b", [_vm._v("Codigo postal:")]),
+                        _vm._v(" " + _vm._s(_vm.modal.data.codigo))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col s12 m12" }, [
+                        _c("b", [_vm._v("Dirección:")]),
+                        _vm._v(" " + _vm._s(_vm.modal.data.direccion))
+                      ]),
+                      _vm._v(" "),
+                      _vm.modal.data.pais
+                        ? _c("div", { staticClass: "col s12 m6" }, [
+                            _c("b", [_vm._v("Pais:")]),
+                            _vm._v(" " + _vm._s(_vm.modal.data.pais.nombre))
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.modal.data.estado
+                        ? _c("div", { staticClass: "col s12 m6" }, [
+                            _c("b", [_vm._v("Estado:")]),
+                            _vm._v(" " + _vm._s(_vm.modal.data.estado.nombre))
+                          ])
+                        : _vm._e()
+                    ]
+                  ],
+                  2
+                )
+              ],
+              1
+            )
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col s12 center-align" }, [
+      _c("h1", [_vm._v("Clientes")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-4222b64e", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
