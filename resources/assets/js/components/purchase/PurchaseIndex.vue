@@ -40,9 +40,7 @@
                             <table-cell>{{ item.payment_type == 3 ?  item.transfer.number : item.transaction_code }}</table-cell>
                             <table-cell>{{ item.created_at | date }}</table-cell>
                             <table-cell>{{ item.user.name }}</table-cell>
-                            <table-cell>{{ getTotal(item) }} 
-                                {{ findCurrency(item) }}
-                            </table-cell>
+                            <table-cell>{{ getTotal(item) }} {{ item. }}</table-cell>
                             <table-cell>{{ pay_types[item.payment_type] }}</table-cell>
                             <table-cell>
                                 <a href="#!" class="btn-action" @click="_view(item)">
