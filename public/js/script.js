@@ -91584,6 +91584,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             pay_types: ['', 'MercadoPago', 'Paypal', 'Transferencia'],
             modal: {
                 init: '',
+                initErr: false,
+                endErr: false,
                 data: {},
                 type: {
                     action: 'view'
@@ -91632,7 +91634,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         price = parseFloat(e.price * item.exchange.change).toFixed(2);
                     }
                 }
-                console.log(price);
                 subtotal = price * e.quantity;
 
                 total += subtotal;
@@ -91643,6 +91644,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _search: function _search() {
             var _this = this;
 
+            if (!this.init || !this.end) {
+                swal('', 'Debe seleccionar una fecha de inicio y de fin', 'error');
+                return;
+            }
             axios.get('admin/purchases/' + this.init + '/' + this.end + '/date').then(function (res) {
                 _this.dataTable = res.data;
             }).catch(function (err) {
@@ -91652,22 +91657,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return;
         },
         getEnd: function getEnd(date) {
+            this.endErr = false;
+
             if (this.init && moment(date).isBefore(moment(this.init))) {
                 swal('', 'No puedes poner una fecha anterior de la de inicio, vuelva a seleccionarla');
-                document.querySelector('#date_picker_init').value = "";
+                this.endErr = true;
                 this.init = "";
                 return;
             }
             this.end = moment(date).format('Y-MM-DD');
         },
         getInit: function getInit(date) {
+            this.initErr = false;
+
             if (this.end && moment(date).isAfter(moment(this.end))) {
                 swal('', 'No puedes poner una fecha superior a la de fin, vuelva a seleccionarla');
-                document.querySelector('#date_picker_end').value = "";
-                this.end = "";
-                return;
+                this.initErr = true;
+                return false;
             }
             this.init = moment(date).format('Y-MM-DD');
+        },
+        verify: function verify() {
+            console.log(this.initErr);
+            if (this.initErr) {
+                document.querySelector('#date_picker_init').value = "";
+                this.init = "";
+            }
+
+            if (this.endErr) {
+                document.querySelector('#date_picker_end').value = "";
+                this.end = "";
+            }
         }
     },
     mounted: function mounted() {
@@ -91678,6 +91698,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             M.Datepicker.init(document.querySelector('#date_picker_init'), {
                 format: "yyyy-mm-dd",
                 onSelect: _this2.getInit,
+                onClose: _this2.verify,
                 i18n: pickDateI18n
             });
         }, 100);
@@ -91686,6 +91707,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             M.Datepicker.init(document.querySelector('#date_picker_end'), {
                 format: "yyyy-mm-dd",
                 onSelect: _this2.getEnd,
+                onClose: _this2.verify,
                 i18n: pickDateI18n
             });
         }, 100);

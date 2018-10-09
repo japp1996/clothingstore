@@ -125,6 +125,8 @@ export default {
             pay_types: ['', 'MercadoPago', 'Paypal', 'Transferencia'],
             modal: {
                 init: '',
+                initErr: false,
+                endErr: false,
                 data: {},
                 type: {
                     action: 'view'
@@ -176,7 +178,6 @@ export default {
                     }
 
                 }
-                console.log(price)
                 subtotal = price * e.quantity
                 
                 total += subtotal
@@ -185,6 +186,10 @@ export default {
             return total.toFixed(2)
         },
         _search () {
+            if(!this.init || !this.end) {
+                swal('', 'Debe seleccionar una fecha de inicio y de fin', 'error')
+                return
+            }
             axios.get(`admin/purchases/${this.init}/${this.end}/date`)
                 .then(res => {
                     this.dataTable = res.data
@@ -197,9 +202,11 @@ export default {
         },
         
         getEnd(date){
+            this.endErr = false
+            
             if (this.init && moment(date).isBefore(moment(this.init))) {
                 swal('', 'No puedes poner una fecha anterior de la de inicio, vuelva a seleccionarla')
-                document.querySelector('#date_picker_init').value = ""
+                this.endErr = true
                 this.init = ""
                 return
             }
@@ -207,22 +214,36 @@ export default {
         },
         
         getInit(date){
+            this.initErr = false
+            
             if (this.end && moment(date).isAfter(moment(this.end))) {
                 swal('', 'No puedes poner una fecha superior a la de fin, vuelva a seleccionarla')
-                document.querySelector('#date_picker_end').value = ""
-                this.end = ""
-                return
+                this.initErr = true
+                return false
             }
             this.init = moment(date).format('Y-MM-DD')
         },
+
+        verify () {
+            console.log(this.initErr)
+            if(this.initErr) {
+                document.querySelector('#date_picker_init').value = ""
+                this.init = ""
+            }
+
+            if(this.endErr) {
+                document.querySelector('#date_picker_end').value = ""
+                this.end = ""
+            }
+        }
     },
     mounted() {
-
         this.dataTable = this.purchases
         setTimeout(() => {
             M.Datepicker.init(document.querySelector('#date_picker_init'), {
                 format: "yyyy-mm-dd",
                 onSelect: this.getInit,
+                onClose: this.verify,
                 i18n: pickDateI18n
             });
         }, 100);
@@ -231,8 +252,11 @@ export default {
             M.Datepicker.init(document.querySelector('#date_picker_end'), {
                 format: "yyyy-mm-dd",
                 onSelect: this.getEnd,
+                onClose: this.verify,
                 i18n: pickDateI18n
             });
+
+
         }, 100);
 
         this.modal.init = M.Modal.init(document.querySelector('.modal'));
