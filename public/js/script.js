@@ -29806,7 +29806,7 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(143);
-module.exports = __webpack_require__(348);
+module.exports = __webpack_require__(351);
 
 
 /***/ }),
@@ -29958,7 +29958,7 @@ Vue.component('profile-form', __webpack_require__(340));
 Vue.component('purchase-index', __webpack_require__(345));
 
 // Clients
-Vue.component('client-index', __webpack_require__(352));
+Vue.component('client-index', __webpack_require__(348));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -90435,7 +90435,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var child = document.querySelector('#file-' + id);
 
             if (id != 0) {
-                axios.post('admin/delete-images', { id: id }).then(function (resp) {
+                axios.post('admin/wholesalers/delete-images', { id: id }).then(function (resp) {
                     parent.removeChild(child);
                     _this2.elements = _this2.elements - 1;
                 }).catch(function (err) {
@@ -92057,23 +92057,14 @@ if (false) {
 
 /***/ }),
 /* 348 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 349 */,
-/* 350 */,
-/* 351 */,
-/* 352 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(353)
+var __vue_script__ = __webpack_require__(349)
 /* template */
-var __vue_template__ = __webpack_require__(354)
+var __vue_template__ = __webpack_require__(350)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -92112,7 +92103,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 353 */
+/* 349 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -92225,7 +92216,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 354 */
+/* 350 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -92432,6 +92423,12 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-4222b64e", module.exports)
   }
 }
+
+/***/ }),
+/* 351 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

@@ -210,7 +210,7 @@ export default {
             let child = document.querySelector(`#file-${id}`)            
             
             if (id != 0) {
-                axios.post('admin/delete-images', {id: id})
+                axios.post('admin/wholesalers/delete-images', {id: id})
                 .then(resp => {
                     parent.removeChild(child)
                     this.elements = this.elements - 1

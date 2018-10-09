@@ -177,4 +177,16 @@ class WholesalerController extends Controller
 
         return response()->json(['result' => true, 'id' => $fileId, 'file' => $file_name]);
     }
+
+    public function deleteImages(Request $request)
+    {
+        $url = "img/products/";
+        $item = WholesalerImage::find($request->id);
+        $file = $item->file;
+        File::delete(public_path($url.$file));
+        $item->delete();
+
+        return response()->json(['result' => true]);
+    }
+
 }
