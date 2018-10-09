@@ -28,7 +28,7 @@
 
                     <table-byte :set-table="dataTable" :filters="['name']">
                         <table-row slot="table-head" slot-scope="{ item }">
-                            <table-head>ID transacción </table-head>
+                            <table-head>ID/Referencia de la transacción </table-head>
                             <table-head>Fecha</table-head>
                             <table-head>Cliente</table-head>
                             <table-head>Total</table-head>
@@ -37,7 +37,7 @@
                         </table-row>
 
                         <table-row slot="table-row" slot-scope="{ item }">
-                            <table-cell>{{ item.transaction_code }}</table-cell>
+                            <table-cell>{{ item.payment_type == 3 ?  item.transfer.number : item.transaction_code }}</table-cell>
                             <table-cell>{{ item.created_at | date }}</table-cell>
                             <table-cell>{{ item.user.name }}</table-cell>
                             <table-cell>{{ getTotal(item) }} 
@@ -68,8 +68,10 @@
                             <div class="col s12 m12"><b>ID transacción:</b> {{ modal.data.transaction_code }}</div>
                             <div class="col s12 m6" v-if="modal.data.user"><b>Cliente:</b> {{ modal.data.user.name }}</div>
                             <div class="col s12 m6"><b>Fecha:</b> {{ modal.data.created_at | date }}</div>
-                            <div class="col s12 m6"><b>Medio de pago:</b> {{ pay_types[modal.data.payment_type] }}</div>
-
+                            <div class="col s12 m12"><b>Medio de pago:</b> {{ pay_types[modal.data.payment_type] }}</div>
+                            <div class="col s12 m6" v-if="modal.data.payment_type == 3"><b>Banco origen:</b> {{ modal.data.transfer.from.name }} </div>
+                            <div class="col s12 m6" v-if="modal.data.payment_type == 3"><b>Banco destino:</b> {{ modal.data.transfer.to.name }}</div>
+                            <!-- <div class="col s12 m6"></div> -->
                             <div class="col s12">
                                 <table>
                                     <thead>
@@ -115,7 +117,7 @@ export default {
             dataTable: [],
             init: '',
             end: '',
-            pay_types: ['MercadoPago', 'Paypal', 'Transferencia'],
+            pay_types: ['', 'MercadoPago', 'Paypal', 'Transferencia'],
             modal: {
                 init: '',
                 data: {},

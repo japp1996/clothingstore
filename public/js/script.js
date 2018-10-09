@@ -91607,6 +91607,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'purchase-index',
@@ -91621,7 +91623,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             dataTable: [],
             init: '',
             end: '',
-            pay_types: ['MercadoPago', 'Paypal', 'Transferencia'],
+            pay_types: ['', 'MercadoPago', 'Paypal', 'Transferencia'],
             modal: {
                 init: '',
                 data: {},
@@ -91816,7 +91818,9 @@ var render = function() {
                         "table-row",
                         {},
                         [
-                          _c("table-head", [_vm._v("ID transacción ")]),
+                          _c("table-head", [
+                            _vm._v("ID/Referencia de la transacción ")
+                          ]),
                           _vm._v(" "),
                           _c("table-head", [_vm._v("Fecha")]),
                           _vm._v(" "),
@@ -91841,7 +91845,13 @@ var render = function() {
                         {},
                         [
                           _c("table-cell", [
-                            _vm._v(_vm._s(item.transaction_code))
+                            _vm._v(
+                              _vm._s(
+                                item.payment_type == 3
+                                  ? item.transfer.number
+                                  : item.transaction_code
+                              )
+                            )
                           ]),
                           _vm._v(" "),
                           _c("table-cell", [
@@ -91939,12 +91949,28 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col s12 m6" }, [
+                  _c("div", { staticClass: "col s12 m12" }, [
                     _c("b", [_vm._v("Medio de pago:")]),
                     _vm._v(
                       " " + _vm._s(_vm.pay_types[_vm.modal.data.payment_type])
                     )
                   ]),
+                  _vm._v(" "),
+                  _vm.modal.data.payment_type == 3
+                    ? _c("div", { staticClass: "col s12 m6" }, [
+                        _c("b", [_vm._v("Banco origen:")]),
+                        _vm._v(
+                          " " + _vm._s(_vm.modal.data.transfer.from.name) + " "
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.modal.data.payment_type == 3
+                    ? _c("div", { staticClass: "col s12 m6" }, [
+                        _c("b", [_vm._v("Banco destino:")]),
+                        _vm._v(" " + _vm._s(_vm.modal.data.transfer.to.name))
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
                   _c("div", { staticClass: "col s12" }, [
                     _c("table", [
