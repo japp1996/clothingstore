@@ -83600,7 +83600,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             e.preventDefault();
-            if (this.form.change == "") {
+            if (this.form.change == "" || this.form.change == 0) {
                 this._showAlert("Disculpa, debes cargar la tasa de cambio", "warning");
                 return false;
             }

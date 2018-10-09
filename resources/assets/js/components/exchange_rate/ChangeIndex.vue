@@ -95,7 +95,7 @@ export default {
 
         _store (e) {
             e.preventDefault()
-            if (this.form.change == "") {
+            if (this.form.change == "" || this.form.change == 0) {
                 this._showAlert("Disculpa, debes cargar la tasa de cambio", "warning")
                 return false
             }
