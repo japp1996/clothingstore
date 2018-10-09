@@ -56,8 +56,8 @@
 								</button>
 							</div>
 						</td>
-						<td v-if="currency == '1'">@{{ (getPrice(item.cantidad < 12 ? item.producto.price_1 : item.producto.price_2,item.producto.coin) * item.cantidad) | VES }}</td>
-						<td v-if="currency == '2'">@{{ (getPrice(item.cantidad < 12 ? item.producto.price_1 : item.producto.price_2,item.producto.coin) * item.cantidad) | USD }}</td>
+						<td v-if="currency == '1'">@{{ (getPrice(item.cantidad < 12 ? item.producto.price_1 : item.producto.price_2,item.producto.coin).toFixed(2) * item.cantidad) | VES }}</td>
+						<td v-if="currency == '2'">@{{ (getPrice(item.cantidad < 12 ? item.producto.price_1 : item.producto.price_2,item.producto.coin).toFixed(2) * item.cantidad) | USD }}</td>
 						<td>
 							<button class="btn btn-default" v-on:click="eliminar(item)">
 								<i class="fa fa-close"></i>
@@ -258,14 +258,14 @@
 				getTotal() {
 					var total = 0;
 					vue.carrito.forEach(function(item) {
-						total += item.cantidad * vue.getPrice(item.cantidad < 12 ? item.producto.price_1 : item.producto.price_2,item.producto.coin);
+						total += item.cantidad * vue.getPrice(item.cantidad < 12 ? item.producto.price_1 : item.producto.price_2,item.producto.coin).toFixed(2);
 					});
 					return total;
 				},
 				getTotalUsd() {
 					var total = 0;
 					vue.carrito.forEach(function(item) {
-						total += item.cantidad * vue.getPrice(item.cantidad < 12 ? item.producto.price_1 : item.producto.price_2,item.producto.coin);
+						total += item.cantidad * vue.getPrice(item.cantidad < 12 ? item.producto.price_1 : item.producto.price_2,item.producto.coin).toFixed(2);
 					});
 					return total;
 				},

@@ -27,12 +27,12 @@
 	    	$total = 0;
 
     		foreach($productos as $producto) {
-    			$total = $total + (\App('\App\Http\Controllers\CarritoController')->getPrice(
+    			$total = $total + round((\App('\App\Http\Controllers\CarritoController')->getPrice(
 	            	$producto['producto']['price_1'],
     				$producto['producto']['price_2'],
     				$producto['producto']['coin'],
     				$producto['cantidad']
-	            ) * $producto['cantidad']);
+	            ),2) * $producto['cantidad']);
     		}
 
 	    	$bancos = Bank::orderBy('name','asc')->get()->pluck('name','id');
@@ -71,12 +71,12 @@
 
 	    		$total = 0;
 	    		foreach($productos as $producto) {
-	    			$total = $total + \App('\App\Http\Controllers\CarritoController')->getPrice(
+	    			$total = $total + round(\App('\App\Http\Controllers\CarritoController')->getPrice(
 		            	$producto['producto']['price_1'],
 	    				$producto['producto']['price_2'],
 	    				$producto['producto']['coin'],
 	    				$producto['cantidad']
-		            );
+		            ),2);
 	    		}
 
 	    		$transfer = new Transfer;

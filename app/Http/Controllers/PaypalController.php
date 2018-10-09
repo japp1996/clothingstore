@@ -51,21 +51,21 @@
 					 ->setDescription(\App::getLocale() == 'es' ? $producto['producto']['name'] : $producto['producto']['name_english'])
 					 ->setQuantity($producto['cantidad'])
 					 ->setPrice(
-					 	\App('\App\Http\Controllers\CarritoController')->getPrice(
+					 	round(\App('\App\Http\Controllers\CarritoController')->getPrice(
 			            	$producto['producto']['price_1'],
 		    				$producto['producto']['price_2'],
 		    				$producto['producto']['coin'],
 		    				$producto['cantidad']
-			            )
+			            ),2)
 					 );
 
 				$items[] = $item;
-				$total += \App('\App\Http\Controllers\CarritoController')->getPrice(
+				$total += round(\App('\App\Http\Controllers\CarritoController')->getPrice(
 				            	$producto['producto']['price_1'],
 			    				$producto['producto']['price_2'],
 			    				$producto['producto']['coin'],
 			    				$producto['cantidad']
-				            ) * $producto['cantidad'];
+				            ),2) * $producto['cantidad'];
 			}
 
 			$item_list = new ItemList();
