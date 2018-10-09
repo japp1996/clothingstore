@@ -71664,8 +71664,8 @@ var waraService = __WEBPACK_IMPORTED_MODULE_0_axios___default.a.create({
 
 "use strict";
 var configService = {
-    // apiUrl: 'http://200.44.165.156/Wara/public'
-    apiUrl: 'http://localhost/Wara/public'
+    apiUrl: 'http://200.44.165.156/Wara/public'
+    // apiUrl: 'http://localhost/Wara/public'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (configService);
@@ -73767,6 +73767,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         }
                     });
                 } else {
+
                     alls.forEach(function (r) {
                         if (r[f].toString().toLowerCase().indexOf(_this2.filter.toLowerCase()) >= 0) {
                             if (!result.includes(r)) {
@@ -73903,80 +73904,27 @@ var render = function() {
         _c(
           "ul",
           { staticClass: "pagination" },
-          [
-            _c(
+          _vm._l(_vm.pages, function(pag, pages_index) {
+            return _c(
               "li",
               {
-                class: _vm.currentPage == 1 ? "hidden_li" : "",
+                key: "li-pag" + pages_index,
+                class: _vm.currentPage == pag ? "active" : "",
                 on: {
                   click: function($event) {
-                    _vm.currentPage = _vm.currentPage - 1
+                    _vm.changePage(pag)
                   }
                 }
               },
-              [_vm._m(0)]
-            ),
-            _vm._v(" "),
-            _vm._l(_vm.pages, function(pag, pages_index) {
-              return _c(
-                "li",
-                {
-                  key: "li-pag" + pages_index,
-                  class: _vm.currentPage == pag ? "active" : "",
-                  on: {
-                    click: function($event) {
-                      _vm.changePage(pag)
-                    }
-                  }
-                },
-                [
-                  _c("a", { attrs: { href: "#!" } }, [
-                    _vm._v(_vm._s(pag) + " ")
-                  ])
-                ]
-              )
-            }),
-            _vm._v(" "),
-            _c(
-              "li",
-              {
-                class:
-                  _vm.currentPage == _vm.lastPage || _vm.pages.length == 1
-                    ? "hidden_li"
-                    : "",
-                on: {
-                  click: function($event) {
-                    _vm.currentPage = _vm.currentPage + 1
-                  }
-                }
-              },
-              [_vm._m(1)]
+              [_c("a", { attrs: { href: "#!" } }, [_vm._v(_vm._s(pag) + " ")])]
             )
-          ],
-          2
+          })
         )
       ]
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "#!" } }, [
-      _c("i", { staticClass: "mdi-navigation-chevron-left" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "#!" } }, [
-      _c("i", { staticClass: "mdi-navigation-chevron-right" })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -89618,34 +89566,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         store: function store() {
             this.$store.dispatch('wholesalers/addWholesaler', this.convertToFormData());
-            this.cleanForm();
-        },
-        update: function update() {},
-        cleanForm: function cleanForm() {
-            var _this2 = this;
-
-            Object.getOwnPropertyNames(this.form).forEach(function (key, i) {
-                if (key === "coin") {
-                    _this2.form.coin = '1';
-                } else if (key === "images") {
-                    _this2.images = [];
-                    _this2.image = '';
-                    _this2.form.images = [];
-                } else {
-                    if (key != "__ob__") {
-                        formData.append(key, _this2.form[key]);
-                    }
-                }
-            });
         },
         convertToFormData: function convertToFormData() {
-            var _this3 = this;
+            var _this2 = this;
 
             var formData = new FormData();
             Object.getOwnPropertyNames(this.form).forEach(function (key, i) {
                 var count = 0;
                 if (key === "images") {
-                    _this3.images.forEach(function (e, y) {
+                    _this2.images.forEach(function (e, y) {
                         if (e.file !== "") {
                             count = count + 1;
                             formData.append('file' + count, e.file);
@@ -89653,7 +89582,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     });
                     formData.append('count', count);
                 } else if (key != "__ob__") {
-                    formData.append(key, _this3.form[key]);
+                    formData.append(key, _this2.form[key]);
                 }
             });
 
@@ -90451,7 +90380,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var child = document.querySelector('#file-' + id);
 
             if (id != 0) {
-                axios.post('admin/delete-images', { id: id }).then(function (resp) {
+                axios.post('admin/wholesalers/delete-images', { id: id }).then(function (resp) {
                     parent.removeChild(child);
                     _this2.elements = _this2.elements - 1;
                 }).catch(function (err) {
@@ -91642,6 +91571,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'purchase-index',
@@ -91656,7 +91587,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             dataTable: [],
             init: '',
             end: '',
-            pay_types: ['MercadoPago', 'Paypal', 'Transferencia'],
+            pay_types: ['', 'MercadoPago', 'Paypal', 'Transferencia'],
             modal: {
                 init: '',
                 data: {},
@@ -91851,7 +91782,9 @@ var render = function() {
                         "table-row",
                         {},
                         [
-                          _c("table-head", [_vm._v("ID transacción ")]),
+                          _c("table-head", [
+                            _vm._v("ID/Referencia de la transacción ")
+                          ]),
                           _vm._v(" "),
                           _c("table-head", [_vm._v("Fecha")]),
                           _vm._v(" "),
@@ -91876,7 +91809,13 @@ var render = function() {
                         {},
                         [
                           _c("table-cell", [
-                            _vm._v(_vm._s(item.transaction_code))
+                            _vm._v(
+                              _vm._s(
+                                item.payment_type == 3
+                                  ? item.transfer.number
+                                  : item.transaction_code
+                              )
+                            )
                           ]),
                           _vm._v(" "),
                           _c("table-cell", [
@@ -91974,12 +91913,28 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col s12 m6" }, [
+                  _c("div", { staticClass: "col s12 m12" }, [
                     _c("b", [_vm._v("Medio de pago:")]),
                     _vm._v(
                       " " + _vm._s(_vm.pay_types[_vm.modal.data.payment_type])
                     )
                   ]),
+                  _vm._v(" "),
+                  _vm.modal.data.payment_type == 3
+                    ? _c("div", { staticClass: "col s12 m6" }, [
+                        _c("b", [_vm._v("Banco origen:")]),
+                        _vm._v(
+                          " " + _vm._s(_vm.modal.data.transfer.from.name) + " "
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.modal.data.payment_type == 3
+                    ? _c("div", { staticClass: "col s12 m6" }, [
+                        _c("b", [_vm._v("Banco destino:")]),
+                        _vm._v(" " + _vm._s(_vm.modal.data.transfer.to.name))
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
                   _c("div", { staticClass: "col s12" }, [
                     _c("table", [
@@ -91999,7 +91954,7 @@ var render = function() {
                             [
                               _vm._l(_vm.modal.data.details, function(d, i) {
                                 return _c("tr", { key: i }, [
-                                  _c("td", [_vm._v(_vm._s(d.product))]),
+                                  _c("td", [_vm._v(_vm._s(d.producto.name))]),
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(d.price))]),
                                   _vm._v(" "),
@@ -92168,6 +92123,7 @@ exports.push([module.i, "\n.underline {\n    border-bottom: 3px solid #000000;\n
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -92510,10 +92466,12 @@ var render = function() {
                         _vm._v(" " + _vm._s(_vm.modal.data.email))
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col s12 m6" }, [
-                        _c("b", [_vm._v("Empresa:")]),
-                        _vm._v(" " + _vm._s(_vm.modal.data.empresa))
-                      ]),
+                      _vm.modal.data.type == 2
+                        ? _c("div", { staticClass: "col s12 m6" }, [
+                            _c("b", [_vm._v("Empresa:")]),
+                            _vm._v(" " + _vm._s(_vm.modal.data.empresa))
+                          ])
+                        : _vm._e(),
                       _vm._v(" "),
                       _c("div", { staticClass: "col s12 m6" }, [
                         _c("b", [_vm._v("Codigo postal:")]),

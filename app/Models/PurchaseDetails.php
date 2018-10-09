@@ -7,7 +7,7 @@
 
 	class PurchaseDetails extends Model {
 	    protected $table="purchase_details";
-	    protected $appends = ['product','product_color','product_size'];
+	    protected $appends = ['product','producto', 'product_color','product_size'];
 
 	    public function purchase() {
 	    	return $this->belongsTo('App\Models\Purchase','purchase_id');
@@ -26,6 +26,13 @@
 		    	return $this->product_amount != null && $this->product_amount->product_color != null ? $this->product_amount->product_color->product : null;
 		    else
 		    	return $this->wholesaler();
+		}
+
+		public function getProductoAttribute($value) {
+	    	if (!is_null($this->product_amount_id))
+		    	return $this->product_amount != null && $this->product_amount->product_color != null ? $this->product_amount->product_color->product : null;
+		    else
+		    	return $this->wholesaler;
 		}
 
 		public function getProductColorAttribute($value) {

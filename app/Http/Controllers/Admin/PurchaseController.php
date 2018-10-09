@@ -11,21 +11,7 @@ class PurchaseController extends Controller
 {
     public function index()
     {
-        $purchases = Purchase::with(['user', 'exchange', 'details' => function ($q) {
-
-            $q->select('products.name', 
-                    'product_amount.id', 
-                    'purchase_details.product_amount_id', 
-                    'purchase_details.id',
-                    'product_colors.id',
-                    'product_amount.product_color_id',
-                    'products.id',
-                    'product_colors.product_id')
-                ->join('product_amount', 'product_amount.id', '=', 'purchase_details.product_amount_id')
-                ->join('product_colors', 'product_colors.id', '=', 'product_amount.product_color_id')
-                ->join('products', 'products.id', '=', 'product_colors.product_id');
-
-        }, 'exchange'])
+        $purchases = Purchase::with(['user', 'exchange', 'details', 'transfer.to', 'transfer.from'])
             ->orderBy('id', 'DESC')
             ->get();
 
@@ -38,7 +24,7 @@ class PurchaseController extends Controller
         $init = new Carbon($init);
         $end = new Carbon($end);
         
-        return Purchase::with(['user', 'exchange', 'details', 'exchange'])
+        return Purchase::with(['user', 'exchange', 'details', 'exchange', 'transfer'])
             ->orderBy('id', 'DESC')
             ->whereBetween('created_at', [$init->format('Y-m-d'), $end->format('Y-m-d')])
             ->get();

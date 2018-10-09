@@ -170,6 +170,7 @@
 
 			//Wholesalers
 			Route::post('wholesalers/update-images', 'WholesalerController@updateImages');
+			Route::post('wholesalers/delete-images', 'WholesalerController@deleteImages');
 			Route::resource('wholesalers', 'WholesalerController');
 			Route::get('filters/get', 'WholesalerController@getFilters');
 			Route::get('purchases', 'PurchaseController@index');

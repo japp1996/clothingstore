@@ -23,17 +23,17 @@
          <!-- Paginador -->
         <div class="col s12 center-align" v-show="pages.length > 1">
             <ul class="pagination">
-                <li :class="currentPage==1?'hidden_li':''" v-on:click="currentPage = currentPage-1">   
+                <!-- <li :class="currentPage==1?'hidden_li':''" v-on:click="currentPage = currentPage-1">   
                     <a href="#!"><i class="mdi-navigation-chevron-left"></i></a>
-                </li>
+                </li> -->
 
                 <li v-for="(pag, pages_index) in pages" :class="currentPage==pag?'active':''" 
                 v-on:click="changePage(pag)" 
                 :key="'li-pag' + pages_index"> <a href="#!">{{pag}} </a></li>
                 
-                <li :class="currentPage==lastPage || pages.length == 1?'hidden_li':''" v-on:click="currentPage = currentPage+1"><a href="#!">
+                <!-- <li :class="currentPage==lastPage || pages.length == 1?'hidden_li':''" v-on:click="currentPage = currentPage+1"><a href="#!">
                     <i class="mdi-navigation-chevron-right"></i></a>
-                </li>
+                </li> -->
             </ul>
         </div>
 
@@ -271,6 +271,7 @@ export default {
 
                         })
                 }else {
+                    
                     alls.forEach(r => {
                         if(r[f].toString().toLowerCase().indexOf(this.filter.toLowerCase()) >= 0){
                             if(!result.includes(r)) {

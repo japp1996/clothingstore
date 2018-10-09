@@ -79,7 +79,7 @@
 
 		'Aliados' => [
 			'Title' => 'Aliados Comerciales',
-			'Ubicacion' => 'Ubicación'
+			'Ubicacion' => 'Descripción'
 		],
 
 		'Perfil' => [

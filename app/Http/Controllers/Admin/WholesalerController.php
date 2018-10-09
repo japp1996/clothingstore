@@ -95,7 +95,7 @@ class WholesalerController extends Controller
      */
     public function edit(Wholesaler $wholesaler)
     {
-        return view('admin.Wholesalers.edit', ['wholesaler' => $wholesaler->load('images')]);
+        return view('admin.wholesalers.edit', ['wholesaler' => $wholesaler->load('images')]);
     }
 
     /**
@@ -177,4 +177,16 @@ class WholesalerController extends Controller
 
         return response()->json(['result' => true, 'id' => $fileId, 'file' => $file_name]);
     }
+
+    public function deleteImages(Request $request)
+    {
+        $url = "img/products/";
+        $item = WholesalerImage::find($request->id);
+        $file = $item->file;
+        File::delete(public_path($url.$file));
+        $item->delete();
+
+        return response()->json(['result' => true]);
+    }
+
 }
