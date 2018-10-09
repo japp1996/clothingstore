@@ -82,7 +82,7 @@
                                     </thead>
                                     <tbody v-if="modal.data.details">
                                         <tr v-for="(d,i ) in modal.data.details" :key="i">
-                                            <td>{{ d.product.name}}</td>
+                                            <td>{{ d.producto.name}}</td>
                                             <td>{{ d.price }}</td>
                                             <td>{{ d.quantity }}</td>
                                             <td>{{ d.price * d.quantity }} {{ d.coin == 1 ? 'Bs. S' : 'USD' }}</td>

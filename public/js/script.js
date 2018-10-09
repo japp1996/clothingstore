@@ -73751,6 +73751,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         }
                     });
                 } else {
+
                     alls.forEach(function (r) {
                         if (r[f].toString().toLowerCase().indexOf(_this2.filter.toLowerCase()) >= 0) {
                             if (!result.includes(r)) {
@@ -73887,80 +73888,27 @@ var render = function() {
         _c(
           "ul",
           { staticClass: "pagination" },
-          [
-            _c(
+          _vm._l(_vm.pages, function(pag, pages_index) {
+            return _c(
               "li",
               {
-                class: _vm.currentPage == 1 ? "hidden_li" : "",
+                key: "li-pag" + pages_index,
+                class: _vm.currentPage == pag ? "active" : "",
                 on: {
                   click: function($event) {
-                    _vm.currentPage = _vm.currentPage - 1
+                    _vm.changePage(pag)
                   }
                 }
               },
-              [_vm._m(0)]
-            ),
-            _vm._v(" "),
-            _vm._l(_vm.pages, function(pag, pages_index) {
-              return _c(
-                "li",
-                {
-                  key: "li-pag" + pages_index,
-                  class: _vm.currentPage == pag ? "active" : "",
-                  on: {
-                    click: function($event) {
-                      _vm.changePage(pag)
-                    }
-                  }
-                },
-                [
-                  _c("a", { attrs: { href: "#!" } }, [
-                    _vm._v(_vm._s(pag) + " ")
-                  ])
-                ]
-              )
-            }),
-            _vm._v(" "),
-            _c(
-              "li",
-              {
-                class:
-                  _vm.currentPage == _vm.lastPage || _vm.pages.length == 1
-                    ? "hidden_li"
-                    : "",
-                on: {
-                  click: function($event) {
-                    _vm.currentPage = _vm.currentPage + 1
-                  }
-                }
-              },
-              [_vm._m(1)]
+              [_c("a", { attrs: { href: "#!" } }, [_vm._v(_vm._s(pag) + " ")])]
             )
-          ],
-          2
+          })
         )
       ]
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "#!" } }, [
-      _c("i", { staticClass: "mdi-navigation-chevron-left" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "#!" } }, [
-      _c("i", { staticClass: "mdi-navigation-chevron-right" })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -91990,7 +91938,7 @@ var render = function() {
                             [
                               _vm._l(_vm.modal.data.details, function(d, i) {
                                 return _c("tr", { key: i }, [
-                                  _c("td", [_vm._v(_vm._s(d.product.name))]),
+                                  _c("td", [_vm._v(_vm._s(d.producto.name))]),
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(d.price))]),
                                   _vm._v(" "),
