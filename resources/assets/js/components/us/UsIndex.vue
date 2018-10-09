@@ -11,12 +11,12 @@
                     <card-content>                    
                         <div class="row">
                             <div class="col s12 m6 l6 center-align">
-                                <label for="texto" class="label-impegno">Texto (Español)</label>
+                                <label for="texto" class="label-impegno">¿Quiénes somos? (Español)</label>
                                 <textarea name="texto" id="texto" v-model="form.texto" class="browser-default input-impegno"></textarea>
                             </div>
 
                             <div class="col s12 m6 l6 center-align">
-                                <label for="english" class="label-impegno">Texto (Inglés)</label>
+                                <label for="english" class="label-impegno">¿Quiénes somos? (Inglés)</label>
                                 <textarea name="english" id="english" v-model="form.english" class="browser-default input-impegno"></textarea>
                             </div>
 

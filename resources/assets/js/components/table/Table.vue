@@ -71,7 +71,7 @@ export default {
     props: {
         forPage:{
             type:Number,
-            default: 3
+            default: 10
         },
         'set-table': {
             type: Array,

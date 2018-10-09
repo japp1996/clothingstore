@@ -47,11 +47,11 @@
 					"title" => \App::getLocale() == 'es' ? $producto['producto']['name'] : $producto['producto']['name_english'],
 		            "quantity" => $producto['cantidad'],
 		            "currency_id" => $currency,
-		            "unit_price" => \App('\App\Http\Controllers\Juridico\CarritoController')->getPrice(
+		            "unit_price" => round(\App('\App\Http\Controllers\Juridico\CarritoController')->getPrice(
 		            	$producto['producto']['price'],
 	    				$producto['producto']['coin'],
 	    				$producto['cantidad']
-		            )
+		            ),2)
 	    		 ];
 	    	}
 

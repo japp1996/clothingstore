@@ -29806,7 +29806,7 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(143);
-module.exports = __webpack_require__(351);
+module.exports = __webpack_require__(353);
 
 
 /***/ }),
@@ -71909,7 +71909,7 @@ var content = __webpack_require__(188);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("71454aec", content, false, {});
+var update = __webpack_require__(3)("8aae94ce", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -72082,7 +72082,7 @@ var content = __webpack_require__(194);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("64c2c02c", content, false, {});
+var update = __webpack_require__(3)("22d2b4d2", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -72639,7 +72639,7 @@ var content = __webpack_require__(199);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("2e651c45", content, false, {});
+var update = __webpack_require__(3)("c17fc21c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -73046,7 +73046,7 @@ var content = __webpack_require__(204);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("bf275882", content, false, {});
+var update = __webpack_require__(3)("517c37ec", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -73440,7 +73440,7 @@ var content = __webpack_require__(209);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("195984d4", content, false, {});
+var update = __webpack_require__(3)("d73db8fa", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -73548,7 +73548,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: {
         forPage: {
             type: Number,
-            default: 3
+            default: 10
         },
         'set-table': {
             type: Array,
@@ -74294,7 +74294,7 @@ var content = __webpack_require__(223);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("5ebf68e6", content, false, {});
+var update = __webpack_require__(3)("71ae317a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -74788,7 +74788,7 @@ var content = __webpack_require__(231);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("7e445cb7", content, false, {});
+var update = __webpack_require__(3)("78e38424", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -75071,7 +75071,7 @@ var content = __webpack_require__(235);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("6945f546", content, false, {});
+var update = __webpack_require__(3)("799dac39", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -75917,7 +75917,7 @@ var content = __webpack_require__(243);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("8435dd58", content, false, {});
+var update = __webpack_require__(3)("7b5b4cc1", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -77401,7 +77401,7 @@ var content = __webpack_require__(251);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("087f7ff8", content, false, {});
+var update = __webpack_require__(3)("2b661d2a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -78252,7 +78252,7 @@ var content = __webpack_require__(257);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("11640b72", content, false, {});
+var update = __webpack_require__(3)("91cf18c2", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -78522,7 +78522,7 @@ var content = __webpack_require__(261);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("466fb24c", content, false, {});
+var update = __webpack_require__(3)("5dff850d", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -79137,7 +79137,7 @@ var content = __webpack_require__(267);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("43795dd6", content, false, {});
+var update = __webpack_require__(3)("48471b48", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -79596,7 +79596,7 @@ var content = __webpack_require__(271);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("ff57ab2c", content, false, {});
+var update = __webpack_require__(3)("1864cdd7", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -81228,7 +81228,7 @@ var content = __webpack_require__(276);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("925ee3c4", content, false, {});
+var update = __webpack_require__(3)("4ee1318b", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -83467,7 +83467,7 @@ var content = __webpack_require__(282);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("0963b244", content, false, {});
+var update = __webpack_require__(3)("6b805271", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -83600,8 +83600,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             e.preventDefault();
-            if (this.form.change == "") {
-                this._showAlert("Disculpa, debes cargar la tasa de cambio", "success");
+            if (this.form.change == "" || this.form.change == 0) {
+                this._showAlert("Disculpa, debes cargar la tasa de cambio", "warning");
                 return false;
             }
             e.target.setAttribute('disabled', true);
@@ -83879,7 +83879,7 @@ var content = __webpack_require__(287);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("8d650408", content, false, {});
+var update = __webpack_require__(3)("9794b7a2", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -84169,7 +84169,7 @@ var content = __webpack_require__(292);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("3e9a1e6d", content, false, {});
+var update = __webpack_require__(3)("e3828f4c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -84406,7 +84406,7 @@ var render = function() {
                     _c(
                       "label",
                       { staticClass: "label-impegno", attrs: { for: "texto" } },
-                      [_vm._v("Texto (Español)")]
+                      [_vm._v("¿Quiénes somos? (Español)")]
                     ),
                     _vm._v(" "),
                     _c("textarea", {
@@ -84439,7 +84439,7 @@ var render = function() {
                         staticClass: "label-impegno",
                         attrs: { for: "english" }
                       },
-                      [_vm._v("Texto (Inglés)")]
+                      [_vm._v("¿Quiénes somos? (Inglés)")]
                     ),
                     _vm._v(" "),
                     _c("textarea", {
@@ -84730,7 +84730,7 @@ var content = __webpack_require__(297);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("550dbf7a", content, false, {});
+var update = __webpack_require__(3)("7b9e2bb0", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -85082,7 +85082,7 @@ var content = __webpack_require__(301);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("103c0372", content, false, {});
+var update = __webpack_require__(3)("fdd1f3c2", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -85444,11 +85444,11 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col s12 m6 l6 center-align" }, [
+              _c("div", { staticClass: "col s12 m12 l12 center-align" }, [
                 _c(
                   "label",
                   { staticClass: "label-impegno", attrs: { for: "address" } },
-                  [_vm._v("Dirección")]
+                  [_vm._v("Descripción")]
                 ),
                 _vm._v(" "),
                 _c("textarea", {
@@ -85653,7 +85653,7 @@ var content = __webpack_require__(306);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("85e714a0", content, false, {});
+var update = __webpack_require__(3)("48ee503a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -86502,7 +86502,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("div", { staticClass: "col s12" }, [
                             _c("div", { staticClass: "col s12" }, [
-                              _c("h3", [_vm._v("Dirección")])
+                              _c("h3", [_vm._v("Descripción")])
                             ]),
                             _vm._v(" "),
                             _c("div", { staticClass: "col s12" }, [
@@ -86675,7 +86675,7 @@ var content = __webpack_require__(312);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("cb114400", content, false, {});
+var update = __webpack_require__(3)("384a6ea6", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -87188,7 +87188,7 @@ var render = function() {
                           _c("h5", [
                             _vm._v("¿ Realmente deseas "),
                             _c("b", [_vm._v("Eliminar")]),
-                            _vm._v(" ésta Publicación ?")
+                            _vm._v(" éste Blog ?")
                           ])
                         ])
                       ])
@@ -87286,7 +87286,7 @@ var content = __webpack_require__(317);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("20738b17", content, false, {});
+var update = __webpack_require__(3)("037d760a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -87850,7 +87850,7 @@ var content = __webpack_require__(322);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("c0fe4266", content, false, {});
+var update = __webpack_require__(3)("bc422b00", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -89283,7 +89283,7 @@ var content = __webpack_require__(332);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("5402de16", content, false, {});
+var update = __webpack_require__(3)("834264b0", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -90112,7 +90112,7 @@ var content = __webpack_require__(336);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("44151678", content, false, {});
+var update = __webpack_require__(3)("2c75532b", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -91084,7 +91084,7 @@ var content = __webpack_require__(342);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("b69e627c", content, false, {});
+var update = __webpack_require__(3)("4a6536ef", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -92036,15 +92036,19 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(349)
+}
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(349)
+var __vue_script__ = __webpack_require__(351)
 /* template */
-var __vue_template__ = __webpack_require__(350)
+var __vue_template__ = __webpack_require__(352)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -92080,10 +92084,85 @@ module.exports = Component.exports
 
 /***/ }),
 /* 349 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(350);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("7ed67ab4", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4222b64e\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ClientIndex.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4222b64e\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ClientIndex.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 350 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.underline {\n    border-bottom: 3px solid #000000;\n    margin-bottom: 10px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 351 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -92174,7 +92253,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 type: {
                     action: 'view'
                 }
-            }
+            },
+            modalPurchase: {
+                init: '',
+                data: {},
+                type: {
+                    action: 'purchase'
+                }
+            },
+            total: ''
         };
     },
 
@@ -92182,17 +92269,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _view: function _view(item) {
             this.modal.data = item;
             this.modal.init.open();
+        },
+        _purchase: function _purchase(item) {
+            this.dataTable.forEach(function (element) {});
+            this.modalPurchase.data = item;
+            this.modalPurchase.init.open();
+        },
+        getTotal: function getTotal(item) {
+            var total = 0;
+            item.details.forEach(function (e) {
+                total += e.price;
+            });
+            return total;
+        },
+        findCurrency: function findCurrency(item) {
+            var currency = 1;
+            item.details.forEach(function (e) {
+                currency = e.coin;
+            });
+
+            return currency == 1 ? 'Bs. S' : 'USD';
         }
     },
     mounted: function mounted() {
-        console.log(this.clients);
         this.dataTable = this.clients;
         this.modal.init = M.Modal.init(document.querySelector('.modal'));
+        this.modalPurchase.init = M.Modal.init(document.querySelector('#purchase'));
     }
 });
 
 /***/ }),
-/* 350 */
+/* 352 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -92286,6 +92393,30 @@ var render = function() {
                                       }
                                     })
                                   ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "btn-action",
+                                    attrs: { href: "#!" },
+                                    on: {
+                                      click: function($event) {
+                                        _vm._purchase(item)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("img", {
+                                      staticClass: "img-responsive",
+                                      attrs: {
+                                        src: _vm._f("asset")(
+                                          "img/icons/ico-purchase.png"
+                                        ),
+                                        alt: ""
+                                      }
+                                    })
+                                  ]
                                 )
                               ])
                             ],
@@ -92340,7 +92471,7 @@ var render = function() {
                         _vm._v(" " + _vm._s(_vm.modal.data.email))
                       ]),
                       _vm._v(" "),
-                      _vm.modal.data.nivel == 2
+                      _vm.modal.data.type == 2
                         ? _c("div", { staticClass: "col s12 m6" }, [
                             _c("b", [_vm._v("Empresa:")]),
                             _vm._v(" " + _vm._s(_vm.modal.data.empresa))
@@ -92370,6 +92501,80 @@ var render = function() {
                             _vm._v(" " + _vm._s(_vm.modal.data.estado.nombre))
                           ])
                         : _vm._e()
+                    ]
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "byte-modal",
+                  { attrs: { id: "purchase" } },
+                  [
+                    [
+                      _c("div", { staticClass: "col s12" }, [
+                        _c("h3", [_vm._v("Datos de los pedidos")])
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.modalPurchase.data.pedidos, function(
+                        pedido,
+                        i
+                      ) {
+                        return _c(
+                          "div",
+                          {
+                            key: "pedido-" + i,
+                            staticClass: "col s12 underline"
+                          },
+                          [
+                            _c("div", { staticClass: "col s12 m4" }, [
+                              _c("div", { staticClass: "col s12 m12" }, [
+                                _c("b", [
+                                  _vm._v("N° de Pedido: " + _vm._s(pedido.id))
+                                ])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col s12 m4" }, [
+                              _c("div", { staticClass: "col s12 m12" }, [
+                                _c("h6", [
+                                  _vm._v("Fecha: " + _vm._s(pedido.created_at))
+                                ])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col s12 m4" }, [
+                              _c("div", { staticClass: "col s12 m12" }, [
+                                _c(
+                                  "h6",
+                                  [
+                                    _vm._v(
+                                      "\n                                                Tipo de pago: \n                                                "
+                                    ),
+                                    pedido.payment_type == "1"
+                                      ? [_vm._v("Mercado Pago")]
+                                      : pedido.payment_type == "2"
+                                        ? [_vm._v("Paypal")]
+                                        : [_vm._v("Transferencia")]
+                                  ],
+                                  2
+                                )
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col s12 m12" }, [
+                              _c("b", [_vm._v("Precio Total:")]),
+                              _vm._v(
+                                "\n                                         " +
+                                  _vm._s(_vm.getTotal(pedido)) +
+                                  "                                \n                                         "
+                              ),
+                              _c("b", [
+                                _vm._v(_vm._s(_vm.findCurrency(pedido)))
+                              ])
+                            ])
+                          ]
+                        )
+                      })
                     ]
                   ],
                   2
@@ -92403,7 +92608,7 @@ if (false) {
 }
 
 /***/ }),
-/* 351 */
+/* 353 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
