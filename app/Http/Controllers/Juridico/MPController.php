@@ -23,10 +23,6 @@
 	    }
 
 	    public function create(Request $request) {
-
-	    	if (is_array(Cart::get())) {
-	        	return Redirect('juridico/carrito');
-	        }
 	    	
 	    	$productos = \App('\App\Http\Controllers\Juridico\CarritoController')->getCarrito();
 
