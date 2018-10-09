@@ -95,7 +95,7 @@ class WholesalerController extends Controller
      */
     public function edit(Wholesaler $wholesaler)
     {
-        return view('admin.Wholesalers.edit', ['wholesaler' => $wholesaler->load('images')]);
+        return view('admin.wholesalers.edit', ['wholesaler' => $wholesaler->load('images')]);
     }
 
     /**
