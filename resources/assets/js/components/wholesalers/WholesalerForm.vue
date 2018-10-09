@@ -225,8 +225,7 @@ export default {
                 }) 
         },
         store () {
-            this.$store.dispatch('wholesalers/addWholesaler', this.convertToFormData())
-            this.cleanForm()
+            this.$store.dispatch('wholesalers/addWholesaler',  this.convertToFormData())
         },
         update () {
             
@@ -247,7 +246,7 @@ export default {
             })
         },
         convertToFormData(){
-            let formData = new FormData();
+            var formData = new FormData();
             Object.getOwnPropertyNames(this.form).forEach((key, i) => {
                 let count = 0;
                 if(key === "images")

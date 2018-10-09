@@ -16,6 +16,7 @@ const actions = {
     },
 
     addWholesaler ({commit}, data) {
+        console.log(data)
         commit('setSending', true)
         wholesalerService.store(data)
             .then(wholesalerSaved => {

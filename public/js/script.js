@@ -71531,6 +71531,7 @@ var actions = {
     addWholesaler: function addWholesaler(_ref2, data) {
         var commit = _ref2.commit;
 
+        console.log(data);
         commit('setSending', true);
         __WEBPACK_IMPORTED_MODULE_0__services_wara_wholesaler__["a" /* default */].store(data).then(function (wholesalerSaved) {
             swal('', 'Se registro la colección correctamente', 'success');
@@ -89602,7 +89603,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         store: function store() {
             this.$store.dispatch('wholesalers/addWholesaler', this.convertToFormData());
-            this.cleanForm();
         },
         update: function update() {},
         cleanForm: function cleanForm() {
@@ -91983,7 +91983,7 @@ var render = function() {
                             [
                               _vm._l(_vm.modal.data.details, function(d, i) {
                                 return _c("tr", { key: i }, [
-                                  _c("td", [_vm._v(_vm._s(d.product))]),
+                                  _c("td", [_vm._v(_vm._s(d.product.name))]),
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(d.price))]),
                                   _vm._v(" "),

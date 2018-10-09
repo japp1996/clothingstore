@@ -13,17 +13,17 @@ class PurchaseController extends Controller
     {
         $purchases = Purchase::with(['user', 'exchange', 'details' => function ($q) {
 
-            $q->select('products.name', 
-                    'product_amount.id', 
-                    'purchase_details.product_amount_id', 
-                    'purchase_details.id',
-                    'product_colors.id',
-                    'product_amount.product_color_id',
-                    'products.id',
-                    'product_colors.product_id')
-                ->join('product_amount', 'product_amount.id', '=', 'purchase_details.product_amount_id')
-                ->join('product_colors', 'product_colors.id', '=', 'product_amount.product_color_id')
-                ->join('products', 'products.id', '=', 'product_colors.product_id');
+            // $q->select('products.name', 
+            //         'product_amount.id', 
+            //         'purchase_details.product_amount_id', 
+            //         'purchase_details.id',
+            //         'product_colors.id',
+            //         'product_amount.product_color_id',
+            //         'products.id',
+            //         'product_colors.product_id')
+            //     ->join('product_amount', 'product_amount.id', '=', 'purchase_details.product_amount_id')
+            //     ->join('product_colors', 'product_colors.id', '=', 'product_amount.product_color_id')
+            //     ->join('products', 'products.id', '=', 'product_colors.product_id');
 
         }, 'exchange'])
             ->orderBy('id', 'DESC')
