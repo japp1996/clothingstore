@@ -3,12 +3,6 @@
     {{-- <li class="navigation">Menú</li> --}}
 
     <li>
-        <a href="{{ url('/admin/home') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Inicio">
-            <img src="{{ asset('img/icons/ico-inicio-i.png') }}" alt="" class="img-responsive">Inicio
-        </a>
-    </li>
-
-    <li>
         <a href="{{ url('/admin/exchange_rate') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Tasa de Cambio">
             <img src="{{ asset('img/icons/ico-tasa-de-cambio.png') }}" alt="" class="img-responsive">Tasa de Cambio
         </a>
