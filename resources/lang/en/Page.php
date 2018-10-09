@@ -79,7 +79,7 @@
 
 		'Aliados' => [
 			'Title' => 'Commercial Allies',
-			'Ubicacion' => 'Address'
+			'Ubicacion' => 'Description'
 		],
 
 		'Perfil' => [
