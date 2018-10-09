@@ -93,7 +93,7 @@
                             </div>
                             <div class="col s12">
                                 <div class="col s12">
-                                    <h3>Dirección</h3>
+                                    <h3>Descripción</h3>
                                 </div>
                                 <div class="col s12">
                                    {{ modal.data.address}}

@@ -34,4 +34,9 @@ class User extends Authenticatable
     public function pais() {
         return $this->belongsTo('App\Models\Pais','pais_id');
     }
+
+    public function pedidos () {
+        return $this->hasMany('App\Models\Purchase', 'user_id');
+    }
+    
 }
