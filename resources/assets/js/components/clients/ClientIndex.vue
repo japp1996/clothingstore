@@ -28,6 +28,9 @@
                                         <a href="#!" class="btn-action" @click="_view(item)">
                                             <img :src="'img/icons/ico-ver.png' | asset" alt="" class="img-responsive">
                                         </a>
+                                        <a href="#!" class="btn-action" @click="_purchase(item)">
+                                            <img :src="'img/icons/ico-purchase.png' | asset" alt="" class="img-responsive">
+                                        </a>
                                     </table-cell>
                                 </table-row>
 
@@ -38,30 +41,53 @@
                                 </table-row>
 
                             </table-byte>
-
+                           
                             <byte-modal>
                                 <template>
                                     <div class="col s12">
                                         <h3>Datos del cliente</h3>
                                     </div>
-                                    
                                     <div class="col s12 m6"><b>Nombre:</b> {{ modal.data.name }}</div>
                                     <div class="col s12 m6"><b>Identificación:</b> {{ modal.data.identificacion }}</div>
-                                    
                                     <div class="col s12 m6"><b>Telefono:</b> {{ modal.data.telefono }}</div>
                                     <div class="col s12 m6"><b>Correo electrónico:</b> {{ modal.data.email }}</div>
-                                                                        
                                     <div class="col s12 m6"><b>Empresa:</b> {{ modal.data.empresa }}</div>
                                     <div class="col s12 m6"><b>Codigo postal:</b> {{ modal.data.codigo }}</div>
-                                    
                                     <div class="col s12 m12"><b>Dirección:</b> {{ modal.data.direccion }}</div>
-                                    
                                     <div class="col s12 m6" v-if="modal.data.pais"><b>Pais:</b> {{ modal.data.pais.nombre }}</div>
                                     <div class="col s12 m6"  v-if="modal.data.estado"><b>Estado:</b> {{ modal.data.estado.nombre }}</div>
-                                    
                                 </template>
-
-                    </byte-modal>
+                            </byte-modal>
+                             <byte-modal id="purchase">
+                                <template>
+                                    <div class="col s12">
+                                        <h3>Datos de los pedidos</h3>
+                                    </div>
+                                    <div class="col s12 underline" v-for="(pedido, i) in modalPurchase.data.pedidos" :key="'pedido-'+i">
+                                        <div class="col s12 m4">
+                                            <div class="col s12 m12"><b>N° de Pedido: {{ pedido.id }}</b></div>
+                                        </div>
+                                        <div class="col s12 m4">
+                                            <div class="col s12 m12"><h6>Fecha: {{ pedido.created_at }}</h6></div>
+                                        </div>
+                                        <div class="col s12 m4">
+                                            <div class="col s12 m12">
+                                                <h6>
+                                                    Tipo de pago: 
+                                                    <template v-if="pedido.payment_type == '1'">Mercado Pago</template>
+                                                    <template v-else-if="pedido.payment_type == '2'">Paypal</template>
+                                                    <template v-else>Transferencia</template>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                        <div class="col s12 m12">
+                                            <b>Precio Total:</b>
+                                             {{ getTotal(pedido) }}                                
+                                             <b>{{findCurrency (pedido)}}</b> 
+                                        </div>                                                                            
+                                    </div>
+                                </template>
+                            </byte-modal>
                         </div>
                     </section>
                 </div>
@@ -69,6 +95,14 @@
         </div>
     </section>
 </template>
+
+<style>
+    .underline {
+        border-bottom: 3px solid #000000;
+        margin-bottom: 10px;
+    }
+</style>
+
 
 <script>
 export default {
@@ -88,7 +122,15 @@ export default {
                 type: {
                     action: 'view'
                 }
-            }
+            },
+            modalPurchase: {
+                init: '',
+                data: {},
+                type: {
+                    action: 'purchase'
+                }
+            },
+            total: ''
         }
     },
     methods: {
@@ -96,11 +138,33 @@ export default {
             this.modal.data = item;
             this.modal.init.open();
         },
+        _purchase(item) {
+            this.dataTable.forEach(element => {
+                
+            });
+            this.modalPurchase.data = item;
+            this.modalPurchase.init.open();
+        },
+        getTotal (item) {
+            let total = 0
+            item.details.forEach(e => {
+                total += e.price;
+            })
+            return total
+        },
+        findCurrency (item) {
+            let currency = 1
+            item.details.forEach(e => {
+                currency = e.coin
+            })
+
+            return currency == 1 ? 'Bs. S' : 'USD'
+        }
     },
     mounted () {
-        console.log(this.clients)
         this.dataTable = this.clients
         this.modal.init = M.Modal.init(document.querySelector('.modal'));
+        this.modalPurchase.init = M.Modal.init(document.querySelector('#purchase'));
     }
 }
 </script>

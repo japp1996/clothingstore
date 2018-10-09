@@ -10,7 +10,7 @@ class ClientController extends Controller
 {
     public function index() 
     {
-        $clients = User::where('nivel', '1')->with('pais', 'estado')->get();
+        $clients = User::where('nivel', '1')->with('pais', 'estado', 'pedidos.details')->get();
    
         return view('admin.clients.index', ['clients' => $clients]);
     }
