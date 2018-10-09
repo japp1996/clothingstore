@@ -26,7 +26,7 @@
                         </div>
                     </div>
 
-                    <table-byte :set-table="dataTable" :filters="['name']">
+                    <table-byte :set-table="dataTable" :filters="['user.name']">
                         <table-row slot="table-head" slot-scope="{ item }">
                             <table-head>ID/Referencia de la transacción </table-head>
                             <table-head>Fecha</table-head>
@@ -40,9 +40,9 @@
                             <table-cell>{{ item.payment_type == 3 ?  item.transfer.number : item.transaction_code }}</table-cell>
                             <table-cell>{{ item.created_at | date }}</table-cell>
                             <table-cell>{{ item.user.name }}</table-cell>
-                            <table-cell>{{ getTotal(item) }} {{ item. }}</table-cell>
+                            <table-cell>{{ getTotal(item) }} {{ item.payment_type == 2 ? 'USB' : 'Bs. S.' }}</table-cell>
                             <table-cell>{{ pay_types[item.payment_type] }}</table-cell>
-                            <table-cell>
+                            <table-cell class="head-actions">
                                 <a href="#!" class="btn-action" @click="_view(item)">
                                     <img :src="'img/icons/ico-ver.png' | asset" alt="" class="img-responsive">
                                 </a>

@@ -271,7 +271,6 @@ export default {
 
                         })
                 }else {
-                    
                     alls.forEach(r => {
                         if(r[f].toString().toLowerCase().indexOf(this.filter.toLowerCase()) >= 0){
                             if(!result.includes(r)) {

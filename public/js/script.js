@@ -73751,7 +73751,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         }
                     });
                 } else {
-
                     alls.forEach(function (r) {
                         if (r[f].toString().toLowerCase().indexOf(_this2.filter.toLowerCase()) >= 0) {
                             if (!result.includes(r)) {
@@ -89021,7 +89020,9 @@ var render = function() {
                       _vm._v(" "),
                       _c("table-head", [_vm._v("Descripción")]),
                       _vm._v(" "),
-                      _c("table-head", [_vm._v("Acción")])
+                      _c("table-head", { staticClass: "head-actions" }, [
+                        _vm._v("Acción")
+                      ])
                     ],
                     1
                   ),
@@ -91672,9 +91673,363 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 /* 347 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed: SyntaxError: Unexpected token (1:2070)\n    at Parser.pp$4.raise (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:2610:13)\n    at Parser.pp.unexpected (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:637:8)\n    at Parser.pp$3.parseIdent (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:2565:10)\n    at Parser.pp$3.parseSubscripts (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:1975:68)\n    at Parser.pp$3.parseExprSubscripts (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:1958:21)\n    at Parser.pp$3.parseMaybeUnary (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:1932:17)\n    at Parser.pp$3.parseExprOps (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:1874:19)\n    at Parser.pp$3.parseMaybeConditional (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:1857:19)\n    at Parser.pp$3.parseMaybeAssign (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:1832:19)\n    at Parser.pp$3.parseExprList (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:2528:20)\n    at Parser.pp$3.parseSubscripts (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:1983:29)\n    at Parser.pp$3.parseExprSubscripts (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:1958:21)\n    at Parser.pp$3.parseMaybeUnary (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:1932:17)\n    at Parser.pp$3.parseExprOp (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:1893:41)\n    at Parser.pp$3.parseExprOp (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:1895:19)\n    at Parser.pp$3.parseExprOps (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:1876:90)\n    at Parser.pp$3.parseMaybeConditional (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:1857:19)\n    at Parser.pp$3.parseMaybeAssign (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:1832:19)\n    at Parser.pp$3.parseExprList (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:2528:20)\n    at Parser.pp$3.parseSubscripts (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:1983:29)\n    at Parser.pp$3.parseExprSubscripts (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:1958:21)\n    at Parser.pp$3.parseMaybeUnary (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:1932:17)\n    at Parser.pp$3.parseExprOps (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:1874:19)\n    at Parser.pp$3.parseMaybeConditional (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:1857:19)\n    at Parser.pp$3.parseMaybeAssign (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:1832:19)\n    at Parser.pp$3.parseExprList (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:2528:20)\n    at Parser.pp$3.parseExprAtom (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:2073:26)\n    at Parser.parseExprAtom (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:4372:24)\n    at Parser.pp$3.parseExprSubscripts (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:1955:19)\n    at Parser.pp$3.parseMaybeUnary (C:\\wamp64\\www\\wara\\node_modules\\vue-template-es2015-compiler\\buble.js:1932:17)");
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("section", { staticClass: "container-fluid" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col s12" }, [
+        _c(
+          "section",
+          { staticClass: "table__content" },
+          [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col s12 m3" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.init,
+                      expression: "init"
+                    }
+                  ],
+                  staticClass: "datepicker browser-default input-impegno",
+                  attrs: {
+                    type: "text",
+                    placeholder: "Fecha inicio",
+                    id: "date_picker_init"
+                  },
+                  domProps: { value: _vm.init },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.init = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col s12 m3" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.end,
+                      expression: "end"
+                    }
+                  ],
+                  staticClass: "datepicker browser-default input-impegno",
+                  attrs: {
+                    type: "text",
+                    placeholder: "Fecha final",
+                    id: "date_picker_end"
+                  },
+                  domProps: { value: _vm.end },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.end = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col s1", staticStyle: { cursor: "pointer" } },
+                [
+                  _c(
+                    "i",
+                    {
+                      staticClass: "material-icons",
+                      on: { click: _vm._refresh }
+                    },
+                    [_vm._v("refresh")]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col s12 m3" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success",
+                    attrs: { type: "button" },
+                    on: { click: _vm._search }
+                  },
+                  [_vm._v("Consultar")]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "table-byte",
+              {
+                attrs: { "set-table": _vm.dataTable, filters: ["user.name"] },
+                scopedSlots: _vm._u([
+                  {
+                    key: "table-head",
+                    fn: function(ref) {
+                      var item = ref.item
+                      return _c(
+                        "table-row",
+                        {},
+                        [
+                          _c("table-head", [
+                            _vm._v("ID/Referencia de la transacción ")
+                          ]),
+                          _vm._v(" "),
+                          _c("table-head", [_vm._v("Fecha")]),
+                          _vm._v(" "),
+                          _c("table-head", [_vm._v("Cliente")]),
+                          _vm._v(" "),
+                          _c("table-head", [_vm._v("Total")]),
+                          _vm._v(" "),
+                          _c("table-head", [_vm._v("Medio de pago")]),
+                          _vm._v(" "),
+                          _c("table-head", [_vm._v("Acciones")])
+                        ],
+                        1
+                      )
+                    }
+                  },
+                  {
+                    key: "table-row",
+                    fn: function(ref) {
+                      var item = ref.item
+                      return _c(
+                        "table-row",
+                        {},
+                        [
+                          _c("table-cell", [
+                            _vm._v(
+                              _vm._s(
+                                item.payment_type == 3
+                                  ? item.transfer.number
+                                  : item.transaction_code
+                              )
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("table-cell", [
+                            _vm._v(_vm._s(_vm._f("date")(item.created_at)))
+                          ]),
+                          _vm._v(" "),
+                          _c("table-cell", [_vm._v(_vm._s(item.user.name))]),
+                          _vm._v(" "),
+                          _c("table-cell", [
+                            _vm._v(
+                              _vm._s(_vm.getTotal(item)) +
+                                " " +
+                                _vm._s(
+                                  item.payment_type == 2 ? "USB" : "Bs. S."
+                                )
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("table-cell", [
+                            _vm._v(_vm._s(_vm.pay_types[item.payment_type]))
+                          ]),
+                          _vm._v(" "),
+                          _c("table-cell", { staticClass: "head-actions" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "btn-action",
+                                attrs: { href: "#!" },
+                                on: {
+                                  click: function($event) {
+                                    _vm._view(item)
+                                  }
+                                }
+                              },
+                              [
+                                _c("img", {
+                                  staticClass: "img-responsive",
+                                  attrs: {
+                                    src: _vm._f("asset")(
+                                      "img/icons/ico-ver.png"
+                                    ),
+                                    alt: ""
+                                  }
+                                })
+                              ]
+                            )
+                          ])
+                        ],
+                        1
+                      )
+                    }
+                  }
+                ])
+              },
+              [
+                _c(
+                  "table-row",
+                  { attrs: { slot: "empty-rows" }, slot: "empty-rows" },
+                  [
+                    _c("table-cell", { attrs: { colspan: "3" } }, [
+                      _vm._v(
+                        "\n                            No se encontraron registros.\n                        "
+                      )
+                    ])
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "byte-modal",
+              [
+                [
+                  _c("div", { staticClass: "col s12" }, [
+                    _c("h3", [_vm._v("Detalle del pedido")])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col s12 m12" }, [
+                    _c("b", [_vm._v("ID transacción:")]),
+                    _vm._v(" " + _vm._s(_vm.modal.data.transaction_code))
+                  ]),
+                  _vm._v(" "),
+                  _vm.modal.data.user
+                    ? _c("div", { staticClass: "col s12 m6" }, [
+                        _c("b", [_vm._v("Cliente:")]),
+                        _vm._v(" " + _vm._s(_vm.modal.data.user.name))
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col s12 m6" }, [
+                    _c("b", [_vm._v("Fecha:")]),
+                    _vm._v(
+                      " " + _vm._s(_vm._f("date")(_vm.modal.data.created_at))
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col s12 m12" }, [
+                    _c("b", [_vm._v("Medio de pago:")]),
+                    _vm._v(
+                      " " + _vm._s(_vm.pay_types[_vm.modal.data.payment_type])
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm.modal.data.payment_type == 3
+                    ? _c("div", { staticClass: "col s12 m6" }, [
+                        _c("b", [_vm._v("Banco origen:")]),
+                        _vm._v(
+                          " " + _vm._s(_vm.modal.data.transfer.from.name) + " "
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.modal.data.payment_type == 3
+                    ? _c("div", { staticClass: "col s12 m6" }, [
+                        _c("b", [_vm._v("Banco destino:")]),
+                        _vm._v(" " + _vm._s(_vm.modal.data.transfer.to.name))
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col s12" }, [
+                    _c("table", [
+                      _c("thead", [
+                        _c("th", [_vm._v("Producto")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Precio")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Cantidad")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("subtotal")])
+                      ]),
+                      _vm._v(" "),
+                      _vm.modal.data.details
+                        ? _c(
+                            "tbody",
+                            [
+                              _vm._l(_vm.modal.data.details, function(d, i) {
+                                return _c("tr", { key: i }, [
+                                  _c("td", [_vm._v(_vm._s(d.producto.name))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(d.price))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(d.quantity))]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      _vm._s(d.price * d.quantity) +
+                                        " " +
+                                        _vm._s(d.coin == 1 ? "Bs. S" : "USD")
+                                    )
+                                  ])
+                                ])
+                              }),
+                              _vm._v(" "),
+                              _c("tr", [
+                                _c(
+                                  "td",
+                                  {
+                                    staticClass: "right-align",
+                                    attrs: { colspan: "3" }
+                                  },
+                                  [_c("b", [_vm._v("Total")])]
+                                ),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(
+                                    _vm._s(_vm.getTotal(_vm.modal.data)) +
+                                      " " +
+                                      _vm._s(_vm.findCurrency(_vm.modal.data))
+                                  )
+                                ])
+                              ])
+                            ],
+                            2
+                          )
+                        : _vm._e()
+                    ])
+                  ])
+                ]
+              ],
+              2
+            )
+          ],
+          1
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col s12 center-align" }, [
+        _c("h1", [_vm._v("Pedidos")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-c99a3e0c", module.exports)
+  }
+}
 
 /***/ }),
 /* 348 */
