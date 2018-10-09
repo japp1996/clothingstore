@@ -73548,7 +73548,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: {
         forPage: {
             type: Number,
-            default: 3
+            default: 10
         },
         'set-table': {
             type: Array,
@@ -83601,7 +83601,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             e.preventDefault();
             if (this.form.change == "") {
-                this._showAlert("Disculpa, debes cargar la tasa de cambio", "success");
+                this._showAlert("Disculpa, debes cargar la tasa de cambio", "warning");
                 return false;
             }
             e.target.setAttribute('disabled', true);
@@ -84406,7 +84406,7 @@ var render = function() {
                     _c(
                       "label",
                       { staticClass: "label-impegno", attrs: { for: "texto" } },
-                      [_vm._v("Texto (Español)")]
+                      [_vm._v("¿Quiénes somos? (Español)")]
                     ),
                     _vm._v(" "),
                     _c("textarea", {
@@ -84439,7 +84439,7 @@ var render = function() {
                         staticClass: "label-impegno",
                         attrs: { for: "english" }
                       },
-                      [_vm._v("Texto (Inglés)")]
+                      [_vm._v("¿Quiénes somos? (Inglés)")]
                     ),
                     _vm._v(" "),
                     _c("textarea", {
@@ -87188,7 +87188,7 @@ var render = function() {
                           _c("h5", [
                             _vm._v("¿ Realmente deseas "),
                             _c("b", [_vm._v("Eliminar")]),
-                            _vm._v(" ésta Publicación ?")
+                            _vm._v(" éste Blog ?")
                           ])
                         ])
                       ])
