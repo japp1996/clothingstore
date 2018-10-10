@@ -83,7 +83,7 @@
                                             <td>{{ d.producto.name}}</td>
                                             <td>{{ getPrice(d.price, d.coin, modal.data.exchange.change, modal.data.payment_type) }}</td>
                                             <td>{{ d.quantity }}</td>
-                                            <td>{{ getPrice(d.price, d.coin, modal.data.exchange.change, modal.data.payment_type) * d.quantity }}  {{ modal.data.payment_type == 2 ? 'USD' : 'Bs. S.' }}</td>
+                                            <td>{{ parseFloat(getPrice(d.price, d.coin, modal.data.exchange.change, modal.data.payment_type) * d.quantity).toFixed(2) }}  {{ modal.data.payment_type == 2 ? 'USD' : 'Bs. S.' }}</td>
                                            
                                         </tr>
                                         <tr>
@@ -160,10 +160,10 @@ export default {
         getPrice(precio,coin,exchange, pay) {
             var price = precio;
             if (coin == '1' && pay == '2') {
-                price = price / exchange;
+                price = parseFloat(price / exchange).toFixed(2);
             }
             else if (coin == '2' && pay == '1') {
-                price = price * exchange;
+                price = parseFloat(price * exchange).toFixed(2);
             }
             return price;
         },
