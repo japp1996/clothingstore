@@ -91644,6 +91644,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'purchase-index',
@@ -91779,6 +91783,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         var _this2 = this;
 
+        this.purchases.forEach(function (e) {
+            e.code = e.payment_type == 3 ? e.transfer.number : e.transaction_code;
+        });
+
         this.dataTable = this.purchases;
         setTimeout(function () {
             M.Datepicker.init(document.querySelector('#date_picker_init'), {
@@ -91907,7 +91915,10 @@ var render = function() {
             _c(
               "table-byte",
               {
-                attrs: { "set-table": _vm.dataTable, filters: ["user.name"] },
+                attrs: {
+                  "set-table": _vm.dataTable,
+                  filters: ["user.name", "code"]
+                },
                 scopedSlots: _vm._u([
                   {
                     key: "table-head",
@@ -91943,15 +91954,7 @@ var render = function() {
                         "table-row",
                         {},
                         [
-                          _c("table-cell", [
-                            _vm._v(
-                              _vm._s(
-                                item.payment_type == 3
-                                  ? item.transfer.number
-                                  : item.transaction_code
-                              )
-                            )
-                          ]),
+                          _c("table-cell", [_vm._v(_vm._s(item.code))]),
                           _vm._v(" "),
                           _c("table-cell", [
                             _vm._v(_vm._s(_vm._f("date")(item.created_at)))
@@ -92068,7 +92071,15 @@ var render = function() {
                   _vm.modal.data.payment_type == 3
                     ? _c("div", { staticClass: "col s12 m6" }, [
                         _c("b", [_vm._v("Banco destino:")]),
-                        _vm._v(" " + _vm._s(_vm.modal.data.transfer.to.name))
+                        _vm._v(
+                          " \n                            " +
+                            _vm._s(_vm.modal.data.transfer.to.bank.name) +
+                            " -\n                            " +
+                            _vm._s(_vm.modal.data.transfer.to.name) +
+                            " - \n                            " +
+                            _vm._s(_vm.modal.data.transfer.to.identification) +
+                            " \n                        "
+                        )
                       ])
                     : _vm._e(),
                   _vm._v(" "),
@@ -92394,6 +92405,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: '',
@@ -92519,7 +92533,15 @@ var render = function() {
                                 _vm._v(_vm._s(item.identificacion))
                               ]),
                               _vm._v(" "),
-                              _c("table-cell", [_vm._v(_vm._s(item.type))]),
+                              _c(
+                                "table-cell",
+                                [
+                                  item.type == "1"
+                                    ? [_vm._v("Natural")]
+                                    : [_vm._v("Jurídico")]
+                                ],
+                                2
+                              ),
                               _vm._v(" "),
                               _c("table-cell", [
                                 _vm._v(_vm._s(_vm._f("date")(item.created_at)))
@@ -92685,7 +92707,7 @@ var render = function() {
                             staticClass: "col s12 underline"
                           },
                           [
-                            _c("div", { staticClass: "col s12 m4" }, [
+                            _c("div", { staticClass: "col s12 m3" }, [
                               _c("div", { staticClass: "col s12 m12" }, [
                                 _c("b", [
                                   _vm._v("N° de Pedido: " + _vm._s(pedido.id))
@@ -92693,7 +92715,7 @@ var render = function() {
                               ])
                             ]),
                             _vm._v(" "),
-                            _c("div", { staticClass: "col s12 m4" }, [
+                            _c("div", { staticClass: "col s12 m3" }, [
                               _c("div", { staticClass: "col s12 m12" }, [
                                 _c("h6", [
                                   _vm._v("Fecha: " + _vm._s(pedido.created_at))
@@ -92701,7 +92723,7 @@ var render = function() {
                               ])
                             ]),
                             _vm._v(" "),
-                            _c("div", { staticClass: "col s12 m4" }, [
+                            _c("div", { staticClass: "col s12 m3" }, [
                               _c("div", { staticClass: "col s12 m12" }, [
                                 _c(
                                   "h6",
@@ -92720,8 +92742,8 @@ var render = function() {
                               ])
                             ]),
                             _vm._v(" "),
-                            _c("div", { staticClass: "col s12 m12" }, [
-                              _c("b", [_vm._v("Precio Total:")]),
+                            _c("div", { staticClass: "col s12 m3" }, [
+                              _c("b", [_vm._v("Total:")]),
                               _vm._v(
                                 "\n                                         " +
                                   _vm._s(_vm.getTotal(pedido)) +
