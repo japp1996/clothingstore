@@ -92067,7 +92067,15 @@ var render = function() {
                   _vm.modal.data.payment_type == 3
                     ? _c("div", { staticClass: "col s12 m6" }, [
                         _c("b", [_vm._v("Banco destino:")]),
-                        _vm._v(" " + _vm._s(_vm.modal.data.transfer.to.name))
+                        _vm._v(
+                          " " +
+                            _vm._s(_vm.modal.data.transfer.to.bank.name) +
+                            " - " +
+                            _vm._s(_vm.modal.data.transfer.to.name) +
+                            " - " +
+                            _vm._s(_vm.modal.data.transfer.to.identification) +
+                            " "
+                        )
                       ])
                     : _vm._e(),
                   _vm._v(" "),
