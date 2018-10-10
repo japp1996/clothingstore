@@ -68,7 +68,11 @@
                             <div class="col s12 m6"><b>Fecha:</b> {{ modal.data.created_at | date }}</div>
                             <div class="col s12 m12"><b>Medio de pago:</b> {{ pay_types[modal.data.payment_type] }}</div>
                             <div class="col s12 m6" v-if="modal.data.payment_type == 3"><b>Banco origen:</b> {{ modal.data.transfer.from.name }} </div>
-                            <div class="col s12 m6" v-if="modal.data.payment_type == 3"><b>Banco destino:</b> {{ modal.data.transfer.to.bank.name }} - {{ modal.data.transfer.to.name }} - {{ modal.data.transfer.to.identification }} </div>
+                            <div class="col s12 m6" v-if="modal.data.payment_type == 3"><b>Banco destino:</b> 
+                                {{ modal.data.transfer.to.bank.name }} -
+                                {{ modal.data.transfer.to.name }} - 
+                                {{ modal.data.transfer.to.identification }} 
+                            </div>
                             <!-- <div class="col s12 m6"></div> -->
                             <div class="col s12">
                                 <table>

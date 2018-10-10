@@ -27,7 +27,7 @@
     </li>
 
     <li>
-        <a href="{{ url('/admin/wholesalers') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Colecciones">
+        <a href="{{ url('/admin/wholesalers') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Colecciones Jurídicas">
             <img src="{{ asset('img/icons/ico-juridicas.png') }}" alt="" class="img-responsive">Colecciones Jurídicas
         </a>
     </li>
