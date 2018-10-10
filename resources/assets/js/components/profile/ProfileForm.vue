@@ -15,13 +15,13 @@
                         <div class="col s12 input-field">
                             <input type="password" v-model="form.password">
                             <label for="">Cambiar contraseña</label>
-                            <!-- <span class="helper-text err" v-show="errors.password">{{ errors.password }}</span> -->
+                            <span class="helper-text err" v-show="errors.password">{{ errors.password }}</span>
                         </div>
 
                         <div class="col s12 input-field">
                             <input type="password" v-model="form.password_confirmation">
                             <label for="">Repetir contraseña</label>
-                            <!-- <span class="helper-text err" v-show="errors.password_confirmation" data-error="wrong" data-success="right">{{ errors.password_confirmation }}</span> -->
+                            <span class="helper-text err" v-show="errors.password_confirmation" data-error="wrong" data-success="right">{{ errors.password_confirmation }}</span>
                         </div>
 
                         <div class="col s12 center-align">

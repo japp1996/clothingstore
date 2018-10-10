@@ -91329,7 +91329,23 @@ var render = function() {
                   _vm._v(" "),
                   _c("label", { attrs: { for: "" } }, [
                     _vm._v("Cambiar contraseña")
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.errors.password,
+                          expression: "errors.password"
+                        }
+                      ],
+                      staticClass: "helper-text err"
+                    },
+                    [_vm._v(_vm._s(_vm.errors.password))]
+                  )
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "col s12 input-field" }, [
@@ -91360,7 +91376,24 @@ var render = function() {
                   _vm._v(" "),
                   _c("label", { attrs: { for: "" } }, [
                     _vm._v("Repetir contraseña")
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.errors.password_confirmation,
+                          expression: "errors.password_confirmation"
+                        }
+                      ],
+                      staticClass: "helper-text err",
+                      attrs: { "data-error": "wrong", "data-success": "right" }
+                    },
+                    [_vm._v(_vm._s(_vm.errors.password_confirmation))]
+                  )
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "col s12 center-align" }, [
