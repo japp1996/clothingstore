@@ -91779,6 +91779,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         var _this2 = this;
 
+        this.purchases.forEach(function (e) {
+            e.code = e.payment_type == 3 ? e.transfer.number : e.transaction_code;
+        });
+
         this.dataTable = this.purchases;
         setTimeout(function () {
             M.Datepicker.init(document.querySelector('#date_picker_init'), {
@@ -91907,7 +91911,10 @@ var render = function() {
             _c(
               "table-byte",
               {
-                attrs: { "set-table": _vm.dataTable, filters: ["user.name"] },
+                attrs: {
+                  "set-table": _vm.dataTable,
+                  filters: ["user.name", "code"]
+                },
                 scopedSlots: _vm._u([
                   {
                     key: "table-head",
@@ -91943,15 +91950,7 @@ var render = function() {
                         "table-row",
                         {},
                         [
-                          _c("table-cell", [
-                            _vm._v(
-                              _vm._s(
-                                item.payment_type == 3
-                                  ? item.transfer.number
-                                  : item.transaction_code
-                              )
-                            )
-                          ]),
+                          _c("table-cell", [_vm._v(_vm._s(item.code))]),
                           _vm._v(" "),
                           _c("table-cell", [
                             _vm._v(_vm._s(_vm._f("date")(item.created_at)))
