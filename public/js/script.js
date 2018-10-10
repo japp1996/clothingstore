@@ -91663,6 +91663,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'purchase-index',
@@ -92086,7 +92090,15 @@ var render = function() {
                   _vm.modal.data.payment_type == 3
                     ? _c("div", { staticClass: "col s12 m6" }, [
                         _c("b", [_vm._v("Banco destino:")]),
-                        _vm._v(" " + _vm._s(_vm.modal.data.transfer.to.name))
+                        _vm._v(
+                          " \n                            " +
+                            _vm._s(_vm.modal.data.transfer.to.bank.name) +
+                            " -\n                            " +
+                            _vm._s(_vm.modal.data.transfer.to.name) +
+                            " - \n                            " +
+                            _vm._s(_vm.modal.data.transfer.to.identification) +
+                            " \n                        "
+                        )
                       ])
                     : _vm._e(),
                   _vm._v(" "),
