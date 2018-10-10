@@ -25,7 +25,7 @@ class BlogRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $contenido = [
             'title' => [
                 'required',
                 Rule::unique('blogs')->ignore($this->id)->where(function ($query) {
@@ -41,6 +41,10 @@ class BlogRequest extends FormRequest
             'description' => 'required|min:3',
             'description_english' => 'required|min:3'
         ];
+        for ($i = 0; $i < $this->count; $i++) {
+            $contenido['image'.$i] = 'mimes:jpg,png,jpeg,gif'; 
+        }
+        return $contenido;
     }
 
     public function attributes()
@@ -59,6 +63,7 @@ class BlogRequest extends FormRequest
             'required' => 'El campo :attribute es requerido',
             'min' => 'El campo :attribute no puede contener menos de :min caracteres',
             'unique' => 'Ya existe un Blog registrado con este nombre',
+            'mimes' => 'La imágen tiene un formato incorrecto'
         ];
     }
 
