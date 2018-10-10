@@ -26,7 +26,7 @@
                         </div>
                     </div>
 
-                    <table-byte :set-table="dataTable" :filters="['user.name']">
+                    <table-byte :set-table="dataTable" :filters="['user.name', 'code']">
                         <table-row slot="table-head" slot-scope="{ item }">
                             <table-head>ID/Referencia de la transacción </table-head>
                             <table-head>Fecha</table-head>
@@ -37,7 +37,7 @@
                         </table-row>
 
                         <table-row slot="table-row" slot-scope="{ item }">
-                            <table-cell>{{ item.payment_type == 3 ?  item.transfer.number : item.transaction_code }}</table-cell>
+                            <table-cell>{{ item.code }}</table-cell>
                             <table-cell>{{ item.created_at | date }}</table-cell>
                             <table-cell>{{ item.user.name }}</table-cell>
                             <table-cell>{{ getTotal(item) }} {{ item.payment_type == 2 ? 'USD' : 'Bs. S.' }}</table-cell>
@@ -83,7 +83,7 @@
                                             <td>{{ d.producto.name}}</td>
                                             <td>{{ getPrice(d.price, d.coin, modal.data.exchange.change, modal.data.payment_type) }}</td>
                                             <td>{{ d.quantity }}</td>
-                                            <td>{{ getPrice(d.price, d.coin, modal.data.exchange.change, modal.data.payment_type) * d.quantity }}  {{ modal.data.payment_type == 2 ? 'USD' : 'Bs. S.' }}</td>
+                                            <td>{{ parseFloat(getPrice(d.price, d.coin, modal.data.exchange.change, modal.data.payment_type) * d.quantity).toFixed(2) }}  {{ modal.data.payment_type == 2 ? 'USD' : 'Bs. S.' }}</td>
                                            
                                         </tr>
                                         <tr>
@@ -160,10 +160,10 @@ export default {
         getPrice(precio,coin,exchange, pay) {
             var price = precio;
             if (coin == '1' && pay == '2') {
-                price = price / exchange;
+                price = parseFloat(price / exchange).toFixed(2);
             }
             else if (coin == '2' && pay == '1') {
-                price = price * exchange;
+                price = parseFloat(price * exchange).toFixed(2);
             }
             return price;
         },
@@ -251,6 +251,10 @@ export default {
         }
     },
     mounted() {
+        this.purchases.forEach(e => {
+                e.code = e.payment_type == 3 ? e.transfer.number : e.transaction_code
+        })
+
         this.dataTable = this.purchases
         setTimeout(() => {
             M.Datepicker.init(document.querySelector('#date_picker_init'), {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ProfileRequest;
 use App\Http\Controllers\Controller;
 use App\User;
 use Auth;
@@ -16,7 +17,7 @@ class ProfileController extends Controller
         return view('admin.profile.profile');
     }
 
-    public function update(Request $request){
+    public function update(ProfileRequest $request){
         $user = User::find(Auth::id());
         $user->email = $request->email;
 
