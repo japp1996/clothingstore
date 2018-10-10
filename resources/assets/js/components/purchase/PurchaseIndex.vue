@@ -40,7 +40,7 @@
                             <table-cell>{{ item.payment_type == 3 ?  item.transfer.number : item.transaction_code }}</table-cell>
                             <table-cell>{{ item.created_at | date }}</table-cell>
                             <table-cell>{{ item.user.name }}</table-cell>
-                            <table-cell>{{ getTotal(item) }} {{ item.payment_type == 2 ? 'USB' : 'Bs. S.' }}</table-cell>
+                            <table-cell>{{ getTotal(item) }} {{ item.payment_type == 2 ? 'USD' : 'Bs. S.' }}</table-cell>
                             <table-cell>{{ pay_types[item.payment_type] }}</table-cell>
                             <table-cell class="head-actions">
                                 <a href="#!" class="btn-action" @click="_view(item)">
@@ -81,13 +81,14 @@
                                     <tbody v-if="modal.data.details">
                                         <tr v-for="(d,i ) in modal.data.details" :key="i">
                                             <td>{{ d.producto.name}}</td>
-                                            <td>{{ d.price }}</td>
+                                            <td>{{ getPrice(d.price, d.coin, modal.data.exchange.change, modal.data.payment_type) }}</td>
                                             <td>{{ d.quantity }}</td>
-                                            <td>{{ d.price * d.quantity }} {{ d.coin == 1 ? 'Bs. S' : 'USD' }}</td>
+                                            <td>{{ getPrice(d.price, d.coin, modal.data.exchange.change, modal.data.payment_type) * d.quantity }}  {{ modal.data.payment_type == 2 ? 'USD' : 'Bs. S.' }}</td>
+                                           
                                         </tr>
                                         <tr>
                                             <td colspan="3" class="right-align"><b>Total</b></td>
-                                            <td>{{ getTotal(modal.data) }} {{ findCurrency(modal.data) }}</td>
+                                            <td>{{ getTotal(modal.data) }} {{ modal.data.payment_type == 2 ? 'USD' : 'Bs. S.' }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -153,6 +154,18 @@ export default {
             })
 
             return currency == 1 ? 'Bs. S' : 'USD'
+        },
+
+       
+        getPrice(precio,coin,exchange, pay) {
+            var price = precio;
+            if (coin == '1' && pay == '2') {
+                price = price / exchange;
+            }
+            else if (coin == '2' && pay == '1') {
+                price = price * exchange;
+            }
+            return price;
         },
 
         getTotal (item) {
