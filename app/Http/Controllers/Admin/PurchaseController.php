@@ -26,7 +26,7 @@ class PurchaseController extends Controller
         
         return Purchase::with(['user', 'exchange', 'details', 'exchange', 'transfer'])
             ->orderBy('id', 'DESC')
-            ->whereBetween('created_at', [$init->format('Y-m-d'), $end->format('Y-m-d')])
+            ->whereBetween('created_at', [$init->format('Y-m-d 00:00:00'), $end->format('Y-m-d 23:59:59')])
             ->get();
         
     }
