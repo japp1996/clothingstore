@@ -58,7 +58,7 @@
                                 </div>
 
                                 <div class="col s2 btn-delete-margin_top">
-                                    <a href="#!" class="btn-action" @click="_delete(index)" v-if="design.enabled == true || design.enabled == null">
+                                    <a href="#!" class="btn-action" @click="_delete(index, design.id)" v-if="design.enabled == true || design.enabled == null">
                                         <img :src="'img/icons/ico-eliminar.png' | asset" alt="" class="img-responsive">
                                     </a>
 
@@ -95,7 +95,8 @@ export default {
                 id: 0,
                 name: '',
                 name_english: '',
-                designs: []
+                designs: [],
+                deletes: []
             }
         }
     },
@@ -120,8 +121,10 @@ export default {
             this.form.designs.push({ name: "", name_english: "", id: 0})
         },
 
-        _delete(index){
+        _delete(index, id){
             this.form.designs.splice(index, 1);
+
+            this.deletes.push(id)
         },
 
         store (){

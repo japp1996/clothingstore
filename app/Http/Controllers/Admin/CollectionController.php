@@ -21,7 +21,7 @@ class CollectionController extends Controller
         $collections = Collection::where('status', '1')
         ->with([
             'designs' => function($query) {
-                $query->select()->withCount('products');
+                $query->select()->withCount('products')->where('status', '1');
             }
         ])
         ->get();
@@ -103,6 +103,12 @@ class CollectionController extends Controller
 
             $design_ids[] = $design['id'];
         }
+
+        // foreach($request->deletes as $id) {
+        //     Design::find($id);
+
+        //     $design->delete();
+        // }
 
         Design::where('collection_id', $id)->whereNotIn('id', $design_ids)->doesnthave('products')->update(['status' => '2']);
     }
