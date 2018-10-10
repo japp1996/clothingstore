@@ -26,7 +26,7 @@
 		public function __construct() {
 			$this->exchange = ExchangeRate::orderBy('id','desc')->first();
 
-			if (IpCheck::get() != 'VE') {
+			if (IpCheck::get() == 'VE') {
 				$this->currency = '1';
 			}
 			else {

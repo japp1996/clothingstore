@@ -1,5 +1,5 @@
 function getCurrency(ip) {
-	if (ip != 'VE') {
+	if (ip == 'VE') {
 		return '1'; // Bolivares
 	}
 	else {

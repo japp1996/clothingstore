@@ -9,17 +9,10 @@ body {
 	font-family: 'Segoe';
 	display: flex;
     min-height: 100vh;
-	flex-direction: column;
-	background: url(../img/icons/background-panel.png) !important;
-    background-size: cover !important;
-    background-repeat: no-repeat;
+    flex-direction: column;
     main {
     	flex: 1;
     }
-}
-
-.head-actions {
-	min-width: 300px !important;
 }
 
 .ui-datepicker {
