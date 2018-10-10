@@ -19,7 +19,7 @@ class AuthController extends Controller
             if (Auth::user()->nivel == '2') {
                 return response()->json([
                     'result' => true,
-                    'location' => url('/admin/home')
+                    'location' => url('/admin/exchange_rate')
                 ]);
             } else {
                 return response()->json([
