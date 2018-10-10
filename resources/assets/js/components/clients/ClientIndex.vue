@@ -21,7 +21,10 @@
                                 <table-row slot="table-row" slot-scope="{ item }">
                                     <table-cell>{{ item.name }}</table-cell>
                                     <table-cell>{{ item.identificacion }}</table-cell>
-                                    <table-cell>{{ item.type }}</table-cell>
+                                    <table-cell>
+                                        <template v-if="item.type == '1'">Natural</template>
+                                        <template v-else>Jurídico</template>    
+                                    </table-cell>
                                     <table-cell>{{ item.created_at | date }}</table-cell>
                                     <table-cell>{{ item.telefono }} </table-cell>
                                     <table-cell>
@@ -65,13 +68,13 @@
                                         <h3>Datos de los pedidos</h3>
                                     </div>
                                     <div class="col s12 underline" v-for="(pedido, i) in modalPurchase.data.pedidos" :key="'pedido-'+i">
-                                        <div class="col s12 m4">
+                                        <div class="col s12 m3">
                                             <div class="col s12 m12"><b>N° de Pedido: {{ pedido.id }}</b></div>
                                         </div>
-                                        <div class="col s12 m4">
+                                        <div class="col s12 m3">
                                             <div class="col s12 m12"><h6>Fecha: {{ pedido.created_at }}</h6></div>
                                         </div>
-                                        <div class="col s12 m4">
+                                        <div class="col s12 m3">
                                             <div class="col s12 m12">
                                                 <h6>
                                                     Tipo de pago: 
@@ -81,8 +84,8 @@
                                                 </h6>
                                             </div>
                                         </div>
-                                        <div class="col s12 m12">
-                                            <b>Precio Total:</b>
+                                        <div class="col s12 m3">
+                                            <b>Total:</b>
                                              {{ getTotal(pedido) }}                                
                                              <b>{{findCurrency (pedido)}}</b> 
                                         </div>                                                                            
