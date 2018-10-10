@@ -109,12 +109,15 @@ export default {
         },
 
         _sliceItem (id, i) {            
+            if(id > 0){
+                this.images = this.form.images.filter((el) => {
+                    return (el.id != id)
+                })
+            } else {
+                this.images.splice(i, 1)
+            }
             let parent = document.querySelector(".gallery__items")
             let child = document.querySelector(`#file-${id}`)
-            this.images = this.form.images.filter((el) => {
-                return (el.id != id)
-            })
-         
             parent.removeChild(child)
         },
 
