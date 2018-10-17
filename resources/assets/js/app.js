@@ -134,6 +134,10 @@ Vue.component('purchase-index', require('./components/purchase/PurchaseIndex'));
 // Clients
 Vue.component('client-index', require('./components/clients/ClientIndex'));
 
+// Banners
+Vue.component('banners-index', require('./components/banners/BannerIndex'));
+Vue.component('banners-create', require('./components/banners/BannerCreate'));
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

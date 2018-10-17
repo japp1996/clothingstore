@@ -66,4 +66,9 @@
             <img src="{{ asset('img/icons/ico-blogs.png') }}" alt="" class="img-responsive">Blogs
         </a> 
     </li>
+    <li>
+        <a href="{{ url('/admin/banners') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Banners">
+            <img src="{{ asset('img/icons/ico-blogs.png') }}" alt="" class="img-responsive">Banners
+        </a> 
+    </li>
 </ul>

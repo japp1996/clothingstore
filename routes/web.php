@@ -176,6 +176,10 @@
 			Route::get('purchases', 'PurchaseController@index');
 			Route::get('purchases/{init}/{end}/date', 'PurchaseController@date');
 
+			// Banners
+			Route::get('banners', 'BannerController@index');
+			Route::post('banners/upload', 'BannerController@upload');
+			Route::post('banners/delete', 'BannerController@destroy');
 			/*Route::resource('blogs', 'BlogController');
 			Route::post('blogs/update-images', 'BlogController@updateImages');
 			Route::post('blogs/delete-images', 'BlogController@delete');
@@ -183,6 +187,7 @@
 			Route::get('clients', 'ClientController@index');
 			Route::get('profile', 'ProfileController@profile');
 			Route::post('profile', 'ProfileController@update');
+			
 		});
 	});
 	
