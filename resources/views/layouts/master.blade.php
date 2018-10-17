@@ -10,7 +10,7 @@
 	{{ HTML::Style('bower_components/font-awesome/css/font-awesome.min.css') }}
 	{{ HTML::Style('bower_components/sweetalert/dist/sweetalert.css') }}
 	{{ HTML::Style('bower_components/hold-on/src/css/HoldOn.min.css') }}
-	{{ HTML::Style('css/main.css') }}
+	{{ HTML::Style('css/main.css?1.0') }}
 	@yield('styles')
 </head>
 <body style="overflow-x: hidden !important;">
@@ -34,7 +34,7 @@
 	{{ HTML::Script('bower_components/hold-on/src/js/HoldOn.min.js') }}
 	{{ HTML::Script('js/loader.js') }}
 	{{ HTML::Script('js/filtros.js') }}
-	{{ HTML::Script('js/currency.js') }}
+	{{ HTML::Script('js/currency.js?1.0') }}
 	<script type="text/javascript">
 		var _transfer = '{{ Lang::get('Page.Transferencia.Type') }}';
 

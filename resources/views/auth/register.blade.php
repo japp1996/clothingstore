@@ -53,7 +53,7 @@
 							</div>
 							<div class="form-group">
 								{{ Form::label('codigo',Lang::get('Page.Register.Codigo')) }}
-								{{ Form::text('codigo','',['class' => 'form-control','v-model' => 'form.codigo', 'tabindex' => '9']) }}
+								{{ Form::number('codigo','',['class' => 'form-control','v-model' => 'form.codigo', 'tabindex' => '9']) }}
 							</div>
 							<div class="form-group">
 								{{ Form::label('direccion',Lang::get('Page.Register.Direccion')) }}
@@ -67,11 +67,11 @@
 							</div>
 							<div class="form-group">
 								{{ Form::label('identificacion',Lang::get('Page.Register.Identificacion')) }}
-								{{ Form::text('identificacion','',['class' => 'form-control','v-model' => 'form.identificacion', 'tabindex' => '4']) }}
+								{{ Form::number('identificacion','',['class' => 'form-control','v-model' => 'form.identificacion', 'tabindex' => '4']) }}
 							</div>
 							<div class="form-group">
 								{{ Form::label('telefono',Lang::get('Page.Register.Telefono')) }}
-								{{ Form::text('telefono','',['class' => 'form-control','v-model' => 'form.telefono', 'tabindex' => '6']) }}
+								{{ Form::number('telefono','',['class' => 'form-control','v-model' => 'form.telefono', 'tabindex' => '6']) }}
 							</div>
 							<div class="form-group">
 								{{ Form::label('estado',Lang::get('Page.Register.Estado')) }}

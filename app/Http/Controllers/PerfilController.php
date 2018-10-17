@@ -47,8 +47,8 @@
 	    		'email' => 'required|email|unique:users,email,'.Auth::id(),
 	    		'pais_id' => 'required',
 	    		'estado_id' => 'required',
-	    		'telefono' => 'required',
-	    		'codigo' => 'required'
+	    		'telefono' => 'required|numeric',
+	    		'codigo' => 'required|numeric'
 	    	];
 	    	$atributos = [
 	    		'name' => Lang::get('Controllers.Atributos.Nombre'),

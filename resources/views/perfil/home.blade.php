@@ -45,7 +45,7 @@
 							</div>
 							<div class="form-group">
 								{{ Form::label('telefono',Lang::get('Page.Perfil.Editar.Telefono')) }}
-								{{ Form::text('telefono','',['class' => 'form-control','v-model' => 'user.telefono']) }}
+								{{ Form::number('telefono','',['class' => 'form-control','v-model' => 'user.telefono']) }}
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -61,7 +61,7 @@
 							</div>
 							<div class="form-group">
 								{{ Form::label('codigo',Lang::get('Page.Perfil.Editar.Codigo')) }}
-								{{ Form::text('codigo','',['class' => 'form-control','v-model' => 'user.codigo']) }}
+								{{ Form::number('codigo','',['class' => 'form-control','v-model' => 'user.codigo']) }}
 							</div>
 						</div>
 					</div>
