@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Banner extends Model
 {
     //
-    public $table = "Banners";
+    public $table = "banners";
     
 }
