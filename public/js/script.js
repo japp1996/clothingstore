@@ -85831,6 +85831,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         _addItem: function _addItem() {
+            var item = this.form.files.find(function (e) {
+                return e.id == 0;
+            });
+
+            if (item) {
+                return;
+            }
+
             // this.ids = this.ids + 1
             this.items.push({ file: "", id: 0 });
             this.form.files = this.items;
@@ -85839,6 +85847,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _sliceItem: function _sliceItem(id, i) {
             var _this2 = this;
 
+            var countImages = 0;
+            this.form.files.forEach(function (img) {
+                if (img.id != 0 && !img.deleted_at) {
+                    countImages++;
+                }
+            });
+            if (countImages == 1 && id != 0) {
+                swal('', 'Debe existir al menos una imagen en para el aliado', 'error');
+                return;
+            }
+
+            console.log(countImages, id);
             var parent = document.querySelector(".gallery__items");
             var child = document.querySelector("#file-" + id);
 
@@ -85846,6 +85866,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 axios.post('admin/allies/delete-images', { id: id }).then(function (resp) {
                     parent.removeChild(child);
                     _this2.elements = _this2.elements - 1;
+                    _this2.form.files[i].deleted_at = true;
                 }).catch(function (err) {
                     _this2._showAlert("Disculpa, ha ocurrido un error", "error");
                 });

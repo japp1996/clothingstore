@@ -122,7 +122,7 @@ class AllyController extends Controller
             $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
             $file->move($this->url, $file_name);
             
-            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $this->url);
+            // ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $this->url);
 
             $photo = new AliadoFoto;
             $photo->file = $file_name;
@@ -135,7 +135,7 @@ class AllyController extends Controller
             $file = $request->file('file');
             $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
             $file->move($this->url, $file_name);
-            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $this->url);
+            // ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $this->url);
             File::delete(public_path($this->url.$odlFile));
 
             $item->file = $file_name;
