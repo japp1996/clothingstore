@@ -9,6 +9,6 @@ class Banner extends Model
 {
     use SoftDeletes;
     //
-    public $table = "Slider";
+    public $table = "slider";
     
 }
