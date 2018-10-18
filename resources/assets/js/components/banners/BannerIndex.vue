@@ -149,6 +149,10 @@ export default {
         },
 
         _sliceItem(file, i){
+            if(file == 0) {
+                this.bufferImg.splice(i, 1);
+                return
+            }
             this.modal.data = {
                 file: file,
                 index: i
@@ -158,6 +162,7 @@ export default {
 
         _delete(){
             this.modal.init.close();
+           
             showLoading();
             axios.post("admin/banners/delete", {id: this.modal.data.file})
                 .then(res => {

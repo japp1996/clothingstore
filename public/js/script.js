@@ -93041,6 +93041,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }, 500);
         },
         _sliceItem: function _sliceItem(file, i) {
+            if (file == 0) {
+                this.bufferImg.splice(i, 1);
+                return;
+            }
             this.modal.data = {
                 file: file,
                 index: i
@@ -93051,6 +93055,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this2 = this;
 
             this.modal.init.close();
+
             showLoading();
             axios.post("admin/banners/delete", { id: this.modal.data.file }).then(function (res) {
                 quiLoading();
