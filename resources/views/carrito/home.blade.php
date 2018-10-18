@@ -229,6 +229,10 @@
 					$('#modal-alerta').modal();
 				},
 				check(url) {
+					// if (this.currency == '2') {
+					// 	swal('','Lo sentimos, actualmente el pago en dolares no se encuentra disponible','warning');
+					// 	return false;
+					// }
 					setLoader();
 					axios.post('{{ URL('carrito/check') }}')
 						.then(function(res) {

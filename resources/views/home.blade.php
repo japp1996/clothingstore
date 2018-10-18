@@ -10,8 +10,8 @@
 
 		  <div class="carousel-inner">
 			@foreach($slider as $key => $item)
-			    <div class="carousel-item @if ($key == 0) active @endif">
-			      <img class="d-block w-100" src="{{ URL('img/slider/'.$item->foto) }}" />
+			    <div class="carousel-item @if ($key == 0) active @endif" style="background-image: url({{ URL('img/slider/'.$item->foto) }})">
+			      {{-- <img class="d-block w-100" src="{{ URL('img/slider/'.$item->foto) }}" /> --}}
 			    </div>
 			 @endforeach
 		  </div>

@@ -83,7 +83,7 @@
 	    		'nombre' => 'required',
 	    		'email' => 'required|email|unique:users,email',
 	    		'type' => 'required',
-	    		'identificacion' => 'required',
+	    		'identificacion' => 'required|numeric',
 	    		'telefono' => 'required|numeric',
 	    		'pais' => 'required',
 	    		'estado' => 'required',
