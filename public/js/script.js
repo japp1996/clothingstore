@@ -93008,19 +93008,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this._validDimension(file.file);
             setTimeout(function () {
-                // if(this.valid.width > 1300 || this.valid.height > 500){
-                //     let temp = this.bufferImg;
-                //     this.bufferImg = [];
+                if (_this.valid.width > 1300 || _this.valid.height > 500) {
+                    var temp = _this.bufferImg;
+                    _this.bufferImg = [];
 
-                //     setTimeout(() => {
-                //         temp.forEach(el => {
-                //             this.bufferImg.push(el);
-                //         });
-                //     }, 200)
+                    setTimeout(function () {
+                        temp.forEach(function (el) {
+                            _this.bufferImg.push(el);
+                        });
+                    }, 200);
 
-                //     swal("", "Disculpe, las dimensiones de la imagen es incorrecta. Las dimensiones deben ser de 1300 x 500", "error");
-                //     return
-                // }
+                    swal("", "Disculpe, las dimensiones de la imagen es incorrecta. Las dimensiones deben ser de 1300 x 500", "error");
+                    return;
+                }
 
                 showLoading();
                 var formData = new FormData(),
