@@ -92952,17 +92952,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     template: "#template-blog-create",
@@ -93122,19 +93111,6 @@ var render = function() {
     [
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col s12" }, [
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-back",
-              attrs: { href: _vm.url + "admin/blogs" }
-            },
-            [_vm._m(1)]
-          )
-        ])
-      ]),
-      _vm._v(" "),
       _c(
         "card-main",
         { staticClass: "row", staticStyle: { "min-height": "600px" } },
@@ -93278,16 +93254,6 @@ var staticRenderFns = [
       _c("div", { staticClass: "col s12 center-align" }, [
         _c("h1", [_vm._v("Banners")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "btn-back__container" }, [
-      _c("div", { staticClass: "btn-back__ico" }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "" } }, [_vm._v("Volver")])
     ])
   }
 ]

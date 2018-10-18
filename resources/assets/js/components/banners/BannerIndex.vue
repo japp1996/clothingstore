@@ -6,17 +6,6 @@
             </div>
         </div>
         <!-- <div class="col s12"> -->
-        <div class="row">
-            <div class="col s12">
-                <a :href="url+'admin/blogs'" class="btn btn-back">
-                    <div class="btn-back__container">
-                        <div class="btn-back__ico"></div>
-                        <label for="">Volver</label>
-                    </div>
-                </a>
-            </div>
-        </div>
-
         <card-main class="row" style="min-height: 600px">
             <card-content>
 
