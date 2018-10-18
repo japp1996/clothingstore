@@ -1,7 +1,7 @@
 <?php
 namespace App\Libraries;
 
-use Intervention\Image\ImageManagerStatic as Image;
+use Intervention\Image\ImageManagerStatic as Images;
 
 class ResizeImage 
 {
@@ -11,9 +11,9 @@ class ResizeImage
         $dimensiones = getimagesize(public_path($route.$file));
         $width = $dimensiones[0];
         $height = $dimensiones[1];
-
-        $resizer = Image::make(public_path($route.$file));
-
+     
+        $resizer = Images::make(public_path($route.$file));
+        
         $porcentaje = 20;
         $d_width = $dimensiones[0];
         if($d_width > 3100){

@@ -34,7 +34,7 @@
                 <form action="" @submit.prevent="_store"> 
                     <template v-for="(img, i) in bufferImg">
                         <div class="col s12 m3 items__file" :key="'banner-' + i">
-                            <input-file :btn="false" :file="img.img != '' ? `${urlBase + 'img/banners/' + img.img}` : ''" :image="true" v-on:file="_setFile(img, i, $event)"></input-file>
+                            <input-file :btn="false" :file="img.img != '' ? `${urlBase + 'img/slider/' + img.img}` : ''" :image="true" v-on:file="_setFile(img, i, $event)"></input-file>
                             <a href="#!" class="file__claer" @click="_sliceItem(img.id, i)">x</a>
                         </div>
                     </template>
@@ -112,19 +112,19 @@ export default {
         _setFile(img, i, file) {
             this._validDimension(file.file);
             setTimeout(() => {
-                if(this.valid.width > 1300 || this.valid.height > 500){
-                    let temp = this.bufferImg;
-                    this.bufferImg = [];
+                // if(this.valid.width > 1300 || this.valid.height > 500){
+                //     let temp = this.bufferImg;
+                //     this.bufferImg = [];
                     
-                    setTimeout(() => {
-                        temp.forEach(el => {
-                            this.bufferImg.push(el);
-                        });
-                    }, 200)
+                //     setTimeout(() => {
+                //         temp.forEach(el => {
+                //             this.bufferImg.push(el);
+                //         });
+                //     }, 200)
 
-                    swal("", "Disculpe, las dimensiones de la imagen es incorrecta. Las dimensiones deben ser de 1300 x 500", "error");
-                    return
-                }
+                //     swal("", "Disculpe, las dimensiones de la imagen es incorrecta. Las dimensiones deben ser de 1300 x 500", "error");
+                //     return
+                // }
 
                 showLoading();
                 let formData = new FormData(),
@@ -195,7 +195,7 @@ export default {
             this.banners.forEach(el => {
                 this.bufferImg.push({
                     id: el.id,
-                    img: el.file
+                    img: el.foto
                 })
             });
         }else{

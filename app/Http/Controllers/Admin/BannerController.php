@@ -19,7 +19,7 @@ class BannerController extends Controller
     public function index()
     {
         //
-        $banners = Banner::where('status', '!=', '2')->get();
+        $banners = Banner::all();
 
         return view('admin.banners.index')->with([
             'banners' => $banners
@@ -35,7 +35,7 @@ class BannerController extends Controller
     public function upload(Request $request)
     {
 
-        $url = "img/banners/";
+        $url = "img/slider/";
         if ($request->id == 0) {
             $file = $request->file('file');
             $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
@@ -43,22 +43,21 @@ class BannerController extends Controller
 
             ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
             $banner = new Banner;
-            $banner->file = $file_name;
+            $banner->foto = $file_name;
             $banner->save();
             $fileId = $banner->id;
         } else {
             $item = Banner::find($request->id);
-            $odlFile = $item->file;
-
+            $odlFile = $item->foto;
             $file = $request->file('file');
             $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
             $file->move($url, $file_name);
 
-            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
-
+            $response = ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
+           
             File::delete(public_path($url.$odlFile));
 
-            $item->file = $file_name;
+            $item->foto = $file_name;
             $item->save();
             $fileId = $request->id;
         }
@@ -125,7 +124,7 @@ class BannerController extends Controller
     public function destroy(Request $request)
     {
         $banner = Banner::find($request->id);
-            $banner->status = '2';
-        $banner->save();
+            // $banner->status = '2';
+        $banner->delete();
     }
 }
