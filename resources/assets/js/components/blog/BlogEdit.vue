@@ -125,7 +125,7 @@ export default {
             formData.append('blog_id', this.form.id);
             axios.post("admin/blogs/update-image", formData)
             .then( resp => {
-                if (id == null) {
+                if (id == 0) {
                     this.form.images[i].id = resp.data.id
                     this.form.images[i].file = resp.data.file
                 } 
@@ -139,6 +139,14 @@ export default {
             })
         },
         _addImage() {
+            let item = this.form.images.find(e => {
+                return e.id == 0
+            })
+
+            if(item) {
+                return
+            }
+
             this.form.images.push({file: "", id: 0});
             this.images = this.form.images;
             this.elements += 1;
@@ -178,13 +186,28 @@ export default {
                 )
         },
         _sliceItem (id, i) {
+            let countImages = 0
+            this.form.images.forEach(img => {
+                if(img.id != 0 && !img.deleted_at) {
+                    countImages++
+                }
+            })
+            if(countImages == 1 && id != 0) {
+                swal('', 'Debe existir al menos una imagen en el post', 'error')
+                return
+            }
+                console.log(countImages, id)
+            // return
+
+            
             let parent = document.querySelector(".gallery__items");
             let child = document.querySelector(`#file-${id}`);
-            
             if (id != 0) {
                 axios.post('admin/blogs/delete-image', {id: id})
                 .then(resp => {
                     parent.removeChild(child);
+                    console.log(i)
+                    this.form.images[i].deleted_at = true
                 })
                 .catch(err => {
                     let message = "Disculpe, ha ocurrido un error";
@@ -194,6 +217,7 @@ export default {
                     swal("", message, "error");
                 })
             } else {
+                this.form.images[i].deleted_at = true
                 parent.removeChild(child)
             }
         },

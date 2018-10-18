@@ -64,7 +64,7 @@ class AllyController extends Controller
             $file = $request->file('image'.$i);
             $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
             $file->move($this->url, $file_name);
-            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $this->url);
+            // ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $this->url);
             $photo = new AliadoFoto;
             $photo->file = $file_name;
             $photo->aliado_id = $ally->id;

@@ -88023,7 +88023,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             formData.append('file', file.file);
             formData.append('blog_id', this.form.id);
             axios.post("admin/blogs/update-image", formData).then(function (resp) {
-                if (id == null) {
+                if (id == 0) {
                     _this.form.images[i].id = resp.data.id;
                     _this.form.images[i].file = resp.data.file;
                 }
@@ -88036,6 +88036,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         _addImage: function _addImage() {
+            var item = this.form.images.find(function (e) {
+                return e.id == 0;
+            });
+
+            if (item) {
+                return;
+            }
+
             this.form.images.push({ file: "", id: 0 });
             this.images = this.form.images;
             this.elements += 1;
@@ -88070,12 +88078,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         _sliceItem: function _sliceItem(id, i) {
+            var _this2 = this;
+
+            var countImages = 0;
+            this.form.images.forEach(function (img) {
+                if (img.id != 0 && !img.deleted_at) {
+                    countImages++;
+                }
+            });
+            if (countImages == 1 && id != 0) {
+                swal('', 'Debe existir al menos una imagen en el post', 'error');
+                return;
+            }
+            console.log(countImages, id);
+            // return
+
+
             var parent = document.querySelector(".gallery__items");
             var child = document.querySelector("#file-" + id);
-
             if (id != 0) {
                 axios.post('admin/blogs/delete-image', { id: id }).then(function (resp) {
                     parent.removeChild(child);
+                    console.log(i);
+                    _this2.form.images[i].deleted_at = true;
                 }).catch(function (err) {
                     var message = "Disculpe, ha ocurrido un error";
                     if (err.response.status == 422) {
@@ -88084,13 +88109,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     swal("", message, "error");
                 });
             } else {
+                this.form.images[i].deleted_at = true;
                 parent.removeChild(child);
             }
         }
     },
 
     mounted: function mounted() {
-        var _this2 = this;
+        var _this3 = this;
 
         this.form.title = this.setForm.title;
         this.form.title_english = this.setForm.title_english;
@@ -88098,7 +88124,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.form.description_english = this.setForm.description_english;
         this.form.id = this.setForm.id;
         this.setImages.forEach(function (img) {
-            _this2.form.images.push(img);
+            _this3.form.images.push(img);
         });
     }
 });
