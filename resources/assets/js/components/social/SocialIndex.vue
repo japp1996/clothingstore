@@ -84,10 +84,18 @@
                             </div>
                             <div class="col s12">
                                 <div class="col s12">
-                                    <h3>Dirección</h3>
+                                    <h3>Teléfono</h3>
                                 </div>
                                 <div class="col s12">
-                                    {{ modal.data.address }}
+                                    {{ modal.data.phone }}
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <div class="col s12">
+                                    <h3>Correo</h3>
+                                </div>
+                                <div class="col s12">
+                                    {{ modal.data.email }}
                                 </div>
                             </div>
                         </template>

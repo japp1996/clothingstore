@@ -94505,6 +94505,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     template: "#template-social-index",
@@ -94764,13 +94772,27 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "col s12" }, [
                         _c("div", { staticClass: "col s12" }, [
-                          _c("h3", [_vm._v("Dirección")])
+                          _c("h3", [_vm._v("Teléfono")])
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "col s12" }, [
                           _vm._v(
                             "\n                                " +
-                              _vm._s(_vm.modal.data.address) +
+                              _vm._s(_vm.modal.data.phone) +
+                              "\n                            "
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col s12" }, [
+                        _c("div", { staticClass: "col s12" }, [
+                          _c("h3", [_vm._v("Correo")])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col s12" }, [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(_vm.modal.data.email) +
                               "\n                            "
                           )
                         ])
@@ -95267,7 +95289,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "browser-default input-impegno",
-                    attrs: { type: "text", name: "phone", id: "phone" },
+                    attrs: { type: "number", name: "phone", id: "phone" },
                     domProps: { value: _vm.setForm.phone },
                     on: {
                       input: function($event) {
