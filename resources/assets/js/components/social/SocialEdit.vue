@@ -45,7 +45,7 @@
                     </div>
                     <div class="col s6 center-align">
                        <label class="label-impegno">Teléfono</label>
-                       <input type="text" name="phone" id="phone" class="browser-default input-impegno" v-model="setForm.phone">
+                       <input type="number" name="phone" id="phone" class="browser-default input-impegno" v-model="setForm.phone">
                     </div>
                     <div class="col s6 center-align">
                        <label class="label-impegno">Correo</label>

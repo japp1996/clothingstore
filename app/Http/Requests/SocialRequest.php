@@ -32,7 +32,7 @@ class SocialRequest extends FormRequest
             'slogan' => 'required',
             'slogan_english' => 'required',
             'address' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|numeric',
             'email' => 'required|email'
         ];
         return $contenido;
@@ -54,7 +54,8 @@ class SocialRequest extends FormRequest
     public function messages() {
         return [
             'required' => 'el campo :attribute es requerido',
-            'email' => 'el campo :attribute no tiene formato de correo'
+            'email' => 'el campo :attribute no tiene formato de correo',
+            'numeric' => 'el campo :attribute debe ser solamente numérico'
         ];
     }
 
