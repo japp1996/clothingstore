@@ -127,12 +127,25 @@ export default {
                         quiLoading();
                         if(id == 0)
                             this.bufferImg[i].id = res.data.id;
-                        console.log(this.bufferImg[i].id, res.data.id);
                         swal("", "Banner registrado con éxito", "success");
                     })
                     .catch(err => {
+                        let message = "Disculpe, ha ocurrido un error";
+
+                        if(err.response.status == 422){
+                            message = err.response.data.error;
+                            
+                            let temp = this.bufferImg;
+                            this.bufferImg = [];
+
+                            setTimeout(() => {
+                                this.bufferImg = temp;
+                            }, 200);
+                        }
+
                         quiLoading();
-                        swal("", "Disculpe, ha ocurrido un error", "error");
+
+                        swal("", message, "error");
                     });
             }, 500)
         },
