@@ -135,6 +135,14 @@ export default {
         },
 
         _addItem() {
+             let item = this.form.files.find(e => {
+                return e.id == 0
+            })
+
+            if(item) {
+                return
+            }
+
             // this.ids = this.ids + 1
             this.items.push({file: "", id: 0})
             this.form.files = this.items
@@ -142,6 +150,18 @@ export default {
         },
 
         _sliceItem (id, i) {
+            let countImages = 0
+            this.form.files.forEach(img => {
+                if(img.id != 0 && !img.deleted_at) {
+                    countImages++
+                }
+            })
+            if(countImages == 1 && id != 0) {
+                swal('', 'Debe existir al menos una imagen en para el aliado', 'error')
+                return
+            }
+
+            console.log(countImages, id)
             let parent = document.querySelector(".gallery__items")
             let child = document.querySelector(`#file-${id}`)            
             
@@ -150,6 +170,7 @@ export default {
                 .then(resp => {
                     parent.removeChild(child)
                     this.elements = this.elements - 1;
+                    this.form.files[i].deleted_at = true
                 })
                 .catch(err => {
                     this._showAlert("Disculpa, ha ocurrido un error", "error")
