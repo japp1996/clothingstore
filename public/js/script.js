@@ -94816,7 +94816,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col s12 center-align" }, [
-        _c("h1", [_vm._v("Información de Contácto")])
+        _c("h1", [_vm._v("Información de Contacto")])
       ])
     ])
   }
@@ -95361,7 +95361,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col s12 center-align" }, [
-        _c("h1", [_vm._v("Editar Información de Contácto")])
+        _c("h1", [_vm._v("Editar Información de Contacto")])
       ])
     ])
   },
