@@ -2,16 +2,15 @@
     <section class="container-fluid">
         <div class="row">
             <div class="col s12 center-align">
-                <h1 v-if="options == 0">Productos</h1>
-                <h1 v-if="options == 1 || options == 2">{{ options == 1 ? 'Agregar' : 'Actualizar'}} Producto</h1>
+                <h1>Cuentas bancarias</h1>
             </div>
         </div>
         <div class="row">
             <div class="col s12">
-                <section class="table__content" v-if="options == 0">
+                <section class="table__content">
                     <div class="row">
                         <div class="col s12 container-btn-add">
-                            <button class="btn-add" @click="options = 1">
+                            <button class="btn-add">
                                  <img :src="'img/icons/new-msg.png' | asset" alt="" class="img-responsive">
                             </button>
                             <div class="btn-add-text">
@@ -22,12 +21,14 @@
 
                     <table-byte :set-table="dataTable" :filters="['name']">
                         <table-row slot="table-head" slot-scope="{ item }">
-                            <table-head>Producto</table-head>
+                            <table-head>Cuenta</table-head>
+                            <table-head>Banco</table-head>
                             <table-head>Acciones</table-head>
                         </table-row>
 
                         <table-row slot="table-row" slot-scope="{ item }">
                             <table-cell>{{ item.name }}</table-cell>
+                            <table-cell>{{ item.bank.name }}</table-cell>
                             <table-cell>
                                 <a href="#!" class="btn-action" @click="_view(item)">
                                     <img :src="'img/icons/ico-ver.png' | asset" alt="" class="img-responsive">
@@ -56,9 +57,6 @@
 
                     </table-byte>
                 </section>
-
-                <product-form v-if="options == 1" @back="_resetView" @reload="_updateData" :categories="categories" :designs="designs" :collections="collections"></product-form>
-                <product-edit v-if="options == 2" @back="_resetView" :data="form" :categories="categories" :designs="designs" :collections="collections" @reload="_updateData"></product-edit>
             </div>
         </div>
         <byte-modal v-on:pressok="modal.action" :confirm="modal.type.confirm">
@@ -84,118 +82,6 @@
                     </div>
                 </div>
             </template>
-
-            <template v-else>
-                <div class="col s12">
-                    <h3>Información del Producto</h3>
-                </div>
-
-                <div class="col s12 m6">
-                    <span>Producto (Español):</span> {{ modal.data.name }}
-                </div>
-                <div class="col s12 m6">
-                    <span>Producto (Ingles):</span> {{ modal.data.name_english }}
-                </div>
-
-                <div class="col s12 m6">
-                    <span>Descripción (Español):</span> {{ modal.data.description }}
-                </div>
-
-                <div class="col s12 m6">
-                    <span>Descripción (Ingles):</span> {{ modal.data.description_english }}
-                </div>
-
-                <div class="col s12 m6">
-                    <span>Precio (Detal):</span> {{ modal.data.coin == "1" ? '$' : "Bs. S" }}{{ modal.data.price_1 }}
-                </div>
-
-                <div class="col s12 m6">
-                    <span>Precio (Mayor):</span> {{ modal.data.coin == "1" ? '$' : "Bs. S" }}{{ modal.data.price_2 }}
-                </div>
-
-                <div class="col s12 m6">
-                    <span>Tipo de venta: </span> {{ modal.data.retail == "1" ? 'Detal' : "Mayor" }}
-                </div>
-
-                <div class="col s12">
-                    <h3>Diseño</h3>
-                </div>
-
-                <div class="col s12 m6">
-                    <span>Diseño (Español): </span> {{ modal.data.designs.name }}
-                </div>
-
-                <div class="col s12 m6">
-                    <span>Diseño (Ingles): </span> {{ modal.data.designs.name_english }}
-                </div>
-
-                <div class="col s12">
-                    <h3>Colecciones</h3>
-                </div>
-
-                <div class="col s12 m6">
-                    <span>Colecciones (Español): </span> {{ modal.data.collections.name }}
-                </div>
-
-                <div class="col s12 m6">
-                    <span>Colecciones (Ingles): </span> {{ modal.data.collections.name_english }}
-                </div>
-
-                <div class="col s12">
-                    <h3>Colores</h3>
-                </div>
-
-                <div class="col s12" v-for="(color, i) in modal.data.colors" :key="'color-' + i">
-                    <div class="col s12 m6 no-padding">
-                        <span>Color (Español): </span> {{ color.name }}
-                    </div>
-
-                    <div class="col s12 m6 no-padding">
-                        <span>Color (Ingles): </span> {{ color.name_english }}
-                    </div>
-                </div>
-
-                <div class="col s12">
-                    <h3>Categoría</h3>
-                </div>
-
-                <div class="col s12 m6">
-                    <span>Categoría (Ingles): </span> {{ modal.data.categories.name }}
-                </div>
-
-                <div class="col s12 m6">
-                    <span>Categoría (Ingles): </span> {{ modal.data.categories.name_english }}
-                </div>
-
-                <div class="col s12" v-if="modal.data.subcategories">
-                    <h3>Subcategoría</h3>
-                </div>
-
-                <div class="col s12 m6" v-if="modal.data.subcategories">
-                    <!-- <span>Subcategoría (Ingles): </span> {{ modal.data.subcategories.name }} -->
-                </div>
-
-                <div class="col s12 m6" v-if="modal.data.subcategories">
-                    <!-- <span>Subcategoría (Ingles): </span> {{ modal.data.subcategories.name_english }} -->
-                </div>
-
-                <div class="col s12">
-                    <h3>Imagenen Principal</h3>
-                </div>
-
-                <div class="col s12 m6" v-for="(img, i) in modal.data.images" :key="'img-main' + i" v-if="img.main == 1">
-                    <img class="img-products" :src="`img/products/${img.file}` | asset" alt="">
-                </div>
-
-                <div class="col s12">
-                    <h3>Imagenenes Secundarias</h3>
-                </div>
-
-                <div class="col s12 m6" v-for="(img, i) in modal.data.images" :key="'img-main' + i" v-if="img.main == 0">
-                    <img class="img-products" :src="`img/products/${img.file}` | asset" alt="">
-                </div>
-            </template>
-
         </byte-modal>
     </section>
 </template>
@@ -209,28 +95,10 @@
 </style>
 
 <script>
-import ProductForm from './ProductForm';
-import ProductEdit from './ProductEdit';
 export default {
     template: "#template-product-index",
-    components: {ProductForm, ProductEdit},
     props: {
-        categories: {
-            type: Array,
-            default: []
-        },
-
-        designs: {
-            type: Array,
-            default: []
-        },
-
-        collections: {
-            type: Array,
-            default: []
-        },
-
-        products: {
+        banks: {
             type: Array,
             default: []
         }
@@ -334,7 +202,6 @@ export default {
                     // this._showAlert(res.data.message, "success");
                 })
                 .catch(err => {
-                    console.log('asd')
                     this._showAlert('Disculpa, ha ocurrido un error', "error")
                 });
         },

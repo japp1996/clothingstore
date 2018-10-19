@@ -138,6 +138,9 @@ Vue.component('client-index', require('./components/clients/ClientIndex'));
 Vue.component('banners-index', require('./components/banners/BannerIndex'));
 Vue.component('banners-create', require('./components/banners/BannerCreate'));
 
+// Bank Accounts
+Vue.component('bank-index', require('./components/banks/BankIndex'))
+
 Vue.component('social-index', require('./components/social/SocialIndex'));
 Vue.component('social-edit',  require('./components/social/SocialEdit'));
 /**
