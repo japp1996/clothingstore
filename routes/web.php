@@ -155,7 +155,7 @@
 			// Products
 			Route::resource('products', 'ProductController');
 			Route::post('product/postear/{id}', 'ProductController@postear');
-			Route::post('update-images', 'ProductController@updateImages');
+			Route::post('update-images', 'ProductController@updateImage');
 			Route::post('delete-images', 'ProductController@delete');
 			// Us
 			Route::resource('us', 'UsController');
@@ -191,7 +191,7 @@
 			Route::get('clients', 'ClientController@index');
 			Route::get('profile', 'ProfileController@profile');
 			Route::post('profile', 'ProfileController@update');
-			
+			Route::resource('banks', 'BankController');
 		});
 	});
 	
