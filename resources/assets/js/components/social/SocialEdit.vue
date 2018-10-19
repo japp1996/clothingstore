@@ -2,7 +2,7 @@
     <section class="container-fluid">
         <div class="row">
             <div class="col s12 center-align">
-                <h1>Editar Información de Contácto</h1>
+                <h1>Editar Información de Contacto</h1>
             </div>
         </div>
     <!-- <div class="col s12"> -->
