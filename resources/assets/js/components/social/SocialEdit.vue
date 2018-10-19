@@ -91,20 +91,16 @@ export default {
 
             axios.post("admin/social/"+this.setForm.id, formdata)
                 .then( resp => {
-                        console.log(formdata)
                         swal({
                             title: '',
-                            text: 'Se ha actualizado el blog con éxito',
+                            text: 'Se ha actualizado su información con éxito',
                             timer: 2000,
                             showConfirmButton: false,
                             type: 'success'
-                        },
-                        ()=>{
-                            
                         });
                     }
                 ).catch( err => {
-                        console.log(formdata)
+                        
 
                         let message  = "Disculpe, ha ocurrido un error";
                         if (err.response.status == 422) {
