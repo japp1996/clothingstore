@@ -138,6 +138,8 @@ Vue.component('client-index', require('./components/clients/ClientIndex'));
 Vue.component('banners-index', require('./components/banners/BannerIndex'));
 Vue.component('banners-create', require('./components/banners/BannerCreate'));
 
+Vue.component('social-index', require('./components/social/SocialIndex'));
+Vue.component('social-edit',  require('./components/social/SocialEdit'));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

@@ -71,4 +71,9 @@
             <img src="{{ asset('img/icons/ico-banner.png') }}" alt="" class="img-responsive">Banners
         </a> 
     </li>
+    <li>
+        <a href="{{ url('/admin/social') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Social">
+            <img src="{{ asset('img/icons/ico-contact.png') }}" alt="" class="img-responsive">Contácto
+        </a>
+    </li>
 </ul>
