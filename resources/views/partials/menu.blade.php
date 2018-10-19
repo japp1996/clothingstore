@@ -75,5 +75,8 @@
         <a href="{{ url('/admin/banks') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Banners">
             <img src="{{ asset('img/icons/ico-banner.png') }}" alt="" class="img-responsive">Cuentas bancarias
         </a> 
+        <a href="{{ url('/admin/social') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Social">
+            <img src="{{ asset('img/icons/ico-contact.png') }}" alt="" class="img-responsive">Contácto
+        </a>
     </li>
 </ul>

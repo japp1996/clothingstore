@@ -334,6 +334,7 @@ export default {
                     // this._showAlert(res.data.message, "success");
                 })
                 .catch(err => {
+                    console.log('asd')
                     this._showAlert('Disculpa, ha ocurrido un error', "error")
                 });
         },

@@ -141,6 +141,8 @@ Vue.component('banners-create', require('./components/banners/BannerCreate'));
 // Bank Accounts
 Vue.component('bank-index', require('./components/banks/BankIndex'))
 
+Vue.component('social-index', require('./components/social/SocialIndex'));
+Vue.component('social-edit',  require('./components/social/SocialEdit'));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

@@ -180,6 +180,10 @@
 			Route::get('banners', 'BannerController@index');
 			Route::post('banners/upload', 'BannerController@upload');
 			Route::post('banners/delete', 'BannerController@destroy');
+
+			// Social Networrk
+			Route::resource('social', 'SocialController');
+
 			/*Route::resource('blogs', 'BlogController');
 			Route::post('blogs/update-images', 'BlogController@updateImages');
 			Route::post('blogs/delete-images', 'BlogController@delete');
