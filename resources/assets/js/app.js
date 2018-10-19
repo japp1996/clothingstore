@@ -138,6 +138,9 @@ Vue.component('client-index', require('./components/clients/ClientIndex'));
 Vue.component('banners-index', require('./components/banners/BannerIndex'));
 Vue.component('banners-create', require('./components/banners/BannerCreate'));
 
+// Bank Accounts
+Vue.component('bank-index', require('./components/banks/BankIndex'))
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
