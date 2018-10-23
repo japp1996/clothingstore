@@ -16,9 +16,13 @@ class BankController extends Controller
      */
     public function index()
     {
-        $banks = BankAccount::with('bank')->get();
-
-        return view('admin.banks.index', ['banks' => $banks]);
+        $banks = BankAccount::where('status', '!=', 2)->with('bank')->get();
+        $primaries = Bank::pluck('id', 'name');
+        
+        return view('admin.banks.index', [
+            'banks' => $banks, 
+            'primaries' => $primaries
+        ]);
     }
 
     /**
@@ -84,6 +88,10 @@ class BankController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $bank = BankAccount::find($id);
+
+        $bank->status = false;
+
+        $bank->save();
     }
 }
