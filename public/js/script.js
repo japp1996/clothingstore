@@ -29806,7 +29806,7 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(143);
-module.exports = __webpack_require__(378);
+module.exports = __webpack_require__(381);
 
 
 /***/ }),
@@ -29967,8 +29967,8 @@ Vue.component('banners-create', __webpack_require__(360));
 // Bank Accounts
 Vue.component('bank-index', __webpack_require__(365));
 
-Vue.component('social-index', __webpack_require__(370));
-Vue.component('social-edit', __webpack_require__(373));
+Vue.component('social-index', __webpack_require__(373));
+Vue.component('social-edit', __webpack_require__(376));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -93749,7 +93749,7 @@ var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(368)
 /* template */
-var __vue_template__ = __webpack_require__(369)
+var __vue_template__ = __webpack_require__(372)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -93833,6 +93833,8 @@ exports.push([module.i, "\n.img-products {\n  height: 80%;\n  width: 80%;\n  -o-
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BankForm__ = __webpack_require__(369);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BankForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__BankForm__);
 //
 //
 //
@@ -93929,6 +93931,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     template: "#template-product-index",
@@ -93938,9 +93944,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             default: []
         }
     },
-
+    components: {
+        BankForm: __WEBPACK_IMPORTED_MODULE_0__BankForm___default.a
+    },
     created: function created() {
-        this.dataTable = this.products;
+        this.dataTable = this.banks;
     },
     data: function data() {
         return {
@@ -94063,6 +94071,365 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* 369 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(385)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(370)
+/* template */
+var __vue_template__ = __webpack_require__(371)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/banks/BankForm.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-27cf086f", Component.options)
+  } else {
+    hotAPI.reload("data-v-27cf086f", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 370 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            form: {
+                name: '',
+                bank_id: '',
+                number: '',
+                type: 1
+            }
+        };
+    },
+
+    methods: {
+        _store: function _store() {}
+    }
+});
+
+/***/ }),
+/* 371 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "col s12" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col s12" }, [
+        _c(
+          "a",
+          {
+            staticClass: "btn btn-back",
+            attrs: { href: "#!" },
+            on: {
+              click: function($event) {
+                _vm.$emit("back")
+              }
+            }
+          },
+          [_vm._m(0)]
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "container-fluid" }, [
+      _c("div", { staticClass: "row container-form" }, [
+        _c("div", { staticClass: "col s12" }, [
+          _c(
+            "form",
+            {
+              attrs: { action: "" },
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm._store($event)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "col s6 center-align" }, [
+                _c(
+                  "label",
+                  { staticClass: "label-impegno", attrs: { for: "name" } },
+                  [_vm._v("Nombre de la cuenta")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.name,
+                      expression: "form.name"
+                    }
+                  ],
+                  staticClass: "browser-default input-impegno",
+                  attrs: { type: "text", name: "name", id: "name" },
+                  domProps: { value: _vm.form.name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "name", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col s6 center-align" }, [
+                _c(
+                  "label",
+                  { staticClass: "label-impegno", attrs: { for: "title" } },
+                  [_vm._v("Banco")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.bank_id,
+                        expression: "form.bank_id"
+                      }
+                    ],
+                    attrs: { name: "", id: "" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form,
+                          "bank_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  _vm._l(_vm.primaries, function(c, i) {
+                    return _c("option", { key: i, domProps: { value: i } }, [
+                      _vm._v(_vm._s(c.name))
+                    ])
+                  })
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col s6 center-align" }, [
+                _c(
+                  "label",
+                  { staticClass: "label-impegno", attrs: { for: "title" } },
+                  [_vm._v("Número de cuenta")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.number,
+                      expression: "form.number"
+                    }
+                  ],
+                  staticClass: "browser-default input-impegno",
+                  attrs: { type: "number", name: "title", id: "title" },
+                  domProps: { value: _vm.form.number },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "number", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col s6 center-align" }, [
+                _c(
+                  "label",
+                  { staticClass: "label-impegno", attrs: { for: "title" } },
+                  [_vm._v("Tipo de cuenta")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.type,
+                        expression: "type"
+                      }
+                    ],
+                    staticClass: "browser-default",
+                    attrs: { name: "", id: "" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.type = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "1" } }, [
+                      _vm._v("Corriente")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "2" } }, [_vm._v("Ahorro")])
+                  ]
+                )
+              ])
+            ]
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "btn-back__container" }, [
+      _c("div", { staticClass: "btn-back__ico" }),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "" } }, [_vm._v(" Volver")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-27cf086f", module.exports)
+  }
+}
+
+/***/ }),
+/* 372 */
+/***/ (function(module, exports, __webpack_require__) {
+
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -94073,214 +94440,205 @@ var render = function() {
     [
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col s12" }, [
-          _c(
-            "section",
-            { staticClass: "table__content" },
-            [
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col s12 container-btn-add" }, [
-                  _c("button", { staticClass: "btn-add" }, [
-                    _c("img", {
-                      staticClass: "img-responsive",
-                      attrs: {
-                        src: _vm._f("asset")("img/icons/new-msg.png"),
-                        alt: ""
-                      }
-                    })
+      _vm.options == 0
+        ? _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col s12" }, [
+              _c(
+                "section",
+                { staticClass: "table__content" },
+                [
+                  _c("div", { staticClass: "row" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "col s12 container-btn-add",
+                        on: {
+                          click: function($event) {
+                            _vm.options = 1
+                          }
+                        }
+                      },
+                      [
+                        _c("button", { staticClass: "btn-add" }, [
+                          _c("img", {
+                            staticClass: "img-responsive",
+                            attrs: {
+                              src: _vm._f("asset")("img/icons/new-msg.png"),
+                              alt: ""
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "btn-add-text" }, [
+                          _vm._v(
+                            "\n                            Agregar nuevo\n                        "
+                          )
+                        ])
+                      ]
+                    )
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "btn-add-text" }, [
-                    _vm._v(
-                      "\n                            Agregar nuevo\n                        "
-                    )
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "table-byte",
-                {
-                  attrs: { "set-table": _vm.dataTable, filters: ["name"] },
-                  scopedSlots: _vm._u([
-                    {
-                      key: "table-head",
-                      fn: function(ref) {
-                        var item = ref.item
-                        return _c(
-                          "table-row",
-                          {},
-                          [
-                            _c("table-head", [_vm._v("Cuenta")]),
-                            _vm._v(" "),
-                            _c("table-head", [_vm._v("Banco")]),
-                            _vm._v(" "),
-                            _c("table-head", [_vm._v("Acciones")])
-                          ],
-                          1
-                        )
-                      }
-                    },
-                    {
-                      key: "table-row",
-                      fn: function(ref) {
-                        var item = ref.item
-                        return _c(
-                          "table-row",
-                          {},
-                          [
-                            _c("table-cell", [_vm._v(_vm._s(item.name))]),
-                            _vm._v(" "),
-                            _c("table-cell", [_vm._v(_vm._s(item.bank.name))]),
-                            _vm._v(" "),
-                            _c("table-cell", [
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn-action",
-                                  attrs: { href: "#!" },
-                                  on: {
-                                    click: function($event) {
-                                      _vm._view(item)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("img", {
-                                    staticClass: "img-responsive",
-                                    attrs: {
-                                      src: _vm._f("asset")(
-                                        "img/icons/ico-ver.png"
-                                      ),
-                                      alt: ""
-                                    }
-                                  })
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn-action",
-                                  attrs: { href: "#!" },
-                                  on: {
-                                    click: function($event) {
-                                      _vm._edit(item)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("img", {
-                                    staticClass: "img-responsive",
-                                    attrs: {
-                                      src: _vm._f("asset")(
-                                        "img/icons/ico-editar.png"
-                                      ),
-                                      alt: ""
-                                    }
-                                  })
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn-action",
-                                  attrs: { href: "#!" },
-                                  on: {
-                                    click: function($event) {
-                                      _vm._confirm(item, "postear")
-                                    }
-                                  }
-                                },
-                                [
-                                  item.status == "1"
-                                    ? _c("img", {
-                                        staticClass: "img-responsive",
-                                        staticStyle: {
-                                          width: "36px",
-                                          margin: "0"
-                                        },
-                                        attrs: {
-                                          src: _vm._f("asset")(
-                                            "img/icons/ico-toggle-on.svg"
-                                          ),
-                                          alt: ""
-                                        }
-                                      })
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  item.status == "0"
-                                    ? _c("img", {
-                                        staticClass: "img-responsive",
-                                        staticStyle: {
-                                          width: "36px",
-                                          margin: "0"
-                                        },
-                                        attrs: {
-                                          src: _vm._f("asset")(
-                                            "img/icons/ico-toggle-off.svg"
-                                          ),
-                                          alt: ""
-                                        }
-                                      })
-                                    : _vm._e()
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn-action",
-                                  attrs: { href: "#!" },
-                                  on: {
-                                    click: function($event) {
-                                      _vm._confirm(item, "delete")
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("img", {
-                                    staticClass: "img-responsive",
-                                    attrs: {
-                                      src: _vm._f("asset")(
-                                        "img/icons/ico-eliminar.png"
-                                      ),
-                                      alt: ""
-                                    }
-                                  })
-                                ]
-                              )
-                            ])
-                          ],
-                          1
-                        )
-                      }
-                    }
-                  ])
-                },
-                [
                   _c(
-                    "table-row",
-                    { attrs: { slot: "empty-rows" }, slot: "empty-rows" },
-                    [
-                      _c("table-cell", { attrs: { colspan: "3" } }, [
-                        _vm._v(
-                          "\n                            No se encontraron registros.\n                        "
-                        )
+                    "table-byte",
+                    {
+                      attrs: { "set-table": _vm.dataTable, filters: ["name"] },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "table-head",
+                          fn: function(ref) {
+                            var item = ref.item
+                            return _c(
+                              "table-row",
+                              {},
+                              [
+                                _c("table-head", [_vm._v("Cuenta")]),
+                                _vm._v(" "),
+                                _c("table-head", [_vm._v("Banco")]),
+                                _vm._v(" "),
+                                _c("table-head", [_vm._v("Acciones")])
+                              ],
+                              1
+                            )
+                          }
+                        },
+                        {
+                          key: "table-row",
+                          fn: function(ref) {
+                            var item = ref.item
+                            return _c(
+                              "table-row",
+                              {},
+                              [
+                                _c("table-cell", [_vm._v(_vm._s(item.name))]),
+                                _vm._v(" "),
+                                _c("table-cell", [
+                                  _vm._v(_vm._s(item.bank.name))
+                                ]),
+                                _vm._v(" "),
+                                _c("table-cell", [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "btn-action",
+                                      attrs: { href: "#!" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm._edit(item)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("img", {
+                                        staticClass: "img-responsive",
+                                        attrs: {
+                                          src: _vm._f("asset")(
+                                            "img/icons/ico-editar.png"
+                                          ),
+                                          alt: ""
+                                        }
+                                      })
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "btn-action",
+                                      attrs: { href: "#!" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm._confirm(item, "postear")
+                                        }
+                                      }
+                                    },
+                                    [
+                                      item.status == "1"
+                                        ? _c("img", {
+                                            staticClass: "img-responsive",
+                                            staticStyle: {
+                                              width: "36px",
+                                              margin: "0"
+                                            },
+                                            attrs: {
+                                              src: _vm._f("asset")(
+                                                "img/icons/ico-toggle-on.svg"
+                                              ),
+                                              alt: ""
+                                            }
+                                          })
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      item.status == "0"
+                                        ? _c("img", {
+                                            staticClass: "img-responsive",
+                                            staticStyle: {
+                                              width: "36px",
+                                              margin: "0"
+                                            },
+                                            attrs: {
+                                              src: _vm._f("asset")(
+                                                "img/icons/ico-toggle-off.svg"
+                                              ),
+                                              alt: ""
+                                            }
+                                          })
+                                        : _vm._e()
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "btn-action",
+                                      attrs: { href: "#!" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm._confirm(item, "delete")
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("img", {
+                                        staticClass: "img-responsive",
+                                        attrs: {
+                                          src: _vm._f("asset")(
+                                            "img/icons/ico-eliminar.png"
+                                          ),
+                                          alt: ""
+                                        }
+                                      })
+                                    ]
+                                  )
+                                ])
+                              ],
+                              1
+                            )
+                          }
+                        }
                       ])
+                    },
+                    [
+                      _c(
+                        "table-row",
+                        { attrs: { slot: "empty-rows" }, slot: "empty-rows" },
+                        [
+                          _c("table-cell", { attrs: { colspan: "3" } }, [
+                            _vm._v(
+                              "\n                            No se encontraron registros.\n                        "
+                            )
+                          ])
+                        ],
+                        1
+                      )
                     ],
                     1
                   )
                 ],
                 1
               )
-            ],
-            1
-          )
-        ])
-      ]),
+            ])
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "byte-modal",
@@ -94336,7 +94694,17 @@ var render = function() {
               : _vm._e()
         ],
         2
-      )
+      ),
+      _vm._v(" "),
+      _vm.options == 1
+        ? _c("bank-form", {
+            on: {
+              back: function($event) {
+                _vm.options = 0
+              }
+            }
+          })
+        : _vm._e()
     ],
     1
   )
@@ -94363,15 +94731,15 @@ if (false) {
 }
 
 /***/ }),
-/* 370 */
+/* 373 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(371)
+var __vue_script__ = __webpack_require__(374)
 /* template */
-var __vue_template__ = __webpack_require__(372)
+var __vue_template__ = __webpack_require__(375)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -94410,7 +94778,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 371 */
+/* 374 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -94570,7 +94938,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 372 */
+/* 375 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -94844,19 +95212,19 @@ if (false) {
 }
 
 /***/ }),
-/* 373 */
+/* 376 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(374)
+  __webpack_require__(377)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(376)
+var __vue_script__ = __webpack_require__(379)
 /* template */
-var __vue_template__ = __webpack_require__(377)
+var __vue_template__ = __webpack_require__(380)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -94895,13 +95263,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 374 */
+/* 377 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(375);
+var content = __webpack_require__(378);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -94921,7 +95289,7 @@ if(false) {
 }
 
 /***/ }),
-/* 375 */
+/* 378 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -94935,7 +95303,7 @@ exports.push([module.i, "\n.mt-1 {\n    margin-top: 1rem;\n}\n", ""]);
 
 
 /***/ }),
-/* 376 */
+/* 379 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -95068,7 +95436,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 377 */
+/* 380 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -95399,10 +95767,53 @@ if (false) {
 }
 
 /***/ }),
-/* 378 */
+/* 381 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 382 */,
+/* 383 */,
+/* 384 */,
+/* 385 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(386);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("18accb6b", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-27cf086f\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./BankForm.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-27cf086f\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./BankForm.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 386 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.container-fluid{\n    width: 90%;\n    margin: auto;\n}\n.container-form{\n    background-color: #fff;\n    margin-left: 0 !important;\n    margin-right: 0 !important;\n    padding: 1rem .75rem;\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);

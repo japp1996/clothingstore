@@ -5,18 +5,18 @@
                 <h1>Cuentas bancarias</h1>
             </div>
         </div>
-        <div class="row">
+        <div class="row" v-if="options == 0">
             <div class="col s12">
-                <section class="table__content">
+                <section class="table__content" >
                     <div class="row">
-                        <div class="col s12 container-btn-add">
+                        <a class="col s12 container-btn-add"  @click="options = 1">
                             <button class="btn-add">
                                  <img :src="'img/icons/new-msg.png' | asset" alt="" class="img-responsive">
                             </button>
                             <div class="btn-add-text">
                                 Agregar nuevo
                             </div>                            
-                        </div>
+                        </a>
                     </div>
 
                     <table-byte :set-table="dataTable" :filters="['name']">
@@ -30,9 +30,9 @@
                             <table-cell>{{ item.name }}</table-cell>
                             <table-cell>{{ item.bank.name }}</table-cell>
                             <table-cell>
-                                <a href="#!" class="btn-action" @click="_view(item)">
+                                <!-- <a href="#!" class="btn-action" @click="_view(item)">
                                     <img :src="'img/icons/ico-ver.png' | asset" alt="" class="img-responsive">
-                                </a>
+                                </a> -->
 
                                 <a href="#!" class="btn-action" @click="_edit(item)">
                                     <img :src="'img/icons/ico-editar.png' | asset" alt="" class="img-responsive">
@@ -83,6 +83,8 @@
                 </div>
             </template>
         </byte-modal>
+
+        <bank-form v-if="options == 1" @back="options = 0"></bank-form>
     </section>
 </template>
 
@@ -95,6 +97,8 @@
 </style>
 
 <script>
+import BankForm from './BankForm'
+
 export default {
     template: "#template-product-index",
     props: {
@@ -103,9 +107,11 @@ export default {
             default: []
         }
     },
-
+    components: {
+        BankForm
+    },
     created (){
-        this.dataTable = this.products
+        this.dataTable = this.banks
     },
 
     data () {
