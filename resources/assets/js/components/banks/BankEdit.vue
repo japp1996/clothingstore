@@ -41,7 +41,7 @@
                         </div>
 
                         <div class="col s12 center-align"><br><br>
-                            <button class="btn btn-success">Guardar</button>
+                            <button class="btn btn-success" :disabled="sending">Guardar</button>
                         </div>
                     </form>
                 </div>
@@ -82,6 +82,7 @@ export default {
     },
     data () {
         return {
+            sending: false,
             form: {
                 id: 0,
                 name: '',
@@ -95,14 +96,19 @@ export default {
     },
     methods: {
         actualizar () {
+        this.sending = true
            axios.post(`admin/banks/${this.form.id}`, this.form)
             .then(res => {
+                this.sending = false
+
                 swal('', 'Se actualizó la cuenta bancaria correctamente', 'success')
                 setTimeout(() => {
                     location.reload()
                 }, 900)
             })
             .catch(err => {
+                this.sending = false
+
                 if (err.response.status == 422){
                     swal("", err.response.data.error, "error");
                     return

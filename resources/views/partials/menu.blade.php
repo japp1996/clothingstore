@@ -72,7 +72,7 @@
         </a> 
     </li>
     <li>
-        <a href="{{ url('/admin/banks') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Banners">
+        <a href="{{ url('/admin/banks') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Cuentas Bancarias">
             <img src="{{ asset('img/icons/ico-bank.png') }}" alt="" class="img-responsive">Cuentas bancarias
         </a>
     </li> 

@@ -20,10 +20,6 @@
                         </div>
                        <div class="col s6 center-align">
                             <label for="title" class="label-impegno">Banco</label>
-                            <!-- <select name="" id="" v-model="form.bank_id" class="browser-default">
-                                <option value="1">Corriente</option>
-                                <option value="2">Ahorro</option>
-                            </select> -->
                             <select name="" id="" v-model="form.bank_id" class="browser-default">
                                 <option :value="c.id" v-for="(c, i) in banks" :key="i">{{ c.name }}</option>
                             </select>
@@ -45,7 +41,7 @@
                         </div>
 
                         <div class="col s12 center-align"><br><br>
-                            <button class="btn btn-success">Guardar</button>
+                            <button class="btn btn-success" :disabled="sending">Guardar</button>
                         </div>
                     </form>
                 </div>
@@ -82,6 +78,7 @@ export default {
     },
     data () {
         return {
+            sending: false,
             form: {
                 name: '',
                 bank_id: '',
@@ -93,14 +90,17 @@ export default {
     },
     methods: {
        _store () {
+           this.sending = true
            axios.post('admin/banks', this.form)
             .then(res => {
+                this.sending = false
                 swal('', 'Se registro la cuenta bancaria correctamente', 'success')
                 setTimeout(() => {
                     location.reload()
                 }, 900)
             })
             .catch(err => {
+                this.sending = false
                 if (err.response.status == 422){
                     swal("", err.response.data.error, "error");
                     return

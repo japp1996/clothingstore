@@ -94243,10 +94243,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -94261,6 +94257,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     data: function data() {
         return {
+            sending: false,
             form: {
                 name: '',
                 bank_id: '',
@@ -94273,12 +94270,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         _store: function _store() {
+            var _this = this;
+
+            this.sending = true;
             axios.post('admin/banks', this.form).then(function (res) {
+                _this.sending = false;
                 swal('', 'Se registro la cuenta bancaria correctamente', 'success');
                 setTimeout(function () {
                     location.reload();
                 }, 900);
             }).catch(function (err) {
+                _this.sending = false;
                 if (err.response.status == 422) {
                     swal("", err.response.data.error, "error");
                     return;
@@ -94523,7 +94525,19 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _vm._m(1)
+              _c("div", { staticClass: "col s12 center-align" }, [
+                _c("br"),
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success",
+                    attrs: { disabled: _vm.sending }
+                  },
+                  [_vm._v("Guardar")]
+                )
+              ])
             ]
           )
         ])
@@ -94540,17 +94554,6 @@ var staticRenderFns = [
       _c("div", { staticClass: "btn-back__ico" }),
       _vm._v(" "),
       _c("label", { attrs: { for: "" } }, [_vm._v(" Volver")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col s12 center-align" }, [
-      _c("br"),
-      _c("br"),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-success" }, [_vm._v("Guardar")])
     ])
   }
 ]
@@ -96119,6 +96122,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     data: function data() {
         return {
+            sending: false,
             form: {
                 id: 0,
                 name: '',
@@ -96133,12 +96137,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         actualizar: function actualizar() {
+            var _this = this;
+
+            this.sending = true;
             axios.post('admin/banks/' + this.form.id, this.form).then(function (res) {
+                _this.sending = false;
+
                 swal('', 'Se actualizó la cuenta bancaria correctamente', 'success');
                 setTimeout(function () {
                     location.reload();
                 }, 900);
             }).catch(function (err) {
+                _this.sending = false;
+
                 if (err.response.status == 422) {
                     swal("", err.response.data.error, "error");
                     return;
@@ -96149,10 +96160,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     mounted: function mounted() {
-        var _this = this;
+        var _this2 = this;
 
         Object.getOwnPropertyNames(this.setform).forEach(function (name) {
-            _this.form[name] = _this.setform[name];
+            _this2.form[name] = _this2.setform[name];
         });
     }
 });
@@ -96387,7 +96398,19 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _vm._m(1)
+              _c("div", { staticClass: "col s12 center-align" }, [
+                _c("br"),
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success",
+                    attrs: { disabled: _vm.sending }
+                  },
+                  [_vm._v("Guardar")]
+                )
+              ])
             ]
           )
         ])
@@ -96404,17 +96427,6 @@ var staticRenderFns = [
       _c("div", { staticClass: "btn-back__ico" }),
       _vm._v(" "),
       _c("label", { attrs: { for: "" } }, [_vm._v(" Volver")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col s12 center-align" }, [
-      _c("br"),
-      _c("br"),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-success" }, [_vm._v("Guardar")])
     ])
   }
 ]
