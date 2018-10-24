@@ -29806,7 +29806,7 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(143);
-module.exports = __webpack_require__(383);
+module.exports = __webpack_require__(388);
 
 
 /***/ }),
@@ -29967,8 +29967,8 @@ Vue.component('banners-create', __webpack_require__(360));
 // Bank Accounts
 Vue.component('bank-index', __webpack_require__(365));
 
-Vue.component('social-index', __webpack_require__(375));
-Vue.component('social-edit', __webpack_require__(378));
+Vue.component('social-index', __webpack_require__(380));
+Vue.component('social-edit', __webpack_require__(383));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -93749,7 +93749,7 @@ var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(368)
 /* template */
-var __vue_template__ = __webpack_require__(374)
+var __vue_template__ = __webpack_require__(379)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -93835,6 +93835,8 @@ exports.push([module.i, "\n.img-products {\n  height: 80%;\n  width: 80%;\n  -o-
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BankForm__ = __webpack_require__(369);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BankForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__BankForm__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__BankEdit__ = __webpack_require__(374);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__BankEdit___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__BankEdit__);
 //
 //
 //
@@ -93933,6 +93935,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+
 
 
 
@@ -93942,19 +93950,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         banks: {
             type: Array,
             default: []
+        },
+        accounts: {
+            type: Array,
+            default: []
         }
     },
     components: {
-        BankForm: __WEBPACK_IMPORTED_MODULE_0__BankForm___default.a
+        BankForm: __WEBPACK_IMPORTED_MODULE_0__BankForm___default.a,
+        BankEdit: __WEBPACK_IMPORTED_MODULE_1__BankEdit___default.a
     },
     created: function created() {
-        this.dataTable = this.banks;
+        this.dataTable = this.accounts;
     },
     data: function data() {
         return {
             options: 0,
             form: {},
             dataTable: [],
+            setform: {},
             filters: [],
             modal: {
                 init: {},
@@ -94005,7 +94019,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         _edit: function _edit(item) {
             this.options = 2;
-            this.form = item;
+            this.setform = item;
         },
         _delete: function _delete() {
             var _this = this;
@@ -94016,9 +94030,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.modal.init.close();
 
-            axios.delete("admin/products/" + this.modal.data.id).then(function (res) {
+            axios.delete('admin/banks/' + this.modal.data.id).then(function (res) {
                 _this.dataTable.splice(index, 1);
-                _this._showAlert(res.data.message, "success");
+                _this._showAlert('Se elimino la cuenta correctamente', "success");
             }).catch(function (err) {
                 _this._showAlert('Disculpa, ha ocurrido un error', "error");
             });
@@ -94032,12 +94046,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.modal.init.close();
 
-            axios.post("admin/product/postear/" + this.modal.data.id).then(function (res) {
+            axios.post('admin/banks/switch/' + this.modal.data.id).then(function (res) {
                 console.log(_this2.dataTable[index]);
-                _this2.dataTable[index].status = res.data.status;
-                // this..splice(index, 1);
-                swal("", res.data.message, "success");
-                // this._showAlert(res.data.message, "success");
+                _this2.dataTable[index].status = !_this2.dataTable[index].status;
+                swal("", 'Se cambio el estatus correctamente', "success");
             }).catch(function (err) {
                 _this2._showAlert('Disculpa, ha ocurrido un error', "error");
             });
@@ -94226,21 +94238,57 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        banks: {
+            type: Array,
+            default: []
+        },
+        accounts: {
+            type: Array,
+            default: []
+        }
+    },
     data: function data() {
         return {
             form: {
                 name: '',
                 bank_id: '',
                 number: '',
-                type: 1
+                type: 1,
+                identification: ''
             }
         };
     },
 
     methods: {
-        _store: function _store() {}
+        _store: function _store() {
+            axios.post('admin/banks', this.form).then(function (res) {
+                swal('', 'Se registro la cuenta bancaria correctamente', 'success');
+                setTimeout(function () {
+                    location.reload();
+                }, 900);
+            }).catch(function (err) {
+                if (err.response.status == 422) {
+                    swal("", err.response.data.error, "error");
+                    return;
+                }
+
+                swal('', 'Algo ha ocurrido', 'error');
+            });
+        }
+    },
+    mounted: function mounted() {
+        console.log('asd');
     }
 });
 
@@ -94290,7 +94338,7 @@ var render = function() {
                 _c(
                   "label",
                   { staticClass: "label-impegno", attrs: { for: "name" } },
-                  [_vm._v("Nombre de la cuenta")]
+                  [_vm._v("Propietario de la cuenta")]
                 ),
                 _vm._v(" "),
                 _c("input", {
@@ -94334,6 +94382,7 @@ var render = function() {
                         expression: "form.bank_id"
                       }
                     ],
+                    staticClass: "browser-default",
                     attrs: { name: "", id: "" },
                     on: {
                       change: function($event) {
@@ -94355,12 +94404,42 @@ var render = function() {
                       }
                     }
                   },
-                  _vm._l(_vm.primaries, function(c, i) {
-                    return _c("option", { key: i, domProps: { value: i } }, [
+                  _vm._l(_vm.banks, function(c, i) {
+                    return _c("option", { key: i, domProps: { value: c.id } }, [
                       _vm._v(_vm._s(c.name))
                     ])
                   })
                 )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col s6 center-align" }, [
+                _c(
+                  "label",
+                  { staticClass: "label-impegno", attrs: { for: "title" } },
+                  [_vm._v("Idenficación")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.identification,
+                      expression: "form.identification"
+                    }
+                  ],
+                  staticClass: "browser-default input-impegno",
+                  attrs: { type: "text", name: "title", id: "title" },
+                  domProps: { value: _vm.form.identification },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "identification", $event.target.value)
+                    }
+                  }
+                })
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col s6 center-align" }, [
@@ -94380,7 +94459,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "browser-default input-impegno",
-                  attrs: { type: "number", name: "title", id: "title" },
+                  attrs: { type: "text", name: "title", id: "title" },
                   domProps: { value: _vm.form.number },
                   on: {
                     input: function($event) {
@@ -94407,8 +94486,8 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.type,
-                        expression: "type"
+                        value: _vm.form.type,
+                        expression: "form.type"
                       }
                     ],
                     staticClass: "browser-default",
@@ -94423,9 +94502,13 @@ var render = function() {
                             var val = "_value" in o ? o._value : o.value
                             return val
                           })
-                        _vm.type = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
+                        _vm.$set(
+                          _vm.form,
+                          "type",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
                       }
                     }
                   },
@@ -94437,7 +94520,9 @@ var render = function() {
                     _c("option", { attrs: { value: "2" } }, [_vm._v("Ahorro")])
                   ]
                 )
-              ])
+              ]),
+              _vm._v(" "),
+              _vm._m(1)
             ]
           )
         ])
@@ -94455,6 +94540,17 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("label", { attrs: { for: "" } }, [_vm._v(" Volver")])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col s12 center-align" }, [
+      _c("br"),
+      _c("br"),
+      _vm._v(" "),
+      _c("button", { staticClass: "btn btn-success" }, [_vm._v("Guardar")])
+    ])
   }
 ]
 render._withStripped = true
@@ -94468,6 +94564,495 @@ if (false) {
 
 /***/ }),
 /* 374 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(375)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(377)
+/* template */
+var __vue_template__ = __webpack_require__(378)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/banks/BankEdit.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6b1056b5", Component.options)
+  } else {
+    hotAPI.reload("data-v-6b1056b5", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 375 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(376);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("b038f32a", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6b1056b5\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./BankEdit.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6b1056b5\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./BankEdit.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 376 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.container-fluid{\n    width: 90%;\n    margin: auto;\n}\n.container-form{\n    background-color: #fff;\n    margin-left: 0 !important;\n    margin-right: 0 !important;\n    padding: 1rem .75rem;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 377 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        setform: {
+            type: Object,
+            default: {}
+        },
+        banks: {
+            type: Array,
+            default: []
+        },
+        accounts: {
+            type: Array,
+            default: []
+        }
+    },
+    data: function data() {
+        return {
+            form: {
+                id: 0,
+                name: '',
+                bank_id: '',
+                number: '',
+                type: 1,
+                identification: '',
+                _method: 'PUT'
+            }
+        };
+    },
+
+    methods: {
+        actualizar: function actualizar() {
+            axios.post('admin/banks/' + this.form.id, this.form).then(function (res) {
+                swal('', 'Se registro la cuenta bancaria correctamente', 'success');
+                setTimeout(function () {
+                    // location.reload()
+                }, 900);
+            }).catch(function (err) {
+                if (err.response.status == 422) {
+                    swal("", err.response.data.error, "error");
+                    return;
+                }
+
+                swal('', 'Algo ha ocurrido', 'error');
+            });
+        }
+    },
+    mounted: function mounted() {
+        var _this = this;
+
+        Object.getOwnPropertyNames(this.setform).forEach(function (name) {
+            _this.form[name] = _this.setform[name];
+        });
+    }
+});
+
+/***/ }),
+/* 378 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "col s12" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col s12" }, [
+        _c(
+          "a",
+          {
+            staticClass: "btn btn-back",
+            attrs: { href: "#!" },
+            on: {
+              click: function($event) {
+                _vm.$emit("back")
+              }
+            }
+          },
+          [_vm._m(0)]
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "container-fluid" }, [
+      _c("div", { staticClass: "row container-form" }, [
+        _c("div", { staticClass: "col s12" }, [
+          _c(
+            "form",
+            {
+              attrs: { action: "" },
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.actualizar($event)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "col s6 center-align" }, [
+                _c(
+                  "label",
+                  { staticClass: "label-impegno", attrs: { for: "name" } },
+                  [_vm._v("Propietario de la cuenta")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.name,
+                      expression: "form.name"
+                    }
+                  ],
+                  staticClass: "browser-default input-impegno",
+                  attrs: { type: "text", name: "name", id: "name" },
+                  domProps: { value: _vm.form.name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "name", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col s6 center-align" }, [
+                _c(
+                  "label",
+                  { staticClass: "label-impegno", attrs: { for: "title" } },
+                  [_vm._v("Banco")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.bank_id,
+                        expression: "form.bank_id"
+                      }
+                    ],
+                    staticClass: "browser-default",
+                    attrs: { name: "", id: "" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form,
+                          "bank_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  _vm._l(_vm.banks, function(c, i) {
+                    return _c("option", { key: i, domProps: { value: c.id } }, [
+                      _vm._v(_vm._s(c.name))
+                    ])
+                  })
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col s6 center-align" }, [
+                _c(
+                  "label",
+                  { staticClass: "label-impegno", attrs: { for: "title" } },
+                  [_vm._v("Idenficación")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.identification,
+                      expression: "form.identification"
+                    }
+                  ],
+                  staticClass: "browser-default input-impegno",
+                  attrs: { type: "text", name: "title", id: "title" },
+                  domProps: { value: _vm.form.identification },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "identification", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col s6 center-align" }, [
+                _c(
+                  "label",
+                  { staticClass: "label-impegno", attrs: { for: "title" } },
+                  [_vm._v("Número de cuenta")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.number,
+                      expression: "form.number"
+                    }
+                  ],
+                  staticClass: "browser-default input-impegno",
+                  attrs: { type: "text", name: "title", id: "title" },
+                  domProps: { value: _vm.form.number },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "number", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col s6 center-align" }, [
+                _c(
+                  "label",
+                  { staticClass: "label-impegno", attrs: { for: "title" } },
+                  [_vm._v("Tipo de cuenta")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.type,
+                        expression: "form.type"
+                      }
+                    ],
+                    staticClass: "browser-default",
+                    attrs: { name: "", id: "" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form,
+                          "type",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "1" } }, [
+                      _vm._v("Corriente")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "2" } }, [_vm._v("Ahorro")])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _vm._m(1)
+            ]
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "btn-back__container" }, [
+      _c("div", { staticClass: "btn-back__ico" }),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "" } }, [_vm._v(" Volver")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col s12 center-align" }, [
+      _c("br"),
+      _c("br"),
+      _vm._v(" "),
+      _c("button", { staticClass: "btn btn-success" }, [_vm._v("Guardar")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-6b1056b5", module.exports)
+  }
+}
+
+/***/ }),
+/* 379 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -94535,6 +95120,10 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("table-head", [_vm._v("Banco")]),
                                 _vm._v(" "),
+                                _c("table-head", [_vm._v("Nro. cta.")]),
+                                _vm._v(" "),
+                                _c("table-head", [_vm._v("Identificación")]),
+                                _vm._v(" "),
                                 _c("table-head", [_vm._v("Acciones")])
                               ],
                               1
@@ -94553,6 +95142,12 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("table-cell", [
                                   _vm._v(_vm._s(item.bank.name))
+                                ]),
+                                _vm._v(" "),
+                                _c("table-cell", [_vm._v(_vm._s(item.number))]),
+                                _vm._v(" "),
+                                _c("table-cell", [
+                                  _vm._v(_vm._s(item.identification))
                                 ]),
                                 _vm._v(" "),
                                 _c("table-cell", [
@@ -94738,6 +95333,22 @@ var render = function() {
       _vm._v(" "),
       _vm.options == 1
         ? _c("bank-form", {
+            attrs: { accounts: _vm.accounts, banks: _vm.banks },
+            on: {
+              back: function($event) {
+                _vm.options = 0
+              }
+            }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.options == 2
+        ? _c("bank-edit", {
+            attrs: {
+              accounts: _vm.accounts,
+              banks: _vm.banks,
+              setform: _vm.setform
+            },
             on: {
               back: function($event) {
                 _vm.options = 0
@@ -94771,15 +95382,15 @@ if (false) {
 }
 
 /***/ }),
-/* 375 */
+/* 380 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(376)
+var __vue_script__ = __webpack_require__(381)
 /* template */
-var __vue_template__ = __webpack_require__(377)
+var __vue_template__ = __webpack_require__(382)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -94818,7 +95429,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 376 */
+/* 381 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -94978,7 +95589,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 377 */
+/* 382 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -95252,19 +95863,19 @@ if (false) {
 }
 
 /***/ }),
-/* 378 */
+/* 383 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(379)
+  __webpack_require__(384)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(381)
+var __vue_script__ = __webpack_require__(386)
 /* template */
-var __vue_template__ = __webpack_require__(382)
+var __vue_template__ = __webpack_require__(387)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -95303,13 +95914,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 379 */
+/* 384 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(380);
+var content = __webpack_require__(385);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -95329,7 +95940,7 @@ if(false) {
 }
 
 /***/ }),
-/* 380 */
+/* 385 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -95343,7 +95954,7 @@ exports.push([module.i, "\n.mt-1 {\n    margin-top: 1rem;\n}\n", ""]);
 
 
 /***/ }),
-/* 381 */
+/* 386 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -95476,7 +96087,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 382 */
+/* 387 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -95807,7 +96418,7 @@ if (false) {
 }
 
 /***/ }),
-/* 383 */
+/* 388 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
