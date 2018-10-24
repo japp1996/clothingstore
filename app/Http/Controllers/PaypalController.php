@@ -26,7 +26,7 @@
 	    private $_api_content;
 
 	    public function __construct() {
-	    	if (IpCheck::get() == 'VE' || Cart::count() <= 0) {
+	    	if (IpCheck::get() != 'VE' || Cart::count() <= 0) {
 	    		return abort(403);
 	    	}
 	    	$paypal_conf = \Config::get('paypal');	    	

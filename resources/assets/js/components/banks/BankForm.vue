@@ -34,7 +34,7 @@
                         </div>
                         <div class="col s6 center-align">
                             <label for="title" class="label-impegno">Número de cuenta</label>
-                            <input type="text" name="title" id="title" v-model="form.number" class="browser-default input-impegno">                        
+                            <input type="text" name="title" id="title" v-model="form.number" class="browser-default input-impegno">
                         </div>
                         <div class="col s6 center-align">
                             <label for="title" class="label-impegno">Tipo de cuenta</label>
@@ -109,6 +109,9 @@ export default {
                 swal('', 'Algo ha ocurrido', 'error')
             })
        }
+    },
+    mounted () {
+      console.log('asd')
     }
 }
 </script>

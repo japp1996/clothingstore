@@ -165,6 +165,7 @@ export default {
         },
 
         _confirm(item, action) {
+            
             this.modal.type.confirm = true;
             this.modal.type.action = this._delete;
             this.modal.data = item;

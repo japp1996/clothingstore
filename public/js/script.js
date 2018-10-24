@@ -94001,6 +94001,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.modal.init.open();
         },
         _confirm: function _confirm(item, action) {
+
             this.modal.type.confirm = true;
             this.modal.type.action = this._delete;
             this.modal.data = item;
@@ -94286,6 +94287,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 swal('', 'Algo ha ocurrido', 'error');
             });
         }
+    },
+    mounted: function mounted() {
+        console.log('asd');
     }
 });
 
