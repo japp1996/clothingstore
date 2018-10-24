@@ -23,12 +23,16 @@
                         <table-row slot="table-head" slot-scope="{ item }">
                             <table-head>Cuenta</table-head>
                             <table-head>Banco</table-head>
+                            <table-head>Nro. cta.</table-head>
+                            <table-head>Identificación</table-head>
                             <table-head>Acciones</table-head>
                         </table-row>
 
                         <table-row slot="table-row" slot-scope="{ item }">
                             <table-cell>{{ item.name }}</table-cell>
                             <table-cell>{{ item.bank.name }}</table-cell>
+                            <table-cell>{{ item.number }}</table-cell>
+                            <table-cell>{{ item.identification }}</table-cell>
                             <table-cell>
                                 <!-- <a href="#!" class="btn-action" @click="_view(item)">
                                     <img :src="'img/icons/ico-ver.png' | asset" alt="" class="img-responsive">
@@ -84,7 +88,8 @@
             </template>
         </byte-modal>
 
-        <bank-form v-if="options == 1" @back="options = 0"></bank-form>
+        <bank-form v-if="options == 1" @back="options = 0" :accounts="accounts" :banks="banks"></bank-form>
+        <bank-edit v-if="options == 2" @back="options = 0" :accounts="accounts" :banks="banks" :setform="setform"></bank-edit>
     </section>
 </template>
 
@@ -98,6 +103,7 @@
 
 <script>
 import BankForm from './BankForm'
+import BankEdit from './BankEdit'
 
 export default {
     template: "#template-product-index",
@@ -105,13 +111,18 @@ export default {
         banks: {
             type: Array,
             default: []
+        },
+        accounts: {
+            type: Array,
+            default: []
         }
     },
     components: {
-        BankForm
+        BankForm,
+        BankEdit
     },
     created (){
-        this.dataTable = this.banks
+        this.dataTable = this.accounts
     },
 
     data () {
@@ -119,6 +130,7 @@ export default {
             options: 0,
             form: {},
             dataTable: [],
+            setform: {},
             filters: [],
             modal: {
                 init: {},
@@ -172,7 +184,7 @@ export default {
 
         _edit(item) {
             this.options = 2
-            this.form = item
+            this.setform = item
         },
 
         _delete(){
@@ -182,10 +194,10 @@ export default {
             
             this.modal.init.close();
 
-            axios.delete(`admin/products/${this.modal.data.id}`)
+            axios.delete(`admin/banks/${this.modal.data.id}`)
                 .then(res => {
                     this.dataTable.splice(index, 1)
-                    this._showAlert(res.data.message, "success");
+                    this._showAlert('Se elimino la cuenta correctamente', "success");
                 })
                 .catch(err => {
                     this._showAlert('Disculpa, ha ocurrido un error', "error")
@@ -199,13 +211,11 @@ export default {
             
             this.modal.init.close();
 
-            axios.post(`admin/product/postear/${this.modal.data.id}`)
+            axios.post(`admin/banks/switch/${this.modal.data.id}`)
                 .then(res => {
                     console.log(this.dataTable[index]);
-                    this.dataTable[index].status = res.data.status;
-                    // this..splice(index, 1);
-                    swal("", res.data.message, "success");
-                    // this._showAlert(res.data.message, "success");
+                    this.dataTable[index].status = !this.dataTable[index].status
+                    swal("", 'Se cambio el estatus correctamente', "success");
                 })
                 .catch(err => {
                     this._showAlert('Disculpa, ha ocurrido un error', "error")

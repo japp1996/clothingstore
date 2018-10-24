@@ -13,17 +13,13 @@
          <div class="container-fluid">
             <div class="row container-form">
                 <div class="col s12">
-                    <form action="" @submit.prevent="_store">
+                    <form action="" @submit.prevent="actualizar">
                         <div class="col s6 center-align">
                             <label for="name" class="label-impegno">Propietario de la cuenta</label>
                             <input type="text" name="name" id="name" v-model="form.name" class="browser-default input-impegno">
                         </div>
                        <div class="col s6 center-align">
                             <label for="title" class="label-impegno">Banco</label>
-                            <!-- <select name="" id="" v-model="form.bank_id" class="browser-default">
-                                <option value="1">Corriente</option>
-                                <option value="2">Ahorro</option>
-                            </select> -->
                             <select name="" id="" v-model="form.bank_id" class="browser-default">
                                 <option :value="c.id" v-for="(c, i) in banks" :key="i">{{ c.name }}</option>
                             </select>
@@ -71,6 +67,10 @@
 <script>
 export default {
     props: {
+        setform: {
+            type: Object,
+            default: {}
+        },
         banks: {
             type: Array,
             default: []
@@ -83,21 +83,23 @@ export default {
     data () {
         return {
             form: {
+                id: 0,
                 name: '',
                 bank_id: '',
                 number: '',
                 type: 1,
-                identification: ''
+                identification: '',
+                _method: 'PUT'
             }
         }
     },
     methods: {
-       _store () {
-           axios.post('admin/banks', this.form)
+        actualizar () {
+           axios.post(`admin/banks/${this.form.id}`, this.form)
             .then(res => {
                 swal('', 'Se registro la cuenta bancaria correctamente', 'success')
                 setTimeout(() => {
-                    location.reload()
+                    // location.reload()
                 }, 900)
             })
             .catch(err => {
@@ -108,7 +110,12 @@ export default {
 
                 swal('', 'Algo ha ocurrido', 'error')
             })
-       }
+        }
+    },
+    mounted () {
+        Object.getOwnPropertyNames(this.setform).forEach(name => {
+            this.form[name] = this.setform[name]
+        }) 
     }
 }
 </script>

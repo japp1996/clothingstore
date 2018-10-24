@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Bank;
 use App\Models\BankAccount;
+use App\Http\Requests\BankRequest;
 
 class BankController extends Controller
 {
@@ -16,12 +17,12 @@ class BankController extends Controller
      */
     public function index()
     {
-        $banks = BankAccount::where('status', '!=', 2)->with('bank')->get();
-        $primaries = Bank::pluck('id', 'name');
-        
+        $accounts = BankAccount::where('status', '!=', 2)->with('bank')->get();
+        $banks = Bank::all();
+        // dd($banks);
         return view('admin.banks.index', [
             'banks' => $banks, 
-            'primaries' => $primaries
+            'accounts' => $accounts
         ]);
     }
 
@@ -41,9 +42,17 @@ class BankController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BankRequest $request)
     {
-        //
+        $bank = new BankAccount;
+
+        $bank->name = $request->name;
+        $bank->bank_id = $request->bank_id;
+        $bank->number = $request->number;
+        $bank->identification = $request->identification;
+        $bank->type = $request->type;
+
+        $bank->save();
     }
 
     /**
@@ -75,9 +84,15 @@ class BankController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BankRequest $request, $id)
     {
-        //
+        $bank = BankAccount::find($id);
+        $bank->name = $request->name;
+        $bank->bank_id = $request->bank_id;
+        $bank->identification = $request->identification;
+        $bank->number = $request->number;
+        $bank->type = $request->type;
+        $bank->save();
     }
 
     /**
@@ -89,9 +104,13 @@ class BankController extends Controller
     public function destroy($id)
     {
         $bank = BankAccount::find($id);
+        $bank->delete();
+    }
 
-        $bank->status = false;
-
+    public function estatus($id)
+    {
+        $bank = BankAccount::find($id);
+        $bank->status = !$bank->status; 
         $bank->save();
     }
 }
