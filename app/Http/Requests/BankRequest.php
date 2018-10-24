@@ -28,7 +28,7 @@ class BankRequest extends FormRequest
             'name' => 'required',
             'bank_id' => 'required',
             'identification' => 'required',
-            'number' => 'required|min:15',
+            'number' => 'required|min:20',
             'type' => 'required'
         ];
     }

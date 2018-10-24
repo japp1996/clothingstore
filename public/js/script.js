@@ -94803,7 +94803,7 @@ var render = function() {
                     _c("h5", [
                       _vm._v("¿ Realmente deseas "),
                       _c("b", [_vm._v("Eliminar")]),
-                      _vm._v(" este Producto ?")
+                      _vm._v(" este cuenta bancaria ?")
                     ])
                   ])
                 ])
@@ -94825,11 +94825,11 @@ var render = function() {
                             _vm._s(
                               _vm.modal.data.status == 1
                                 ? "Desactivar "
-                                : "Publicar"
+                                : "Activar"
                             )
                           )
                         ]),
-                        _vm._v(" este Producto ?")
+                        _vm._v(" esta cuenta bancaria ?")
                       ])
                     ])
                   ])
@@ -96130,9 +96130,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         actualizar: function actualizar() {
             axios.post('admin/banks/' + this.form.id, this.form).then(function (res) {
-                swal('', 'Se registro la cuenta bancaria correctamente', 'success');
+                swal('', 'Se actualizó la cuenta bancaria correctamente', 'success');
                 setTimeout(function () {
-                    // location.reload()
+                    location.reload();
                 }, 900);
             }).catch(function (err) {
                 if (err.response.status == 422) {

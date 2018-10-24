@@ -97,9 +97,9 @@ export default {
         actualizar () {
            axios.post(`admin/banks/${this.form.id}`, this.form)
             .then(res => {
-                swal('', 'Se registro la cuenta bancaria correctamente', 'success')
+                swal('', 'Se actualizó la cuenta bancaria correctamente', 'success')
                 setTimeout(() => {
-                    // location.reload()
+                    location.reload()
                 }, 900)
             })
             .catch(err => {

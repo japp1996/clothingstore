@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title','Banners')
+@section('title','Cuentas bancarias')
 @section('content')
-<bank-index url="{{ url('/admin/banners') }}" :accounts="{{ $accounts }}" :banks="{{ $banks }}"></bank-index>
+<bank-index url="{{ url('/admin/banks') }}" :accounts="{{ $accounts }}" :banks="{{ $banks }}"></bank-index>
 @endsection

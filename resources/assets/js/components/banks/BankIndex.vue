@@ -71,7 +71,7 @@
                         <i class="material-icons">error_outline</i>
                     </div>
                     <div class="confirmation__text">
-                        <h5>¿ Realmente deseas <b>Eliminar</b> este Producto ?</h5>
+                        <h5>¿ Realmente deseas <b>Eliminar</b> este cuenta bancaria ?</h5>
                     </div>
                 </div>
             </template>
@@ -82,7 +82,7 @@
                         <i class="material-icons">error_outline</i>
                     </div>
                     <div class="confirmation__text">
-                        <h5>¿ Realmente deseas <b>{{ modal.data.status == 1 ? 'Desactivar ' : 'Publicar' }}</b> este Producto ?</h5>
+                        <h5>¿ Realmente deseas <b>{{ modal.data.status == 1 ? 'Desactivar ' : 'Activar' }}</b> esta cuenta bancaria ?</h5>
                     </div>
                 </div>
             </template>
