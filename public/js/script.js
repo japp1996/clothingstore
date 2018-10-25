@@ -96518,7 +96518,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\ntextarea {\n  resize: none;\n  height: 10rem !important;\n}\n", ""]);
+exports.push([module.i, "\ntextarea {\n  resize: none;\n  height: 25rem !important;\n}\n", ""]);
 
 // exports
 
@@ -96529,8 +96529,6 @@ exports.push([module.i, "\ntextarea {\n  resize: none;\n  height: 10rem !importa
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
 //
 //
 //
@@ -96667,185 +96665,173 @@ var render = function() {
   return _c("section", { staticClass: "container-fluid" }, [
     _vm._m(0),
     _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c(
-        "div",
-        { staticClass: "container" },
-        [
-          _c(
-            "card-main",
-            [
-              _c("card-content", [
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col s12 m6 l6 center-align" }, [
-                    _c(
-                      "label",
-                      { staticClass: "label-impegno", attrs: { for: "texto" } },
-                      [_vm._v("Terminos y condiciones (Español)")]
-                    ),
-                    _vm._v(" "),
-                    _c("textarea", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.terms_text,
-                          expression: "form.terms_text"
-                        }
-                      ],
-                      staticClass: "browser-default input-impegno",
-                      attrs: { name: "texto", id: "texto" },
-                      domProps: { value: _vm.form.terms_text },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.form, "terms_text", $event.target.value)
-                        }
-                      }
-                    })
-                  ]),
+    _c(
+      "div",
+      { staticClass: "row" },
+      [
+        _c(
+          "card-main",
+          [
+            _c("card-content", [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col s12 m6 l6 center-align" }, [
+                  _c(
+                    "label",
+                    { staticClass: "label-impegno", attrs: { for: "texto" } },
+                    [_vm._v("Terminos y condiciones (Español)")]
+                  ),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col s12 m6 l6 center-align" }, [
-                    _c(
-                      "label",
+                  _c("textarea", {
+                    directives: [
                       {
-                        staticClass: "label-impegno",
-                        attrs: { for: "english" }
-                      },
-                      [_vm._v("Terminos y condiciones (Inglés)")]
-                    ),
-                    _vm._v(" "),
-                    _c("textarea", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.terms_english,
-                          expression: "form.terms_english"
-                        }
-                      ],
-                      staticClass: "browser-default input-impegno",
-                      attrs: { name: "english", id: "english" },
-                      domProps: { value: _vm.form.terms_english },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.form,
-                            "terms_english",
-                            $event.target.value
-                          )
-                        }
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.terms_text,
+                        expression: "form.terms_text"
                       }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col s12 m6 l6 center-align" }, [
-                    _c(
-                      "label",
-                      {
-                        staticClass: "label-impegno",
-                        attrs: { for: "mision" }
-                      },
-                      [_vm._v("Condiciones de compra (Español)")]
-                    ),
-                    _vm._v(" "),
-                    _c("textarea", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.conditions_text,
-                          expression: "form.conditions_text"
+                    ],
+                    staticClass: "browser-default input-impegno",
+                    attrs: { name: "texto", id: "texto" },
+                    domProps: { value: _vm.form.terms_text },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
                         }
-                      ],
-                      staticClass: "browser-default input-impegno",
-                      attrs: { name: "mision", id: "mision" },
-                      domProps: { value: _vm.form.conditions_text },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.form,
-                            "conditions_text",
-                            $event.target.value
-                          )
-                        }
+                        _vm.$set(_vm.form, "terms_text", $event.target.value)
                       }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col s12 m6 l6 center-align" }, [
-                    _c(
-                      "label",
-                      {
-                        staticClass: "label-impegno",
-                        attrs: { for: "mision_english" }
-                      },
-                      [_vm._v("Condiciones de compra (Inglés)")]
-                    ),
-                    _vm._v(" "),
-                    _c("textarea", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.conditions_english,
-                          expression: "form.conditions_english"
-                        }
-                      ],
-                      staticClass: "browser-default input-impegno",
-                      attrs: { name: "mision_english", id: "mision_english" },
-                      domProps: { value: _vm.form.conditions_english },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.form,
-                            "conditions_english",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
-                  ])
+                    }
+                  })
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col s12 center-align" }, [
-                    _vm.action == 0
-                      ? _c(
-                          "a",
-                          {
-                            staticClass: "btn btn-success",
-                            attrs: { href: "#!", disabled: _vm.sending },
-                            on: {
-                              click: function($event) {
-                                _vm._store($event)
-                              }
-                            }
-                          },
-                          [_vm._v("Guardar")]
+                _c("div", { staticClass: "col s12 m6 l6 center-align" }, [
+                  _c(
+                    "label",
+                    { staticClass: "label-impegno", attrs: { for: "english" } },
+                    [_vm._v("Terminos y condiciones (Inglés)")]
+                  ),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.terms_english,
+                        expression: "form.terms_english"
+                      }
+                    ],
+                    staticClass: "browser-default input-impegno",
+                    attrs: { name: "english", id: "english" },
+                    domProps: { value: _vm.form.terms_english },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "terms_english", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col s12 m6 l6 center-align" }, [
+                  _c(
+                    "label",
+                    { staticClass: "label-impegno", attrs: { for: "mision" } },
+                    [_vm._v("Condiciones de compra (Español)")]
+                  ),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.conditions_text,
+                        expression: "form.conditions_text"
+                      }
+                    ],
+                    staticClass: "browser-default input-impegno",
+                    attrs: { name: "mision", id: "mision" },
+                    domProps: { value: _vm.form.conditions_text },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.form,
+                          "conditions_text",
+                          $event.target.value
                         )
-                      : _vm._e()
-                  ])
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col s12 m6 l6 center-align" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "label-impegno",
+                      attrs: { for: "mision_english" }
+                    },
+                    [_vm._v("Condiciones de compra (Inglés)")]
+                  ),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.conditions_english,
+                        expression: "form.conditions_english"
+                      }
+                    ],
+                    staticClass: "browser-default input-impegno",
+                    attrs: { name: "mision_english", id: "mision_english" },
+                    domProps: { value: _vm.form.conditions_english },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.form,
+                          "conditions_english",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col s12 center-align" }, [
+                  _vm.action == 0
+                    ? _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-success",
+                          attrs: { href: "#!", disabled: _vm.sending },
+                          on: {
+                            click: function($event) {
+                              _vm._store($event)
+                            }
+                          }
+                        },
+                        [_vm._v("Guardar")]
+                      )
+                    : _vm._e()
                 ])
               ])
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ])
+            ])
+          ],
+          1
+        )
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = [

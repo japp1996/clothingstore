@@ -6,39 +6,37 @@
             </div>
         </div>
         <div class="row">
-            <div class="container">
-                <card-main>
-                    <card-content>                    
-                        <div class="row">
-                            <div class="col s12 m6 l6 center-align">
-                                <label for="texto" class="label-impegno">Terminos y condiciones (Español)</label>
-                                <textarea name="texto" id="texto" v-model="form.terms_text" class="browser-default input-impegno"></textarea>
-                            </div>
-
-                            <div class="col s12 m6 l6 center-align">
-                                <label for="english" class="label-impegno">Terminos y condiciones (Inglés)</label>
-                                <textarea name="english" id="english" v-model="form.terms_english" class="browser-default input-impegno"></textarea>
-                            </div>
-
-                            <div class="col s12 m6 l6 center-align">
-                                <label for="mision" class="label-impegno">Condiciones de compra (Español)</label>
-                                <textarea name="mision" id="mision" v-model="form.conditions_text" class="browser-default input-impegno"></textarea>
-                            </div>
-
-                            <div class="col s12 m6 l6 center-align">
-                                <label for="mision_english" class="label-impegno">Condiciones de compra (Inglés)</label>
-                                <textarea name="mision_english" id="mision_english" v-model="form.conditions_english" class="browser-default input-impegno"></textarea>
-                            </div>
+            <card-main>
+                <card-content>                    
+                    <div class="row">
+                        <div class="col s12 m6 l6 center-align">
+                            <label for="texto" class="label-impegno">Terminos y condiciones (Español)</label>
+                            <textarea name="texto" id="texto" v-model="form.terms_text" class="browser-default input-impegno"></textarea>
                         </div>
-                        <div class="row">
-                            <div class="col s12 center-align">
-                                <a href="#!" class="btn btn-success" @click="_store($event)" v-if="action == 0" :disabled="sending">Guardar</a>
-                            </div>                    
+
+                        <div class="col s12 m6 l6 center-align">
+                            <label for="english" class="label-impegno">Terminos y condiciones (Inglés)</label>
+                            <textarea name="english" id="english" v-model="form.terms_english" class="browser-default input-impegno"></textarea>
+                        </div>
+
+                        <div class="col s12 m6 l6 center-align">
+                            <label for="mision" class="label-impegno">Condiciones de compra (Español)</label>
+                            <textarea name="mision" id="mision" v-model="form.conditions_text" class="browser-default input-impegno"></textarea>
+                        </div>
+
+                        <div class="col s12 m6 l6 center-align">
+                            <label for="mision_english" class="label-impegno">Condiciones de compra (Inglés)</label>
+                            <textarea name="mision_english" id="mision_english" v-model="form.conditions_english" class="browser-default input-impegno"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 center-align">
+                            <a href="#!" class="btn btn-success" @click="_store($event)" v-if="action == 0" :disabled="sending">Guardar</a>
                         </div>                    
-                    </card-content>
-                </card-main>
-            </div>          
-        </div>
+                    </div>                    
+                </card-content>
+            </card-main>
+        </div>          
     </section>
 </template>
 
@@ -46,7 +44,7 @@
 <style lang="scss">
     textarea {
         resize: none;
-        height: 10rem !important;
+        height: 25rem !important;
     }
 </style>
 
