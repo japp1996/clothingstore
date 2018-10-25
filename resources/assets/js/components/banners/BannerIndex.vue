@@ -99,6 +99,9 @@ export default {
         },
 
         _setFile(img, i, file) {
+            if(file.file.type.match("video.*")) {
+                return swal('', 'Solo se aceptan imagenes', 'error')
+            }
             this._validDimension(file.file);
             setTimeout(() => {
                 if(this.valid.width > 1300 || this.valid.height > 500){

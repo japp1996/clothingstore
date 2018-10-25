@@ -71659,8 +71659,8 @@ var waraService = __WEBPACK_IMPORTED_MODULE_0_axios___default.a.create({
 
 "use strict";
 var configService = {
-    // apiUrl: 'http://200.44.165.156/Wara/public'
-    apiUrl: 'http://localhost/Wara/public'
+    apiUrl: 'http://200.44.165.156/Wara/public'
+    // apiUrl: 'http://localhost/Wara/public'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (configService);
@@ -85250,6 +85250,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             window.location = urlBase + "admin/allies";
         },
         _setFile: function _setFile(i, file) {
+            if (file.file.type.match("video.*")) {
+                return swal('', 'Solo se aceptan imagenes', 'error');
+            }
             if (i == null) {
                 this.file = file.file;
                 this.form.main = file.file;
@@ -85839,6 +85842,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _setFile: function _setFile(i, x, e) {
             var _this = this;
 
+            if (e.file.type.match("video.*")) {
+                return swal('', 'Solo se aceptan imagenes', 'error');
+            }
             var progressElement = document.querySelector("#progress-" + x);
             progressElement.classList.add('progress-active');
             var formData = new FormData();
@@ -87471,6 +87477,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         //     this.form.image = file.file;
         // },
         _setFile: function _setFile(i, file) {
+            if (file.file.type.match("video.*")) {
+                return swal('', 'Solo se aceptan imagenes', 'error');
+            }
             if (i == null) {
                 this.image = file.file;
                 this.form.main = file.file;
@@ -88066,6 +88075,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _setFile: function _setFile(id, i, file) {
             var _this = this;
 
+            if (file.file.type.match("video.*")) {
+                return swal('', 'Solo se aceptan imagenes', 'error');
+            }
             var formData = new FormData();
             formData.append('id', id);
             formData.append('file', file.file);
@@ -93078,6 +93090,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _setFile: function _setFile(img, i, file) {
             var _this = this;
 
+            if (file.file.type.match("video.*")) {
+                return swal('', 'Solo se aceptan imagenes', 'error');
+            }
             this._validDimension(file.file);
             setTimeout(function () {
                 if (_this.valid.width > 1300 || _this.valid.height > 500) {
@@ -93532,6 +93547,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         _setFile: function _setFile(file) {
+            if (file.file.type.match("video.*")) {
+                return swal('', 'Solo se aceptan imagenes', 'error');
+            }
             this.form.img = file.file;
         },
         _setFileEnglish: function _setFileEnglish(file) {

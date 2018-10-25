@@ -103,6 +103,9 @@ export default {
         },
         
         _setFile (i, file) {
+            if(file.file.type.match("video.*")) {
+                return swal('', 'Solo se aceptan imagenes', 'error')
+            }
             if (i == null) {
                 this.file = file.file
                 this.form.main = file.file
