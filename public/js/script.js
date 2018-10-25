@@ -72823,6 +72823,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 var type = "";
                 if (f.type.match("video.*")) {
+                    if (!this.video) {
+                        this.$emit("file", { file: files[i], type: type });
+                        return;
+                    }
+
                     this.isImage = false;
                     this.isVideo = true;
                     type = "video";
@@ -80047,6 +80052,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.form.colors.splice(i, 1);
         },
         _setFile: function _setFile(i, file) {
+            if (file.file.type.match("video.*")) {
+                return swal('', 'Solo se aceptan imagenes', 'error');
+            }
+
             if (i == null) {
                 this.image = file.file;
                 this.form.main = file.file;
@@ -89594,6 +89603,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             parent.removeChild(child);
         },
         setImage: function setImage(i, file) {
+
+            if (file.file.type.match("video.*")) {
+                return swal('', 'Solo se aceptan imagenes', 'error');
+            }
+
             if (i == null) {
                 this.image = file.file;
                 this.form.main = file.file;
@@ -96615,15 +96629,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.sending = true;
             axios.post('admin/terms', this.form).then(function (res) {
                 _this.sending = false;
-                swal({
-                    title: '',
-                    text: 'Información almacenada exitosamente',
-                    timer: 2000,
-                    showConfirmButton: false,
-                    type: "success"
-                }, function () {
-                    // window.location.reload()
-                });
+                swal('', 'Información almacenada exitosamente', 'success');
             }).catch(function (err) {
                 _this.sending = false;
                 if (err.response.status == 422) {

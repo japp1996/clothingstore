@@ -134,6 +134,11 @@ export default {
 
                 let type = "";
                 if(f.type.match("video.*")){
+                    if(!this.video) {
+                        this.$emit("file", {file: files[i], type: type});
+                        return
+                    }
+                    
                     this.isImage = false;
                     this.isVideo = true;
                     type = "video";
