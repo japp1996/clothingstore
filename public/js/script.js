@@ -29806,7 +29806,7 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(143);
-module.exports = __webpack_require__(383);
+module.exports = __webpack_require__(393);
 
 
 /***/ }),
@@ -29967,8 +29967,10 @@ Vue.component('banners-create', __webpack_require__(360));
 // Bank Accounts
 Vue.component('bank-index', __webpack_require__(365));
 
-Vue.component('social-index', __webpack_require__(375));
-Vue.component('social-edit', __webpack_require__(378));
+Vue.component('social-index', __webpack_require__(380));
+Vue.component('social-edit', __webpack_require__(383));
+
+Vue.component('term-index', __webpack_require__(388));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -93749,7 +93751,7 @@ var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(368)
 /* template */
-var __vue_template__ = __webpack_require__(374)
+var __vue_template__ = __webpack_require__(379)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -93835,7 +93837,7 @@ exports.push([module.i, "\n.img-products {\n  height: 80%;\n  width: 80%;\n  -o-
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BankForm__ = __webpack_require__(369);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BankForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__BankForm__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__BankEdit__ = __webpack_require__(387);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__BankEdit__ = __webpack_require__(374);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__BankEdit___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__BankEdit__);
 //
 //
@@ -94570,6 +94572,504 @@ if (false) {
 /* 374 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(375)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(377)
+/* template */
+var __vue_template__ = __webpack_require__(378)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/banks/BankEdit.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6b1056b5", Component.options)
+  } else {
+    hotAPI.reload("data-v-6b1056b5", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 375 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(376);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("d0e86110", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6b1056b5\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./BankEdit.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6b1056b5\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./BankEdit.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 376 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.container-fluid{\n    width: 90%;\n    margin: auto;\n}\n.container-form{\n    background-color: #fff;\n    margin-left: 0 !important;\n    margin-right: 0 !important;\n    padding: 1rem .75rem;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 377 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        setform: {
+            type: Object,
+            default: {}
+        },
+        banks: {
+            type: Array,
+            default: []
+        },
+        accounts: {
+            type: Array,
+            default: []
+        }
+    },
+    data: function data() {
+        return {
+            sending: false,
+            form: {
+                id: 0,
+                name: '',
+                bank_id: '',
+                number: '',
+                type: 1,
+                identification: '',
+                _method: 'PUT'
+            }
+        };
+    },
+
+    methods: {
+        actualizar: function actualizar() {
+            var _this = this;
+
+            this.sending = true;
+            axios.post('admin/banks/' + this.form.id, this.form).then(function (res) {
+                _this.sending = false;
+
+                swal('', 'Se actualizó la cuenta bancaria correctamente', 'success');
+                setTimeout(function () {
+                    location.reload();
+                }, 900);
+            }).catch(function (err) {
+                _this.sending = false;
+
+                if (err.response.status == 422) {
+                    swal("", err.response.data.error, "error");
+                    return;
+                }
+
+                swal('', 'Algo ha ocurrido', 'error');
+            });
+        }
+    },
+    mounted: function mounted() {
+        var _this2 = this;
+
+        Object.getOwnPropertyNames(this.setform).forEach(function (name) {
+            _this2.form[name] = _this2.setform[name];
+        });
+    }
+});
+
+/***/ }),
+/* 378 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "col s12" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col s12" }, [
+        _c(
+          "a",
+          {
+            staticClass: "btn btn-back",
+            attrs: { href: "#!" },
+            on: {
+              click: function($event) {
+                _vm.$emit("back")
+              }
+            }
+          },
+          [_vm._m(0)]
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "container-fluid" }, [
+      _c("div", { staticClass: "row container-form" }, [
+        _c("div", { staticClass: "col s12" }, [
+          _c(
+            "form",
+            {
+              attrs: { action: "" },
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.actualizar($event)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "col s6 center-align" }, [
+                _c(
+                  "label",
+                  { staticClass: "label-impegno", attrs: { for: "name" } },
+                  [_vm._v("Propietario de la cuenta")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.name,
+                      expression: "form.name"
+                    }
+                  ],
+                  staticClass: "browser-default input-impegno",
+                  attrs: { type: "text", name: "name", id: "name" },
+                  domProps: { value: _vm.form.name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "name", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col s6 center-align" }, [
+                _c(
+                  "label",
+                  { staticClass: "label-impegno", attrs: { for: "title" } },
+                  [_vm._v("Banco")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.bank_id,
+                        expression: "form.bank_id"
+                      }
+                    ],
+                    staticClass: "browser-default",
+                    attrs: { name: "", id: "" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form,
+                          "bank_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  _vm._l(_vm.banks, function(c, i) {
+                    return _c("option", { key: i, domProps: { value: c.id } }, [
+                      _vm._v(_vm._s(c.name))
+                    ])
+                  })
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col s6 center-align" }, [
+                _c(
+                  "label",
+                  { staticClass: "label-impegno", attrs: { for: "title" } },
+                  [_vm._v("Idenficación")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.identification,
+                      expression: "form.identification"
+                    }
+                  ],
+                  staticClass: "browser-default input-impegno",
+                  attrs: { type: "text", name: "title", id: "title" },
+                  domProps: { value: _vm.form.identification },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "identification", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col s6 center-align" }, [
+                _c(
+                  "label",
+                  { staticClass: "label-impegno", attrs: { for: "title" } },
+                  [_vm._v("Número de cuenta")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.number,
+                      expression: "form.number"
+                    }
+                  ],
+                  staticClass: "browser-default input-impegno",
+                  attrs: { type: "text", name: "title", id: "title" },
+                  domProps: { value: _vm.form.number },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "number", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col s6 center-align" }, [
+                _c(
+                  "label",
+                  { staticClass: "label-impegno", attrs: { for: "title" } },
+                  [_vm._v("Tipo de cuenta")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.type,
+                        expression: "form.type"
+                      }
+                    ],
+                    staticClass: "browser-default",
+                    attrs: { name: "", id: "" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form,
+                          "type",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "1" } }, [
+                      _vm._v("Corriente")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "2" } }, [_vm._v("Ahorro")])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col s12 center-align" }, [
+                _c("br"),
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success",
+                    attrs: { disabled: _vm.sending }
+                  },
+                  [_vm._v("Guardar")]
+                )
+              ])
+            ]
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "btn-back__container" }, [
+      _c("div", { staticClass: "btn-back__ico" }),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "" } }, [_vm._v(" Volver")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-6b1056b5", module.exports)
+  }
+}
+
+/***/ }),
+/* 379 */
+/***/ (function(module, exports, __webpack_require__) {
+
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -94897,15 +95397,15 @@ if (false) {
 }
 
 /***/ }),
-/* 375 */
+/* 380 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(376)
+var __vue_script__ = __webpack_require__(381)
 /* template */
-var __vue_template__ = __webpack_require__(377)
+var __vue_template__ = __webpack_require__(382)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -94944,7 +95444,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 376 */
+/* 381 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -95104,7 +95604,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 377 */
+/* 382 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -95378,19 +95878,19 @@ if (false) {
 }
 
 /***/ }),
-/* 378 */
+/* 383 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(379)
+  __webpack_require__(384)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(381)
+var __vue_script__ = __webpack_require__(386)
 /* template */
-var __vue_template__ = __webpack_require__(382)
+var __vue_template__ = __webpack_require__(387)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -95429,13 +95929,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 379 */
+/* 384 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(380);
+var content = __webpack_require__(385);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -95455,7 +95955,7 @@ if(false) {
 }
 
 /***/ }),
-/* 380 */
+/* 385 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -95469,7 +95969,7 @@ exports.push([module.i, "\n.mt-1 {\n    margin-top: 1rem;\n}\n", ""]);
 
 
 /***/ }),
-/* 381 */
+/* 386 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -95602,7 +96102,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 382 */
+/* 387 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -95933,28 +96433,19 @@ if (false) {
 }
 
 /***/ }),
-/* 383 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 384 */,
-/* 385 */,
-/* 386 */,
-/* 387 */
+/* 388 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(388)
+  __webpack_require__(389)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(390)
+var __vue_script__ = __webpack_require__(391)
 /* template */
-var __vue_template__ = __webpack_require__(391)
+var __vue_template__ = __webpack_require__(392)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -95971,7 +96462,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/banks/BankEdit.vue"
+Component.options.__file = "resources/assets/js/components/terms/TermIndex.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -95980,9 +96471,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6b1056b5", Component.options)
+    hotAPI.createRecord("data-v-323ae552", Component.options)
   } else {
-    hotAPI.reload("data-v-6b1056b5", Component.options)
+    hotAPI.reload("data-v-323ae552", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -95993,23 +96484,23 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 388 */
+/* 389 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(389);
+var content = __webpack_require__(390);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("d0e86110", content, false, {});
+var update = __webpack_require__(3)("82ba0232", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6b1056b5\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./BankEdit.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6b1056b5\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./BankEdit.vue");
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-323ae552\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./TermIndex.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-323ae552\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./TermIndex.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -96019,7 +96510,7 @@ if(false) {
 }
 
 /***/ }),
-/* 389 */
+/* 390 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -96027,13 +96518,13 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n.container-fluid{\n    width: 90%;\n    margin: auto;\n}\n.container-form{\n    background-color: #fff;\n    margin-left: 0 !important;\n    margin-right: 0 !important;\n    padding: 1rem .75rem;\n}\n", ""]);
+exports.push([module.i, "\ntextarea {\n  resize: none;\n  height: 10rem !important;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 390 */
+/* 391 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -96090,331 +96581,270 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    template: "#template-us-index",
+
     props: {
-        setform: {
+        terms: {
             type: Object,
             default: {}
         },
-        banks: {
-            type: Array,
-            default: []
-        },
-        accounts: {
-            type: Array,
-            default: []
+        conditions: {
+            type: Object,
+            default: {}
         }
     },
+
     data: function data() {
         return {
-            sending: false,
+            action: 0,
             form: {
-                id: 0,
-                name: '',
-                bank_id: '',
-                number: '',
-                type: 1,
-                identification: '',
-                _method: 'PUT'
-            }
+                terms_text: '',
+                terms_english: '',
+                conditions_text: '',
+                conditions_english: ''
+            },
+            sending: false
         };
     },
 
+
     methods: {
-        actualizar: function actualizar() {
+        _store: function _store(e) {
             var _this = this;
 
             this.sending = true;
-            axios.post('admin/banks/' + this.form.id, this.form).then(function (res) {
+            axios.post('admin/terms', this.form).then(function (res) {
                 _this.sending = false;
-
-                swal('', 'Se actualizó la cuenta bancaria correctamente', 'success');
-                setTimeout(function () {
-                    location.reload();
-                }, 900);
+                swal({
+                    title: '',
+                    text: 'Información almacenada exitosamente',
+                    timer: 2000,
+                    showConfirmButton: false,
+                    type: "success"
+                }, function () {
+                    // window.location.reload()
+                });
             }).catch(function (err) {
                 _this.sending = false;
-
                 if (err.response.status == 422) {
-                    swal("", err.response.data.error, "error");
-                    return;
+                    return swal({
+                        title: '',
+                        text: err.response.data.error,
+                        timer: 3500,
+                        showConfirmButton: false,
+                        type: "warning"
+                    });
                 }
-
-                swal('', 'Algo ha ocurrido', 'error');
+                swal({
+                    title: 'Disculpa',
+                    text: "Ha ocurrido un error",
+                    timer: 3500,
+                    showConfirmButton: false,
+                    type: "error"
+                });
             });
         }
     },
     mounted: function mounted() {
-        var _this2 = this;
+        this.form.terms_text = this.terms.texto;
+        this.form.terms_english = this.terms.english;
 
-        Object.getOwnPropertyNames(this.setform).forEach(function (name) {
-            _this2.form[name] = _this2.setform[name];
-        });
+        this.form.conditions_text = this.conditions.texto;
+        this.form.conditions_english = this.conditions.english;
     }
 });
 
 /***/ }),
-/* 391 */
+/* 392 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col s12" }, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col s12" }, [
-        _c(
-          "a",
-          {
-            staticClass: "btn btn-back",
-            attrs: { href: "#!" },
-            on: {
-              click: function($event) {
-                _vm.$emit("back")
-              }
-            }
-          },
-          [_vm._m(0)]
-        )
-      ])
-    ]),
+  return _c("section", { staticClass: "container-fluid" }, [
+    _vm._m(0),
     _vm._v(" "),
-    _c("div", { staticClass: "container-fluid" }, [
-      _c("div", { staticClass: "row container-form" }, [
-        _c("div", { staticClass: "col s12" }, [
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        { staticClass: "container" },
+        [
           _c(
-            "form",
-            {
-              attrs: { action: "" },
-              on: {
-                submit: function($event) {
-                  $event.preventDefault()
-                  return _vm.actualizar($event)
-                }
-              }
-            },
+            "card-main",
             [
-              _c("div", { staticClass: "col s6 center-align" }, [
-                _c(
-                  "label",
-                  { staticClass: "label-impegno", attrs: { for: "name" } },
-                  [_vm._v("Propietario de la cuenta")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.form.name,
-                      expression: "form.name"
-                    }
-                  ],
-                  staticClass: "browser-default input-impegno",
-                  attrs: { type: "text", name: "name", id: "name" },
-                  domProps: { value: _vm.form.name },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.form, "name", $event.target.value)
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col s6 center-align" }, [
-                _c(
-                  "label",
-                  { staticClass: "label-impegno", attrs: { for: "title" } },
-                  [_vm._v("Banco")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.bank_id,
-                        expression: "form.bank_id"
-                      }
-                    ],
-                    staticClass: "browser-default",
-                    attrs: { name: "", id: "" },
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.$set(
-                          _vm.form,
-                          "bank_id",
-                          $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        )
-                      }
-                    }
-                  },
-                  _vm._l(_vm.banks, function(c, i) {
-                    return _c("option", { key: i, domProps: { value: c.id } }, [
-                      _vm._v(_vm._s(c.name))
-                    ])
-                  })
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col s6 center-align" }, [
-                _c(
-                  "label",
-                  { staticClass: "label-impegno", attrs: { for: "title" } },
-                  [_vm._v("Idenficación")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.form.identification,
-                      expression: "form.identification"
-                    }
-                  ],
-                  staticClass: "browser-default input-impegno",
-                  attrs: { type: "text", name: "title", id: "title" },
-                  domProps: { value: _vm.form.identification },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.form, "identification", $event.target.value)
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col s6 center-align" }, [
-                _c(
-                  "label",
-                  { staticClass: "label-impegno", attrs: { for: "title" } },
-                  [_vm._v("Número de cuenta")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.form.number,
-                      expression: "form.number"
-                    }
-                  ],
-                  staticClass: "browser-default input-impegno",
-                  attrs: { type: "text", name: "title", id: "title" },
-                  domProps: { value: _vm.form.number },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.form, "number", $event.target.value)
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col s6 center-align" }, [
-                _c(
-                  "label",
-                  { staticClass: "label-impegno", attrs: { for: "title" } },
-                  [_vm._v("Tipo de cuenta")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.type,
-                        expression: "form.type"
-                      }
-                    ],
-                    staticClass: "browser-default",
-                    attrs: { name: "", id: "" },
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.$set(
-                          _vm.form,
-                          "type",
-                          $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        )
-                      }
-                    }
-                  },
-                  [
-                    _c("option", { attrs: { value: "1" } }, [
-                      _vm._v("Corriente")
-                    ]),
+              _c("card-content", [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col s12 m6 l6 center-align" }, [
+                    _c(
+                      "label",
+                      { staticClass: "label-impegno", attrs: { for: "texto" } },
+                      [_vm._v("Terminos y condiciones (Español)")]
+                    ),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "2" } }, [_vm._v("Ahorro")])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col s12 center-align" }, [
-                _c("br"),
-                _c("br"),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.terms_text,
+                          expression: "form.terms_text"
+                        }
+                      ],
+                      staticClass: "browser-default input-impegno",
+                      attrs: { name: "texto", id: "texto" },
+                      domProps: { value: _vm.form.terms_text },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "terms_text", $event.target.value)
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col s12 m6 l6 center-align" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "label-impegno",
+                        attrs: { for: "english" }
+                      },
+                      [_vm._v("Terminos y condiciones (Inglés)")]
+                    ),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.terms_english,
+                          expression: "form.terms_english"
+                        }
+                      ],
+                      staticClass: "browser-default input-impegno",
+                      attrs: { name: "english", id: "english" },
+                      domProps: { value: _vm.form.terms_english },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "terms_english",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col s12 m6 l6 center-align" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "label-impegno",
+                        attrs: { for: "mision" }
+                      },
+                      [_vm._v("Condiciones de compra (Español)")]
+                    ),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.conditions_text,
+                          expression: "form.conditions_text"
+                        }
+                      ],
+                      staticClass: "browser-default input-impegno",
+                      attrs: { name: "mision", id: "mision" },
+                      domProps: { value: _vm.form.conditions_text },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "conditions_text",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col s12 m6 l6 center-align" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "label-impegno",
+                        attrs: { for: "mision_english" }
+                      },
+                      [_vm._v("Condiciones de compra (Inglés)")]
+                    ),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.conditions_english,
+                          expression: "form.conditions_english"
+                        }
+                      ],
+                      staticClass: "browser-default input-impegno",
+                      attrs: { name: "mision_english", id: "mision_english" },
+                      domProps: { value: _vm.form.conditions_english },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "conditions_english",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
                 _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-success",
-                    attrs: { disabled: _vm.sending }
-                  },
-                  [_vm._v("Guardar")]
-                )
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col s12 center-align" }, [
+                    _vm.action == 0
+                      ? _c(
+                          "a",
+                          {
+                            staticClass: "btn btn-success",
+                            attrs: { href: "#!", disabled: _vm.sending },
+                            on: {
+                              click: function($event) {
+                                _vm._store($event)
+                              }
+                            }
+                          },
+                          [_vm._v("Guardar")]
+                        )
+                      : _vm._e()
+                  ])
+                ])
               ])
-            ]
+            ],
+            1
           )
-        ])
-      ])
+        ],
+        1
+      )
     ])
   ])
 }
@@ -96423,10 +96853,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "btn-back__container" }, [
-      _c("div", { staticClass: "btn-back__ico" }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "" } }, [_vm._v(" Volver")])
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col s12 center-align" }, [
+        _c("h1", [_vm._v("Terminos y condiciones de compra")])
+      ])
     ])
   }
 ]
@@ -96435,9 +96865,15 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-6b1056b5", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-323ae552", module.exports)
   }
 }
+
+/***/ }),
+/* 393 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

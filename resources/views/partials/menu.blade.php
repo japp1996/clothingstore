@@ -81,4 +81,9 @@
             <img src="{{ asset('img/icons/ico-contact.png') }}" alt="" class="img-responsive">Contacto
         </a>
     </li>
+    <li>
+        <a href="{{ url('/admin/terms') }}" class="collapsible-label1 tooltipped" data-position="right" data-delay="50" data-tooltip="Términos y condiciones">
+            <img src="{{ asset('img/icons/ico-condiciones.png') }}" alt="" class="img-responsive">Términos y condiciones
+        </a>
+    </li>
 </ul>
