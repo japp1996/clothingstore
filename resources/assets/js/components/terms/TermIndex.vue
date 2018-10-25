@@ -81,15 +81,7 @@ export default {
             this.sending = true
             axios.post('admin/terms', this.form).then(res => {
                 this.sending = false
-                swal({
-                        title: '',
-                        text: 'Información almacenada exitosamente',
-                        timer: 2000,
-                        showConfirmButton: false,
-                        type: "success"
-                    }, () => {
-                        // window.location.reload()
-                    })
+                swal('', 'Información almacenada exitosamente', 'success')
             })
             .catch(err => {
                 this.sending = false
