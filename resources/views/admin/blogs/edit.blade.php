@@ -1,5 +1,5 @@
 @extends('layouts.admin')
 @section('title', "Editar Blogs")
 @section('content')
-<blog-edit :posts="{{$posts}}" :set-images="{{$images}}"></blog-edit>
+<blog-edit :set-form="{{$posts}}" :set-images="{{$images}}"></blog-edit>
 @endsection

@@ -95,13 +95,6 @@ export default {
     },
 
     props: {
-        posts: {
-            type: Array,
-            default() {
-                return [];
-            }
-        },
-
         'set-images': {
             type: Array,
             default() {
