@@ -362,7 +362,7 @@ export default {
         },
 
         _setFile(i, x, e) {
-            if(file.file.type.match("video.*")) {
+            if(e.file.type.match("video*")) {
                 return swal('', 'Solo se aceptan imagenes', 'error')
             }
             // let progressElement = document.querySelector(`#progress-${x}`)

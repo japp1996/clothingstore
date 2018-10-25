@@ -120,11 +120,18 @@ export default {
     methods: {
 
         _previsualizar(evt) {
+            let files = evt.target.files;
+            if(files[0].type.match("video.*")){ // Si suben videos y no esta habilitala la opción
+                if(!this.video) {
+                    this.$emit("file", {file: files[0], type: false}); // 
+                    return
+                }
+            }
+
             this.preview = "";
             this.file = "";
             this.showZoneRender = true;
 
-            let files = evt.target.files;
 
             for (let i = 0, f; (f = files[i]); i++) {
                 //Solo admitimos imágenes y videos.                

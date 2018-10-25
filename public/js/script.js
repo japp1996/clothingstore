@@ -71659,8 +71659,8 @@ var waraService = __WEBPACK_IMPORTED_MODULE_0_axios___default.a.create({
 
 "use strict";
 var configService = {
-    apiUrl: 'http://200.44.165.156/Wara/public'
-    // apiUrl: 'http://localhost/Wara/public'
+    // apiUrl: 'http://200.44.165.156/Wara/public'
+    apiUrl: 'http://localhost/Wara/public'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (configService);
@@ -72809,11 +72809,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _previsualizar: function _previsualizar(evt) {
             var _this = this;
 
+            var files = evt.target.files;
+            if (files[0].type.match("video.*")) {
+                // Si suben videos y no esta habilitala la opción
+                if (!this.video) {
+                    this.$emit("file", { file: files[0], type: false }); // 
+                    return;
+                }
+            }
+
             this.preview = "";
             this.file = "";
             this.showZoneRender = true;
-
-            var files = evt.target.files;
 
             for (var i = 0, f; f = files[i]; i++) {
                 //Solo admitimos imágenes y videos.                
@@ -81650,6 +81657,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _setFile: function _setFile(i, x, e) {
             var _this = this;
 
+            if (e.file.type.match("video*")) {
+                return swal('', 'Solo se aceptan imagenes', 'error');
+            }
             // let progressElement = document.querySelector(`#progress-${x}`)
             // progressElement.classList.add('progress-active')
             var formData = new FormData();
@@ -90423,6 +90433,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         _setFile: function _setFile(i, x, e) {
             var _this = this;
+
+            if (e.file.type.match("video.*")) {
+                return swal('', 'Solo se aceptan imagenes', 'error');
+            }
 
             var formData = new FormData();
             formData.append('id', i);
