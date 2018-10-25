@@ -85227,9 +85227,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     template: "#template-allies-add",
 
-    props: {},
-
-    created: function created() {},
     data: function data() {
         return {
             form: {
@@ -85246,7 +85243,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         _back: function _back() {
-            //this.$emit('back', 0)
             window.location = urlBase + "admin/allies";
         },
         _setFile: function _setFile(i, file) {
@@ -85290,11 +85286,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             formData.append("twitter", this.form.twitter);
             formData.append("instagram", this.form.instagram);
             formData.append("address", this.form.address);
-            // formData.append("images",this.form.images);
+
+            var count = 0;
             this.form.files.forEach(function (file, index) {
-                formData.append("image" + index, file.file);
+                if (file.file != '') {
+                    formData.append("image" + index, file.file);
+                    count++;
+                }
             });
-            formData.append("count", this.form.files.length);
+
+            formData.append("count", count);
             axios.post('admin/allies', formData).then(function (resp) {
                 console.log(_this.form);
                 _this._showAlert("Aliado almacenado exitosamente", "success");
@@ -88049,13 +88050,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     props: {
-        posts: {
-            type: Array,
-            default: function _default() {
-                return [];
-            }
-        },
-
         'set-images': {
             type: Array,
             default: function _default() {
