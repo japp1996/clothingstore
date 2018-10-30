@@ -4,6 +4,7 @@
             <div class="col s12 center-align">
                 <h1>Clientes</h1>
             </div>
+
             <div class="row">
                 <div class="col s12">
                     <section class="table__content">
@@ -87,7 +88,7 @@
                                         <div class="col s12 m3">
                                             <b>Total:</b>
                                              {{ getTotal(pedido) }}                                
-                                             <b>{{findCurrency (pedido)}}</b> 
+                                             <b>{{pedido.payment_type == 2 ? 'USD' : 'Bs. S.'}}</b> 
                                         </div>                                                                            
                                     </div>
                                 </template>
@@ -151,10 +152,50 @@ export default {
         },
         getTotal (item) {
             let total = 0
+                
+            let subtotal = 0; 
+            let price = 0;
+            item.details.forEach(e => {
+                if(item.payment_type == 2) { // Si es PAYPAL
+
+                    if(e.coin == 1) {
+                        price = parseFloat(e.price / item.exchange.change).toFixed(2)
+                    }else {
+                        price = e.price
+                    }
+                    
+                }else {
+
+                    if(e.coin == 1) {
+                        price = e.price
+                    }else {
+                        price = parseFloat(e.price * item.exchange.change).toFixed(2)
+                    }
+
+                }
+                subtotal = price * e.quantity
+                
+                total += subtotal
+            })
+
+            return total.toFixed(2)
+        },
+        /*getTotal (item) {
+            let total = 0
             item.details.forEach(e => {
                 total += e.price;
             })
             return total
+        },*/
+        getPrice(precio,coin,exchange, pay) {
+            var price = precio;
+            if (coin == '1' && pay == '2') {
+                price = parseFloat(price / exchange).toFixed(2);
+            }
+            else if (coin == '2' && pay == '1') {
+                price = parseFloat(price * exchange).toFixed(2);
+            }
+            return price;
         },
         findCurrency (item) {
             let currency = 1
