@@ -192,6 +192,10 @@
 			Route::get('profile', 'ProfileController@profile');
 			Route::post('profile', 'ProfileController@update');
 			Route::resource('banks', 'BankController');
+			Route::post('banks/switch/{id}', 'BankController@estatus');
+
+			Route::get('terms', 'TermController@index');
+			Route::post('terms', 'TermController@store');
 		});
 	});
 	

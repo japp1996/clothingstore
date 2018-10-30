@@ -75,14 +75,6 @@
 export default {
     template: "#template-allies-add",
 
-    props: {
-
-    },
-
-    created() {
-
-    },
-
     data () {
         return {
             form: {
@@ -98,11 +90,13 @@ export default {
 
     methods: {
         _back() {
-            //this.$emit('back', 0)
             window.location  = urlBase + "admin/allies";
         },
         
         _setFile (i, file) {
+            if(file.file.type.match("video.*")) {
+                return swal('', 'Solo se aceptan imagenes', 'error')
+            }
             if (i == null) {
                 this.file = file.file
                 this.form.main = file.file
@@ -114,7 +108,7 @@ export default {
 
         _addItem() {
             this.ids = this.form.files.length > 1 ? this.ids + 1 : this.ids
-            this.form.files.push({file: "", id: this.ids})
+            this.form.files.push({file: "",  id: this.ids})
             this.files = this.form.files
         },
 
@@ -141,11 +135,16 @@ export default {
             formData.append("twitter",this.form.twitter);
             formData.append("instagram", this.form.instagram);
             formData.append("address", this.form.address);
-            // formData.append("images",this.form.images);
+
+            let count = 0
             this.form.files.forEach((file, index) => {
-                formData.append("image"+index, file.file);
+                if(file.file != '') {
+                    formData.append("image"+index, file.file);
+                    count++
+                }
             });
-            formData.append("count", this.form.files.length);
+
+            formData.append("count", count);
             axios.post('admin/allies', formData)
             .then( resp => {
                 console.log(this.form);

@@ -113,6 +113,9 @@ export default {
         },
 
         _setFile(i, x, e) {
+            if(e.file.type.match("video.*")) {
+                return swal('', 'Solo se aceptan imagenes', 'error')
+            }
             let progressElement = document.querySelector(`#progress-${x}`)
             progressElement.classList.add('progress-active')
             let formData = new FormData()

@@ -204,6 +204,11 @@ export default {
             parent.removeChild(child)
         },
         setImage(i, file) {
+
+            if(file.file.type.match("video.*")) {
+                return swal('', 'Solo se aceptan imagenes', 'error')
+            }
+
             if (i == null) {
                 this.image = file.file
                 this.form.main = file.file

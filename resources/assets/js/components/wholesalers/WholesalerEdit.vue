@@ -189,6 +189,10 @@ export default {
             this.elements = this.elements + 1
         },
         _setFile(i, x, e) {
+            if(e.file.type.match("video.*")) {
+                return swal('', 'Solo se aceptan imagenes', 'error')
+            }
+
             let formData = new FormData()
             formData.append('id',  i)
             formData.append('file', e.file)

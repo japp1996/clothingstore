@@ -143,6 +143,8 @@ Vue.component('bank-index', require('./components/banks/BankIndex'))
 
 Vue.component('social-index', require('./components/social/SocialIndex'));
 Vue.component('social-edit',  require('./components/social/SocialEdit'));
+
+Vue.component('term-index',  require('./components/terms/TermIndex'));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

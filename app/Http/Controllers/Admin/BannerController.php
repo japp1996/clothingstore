@@ -8,6 +8,7 @@ use App\Models\Banner;
 use App\Libraries\SetNameImage;
 use App\Libraries\ResizeImage;
 use File;
+use Validator;
 
 class BannerController extends Controller
 {
@@ -34,6 +35,28 @@ class BannerController extends Controller
 
     public function upload(Request $request)
     {
+        $rules = [
+            'file' => 'required|mimes:jpg,jpeg,png',
+        ];
+
+        $messages = [
+            'mimes' => 'Formato de archivo incorrecto. Debe ser jpg, jpeg o png'
+        ];
+
+        $attributes = [
+            'file' => 'banner'
+        ];
+
+        $validation = Validator::make($request->all(), $rules, $messages);
+
+        $validation->setAttributeNames($attributes);
+
+        if ($validation->fails()) {
+            return response()->json([
+                'result' => false,
+                'error' => $validation->messages()->first()
+            ], 422);
+        }
 
         $url = "img/slider/";
         if ($request->id == 0) {

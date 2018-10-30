@@ -5,34 +5,38 @@
                 <h1>Cuentas bancarias</h1>
             </div>
         </div>
-        <div class="row">
+        <div class="row" v-if="options == 0">
             <div class="col s12">
-                <section class="table__content">
+                <section class="table__content" >
                     <div class="row">
-                        <div class="col s12 container-btn-add">
+                        <a class="col s12 container-btn-add"  @click="options = 1">
                             <button class="btn-add">
                                  <img :src="'img/icons/new-msg.png' | asset" alt="" class="img-responsive">
                             </button>
                             <div class="btn-add-text">
                                 Agregar nuevo
                             </div>                            
-                        </div>
+                        </a>
                     </div>
 
                     <table-byte :set-table="dataTable" :filters="['name']">
                         <table-row slot="table-head" slot-scope="{ item }">
                             <table-head>Cuenta</table-head>
                             <table-head>Banco</table-head>
+                            <table-head>Nro. cta.</table-head>
+                            <table-head>Identificación</table-head>
                             <table-head>Acciones</table-head>
                         </table-row>
 
                         <table-row slot="table-row" slot-scope="{ item }">
                             <table-cell>{{ item.name }}</table-cell>
                             <table-cell>{{ item.bank.name }}</table-cell>
+                            <table-cell>{{ item.number }}</table-cell>
+                            <table-cell>{{ item.identification }}</table-cell>
                             <table-cell>
-                                <a href="#!" class="btn-action" @click="_view(item)">
+                                <!-- <a href="#!" class="btn-action" @click="_view(item)">
                                     <img :src="'img/icons/ico-ver.png' | asset" alt="" class="img-responsive">
-                                </a>
+                                </a> -->
 
                                 <a href="#!" class="btn-action" @click="_edit(item)">
                                     <img :src="'img/icons/ico-editar.png' | asset" alt="" class="img-responsive">
@@ -67,7 +71,7 @@
                         <i class="material-icons">error_outline</i>
                     </div>
                     <div class="confirmation__text">
-                        <h5>¿ Realmente deseas <b>Eliminar</b> este Producto ?</h5>
+                        <h5>¿ Realmente deseas <b>Eliminar</b> este cuenta bancaria ?</h5>
                     </div>
                 </div>
             </template>
@@ -78,11 +82,14 @@
                         <i class="material-icons">error_outline</i>
                     </div>
                     <div class="confirmation__text">
-                        <h5>¿ Realmente deseas <b>{{ modal.data.status == 1 ? 'Desactivar ' : 'Publicar' }}</b> este Producto ?</h5>
+                        <h5>¿ Realmente deseas <b>{{ modal.data.status == 1 ? 'Desactivar ' : 'Activar' }}</b> esta cuenta bancaria ?</h5>
                     </div>
                 </div>
             </template>
         </byte-modal>
+
+        <bank-form v-if="options == 1" @back="options = 0" :accounts="accounts" :banks="banks"></bank-form>
+        <bank-edit v-if="options == 2" @back="options = 0" :accounts="accounts" :banks="banks" :setform="setform"></bank-edit>
     </section>
 </template>
 
@@ -95,17 +102,27 @@
 </style>
 
 <script>
+import BankForm from './BankForm'
+import BankEdit from './BankEdit'
+
 export default {
     template: "#template-product-index",
     props: {
         banks: {
             type: Array,
             default: []
+        },
+        accounts: {
+            type: Array,
+            default: []
         }
     },
-
+    components: {
+        BankForm,
+        BankEdit
+    },
     created (){
-        this.dataTable = this.products
+        this.dataTable = this.accounts
     },
 
     data () {
@@ -113,6 +130,7 @@ export default {
             options: 0,
             form: {},
             dataTable: [],
+            setform: {},
             filters: [],
             modal: {
                 init: {},
@@ -147,6 +165,7 @@ export default {
         },
 
         _confirm(item, action) {
+            
             this.modal.type.confirm = true;
             this.modal.type.action = this._delete;
             this.modal.data = item;
@@ -166,7 +185,7 @@ export default {
 
         _edit(item) {
             this.options = 2
-            this.form = item
+            this.setform = item
         },
 
         _delete(){
@@ -176,10 +195,10 @@ export default {
             
             this.modal.init.close();
 
-            axios.delete(`admin/products/${this.modal.data.id}`)
+            axios.delete(`admin/banks/${this.modal.data.id}`)
                 .then(res => {
                     this.dataTable.splice(index, 1)
-                    this._showAlert(res.data.message, "success");
+                    this._showAlert('Se elimino la cuenta correctamente', "success");
                 })
                 .catch(err => {
                     this._showAlert('Disculpa, ha ocurrido un error', "error")
@@ -193,13 +212,11 @@ export default {
             
             this.modal.init.close();
 
-            axios.post(`admin/product/postear/${this.modal.data.id}`)
+            axios.post(`admin/banks/switch/${this.modal.data.id}`)
                 .then(res => {
                     console.log(this.dataTable[index]);
-                    this.dataTable[index].status = res.data.status;
-                    // this..splice(index, 1);
-                    swal("", res.data.message, "success");
-                    // this._showAlert(res.data.message, "success");
+                    this.dataTable[index].status = !this.dataTable[index].status
+                    swal("", 'Se cambio el estatus correctamente', "success");
                 })
                 .catch(err => {
                     this._showAlert('Disculpa, ha ocurrido un error', "error")
