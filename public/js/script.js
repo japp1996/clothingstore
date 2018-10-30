@@ -92610,6 +92610,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: '',
@@ -92652,10 +92653,49 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         getTotal: function getTotal(item) {
             var total = 0;
+
+            var subtotal = 0;
+            var price = 0;
             item.details.forEach(function (e) {
-                total += e.price;
+                if (item.payment_type == 2) {
+                    // Si es PAYPAL
+
+                    if (e.coin == 1) {
+                        price = parseFloat(e.price / item.exchange.change).toFixed(2);
+                    } else {
+                        price = e.price;
+                    }
+                } else {
+
+                    if (e.coin == 1) {
+                        price = e.price;
+                    } else {
+                        price = parseFloat(e.price * item.exchange.change).toFixed(2);
+                    }
+                }
+                subtotal = price * e.quantity;
+
+                total += subtotal;
             });
-            return total;
+
+            return total.toFixed(2);
+        },
+
+        /*getTotal (item) {
+            let total = 0
+            item.details.forEach(e => {
+                total += e.price;
+            })
+            return total
+        },*/
+        getPrice: function getPrice(precio, coin, exchange, pay) {
+            var price = precio;
+            if (coin == '1' && pay == '2') {
+                price = parseFloat(price / exchange).toFixed(2);
+            } else if (coin == '2' && pay == '1') {
+                price = parseFloat(price * exchange).toFixed(2);
+            }
+            return price;
         },
         findCurrency: function findCurrency(item) {
             var currency = 1;
@@ -92952,7 +92992,11 @@ var render = function() {
                                   "                                \n                                         "
                               ),
                               _c("b", [
-                                _vm._v(_vm._s(_vm.findCurrency(pedido)))
+                                _vm._v(
+                                  _vm._s(
+                                    pedido.payment_type == 2 ? "USD" : "Bs. S."
+                                  )
+                                )
                               ])
                             ])
                           ]
