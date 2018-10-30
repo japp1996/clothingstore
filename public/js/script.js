@@ -81282,7 +81282,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n.bold {\n  font-weight: bold;\n}\n.margin-top {\n  margin-top: 20px;\n}\n.container-fluid {\n  width: 90%;\n  margin: auto;\n}\n.container-form {\n  background-color: #fff;\n  margin-left: 0 !important;\n  margin-right: 0 !important;\n  padding: 1rem .75rem;\n}\n.container-options {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n}\n.container-options label {\n    -webkit-box-flex: 1;\n        -ms-flex: 1 1 100%;\n            flex: 1 1 100%;\n}\nfieldset {\n  margin: 10px 2px !important;\n  border: 1px solid #efefefec !important;\n  padding: 1rem !important;\n  position: relative;\n}\n.label-impegno {\n  font-weight: bold;\n}\n.items__file {\n  position: relative;\n}\n.names {\n  margin-bottom: 1rem;\n}\n.sizes_stop {\n  margin: .5rem .2rem !important;\n  border-color: rgba(0, 0, 0, 0.3);\n  border-radius: .4rem;\n}\n.sizes_stop legend {\n    font-weight: bold;\n    padding: 0 10px;\n}\n", ""]);
+exports.push([module.i, "\n.bold {\n  font-weight: bold;\n}\n.margin-top {\n  margin-top: 20px;\n}\n.container-fluid {\n  width: 90%;\n  margin: auto;\n}\n.container-form {\n  background-color: #fff;\n  margin-left: 0 !important;\n  margin-right: 0 !important;\n  padding: 1rem .75rem;\n}\n.container-options {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n}\n.container-options label {\n    -webkit-box-flex: 1;\n        -ms-flex: 1 1 100%;\n            flex: 1 1 100%;\n}\nfieldset {\n  margin: 10px 2px !important;\n  border: 1px solid #efefefec !important;\n  padding: 1rem !important;\n  position: relative;\n}\n.label-impegno {\n  font-weight: bold;\n}\n.items__file {\n  position: relative;\n}\n.names {\n  margin-bottom: 1rem;\n}\n.sizes_stop {\n  margin: .5rem .2rem !important;\n  border-color: rgba(0, 0, 0, 0.3);\n  border-radius: .4rem;\n}\n.sizes_stop legend {\n    font-weight: bold;\n    padding: 0 10px;\n}\n.progress {\n  opacity: 0;\n  -webkit-transition: all ease-in-out 0.35s;\n  transition: all ease-in-out 0.35s;\n}\n.progress-active {\n  opacity: 1;\n}\n", ""]);
 
 // exports
 
@@ -81293,6 +81293,21 @@ exports.push([module.i, "\n.bold {\n  font-weight: bold;\n}\n.margin-top {\n  ma
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -81578,6 +81593,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
+            uploadPercentage: 0,
+            sending: false,
             urlBase: urlBase,
             tabs: "",
             form: {
@@ -81660,33 +81677,53 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (e.file.type.match("video*")) {
                 return swal('', 'Solo se aceptan imagenes', 'error');
             }
-            // let progressElement = document.querySelector(`#progress-${x}`)
-            // progressElement.classList.add('progress-active')
+            var progressElement = document.querySelector("#progress-" + x);
+            progressElement.classList.add('progress-active');
+            this.sending = true;
             var formData = new FormData();
             formData.append('id', i);
             formData.append('file', e.file);
             formData.append('product_id', this.form.id);
-            axios.post('admin/update-images', formData).then(function (resp) {
+            axios.post('admin/update-images', formData, {
+                onUploadProgress: function (progressEvent) {
+                    this.uploadPercentage = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
+                }.bind(this)
+            }).then(function (resp) {
+                _this.sending = false;
                 if (i != null) {
                     _this.form.images[x].id = resp.data.id;
                     _this.form.images[x].file = resp.data.file;
                 }
+                _this._quitProgress(progressElement);
             }).catch(function (err) {
+                _this.sending = false;
                 _this._showAlert("Disculpa, ha ocurrido un error", "error");
+                _this._quitProgress(progressElement);
             });
         },
-        _sliceItem: function _sliceItem(id, i) {
+        _quitProgress: function _quitProgress(progressElement) {
             var _this2 = this;
+
+            progressElement.classList.remove('progress-active');
+            setTimeout(function () {
+                _this2.uploadPercentage = 0;
+            }, 500);
+        },
+        _sliceItem: function _sliceItem(id, i) {
+            var _this3 = this;
 
             var parent = document.querySelector(".gallery__items");
             var child = document.querySelector("#file-" + id);
 
             if (id != 0) {
+                this.sending = true;
                 axios.post('admin/delete-images', { id: id }).then(function (resp) {
+                    _this3.sending = false;
                     parent.removeChild(child);
-                    _this2.elements = _this2.elements - 1;
+                    _this3.elements = _this3.elements - 1;
                 }).catch(function (err) {
-                    _this2._showAlert("Disculpa, ha ocurrido un error", "error");
+                    _this3.sending = false;
+                    _this3._showAlert("Disculpa, ha ocurrido un error", "error");
                 });
             } else {
                 parent.removeChild(child);
@@ -81694,7 +81731,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         _constructNames: function _constructNames(e, i, item) {
-            var _this3 = this;
+            var _this4 = this;
 
             var value = e.target.options[e.target.selectedIndex].value;
             if (value != "") {
@@ -81717,17 +81754,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.form.name = "";
                 this.form.name_english = "";
                 this.objectNames.spanish.forEach(function (el, i) {
-                    if (_this3.objectNames.spanish.length - 1 == i) {
-                        _this3.form.name += el;
+                    if (_this4.objectNames.spanish.length - 1 == i) {
+                        _this4.form.name += el;
                     } else {
-                        _this3.form.name += el + ' - ';
+                        _this4.form.name += el + ' - ';
                     }
                 });
                 this.objectNames.english.forEach(function (el, i) {
-                    if (_this3.objectNames.english.length - 1 == i) {
-                        _this3.form.name_english += el;
+                    if (_this4.objectNames.english.length - 1 == i) {
+                        _this4.form.name_english += el;
                     } else {
-                        _this3.form.name_english += el + ' - ';
+                        _this4.form.name_english += el + ' - ';
                     }
                 });
             } else {}
@@ -81739,7 +81776,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.elements = this.elements + 1;
         },
         _edit: function _edit(e) {
-            var _this4 = this;
+            var _this5 = this;
 
             var button = e.target;
             this.form.wholesale = this.form.wholesale == false ? 0 : 1;
@@ -81780,17 +81817,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             }).catch(function (err) {
                 if (err.response.status === 422) {
-                    _this4._showAlert(err.response.data.error, 'warning');
+                    _this5._showAlert(err.response.data.error, 'warning');
                     return false;
                 }
 
-                _this4._showAlert("Disculpa, ha ocurrido un error", "error");
+                _this5._showAlert("Disculpa, ha ocurrido un error", "error");
             }).then(function (all) {
                 button.removeAttribute('disabled');
             });
         },
         _convertToFormData: function _convertToFormData() {
-            var _this5 = this;
+            var _this6 = this;
 
             var formData = new FormData();
             formData.append('_method', 'PATCH');
@@ -81806,11 +81843,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     // formData.append('count', count)
                 } else if (key != "__ob__") {
                     if (key == 'colors') {
-                        formData.append(key, JSON.stringify(_this5.form[key]));
+                        formData.append(key, JSON.stringify(_this6.form[key]));
                     } else if (key == 'colors_delete') {
-                        formData.append(key, JSON.stringify(_this5.form[key]));
+                        formData.append(key, JSON.stringify(_this6.form[key]));
                     } else {
-                        formData.append(key, _this5.form[key]);
+                        formData.append(key, _this6.form[key]);
                     }
                 }
             });
@@ -81829,7 +81866,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     mounted: function mounted() {
-        var _this6 = this;
+        var _this7 = this;
 
         this.tabs = M.Tabs.init(document.querySelector(".tabs"));
         this._setSubcategories(null, document.querySelector('#category_id'));
@@ -81838,7 +81875,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var images = new Array();
         this.form.images.forEach(function (el) {
             if (el.main == "1") {
-                _this6.form.main = el.file;
+                _this7.form.main = el.file;
             } else {
                 images.push(el);
             }
@@ -82752,6 +82789,24 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
+                _c("div", { staticClass: "col s12" }, [
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.sending,
+                          expression: "sending"
+                        }
+                      ],
+                      staticClass: "progress"
+                    },
+                    [_c("div", { staticClass: "indeterminate" })]
+                  )
+                ]),
+                _vm._v(" "),
                 _vm._l(_vm.form.images, function(file, index) {
                   return _c(
                     "div",
@@ -82784,7 +82839,21 @@ var render = function() {
                             _vm._sliceItem(file.id, index)
                           }
                         }
-                      })
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "progress",
+                          attrs: { id: "progress-" + index }
+                        },
+                        [
+                          _c("div", {
+                            staticClass: "determinate",
+                            style: "width: " + _vm.uploadPercentage + "%"
+                          })
+                        ]
+                      )
                     ],
                     1
                   )
@@ -82801,7 +82870,7 @@ var render = function() {
           "a",
           {
             staticClass: "btn btn-success",
-            attrs: { href: "#!" },
+            attrs: { href: "#!", disabled: _vm.sending },
             on: {
               click: function($event) {
                 _vm._edit($event)
@@ -90390,6 +90459,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -90402,6 +90474,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     data: function data() {
         return {
+            uploadPercentage: 0,
+            sending: false,
             urlBase: urlBase,
             form: {
                 filter_id: '',
@@ -90443,22 +90517,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (e.file.type.match("video.*")) {
                 return swal('', 'Solo se aceptan imagenes', 'error');
             }
-
+            var progressElement = document.querySelector('#progress-' + x);
+            progressElement.classList.add('progress-active');
+            this.sending = true;
             var formData = new FormData();
             formData.append('id', i);
             formData.append('file', e.file);
             formData.append('wholesaler_id', this.form.id);
-            axios.post('admin/wholesalers/update-images', formData).then(function (resp) {
+            axios.post('admin/wholesalers/update-images', formData, {
+                onUploadProgress: function (progressEvent) {
+                    this.uploadPercentage = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
+                }.bind(this)
+            }).then(function (resp) {
+                _this.sending = false;
                 if (i != null) {
                     _this.form.images[x].id = resp.data.id;
                     _this.form.images[x].file = resp.data.file;
                 }
+                _this._quitProgress(progressElement);
             }).catch(function (err) {
+                _this.sending = false;
                 console.log(err);
+                _this._quitProgress(progressElement);
             });
         },
-        _sliceItem: function _sliceItem(id, i) {
+        _quitProgress: function _quitProgress(progressElement) {
             var _this2 = this;
+
+            progressElement.classList.remove('progress-active');
+            setTimeout(function () {
+                _this2.uploadPercentage = 0;
+            }, 500);
+        },
+        _sliceItem: function _sliceItem(id, i) {
+            var _this3 = this;
 
             var parent = document.querySelector(".gallery__items");
             var child = document.querySelector('#file-' + id);
@@ -90466,9 +90558,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (id != 0) {
                 axios.post('admin/wholesalers/delete-images', { id: id }).then(function (resp) {
                     parent.removeChild(child);
-                    _this2.elements = _this2.elements - 1;
+                    _this3.elements = _this3.elements - 1;
                 }).catch(function (err) {
-                    _this2._showAlert("Disculpa, ha ocurrido un error", "error");
+                    _this3._showAlert("Disculpa, ha ocurrido un error", "error");
                 });
             } else {
                 parent.removeChild(child);
@@ -90476,21 +90568,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         getFilters: function getFilters() {
-            var _this3 = this;
+            var _this4 = this;
 
             axios.get('admin/filters/get').then(function (res) {
-                _this3.filters = res.data;
+                _this4.filters = res.data;
             }).catch(function (err) {
                 console.log(err);
             });
         },
         update: function update() {
-            var _this4 = this;
+            var _this5 = this;
 
             console.log(this._convertToFormData());
             axios.put('admin/wholesalers/' + this.wholesaler.id, this.form).then(function (res) {
                 console.log(res);
-                _this4._showAlert('Se actualizó la colección correctamente', 'success');
+                _this5._showAlert('Se actualizó la colección correctamente', 'success');
                 setTimeout(function () {
                     window.location = urlBase + 'admin/wholesalers';
                 }, 2000);
@@ -90508,7 +90600,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         _convertToFormData: function _convertToFormData() {
-            var _this5 = this;
+            var _this6 = this;
 
             var formData = new FormData();
             formData.append('_method', 'PATCH');
@@ -90516,7 +90608,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var count = 0;
                 if (key === "images") {} else if (key != "__ob__") {
 
-                    formData.append(key, _this5.form[key]);
+                    formData.append(key, _this6.form[key]);
                 }
             });
 
@@ -90524,14 +90616,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     mounted: function mounted() {
-        var _this6 = this;
+        var _this7 = this;
 
         this.getFilters();
         this.form = this.wholesaler;
         var images = new Array();
         this.form.images.forEach(function (el) {
             if (el.main == "1") {
-                _this6.form.main = el.file;
+                _this7.form.main = el.file;
             } else {
                 images.push(el);
             }
@@ -90999,7 +91091,21 @@ var render = function() {
                               _vm._sliceItem(file.id, index)
                             }
                           }
-                        })
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "progress",
+                            attrs: { id: "progress-" + index }
+                          },
+                          [
+                            _c("div", {
+                              staticClass: "determinate",
+                              style: "width: " + _vm.uploadPercentage + "%"
+                            })
+                          ]
+                        )
                       ],
                       1
                     )

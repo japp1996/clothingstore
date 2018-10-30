@@ -191,16 +191,24 @@
                                     Agregar nueva imagen secundaria
                                 </div>                            
                             </div>
+                            <div class="col s12">
+                                <div class="progress" v-show="sending">
+                                    <div class="indeterminate"></div>
+                                </div>
+                            </div>
                             <div class="col l4 m6 s6 items__file" :key="index" v-for="(file, index) in form.images" :id="`file-${file.id}`">
                                 <input-file :file="file.file !== '' ? `${urlBase + 'img/products/' + file.file}` : ''" :btn="false" :image="true" @file="_setFile(file.id, index, $event)"></input-file>
                                 <button class="file__claer" @click="_sliceItem(file.id, index)"></button>
+                                <div class="progress" :id="'progress-' + index">
+                                    <div class="determinate" :style="`width: ${uploadPercentage}%`"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col s12 m12 l12 margin-top center-align">
-                <a href="#!" class="btn btn-success" @click="_edit($event)">Actualizar</a>
+                <a href="#!" class="btn btn-success" :disabled="sending" @click="_edit($event)">Actualizar</a>
             </div>
         </div>
     </div>
@@ -255,6 +263,13 @@
             padding: 0 10px;
         }
     }
+     .progress {
+        opacity: 0;
+        transition: all ease-in-out 0.35s;
+    }
+    .progress-active {
+        opacity: 1;
+    }
 </style>
 
 <script>
@@ -283,6 +298,8 @@ export default {
 
     data () {
         return {
+            uploadPercentage: 0,
+            sending: false,
             urlBase: urlBase,
             tabs: "",
             form: {
@@ -365,35 +382,52 @@ export default {
             if(e.file.type.match("video*")) {
                 return swal('', 'Solo se aceptan imagenes', 'error')
             }
-            // let progressElement = document.querySelector(`#progress-${x}`)
-            // progressElement.classList.add('progress-active')
+            let progressElement = document.querySelector(`#progress-${x}`)
+            progressElement.classList.add('progress-active')
+            this.sending = true
             let formData = new FormData()
             formData.append('id',  i)
             formData.append('file', e.file)
             formData.append('product_id', this.form.id)
-            axios.post('admin/update-images', formData)
+            axios.post('admin/update-images', formData, {
+                onUploadProgress: function( progressEvent ) {
+                    this.uploadPercentage = parseInt( Math.round( ( progressEvent.loaded * 100 ) / progressEvent.total ))
+                }.bind(this)
+            })
             .then(resp => {
+                this.sending = false
                 if (i != null) {
                     this.form.images[x].id = resp.data.id
                     this.form.images[x].file = resp.data.file
                 }
+                this._quitProgress(progressElement)
             })
             .catch(err => {
+                this.sending = false
                 this._showAlert("Disculpa, ha ocurrido un error", "error")
+                this._quitProgress(progressElement)
             })
         },
-
+        _quitProgress(progressElement) {
+            progressElement.classList.remove('progress-active')
+            setTimeout(() => {
+                this.uploadPercentage = 0
+            }, 500)
+        },
         _sliceItem (id, i) {
             let parent = document.querySelector(".gallery__items")
             let child = document.querySelector(`#file-${id}`)            
             
             if (id != 0) {
+                this.sending = true
                 axios.post('admin/delete-images', {id: id})
                 .then(resp => {
+                    this.sending = false
                     parent.removeChild(child)
                     this.elements = this.elements - 1
                 })
                 .catch(err => {
+                    this.sending = false
                     this._showAlert("Disculpa, ha ocurrido un error", "error")
                 })
             } else {
