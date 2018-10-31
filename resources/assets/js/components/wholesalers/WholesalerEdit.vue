@@ -125,8 +125,8 @@
                                     </div>                            
                                 </div>
                                 <div class="col l4 m6 s6 items__file" :key="index" v-for="(file, index) in form.images" :id="`file-${file.id}`">
-                                    <input-file :file="file.file !== '' ? `${urlBase + 'img/products/' + file.file}` : ''" :btn="false" :image="true" @file="_setFile(file.id, index, $event)"></input-file>
-                                    <button class="file__claer" @click="_sliceItem(file.id, index)" :disabled="sending"></button>
+                                    <input-file :file="file.file !== '' ? `${urlBase + 'img/products/' + file.file}` : ''" :btn="false" :image="true" @file="_setFile(file.id, index, $event)"  :disabled="file.disabled"></input-file>
+                                    <button class="file__claer" @click="_sliceItem(file.id, index)" :disabled="file.disabled"></button>
                                     <div class="progress" :id="'progress-' + index">
                                         <div class="determinate" :style="`width: ${file.uploadPercentage}%`"></div>
                                     </div>
@@ -197,8 +197,7 @@ export default {
     },
     computed: 
         mapState({
-            option: state => state.wholesalers.option,
-            sending: state => state.wholesalers.sending
+            option: state => state.wholesalers.option
     }),
     methods: {
         _addImage() {
@@ -227,12 +226,13 @@ export default {
             formData.append('wholesaler_id', this.form.id)
             axios.post('admin/wholesalers/update-images', formData, {
                 onUploadProgress: function( progressEvent ) {
-                   this.sending = true
+                    this.sending = true
                     if(x == null) {
                         this.uploadPercentage = parseInt( Math.round( ( progressEvent.loaded * 100 ) / progressEvent.total ))
                     } else {
                         this.form.images[x].uploadPercentage = parseInt( Math.round( ( progressEvent.loaded * 100 ) / progressEvent.total ))
-                    }
+                        this.form.images[x].disabled = true
+                   }
                 }.bind(this)
             })
                 .then(resp => {
@@ -254,6 +254,7 @@ export default {
             setTimeout(() => {
                 if(x != null) {
                     this.form.images[x].uploadPercentage = 0
+                    this.form.images[x].disabled = false
                 }else {
                     this.uploadPercentage = 0
                 }
@@ -333,7 +334,9 @@ export default {
         this.form = this.wholesaler
         let images = new Array()
         this.form.images.forEach(el => {
-             Vue.set(el, 'uploadPercentage', 0)             
+            Vue.set(el, 'uploadPercentage', 0) 
+            Vue.set(el, 'disabled', false)  
+
             if (el.main == "1") {
                 this.form.main = el.file                
             } else {

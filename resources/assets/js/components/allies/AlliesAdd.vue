@@ -145,7 +145,12 @@ export default {
             });
 
             formData.append("count", count);
-            axios.post('admin/allies', formData)
+            axios.post('admin/allies', formData, {
+                onUploadProgress: function( progressEvent ) {
+                    let percent = document.querySelector('#percent')
+                    percent.innerHTML = `${parseInt( Math.round( ( progressEvent.loaded * 100 ) / progressEvent.total ))}%`
+                }.bind(this)
+            })
             .then( resp => {
                 console.log(this.form);
                 this._showAlert("Aliado almacenado exitosamente", "success");

@@ -51,8 +51,11 @@
                                     </div>                            
                                 </div>
                                 <div class="col l4 m6 s6 items__file" :key="index" v-for="(file, index) in form.images" :id="`file-${file.id}`">
-                                    <input-file :btn="false" :file="file.file !== '' ? `${url}img/blogs/${file.file}` : ''"  :image="true" v-on:file="_setFile(file.id, index, $event)"></input-file>
+                                    <input-file :btn="false" :file="file.file !== '' ? `${url}img/blogs/${file.file}` : ''"  :image="true" v-on:file="_setFile(file.id, index, $event)" :disabled="file.disabled"></input-file>
                                     <button type="button" class="file__claer" @click="_sliceItem(file.id, index)"></button>
+                                    <div class="progress" :id="'progress-' + index">
+                                        <div class="determinate" :style="`width: ${file.uploadPercentage}%`"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

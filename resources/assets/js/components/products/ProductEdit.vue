@@ -400,7 +400,7 @@ export default {
             formData.append('product_id', this.form.id)
             axios.post('admin/update-images', formData, {
                 onUploadProgress: function( progressEvent ) {
-                    this.sending = true
+                     this.sending = true
                     if(x == null) {
                         this.uploadPercentage = parseInt( Math.round( ( progressEvent.loaded * 100 ) / progressEvent.total ))
                     } else {
@@ -498,7 +498,7 @@ export default {
 
         _addImage() {
             // this.ids = this.form.images.length > 1 ? this.ids + 1 : this.ids
-            this.form.images.push({file: "", id: 0, uploadPercentage: 0})
+            this.form.images.push({file: "", id: 0, uploadPercentage: 0,  disabled: false})
             this.images = this.form.images
             this.elements = this.elements + 1
         },
@@ -604,7 +604,7 @@ export default {
         let images = new Array()
         this.form.images.forEach(el => {            
             Vue.set(el, 'uploadPercentage', 0) 
-            Vue.set(el, 'sending', false) 
+            Vue.set(el, 'disabled', false) 
 
             if (el.main == "1") {
                 this.form.main = el.file                

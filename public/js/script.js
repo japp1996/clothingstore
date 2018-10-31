@@ -71626,7 +71626,12 @@ var mutations = {
 var whosalerService = {};
 
 whosalerService.store = function (data) {
-    return __WEBPACK_IMPORTED_MODULE_0__wara__["a" /* default */].post('admin/wholesalers', data).then(function (res) {
+    return __WEBPACK_IMPORTED_MODULE_0__wara__["a" /* default */].post('admin/wholesalers', data, {
+        onUploadProgress: function (progressEvent) {
+            var percent = document.querySelector('#percent');
+            percent.innerHTML = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total)) + '%';
+        }.bind(this)
+    }).then(function (res) {
         return res.data;
     });
 };
@@ -81805,7 +81810,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         _addImage: function _addImage() {
             // this.ids = this.form.images.length > 1 ? this.ids + 1 : this.ids
-            this.form.images.push({ file: "", id: 0, uploadPercentage: 0 });
+            this.form.images.push({ file: "", id: 0, uploadPercentage: 0, disabled: false });
             this.images = this.form.images;
             this.elements = this.elements + 1;
         },
@@ -81909,7 +81914,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var images = new Array();
         this.form.images.forEach(function (el) {
             Vue.set(el, 'uploadPercentage', 0);
-            Vue.set(el, 'sending', false);
+            Vue.set(el, 'disabled', false);
 
             if (el.main == "1") {
                 _this7.form.main = el.file;
@@ -85406,7 +85411,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
 
             formData.append("count", count);
-            axios.post('admin/allies', formData).then(function (resp) {
+            axios.post('admin/allies', formData, {
+                onUploadProgress: function (progressEvent) {
+                    var percent = document.querySelector('#percent');
+                    percent.innerHTML = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total)) + "%";
+                }.bind(this)
+            }).then(function (resp) {
                 console.log(_this.form);
                 _this._showAlert("Aliado almacenado exitosamente", "success");
             }).catch(function (err) {
@@ -85959,20 +85969,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var progressElement = document.querySelector("#progress-" + x);
             progressElement.classList.add('progress-active');
             var formData = new FormData();
+            this.sending = true;
+
             formData.append('id', i);
             formData.append('file', e.file);
             formData.append('aliado_id', this.form.id);
             axios.post('admin/allies/update-image', formData, {
                 onUploadProgress: function (progressEvent) {
-                    this.uploadPercentage = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
+                    this.sending = true;
+                    this.items[x].uploadPercentage = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
                 }.bind(this)
             }).then(function (resp) {
+                _this.sending = false;
                 _this.items[x].id = resp.data.id;
                 _this.items[x].file = resp.data.file;
                 progressElement.classList.remove('progress-active');
+                _this._quitProgress(progressElement, x);
             }).catch(function (err) {
+                _this._quitProgress(progressElement, x);
                 _this._showAlert("Disculpa, ha ocurrido un error", "error");
             });
+        },
+        _quitProgress: function _quitProgress(progressElement, x) {
+            var _this2 = this;
+
+            progressElement.classList.remove('progress-active');
+            setTimeout(function () {
+                _this2.items[x].uploadPercentage = 0;
+                _this2.items[x].disabled = false;
+            }, 500);
         },
         _addItem: function _addItem() {
             var item = this.form.files.find(function (e) {
@@ -85984,12 +86009,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
 
             // this.ids = this.ids + 1
-            this.items.push({ file: "", id: 0 });
+            this.items.push({ file: "", id: 0, uploadPercentage: 0, disabled: false });
             this.form.files = this.items;
             this.elements = this.elements + 1;
         },
         _sliceItem: function _sliceItem(id, i) {
-            var _this2 = this;
+            var _this3 = this;
 
             var countImages = 0;
             this.form.files.forEach(function (img) {
@@ -86009,10 +86034,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (id != 0) {
                 axios.post('admin/allies/delete-images', { id: id }).then(function (resp) {
                     parent.removeChild(child);
-                    _this2.elements = _this2.elements - 1;
-                    _this2.form.files[i].deleted_at = true;
+                    _this3.elements = _this3.elements - 1;
+                    _this3.form.files[i].deleted_at = true;
                 }).catch(function (err) {
-                    _this2._showAlert("Disculpa, ha ocurrido un error", "error");
+                    _this3._showAlert("Disculpa, ha ocurrido un error", "error");
                 });
             } else {
                 parent.removeChild(child);
@@ -86020,18 +86045,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         _edit: function _edit(e) {
-            var _this3 = this;
+            var _this4 = this;
 
             var button = e.target;
             button.setAttribute('disabled', true);
             axios.put("admin/allies/" + this.form.id, this.form).then(function (resp) {
-                _this3._showAlert("Aliado actualizado exitosamente", "success");
+                _this4._showAlert("Aliado actualizado exitosamente", "success");
             }).catch(function (err) {
                 var message = "Disculpe, ha ocurrido un error";
                 if (err.response.status == 422) {
                     message = err.response.data.error;
                 }
-                _this3._showAlert(message, 'error');
+                _this4._showAlert(message, 'error');
             }).then(function (all) {
                 button.removeAttribute('disabled');
             });
@@ -86048,11 +86073,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     mounted: function mounted() {
-        var _this4 = this;
+        var _this5 = this;
 
         this.ids = this.items[this.items.length - 1].id;
+        this.items.forEach(function (e) {
+            Vue.set(e, 'uploadPercentage', false);
+            Vue.set(e, 'disabled', false);
+        });
         setTimeout(function () {
-            _this4.elements = Array.from(document.querySelectorAll('.items__file')).length;
+            _this5.elements = Array.from(document.querySelectorAll('.items__file')).length;
         }, 150);
     }
 });
@@ -86294,7 +86323,8 @@ var render = function() {
                                 ? "" +
                                   (_vm.urlBase + "img/aliados/" + file.file)
                                 : "",
-                            image: true
+                            image: true,
+                            disabled: file.disabled
                           },
                           on: {
                             file: function($event) {
@@ -86306,6 +86336,7 @@ var render = function() {
                         _vm.items.length > 1
                           ? _c("button", {
                               staticClass: "file__claer",
+                              attrs: { disabled: file.disabled },
                               on: {
                                 click: function($event) {
                                   _vm._sliceItem(file.id, index)
@@ -86323,7 +86354,7 @@ var render = function() {
                           [
                             _c("div", {
                               staticClass: "determinate",
-                              style: "width: " + _vm.uploadPercentage + "%"
+                              style: "width: " + file.uploadPercentage + "%"
                             })
                           ]
                         )
@@ -86342,7 +86373,7 @@ var render = function() {
                   "a",
                   {
                     staticClass: "btn btn-success",
-                    attrs: { href: "#!" },
+                    attrs: { href: "#!", disabled: _vm.sending },
                     on: {
                       click: function($event) {
                         _vm._edit($event)
@@ -88051,7 +88082,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -88062,6 +88093,9 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
 //
 //
 //
@@ -88531,7 +88565,8 @@ var render = function() {
                                     file.file !== ""
                                       ? _vm.url + "img/blogs/" + file.file
                                       : "",
-                                  image: true
+                                  image: true,
+                                  disabled: file.disabled
                                 },
                                 on: {
                                   file: function($event) {
@@ -88548,7 +88583,22 @@ var render = function() {
                                     _vm._sliceItem(file.id, index)
                                   }
                                 }
-                              })
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "progress",
+                                  attrs: { id: "progress-" + index }
+                                },
+                                [
+                                  _c("div", {
+                                    staticClass: "determinate",
+                                    style:
+                                      "width: " + file.uploadPercentage + "%"
+                                  })
+                                ]
+                              )
                             ],
                             1
                           )
@@ -90554,9 +90604,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapState */])({
         option: function option(state) {
             return state.wholesalers.option;
-        },
-        sending: function sending(state) {
-            return state.wholesalers.sending;
         }
     }),
     methods: {
@@ -90593,6 +90640,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         this.uploadPercentage = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
                     } else {
                         this.form.images[x].uploadPercentage = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
+                        this.form.images[x].disabled = true;
                     }
                 }.bind(this)
             }).then(function (resp) {
@@ -90615,6 +90663,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             setTimeout(function () {
                 if (x != null) {
                     _this2.form.images[x].uploadPercentage = 0;
+                    _this2.form.images[x].disabled = false;
                 } else {
                     _this2.uploadPercentage = 0;
                 }
@@ -90694,6 +90743,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var images = new Array();
         this.form.images.forEach(function (el) {
             Vue.set(el, 'uploadPercentage', 0);
+            Vue.set(el, 'disabled', false);
+
             if (el.main == "1") {
                 _this7.form.main = el.file;
             } else {
@@ -91167,7 +91218,8 @@ var render = function() {
                                   (_vm.urlBase + "img/products/" + file.file)
                                 : "",
                             btn: false,
-                            image: true
+                            image: true,
+                            disabled: file.disabled
                           },
                           on: {
                             file: function($event) {
@@ -91178,7 +91230,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("button", {
                           staticClass: "file__claer",
-                          attrs: { disabled: _vm.sending },
+                          attrs: { disabled: file.disabled },
                           on: {
                             click: function($event) {
                               _vm._sliceItem(file.id, index)

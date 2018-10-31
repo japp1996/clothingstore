@@ -45,17 +45,17 @@
                             </div>                            
                         </div>
                         <div class="col l4 m6 s6 items__file" :key="index" v-for="(file, index) in items" :id="`file-${file.id}`">
-                            <input-file :btn="false" :file="file.file !== '' ? `${urlBase + 'img/aliados/' + file.file}` : ''" :image="true" v-on:file="_setFile(file.id, index, $event)"></input-file>
-                            <button class="file__claer" @click="_sliceItem(file.id, index)" v-if="items.length > 1"></button>
+                            <input-file :btn="false" :file="file.file !== '' ? `${urlBase + 'img/aliados/' + file.file}` : ''" :image="true" v-on:file="_setFile(file.id, index, $event)" :disabled="file.disabled"></input-file>
+                            <button class="file__claer" @click="_sliceItem(file.id, index)" v-if="items.length > 1" :disabled="file.disabled"></button>
                             <div class="progress" :id="'progress-' + index">
-                                <div class="determinate" :style="`width: ${uploadPercentage}%`"></div>
+                                <div class="determinate" :style="`width: ${file.uploadPercentage}%`"></div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col s12 center-align">
-                        <a href="#!" class="btn btn-success" @click="_edit($event)">Actualizar</a>
+                        <a href="#!" class="btn btn-success" @click="_edit($event)" :disabled="sending">Actualizar</a>
                     </div>                    
                 </div> 
             </card-content>
@@ -119,22 +119,35 @@ export default {
             let progressElement = document.querySelector(`#progress-${x}`)
             progressElement.classList.add('progress-active')
             let formData = new FormData()
+            this.sending = true
+
             formData.append('id',  i)
             formData.append('file', e.file)
             formData.append('aliado_id', this.form.id)
             axios.post('admin/allies/update-image', formData, {
                 onUploadProgress: function( progressEvent ) {
-                    this.uploadPercentage = parseInt( Math.round( ( progressEvent.loaded * 100 ) / progressEvent.total ))
+                    this.sending = true
+                    this.items[x].uploadPercentage = parseInt( Math.round( ( progressEvent.loaded * 100 ) / progressEvent.total ))
                 }.bind(this)
             })
             .then(resp => {
+                this.sending = false
                 this.items[x].id = resp.data.id
                 this.items[x].file = resp.data.file
                 progressElement.classList.remove('progress-active')
+                this._quitProgress(progressElement, x)
             })
             .catch(err => {
+                this._quitProgress(progressElement, x)
                 this._showAlert("Disculpa, ha ocurrido un error", "error")
             })
+        },
+         _quitProgress(progressElement, x) {
+            progressElement.classList.remove('progress-active')
+            setTimeout(() => {
+                this.items[x].uploadPercentage = 0
+                this.items[x].disabled = false
+            }, 500)
         },
 
         _addItem() {
@@ -147,7 +160,7 @@ export default {
             }
 
             // this.ids = this.ids + 1
-            this.items.push({file: "", id: 0})
+            this.items.push({file: "", id: 0, uploadPercentage: 0, disabled: false})
             this.form.files = this.items
             this.elements = this.elements + 1
         },
@@ -217,6 +230,10 @@ export default {
 
     mounted() {        
         this.ids = this.items[this.items.length - 1].id
+        this.items.forEach(e => {
+            Vue.set(e, 'uploadPercentage', false)
+            Vue.set(e, 'disabled', false)
+        })
         setTimeout(() => {
             this.elements = Array.from(document.querySelectorAll('.items__file')).length
         }, 150);
