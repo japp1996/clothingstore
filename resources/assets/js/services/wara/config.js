@@ -1,5 +1,5 @@
 const configService = {
-    apiUrl: 'http://200.44.165.156/Wara/public'
+    apiUrl: `${window.location.protocol}//${window.location.hostname}/Wara/public/`
     // apiUrl: 'http://localhost/Wara/public'
 }
 

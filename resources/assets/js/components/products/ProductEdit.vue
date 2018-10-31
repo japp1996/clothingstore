@@ -180,6 +180,12 @@
                             <div class="col s12 center-align">
                                 <label for="" class="label-impegno">Imagen Principal</label>
                                 <input-file :file="`img/products/${form.main}` | img" :btn="false" :image="true" @file="_setFile(null, null, $event)"></input-file>
+                                <div class="col s4"></div>
+                                <div class="col s4">
+                                    <div class="progress" id="principal" v-if="form.main">
+                                        <div class="determinate" :style="`width: ${uploadPercentage}%`"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row gallery__items">
@@ -191,16 +197,11 @@
                                     Agregar nueva imagen secundaria
                                 </div>                            
                             </div>
-                            <div class="col s12">
-                                <div class="progress" v-show="sending">
-                                    <div class="indeterminate"></div>
-                                </div>
-                            </div>
                             <div class="col l4 m6 s6 items__file" :key="index" v-for="(file, index) in form.images" :id="`file-${file.id}`">
                                 <input-file :file="file.file !== '' ? `${urlBase + 'img/products/' + file.file}` : ''" :btn="false" :image="true" @file="_setFile(file.id, index, $event)"></input-file>
-                                <button class="file__claer" @click="_sliceItem(file.id, index)"></button>
+                                <button class="file__claer" @click="_sliceItem(file.id, index)" :disabled="sending"></button>
                                 <div class="progress" :id="'progress-' + index">
-                                    <div class="determinate" :style="`width: ${uploadPercentage}%`"></div>
+                                    <div class="determinate" :style="`width: ${file.uploadPercentage}%`"></div>
                                 </div>
                             </div>
                         </div>
@@ -382,7 +383,14 @@ export default {
             if(e.file.type.match("video*")) {
                 return swal('', 'Solo se aceptan imagenes', 'error')
             }
-            let progressElement = document.querySelector(`#progress-${x}`)
+            var selector = ''
+            if(x == null) {
+                selector = '#principal'
+            } else {
+                selector = `#progress-${x}`
+            }
+            console.log(selector)
+            let progressElement = document.querySelector(selector)
             progressElement.classList.add('progress-active')
             this.sending = true
             let formData = new FormData()
@@ -391,7 +399,12 @@ export default {
             formData.append('product_id', this.form.id)
             axios.post('admin/update-images', formData, {
                 onUploadProgress: function( progressEvent ) {
-                    this.uploadPercentage = parseInt( Math.round( ( progressEvent.loaded * 100 ) / progressEvent.total ))
+                    this.sending = true
+                    if(x == null) {
+                        this.uploadPercentage = parseInt( Math.round( ( progressEvent.loaded * 100 ) / progressEvent.total ))
+                    } else {
+                        this.form.images[x].uploadPercentage = parseInt( Math.round( ( progressEvent.loaded * 100 ) / progressEvent.total ))
+                    }
                 }.bind(this)
             })
             .then(resp => {
@@ -400,18 +413,22 @@ export default {
                     this.form.images[x].id = resp.data.id
                     this.form.images[x].file = resp.data.file
                 }
-                this._quitProgress(progressElement)
+                this._quitProgress(progressElement, x)
             })
             .catch(err => {
                 this.sending = false
                 this._showAlert("Disculpa, ha ocurrido un error", "error")
-                this._quitProgress(progressElement)
+                this._quitProgress(progressElement, x)
             })
         },
-        _quitProgress(progressElement) {
+        _quitProgress(progressElement, x) {
             progressElement.classList.remove('progress-active')
             setTimeout(() => {
-                this.uploadPercentage = 0
+                if(x != null) {
+                    this.form.images[x].uploadPercentage = 0
+                }else {
+                    this.uploadPercentage = 0
+                }
             }, 500)
         },
         _sliceItem (id, i) {
@@ -478,7 +495,7 @@ export default {
 
         _addImage() {
             // this.ids = this.form.images.length > 1 ? this.ids + 1 : this.ids
-            this.form.images.push({file: "", id: 0})
+            this.form.images.push({file: "", id: 0, uploadPercentage: 0})
             this.images = this.form.images
             this.elements = this.elements + 1
         },
@@ -583,6 +600,7 @@ export default {
         // Set images
         let images = new Array()
         this.form.images.forEach(el => {            
+            Vue.set(el, 'uploadPercentage', 0) 
             if (el.main == "1") {
                 this.form.main = el.file                
             } else {

@@ -17,6 +17,7 @@ const actions = {
 
     addWholesaler ({commit}, data) {
         commit('setSending', true)
+        showLoading()     
         wholesalerService.store(data)
             .then(wholesalerSaved => {
                 swal('', 'Se registro la colección correctamente', 'success')
@@ -31,6 +32,8 @@ const actions = {
                     swal('',  'Algo ha ocurrido, intente nuevamente', 'error')
                 }
                 commit('setSending', false)
+            }) .then(all => {
+                quiLoading()
             })
     },
 

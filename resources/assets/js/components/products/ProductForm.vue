@@ -405,9 +405,9 @@ export default {
         _removeColor(i) {
             this.form.colors.splice(i, 1);
         },
-
+        
         _setFile(i, file) {
-             if(file.file.type.match("video.*")) {
+            if(file.file.type.match("video.*")) {
                 return swal('', 'Solo se aceptan imagenes', 'error')
             }
 
@@ -472,7 +472,7 @@ export default {
             }
 
             button.setAttribute('disabled', true);
-
+            showLoading()
             axios.post('admin/products', this._convertToFormData())
                 .then(resp => {                
                     if (resp.data.result) {
@@ -493,8 +493,10 @@ export default {
                         return false;
                     }
                     this._showAlert("Disculpa, ha ocurrido un error", "error")
+                    quiLoading()
                 })
                 .then(all => {
+                    quiLoading()
                     button.removeAttribute('disabled')
                 })
         },

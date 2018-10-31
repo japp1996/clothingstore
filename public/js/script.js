@@ -71543,6 +71543,7 @@ var actions = {
         var commit = _ref2.commit;
 
         commit('setSending', true);
+        showLoading();
         __WEBPACK_IMPORTED_MODULE_0__services_wara_wholesaler__["a" /* default */].store(data).then(function (wholesalerSaved) {
             swal('', 'Se registro la colección correctamente', 'success');
             commit('add', wholesalerSaved);
@@ -71555,6 +71556,8 @@ var actions = {
                 swal('', 'Algo ha ocurrido, intente nuevamente', 'error');
             }
             commit('setSending', false);
+        }).then(function (all) {
+            quiLoading();
         });
     },
     deleteWholesaler: function deleteWholesaler(_ref3, id) {
@@ -71659,7 +71662,7 @@ var waraService = __WEBPACK_IMPORTED_MODULE_0_axios___default.a.create({
 
 "use strict";
 var configService = {
-    apiUrl: 'http://200.44.165.156/Wara/public'
+    apiUrl: window.location.protocol + "//" + window.location.hostname + "/Wara/public/"
     // apiUrl: 'http://localhost/Wara/public'
 };
 
@@ -71920,7 +71923,7 @@ var content = __webpack_require__(188);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("8aae94ce", content, false, {});
+var update = __webpack_require__(3)("71454aec", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -72093,7 +72096,7 @@ var content = __webpack_require__(194);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("22d2b4d2", content, false, {});
+var update = __webpack_require__(3)("64c2c02c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -72650,7 +72653,7 @@ var content = __webpack_require__(199);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("c17fc21c", content, false, {});
+var update = __webpack_require__(3)("2e651c45", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -73069,7 +73072,7 @@ var content = __webpack_require__(204);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("517c37ec", content, false, {});
+var update = __webpack_require__(3)("bf275882", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -73463,7 +73466,7 @@ var content = __webpack_require__(209);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("d73db8fa", content, false, {});
+var update = __webpack_require__(3)("195984d4", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -74316,7 +74319,7 @@ var content = __webpack_require__(223);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("71ae317a", content, false, {});
+var update = __webpack_require__(3)("5ebf68e6", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -74810,7 +74813,7 @@ var content = __webpack_require__(231);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("78e38424", content, false, {});
+var update = __webpack_require__(3)("7e445cb7", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -75093,7 +75096,7 @@ var content = __webpack_require__(235);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("799dac39", content, false, {});
+var update = __webpack_require__(3)("6945f546", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -75939,7 +75942,7 @@ var content = __webpack_require__(243);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("7b5b4cc1", content, false, {});
+var update = __webpack_require__(3)("8435dd58", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -77423,7 +77426,7 @@ var content = __webpack_require__(251);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("2b661d2a", content, false, {});
+var update = __webpack_require__(3)("087f7ff8", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -78277,7 +78280,7 @@ var content = __webpack_require__(257);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("91cf18c2", content, false, {});
+var update = __webpack_require__(3)("11640b72", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -78547,7 +78550,7 @@ var content = __webpack_require__(261);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("5dff850d", content, false, {});
+var update = __webpack_require__(3)("466fb24c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -79162,7 +79165,7 @@ var content = __webpack_require__(267);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("48471b48", content, false, {});
+var update = __webpack_require__(3)("43795dd6", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -79622,7 +79625,7 @@ var content = __webpack_require__(271);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("1864cdd7", content, false, {});
+var update = __webpack_require__(3)("ff57ab2c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -80122,7 +80125,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
 
             button.setAttribute('disabled', true);
-
+            showLoading();
             axios.post('admin/products', this._convertToFormData()).then(function (resp) {
                 if (resp.data.result) {
                     swal({
@@ -80141,7 +80144,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     return false;
                 }
                 _this2._showAlert("Disculpa, ha ocurrido un error", "error");
+                quiLoading();
             }).then(function (all) {
+                quiLoading();
                 button.removeAttribute('disabled');
             });
         },
@@ -81258,7 +81263,7 @@ var content = __webpack_require__(276);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("4ee1318b", content, false, {});
+var update = __webpack_require__(3)("925ee3c4", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -81293,6 +81298,7 @@ exports.push([module.i, "\n.bold {\n  font-weight: bold;\n}\n.margin-top {\n  ma
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -81677,7 +81683,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (e.file.type.match("video*")) {
                 return swal('', 'Solo se aceptan imagenes', 'error');
             }
-            var progressElement = document.querySelector("#progress-" + x);
+            var selector = '';
+            if (x == null) {
+                selector = '#principal';
+            } else {
+                selector = "#progress-" + x;
+            }
+            console.log(selector);
+            var progressElement = document.querySelector(selector);
             progressElement.classList.add('progress-active');
             this.sending = true;
             var formData = new FormData();
@@ -81686,7 +81699,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             formData.append('product_id', this.form.id);
             axios.post('admin/update-images', formData, {
                 onUploadProgress: function (progressEvent) {
-                    this.uploadPercentage = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
+                    this.sending = true;
+                    if (x == null) {
+                        this.uploadPercentage = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
+                    } else {
+                        this.form.images[x].uploadPercentage = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
+                    }
                 }.bind(this)
             }).then(function (resp) {
                 _this.sending = false;
@@ -81694,19 +81712,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     _this.form.images[x].id = resp.data.id;
                     _this.form.images[x].file = resp.data.file;
                 }
-                _this._quitProgress(progressElement);
+                _this._quitProgress(progressElement, x);
             }).catch(function (err) {
                 _this.sending = false;
                 _this._showAlert("Disculpa, ha ocurrido un error", "error");
-                _this._quitProgress(progressElement);
+                _this._quitProgress(progressElement, x);
             });
         },
-        _quitProgress: function _quitProgress(progressElement) {
+        _quitProgress: function _quitProgress(progressElement, x) {
             var _this2 = this;
 
             progressElement.classList.remove('progress-active');
             setTimeout(function () {
-                _this2.uploadPercentage = 0;
+                if (x != null) {
+                    _this2.form.images[x].uploadPercentage = 0;
+                } else {
+                    _this2.uploadPercentage = 0;
+                }
             }, 500);
         },
         _sliceItem: function _sliceItem(id, i) {
@@ -81771,7 +81793,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         _addImage: function _addImage() {
             // this.ids = this.form.images.length > 1 ? this.ids + 1 : this.ids
-            this.form.images.push({ file: "", id: 0 });
+            this.form.images.push({ file: "", id: 0, uploadPercentage: 0 });
             this.images = this.form.images;
             this.elements = this.elements + 1;
         },
@@ -81874,6 +81896,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         // Set images
         var images = new Array();
         this.form.images.forEach(function (el) {
+            Vue.set(el, 'uploadPercentage', 0);
             if (el.main == "1") {
                 _this7.form.main = el.file;
             } else {
@@ -82750,7 +82773,27 @@ var render = function() {
                         _vm._setFile(null, null, $event)
                       }
                     }
-                  })
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col s4" }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col s4" }, [
+                    _vm.form.main
+                      ? _c(
+                          "div",
+                          {
+                            staticClass: "progress",
+                            attrs: { id: "principal" }
+                          },
+                          [
+                            _c("div", {
+                              staticClass: "determinate",
+                              style: "width: " + _vm.uploadPercentage + "%"
+                            })
+                          ]
+                        )
+                      : _vm._e()
+                  ])
                 ],
                 1
               )
@@ -82789,24 +82832,6 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col s12" }, [
-                  _c(
-                    "div",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.sending,
-                          expression: "sending"
-                        }
-                      ],
-                      staticClass: "progress"
-                    },
-                    [_c("div", { staticClass: "indeterminate" })]
-                  )
-                ]),
-                _vm._v(" "),
                 _vm._l(_vm.form.images, function(file, index) {
                   return _c(
                     "div",
@@ -82834,6 +82859,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("button", {
                         staticClass: "file__claer",
+                        attrs: { disabled: _vm.sending },
                         on: {
                           click: function($event) {
                             _vm._sliceItem(file.id, index)
@@ -82850,7 +82876,7 @@ var render = function() {
                         [
                           _c("div", {
                             staticClass: "determinate",
-                            style: "width: " + _vm.uploadPercentage + "%"
+                            style: "width: " + file.uploadPercentage + "%"
                           })
                         ]
                       )
@@ -83569,7 +83595,7 @@ var content = __webpack_require__(282);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("6b805271", content, false, {});
+var update = __webpack_require__(3)("0963b244", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -83981,7 +84007,7 @@ var content = __webpack_require__(287);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("9794b7a2", content, false, {});
+var update = __webpack_require__(3)("8d650408", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -84271,7 +84297,7 @@ var content = __webpack_require__(292);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("e3828f4c", content, false, {});
+var update = __webpack_require__(3)("3e9a1e6d", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -84832,7 +84858,7 @@ var content = __webpack_require__(297);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("7b9e2bb0", content, false, {});
+var update = __webpack_require__(3)("550dbf7a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -85184,7 +85210,7 @@ var content = __webpack_require__(301);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("fdd1f3c2", content, false, {});
+var update = __webpack_require__(3)("103c0372", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -85759,7 +85785,7 @@ var content = __webpack_require__(306);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("48ee503a", content, false, {});
+var update = __webpack_require__(3)("85e714a0", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -86805,7 +86831,7 @@ var content = __webpack_require__(312);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("384a6ea6", content, false, {});
+var update = __webpack_require__(3)("cb114400", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -87416,7 +87442,7 @@ var content = __webpack_require__(317);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("037d760a", content, false, {});
+var update = __webpack_require__(3)("20738b17", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -87986,7 +88012,7 @@ var content = __webpack_require__(322);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("bc422b00", content, false, {});
+var update = __webpack_require__(3)("c0fe4266", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -89443,7 +89469,7 @@ var content = __webpack_require__(332);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("834264b0", content, false, {});
+var update = __webpack_require__(3)("5402de16", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -90277,7 +90303,7 @@ var content = __webpack_require__(336);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("2c75532b", content, false, {});
+var update = __webpack_require__(3)("44151678", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -90301,7 +90327,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n.container-form{\n       background-color: #fff;\n       margin-left: 0 !important;\n       margin-right: 0 !important;\n       padding: 1rem .75rem;\n}\n", ""]);
+exports.push([module.i, "\n.container-form{\n    background-color: #fff;\n    margin-left: 0 !important;\n    margin-right: 0 !important;\n    padding: 1rem .75rem;\n}\n.progress {\n    opacity: 0;\n    -webkit-transition: all ease-in-out 0.35s;\n    transition: all ease-in-out 0.35s;\n}\n.progress-active {\n    opacity: 1;\n}\n", ""]);
 
 // exports
 
@@ -90313,6 +90339,19 @@ exports.push([module.i, "\n.container-form{\n       background-color: #fff;\n   
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(6);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -90507,7 +90546,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }),
     methods: {
         _addImage: function _addImage() {
-            this.form.images.push({ file: "", id: 0 });
+            this.form.images.push({ file: "", id: 0, uploadPercentage: 0 });
             this.images = this.form.images;
             this.elements = this.elements + 1;
         },
@@ -90517,16 +90556,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (e.file.type.match("video.*")) {
                 return swal('', 'Solo se aceptan imagenes', 'error');
             }
-            var progressElement = document.querySelector('#progress-' + x);
+
+            var selector = '';
+            if (x == null) {
+                selector = '#principal';
+            } else {
+                selector = '#progress-' + x;
+            }
+            var progressElement = document.querySelector(selector);
             progressElement.classList.add('progress-active');
             this.sending = true;
+
             var formData = new FormData();
             formData.append('id', i);
             formData.append('file', e.file);
             formData.append('wholesaler_id', this.form.id);
             axios.post('admin/wholesalers/update-images', formData, {
                 onUploadProgress: function (progressEvent) {
-                    this.uploadPercentage = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
+                    this.sending = true;
+                    if (x == null) {
+                        this.uploadPercentage = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
+                    } else {
+                        this.form.images[x].uploadPercentage = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
+                    }
                 }.bind(this)
             }).then(function (resp) {
                 _this.sending = false;
@@ -90534,19 +90586,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     _this.form.images[x].id = resp.data.id;
                     _this.form.images[x].file = resp.data.file;
                 }
-                _this._quitProgress(progressElement);
+                _this._quitProgress(progressElement, x);
             }).catch(function (err) {
                 _this.sending = false;
                 console.log(err);
-                _this._quitProgress(progressElement);
+                _this._quitProgress(progressElement, x);
             });
         },
-        _quitProgress: function _quitProgress(progressElement) {
+        _quitProgress: function _quitProgress(progressElement, x) {
             var _this2 = this;
 
             progressElement.classList.remove('progress-active');
             setTimeout(function () {
-                _this2.uploadPercentage = 0;
+                if (x != null) {
+                    _this2.form.images[x].uploadPercentage = 0;
+                } else {
+                    _this2.uploadPercentage = 0;
+                }
             }, 500);
         },
         _sliceItem: function _sliceItem(id, i) {
@@ -90622,6 +90678,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.form = this.wholesaler;
         var images = new Array();
         this.form.images.forEach(function (el) {
+            Vue.set(el, 'uploadPercentage', 0);
             if (el.main == "1") {
                 _this7.form.main = el.file;
             } else {
@@ -91019,7 +91076,27 @@ var render = function() {
                           _vm._setFile(null, null, $event)
                         }
                       }
-                    })
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col s4" }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col s4" }, [
+                      _vm.form.main
+                        ? _c(
+                            "div",
+                            {
+                              staticClass: "progress",
+                              attrs: { id: "principal" }
+                            },
+                            [
+                              _c("div", {
+                                staticClass: "determinate",
+                                style: "width: " + _vm.uploadPercentage + "%"
+                              })
+                            ]
+                          )
+                        : _vm._e()
+                    ])
                   ],
                   1
                 )
@@ -91086,6 +91163,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("button", {
                           staticClass: "file__claer",
+                          attrs: { disabled: _vm.sending },
                           on: {
                             click: function($event) {
                               _vm._sliceItem(file.id, index)
@@ -91102,7 +91180,7 @@ var render = function() {
                           [
                             _c("div", {
                               staticClass: "determinate",
-                              style: "width: " + _vm.uploadPercentage + "%"
+                              style: "width: " + file.uploadPercentage + "%"
                             })
                           ]
                         )
@@ -91290,7 +91368,7 @@ var content = __webpack_require__(342);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("4a6536ef", content, false, {});
+var update = __webpack_require__(3)("b69e627c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -91700,7 +91778,7 @@ var content = __webpack_require__(347);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("c6398a52", content, false, {});
+var update = __webpack_require__(3)("732482ac", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -92465,7 +92543,7 @@ var content = __webpack_require__(352);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("7ed67ab4", content, false, {});
+var update = __webpack_require__(3)("1ae05a79", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -93096,7 +93174,7 @@ var content = __webpack_require__(357);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("b4adcf66", content, false, {});
+var update = __webpack_require__(3)("00169fc0", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -93583,7 +93661,7 @@ var content = __webpack_require__(362);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("30863953", content, false, {});
+var update = __webpack_require__(3)("1fad9be0", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -93990,7 +94068,7 @@ var content = __webpack_require__(367);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("7ae041ce", content, false, {});
+var update = __webpack_require__(3)("ff7dcb3e", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -94334,7 +94412,7 @@ var content = __webpack_require__(371);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("2904825e", content, false, {});
+var update = __webpack_require__(3)("18accb6b", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -94820,7 +94898,7 @@ var content = __webpack_require__(376);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("b038f32a", content, false, {});
+var update = __webpack_require__(3)("d0e86110", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -96129,7 +96207,7 @@ var content = __webpack_require__(385);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("3f143889", content, false, {});
+var update = __webpack_require__(3)("d6e234d4", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -96684,7 +96762,7 @@ var content = __webpack_require__(390);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("8d7bb358", content, false, {});
+var update = __webpack_require__(3)("82ba0232", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
