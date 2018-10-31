@@ -420,7 +420,7 @@ export default {
             .catch(err => {
                 this.sending = false
                 this._showAlert("Disculpa, ha ocurrido un error", "error")
-                this._quitProgress(progressElement, x)
+                 this.sending = false
             })
         },
         _quitProgress(progressElement, x) {

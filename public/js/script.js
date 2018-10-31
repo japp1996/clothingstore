@@ -81732,7 +81732,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (err) {
                 _this.sending = false;
                 _this._showAlert("Disculpa, ha ocurrido un error", "error");
-                _this._quitProgress(progressElement, x);
+                _this.sending = false;
             });
         },
         _quitProgress: function _quitProgress(progressElement, x) {
@@ -88082,7 +88082,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.progress {\n       opacity: 0;\n       -webkit-transition: all ease-in-out 0.35s;\n       transition: all ease-in-out 0.35s;\n}\n.progress-active {\n       opacity: 1;\n}\n", ""]);
 
 // exports
 
@@ -88093,6 +88093,12 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -88216,22 +88222,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (file.file.type.match("video.*")) {
                 return swal('', 'Solo se aceptan imagenes', 'error');
             }
+            var progressElement = document.querySelector("#progress-" + i);
+            progressElement.classList.add('progress-active');
+
             var formData = new FormData();
             formData.append('id', id);
             formData.append('file', file.file);
             formData.append('blog_id', this.form.id);
-            axios.post("admin/blogs/update-image", formData).then(function (resp) {
+            axios.post("admin/blogs/update-image", formData, {
+                onUploadProgress: function (progressEvent) {
+                    this.sending = true;
+                    this.form.images[i].uploadPercentage = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
+                    this.form.images[i].disabled = true;
+                }.bind(this)
+            }).then(function (resp) {
+                _this.sending = false;
+                _this._quitProgress(progressElement, i);
+
                 if (id == 0) {
                     _this.form.images[i].id = resp.data.id;
                     _this.form.images[i].file = resp.data.file;
                 }
             }).catch(function (err) {
+                _this.sending = false;
                 var message = "Disculpe, ha ocurrido un error";
                 if (err.response.status == 422) {
                     message = err.response.data.error;
                 }
                 swal("", message, "error");
+                _this._quitProgress(progressElement, i);
             });
+        },
+        _quitProgress: function _quitProgress(progressElement, x) {
+            var _this2 = this;
+
+            progressElement.classList.remove('progress-active');
+            setTimeout(function () {
+                _this2.form.images[x].uploadPercentage = 0;
+                _this2.form.images[x].disabled = false;
+            }, 500);
         },
         _addImage: function _addImage() {
             var item = this.form.images.find(function (e) {
@@ -88242,7 +88271,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return;
             }
 
-            this.form.images.push({ file: "", id: 0 });
+            this.form.images.push({ file: "", id: 0, uploadPercentage: 0, disabled: false });
             this.images = this.form.images;
             this.elements += 1;
         },
@@ -88276,7 +88305,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         _sliceItem: function _sliceItem(id, i) {
-            var _this2 = this;
+            var _this3 = this;
 
             var countImages = 0;
             this.form.images.forEach(function (img) {
@@ -88298,7 +88327,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 axios.post('admin/blogs/delete-image', { id: id }).then(function (resp) {
                     parent.removeChild(child);
                     console.log(i);
-                    _this2.form.images[i].deleted_at = true;
+                    _this3.form.images[i].deleted_at = true;
                 }).catch(function (err) {
                     var message = "Disculpe, ha ocurrido un error";
                     if (err.response.status == 422) {
@@ -88314,7 +88343,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     mounted: function mounted() {
-        var _this3 = this;
+        var _this4 = this;
 
         this.form.title = this.setForm.title;
         this.form.title_english = this.setForm.title_english;
@@ -88322,7 +88351,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.form.description_english = this.setForm.description_english;
         this.form.id = this.setForm.id;
         this.setImages.forEach(function (img) {
-            _this3.form.images.push(img);
+            Vue.set(img, 'uploadPercentage', 0);
+            Vue.set(img, 'disabled', false);
+            _this4.form.images.push(img);
         });
     }
 });
@@ -88577,7 +88608,10 @@ var render = function() {
                               _vm._v(" "),
                               _c("button", {
                                 staticClass: "file__claer",
-                                attrs: { type: "button" },
+                                attrs: {
+                                  type: "button",
+                                  disabled: file.disabled
+                                },
                                 on: {
                                   click: function($event) {
                                     _vm._sliceItem(file.id, index)
@@ -88617,7 +88651,7 @@ var render = function() {
                       "button",
                       {
                         staticClass: "btn btn-success",
-                        attrs: { type: "submit" }
+                        attrs: { type: "submit", disabled: _vm.sending }
                       },
                       [_vm._v("Actualizar")]
                     )

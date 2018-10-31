@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="col l4 m6 s6 items__file" :key="index" v-for="(file, index) in form.images" :id="`file-${file.id}`">
                                     <input-file :btn="false" :file="file.file !== '' ? `${url}img/blogs/${file.file}` : ''"  :image="true" v-on:file="_setFile(file.id, index, $event)" :disabled="file.disabled"></input-file>
-                                    <button type="button" class="file__claer" @click="_sliceItem(file.id, index)"></button>
+                                    <button type="button" class="file__claer" @click="_sliceItem(file.id, index)" :disabled="file.disabled"></button>
                                     <div class="progress" :id="'progress-' + index">
                                         <div class="determinate" :style="`width: ${file.uploadPercentage}%`"></div>
                                     </div>
@@ -62,7 +62,7 @@
                     </div>
 
                     <div class="col s12 center-align content-image">
-                        <button type="submit" class="btn btn-success">Actualizar</button>
+                        <button type="submit" class="btn btn-success" :disabled="sending">Actualizar</button>
                     </div>
                 </form>
             </card-content>
@@ -71,7 +71,13 @@
 </template>
 
 <style>
-
+ .progress {
+        opacity: 0;
+        transition: all ease-in-out 0.35s;
+    }
+    .progress-active {
+        opacity: 1;
+    }
 </style>
 
 
@@ -118,24 +124,45 @@ export default {
             if(file.file.type.match("video.*")) {
                 return swal('', 'Solo se aceptan imagenes', 'error')
             }
+            let progressElement = document.querySelector(`#progress-${i}`)
+            progressElement.classList.add('progress-active')
+        
             let formData = new FormData;
             formData.append('id', id);
             formData.append('file', file.file);
             formData.append('blog_id', this.form.id);
-            axios.post("admin/blogs/update-image", formData)
+            axios.post("admin/blogs/update-image", formData, {
+                onUploadProgress: function( progressEvent ) {
+                    this.sending = true
+                    this.form.images[i].uploadPercentage = parseInt( Math.round( ( progressEvent.loaded * 100 ) / progressEvent.total ))
+                    this.form.images[i].disabled = true
+                }.bind(this)
+            })
             .then( resp => {
+                this.sending = false
+                this._quitProgress(progressElement, i)
+
                 if (id == 0) {
                     this.form.images[i].id = resp.data.id
                     this.form.images[i].file = resp.data.file
                 } 
             })
             .catch( err => {
+                 this.sending = false
                 let message  = "Disculpe, ha ocurrido un error";
                 if (err.response.status == 422) {
                     message = err.response.data.error;
                 }
                 swal("", message, "error");
+                this._quitProgress(progressElement, i)
             })
+        },
+          _quitProgress(progressElement, x) {
+            progressElement.classList.remove('progress-active')
+            setTimeout(() => {
+                this.form.images[x].uploadPercentage = 0
+                this.form.images[x].disabled = false
+            }, 500)
         },
         _addImage() {
             let item = this.form.images.find(e => {
@@ -146,7 +173,7 @@ export default {
                 return
             }
 
-            this.form.images.push({file: "", id: 0});
+            this.form.images.push({file: "", id: 0, uploadPercentage: 0,  disabled: false});
             this.images = this.form.images;
             this.elements += 1;
 
@@ -230,6 +257,8 @@ export default {
         this.form.description_english = this.setForm.description_english;
         this.form.id = this.setForm.id;
         this.setImages.forEach((img)=>{
+            Vue.set(img, 'uploadPercentage', 0) 
+            Vue.set(img, 'disabled', false) 
             this.form.images.push(img);
         })
     }
