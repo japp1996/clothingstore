@@ -473,7 +473,12 @@ export default {
 
             button.setAttribute('disabled', true);
             showLoading()
-            axios.post('admin/products', this._convertToFormData())
+            let percent = document.querySelector('#percent')
+            axios.post('admin/products', this._convertToFormData(),  {
+                onUploadProgress: function( progressEvent ) {
+                    percent.innerHTML = `${parseInt( Math.round( ( progressEvent.loaded * 100 ) / progressEvent.total ))}%`
+                }.bind(this)
+            })
                 .then(resp => {                
                     if (resp.data.result) {
                         swal({

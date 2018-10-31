@@ -13,5 +13,6 @@
                 </div>
             </div>
         </div>
+        <div id="percent" style="text-align: center; color: #3949ab;"></div>
     </div>
 </div>

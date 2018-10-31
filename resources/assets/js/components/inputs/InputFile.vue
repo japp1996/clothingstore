@@ -38,7 +38,7 @@
                     <i class="material-icons" style="float: left">add</i>
                     Añadir
                 </span>
-                <input type="file" id="add-file" @change="_previsualizar($event)">
+                <input type="file" id="add-file" @change="_previsualizar($event)" :disabled="disabled">
             </div>
         </div>
 
@@ -84,6 +84,10 @@ export default {
     template: "#template-input-field",
     name: "inputfile",
     props: {
+        disabled: {
+            type: Boolean,
+            default: false
+        },
         file: {
             type: String,
             default: ""

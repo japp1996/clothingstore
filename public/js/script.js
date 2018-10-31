@@ -72774,6 +72774,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     template: "#template-input-field",
     name: "inputfile",
     props: {
+        disabled: {
+            type: Boolean,
+            default: false
+        },
         file: {
             type: String,
             default: ""
@@ -72988,7 +72992,7 @@ var render = function() {
             : _vm._e(),
           _vm._v(" "),
           _c("input", {
-            attrs: { type: "file", id: "add-file" },
+            attrs: { type: "file", id: "add-file", disabled: _vm.disabled },
             on: {
               change: function($event) {
                 _vm._previsualizar($event)
@@ -80126,7 +80130,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             button.setAttribute('disabled', true);
             showLoading();
-            axios.post('admin/products', this._convertToFormData()).then(function (resp) {
+            var percent = document.querySelector('#percent');
+            axios.post('admin/products', this._convertToFormData(), {
+                onUploadProgress: function (progressEvent) {
+                    percent.innerHTML = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total)) + "%";
+                }.bind(this)
+            }).then(function (resp) {
                 if (resp.data.result) {
                     swal({
                         title: '',
@@ -81693,6 +81702,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var progressElement = document.querySelector(selector);
             progressElement.classList.add('progress-active');
             this.sending = true;
+
             var formData = new FormData();
             formData.append('id', i);
             formData.append('file', e.file);
@@ -81704,6 +81714,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         this.uploadPercentage = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
                     } else {
                         this.form.images[x].uploadPercentage = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
+                        this.form.images[x].disabled = true;
                     }
                 }.bind(this)
             }).then(function (resp) {
@@ -81726,6 +81737,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             setTimeout(function () {
                 if (x != null) {
                     _this2.form.images[x].uploadPercentage = 0;
+                    _this2.form.images[x].disabled = false;
                 } else {
                     _this2.uploadPercentage = 0;
                 }
@@ -81897,6 +81909,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var images = new Array();
         this.form.images.forEach(function (el) {
             Vue.set(el, 'uploadPercentage', 0);
+            Vue.set(el, 'sending', false);
+
             if (el.main == "1") {
                 _this7.form.main = el.file;
             } else {
@@ -82848,7 +82862,8 @@ var render = function() {
                               ? "" + (_vm.urlBase + "img/products/" + file.file)
                               : "",
                           btn: false,
-                          image: true
+                          image: true,
+                          disabled: file.disabled
                         },
                         on: {
                           file: function($event) {
@@ -82859,7 +82874,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("button", {
                         staticClass: "file__claer",
-                        attrs: { disabled: _vm.sending },
+                        attrs: { disabled: file.disabled },
                         on: {
                           click: function($event) {
                             _vm._sliceItem(file.id, index)

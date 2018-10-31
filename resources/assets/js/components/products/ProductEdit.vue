@@ -198,8 +198,8 @@
                                 </div>                            
                             </div>
                             <div class="col l4 m6 s6 items__file" :key="index" v-for="(file, index) in form.images" :id="`file-${file.id}`">
-                                <input-file :file="file.file !== '' ? `${urlBase + 'img/products/' + file.file}` : ''" :btn="false" :image="true" @file="_setFile(file.id, index, $event)"></input-file>
-                                <button class="file__claer" @click="_sliceItem(file.id, index)" :disabled="sending"></button>
+                                <input-file :file="file.file !== '' ? `${urlBase + 'img/products/' + file.file}` : ''" :btn="false" :image="true" @file="_setFile(file.id, index, $event)" :disabled="file.disabled"></input-file>
+                                <button class="file__claer" @click="_sliceItem(file.id, index)" :disabled="file.disabled"></button>
                                 <div class="progress" :id="'progress-' + index">
                                     <div class="determinate" :style="`width: ${file.uploadPercentage}%`"></div>
                                 </div>
@@ -393,6 +393,7 @@ export default {
             let progressElement = document.querySelector(selector)
             progressElement.classList.add('progress-active')
             this.sending = true
+            
             let formData = new FormData()
             formData.append('id',  i)
             formData.append('file', e.file)
@@ -404,6 +405,7 @@ export default {
                         this.uploadPercentage = parseInt( Math.round( ( progressEvent.loaded * 100 ) / progressEvent.total ))
                     } else {
                         this.form.images[x].uploadPercentage = parseInt( Math.round( ( progressEvent.loaded * 100 ) / progressEvent.total ))
+                        this.form.images[x].disabled = true
                     }
                 }.bind(this)
             })
@@ -426,6 +428,7 @@ export default {
             setTimeout(() => {
                 if(x != null) {
                     this.form.images[x].uploadPercentage = 0
+                    this.form.images[x].disabled = false
                 }else {
                     this.uploadPercentage = 0
                 }
@@ -601,6 +604,8 @@ export default {
         let images = new Array()
         this.form.images.forEach(el => {            
             Vue.set(el, 'uploadPercentage', 0) 
+            Vue.set(el, 'sending', false) 
+
             if (el.main == "1") {
                 this.form.main = el.file                
             } else {
