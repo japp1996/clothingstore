@@ -126,7 +126,7 @@ export default {
             }
             let progressElement = document.querySelector(`#progress-${i}`)
             progressElement.classList.add('progress-active')
-        
+
             let formData = new FormData;
             formData.append('id', id);
             formData.append('file', file.file);
@@ -222,15 +222,14 @@ export default {
                 swal('', 'Debe existir al menos una imagen en el post', 'error')
                 return
             }
-                console.log(countImages, id)
-            // return
 
-            
             let parent = document.querySelector(".gallery__items");
             let child = document.querySelector(`#file-${id}`);
+            this.form.images[i].disabled = true
             if (id != 0) {
                 axios.post('admin/blogs/delete-image', {id: id})
                 .then(resp => {
+
                     parent.removeChild(child);
                     console.log(i)
                     this.form.images[i].deleted_at = true
@@ -240,6 +239,8 @@ export default {
                     if (err.response.status == 422){
                         message = err.response.data.error;
                     }
+                    this.form.images[i].disabled = false
+
                     swal("", message, "error");
                 })
             } else {

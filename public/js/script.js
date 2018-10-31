@@ -81751,6 +81751,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _sliceItem: function _sliceItem(id, i) {
             var _this3 = this;
 
+            this.form.images[i].disabled = true;
             var parent = document.querySelector(".gallery__items");
             var child = document.querySelector("#file-" + id);
 
@@ -81761,6 +81762,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     parent.removeChild(child);
                     _this3.elements = _this3.elements - 1;
                 }).catch(function (err) {
+                    _this3.form.images[i].disabled = false;
                     _this3.sending = false;
                     _this3._showAlert("Disculpa, ha ocurrido un error", "error");
                 });
@@ -86017,6 +86019,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this3 = this;
 
             var countImages = 0;
+            this.form.files[i].disabled = true;
             this.form.files.forEach(function (img) {
                 if (img.id != 0 && !img.deleted_at) {
                     countImages++;
@@ -86037,6 +86040,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     _this3.elements = _this3.elements - 1;
                     _this3.form.files[i].deleted_at = true;
                 }).catch(function (err) {
+                    _this3.form.files[i].disabled = false;
                     _this3._showAlert("Disculpa, ha ocurrido un error", "error");
                 });
             } else {
@@ -88317,14 +88321,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 swal('', 'Debe existir al menos una imagen en el post', 'error');
                 return;
             }
-            console.log(countImages, id);
-            // return
-
 
             var parent = document.querySelector(".gallery__items");
             var child = document.querySelector("#file-" + id);
+            this.form.images[i].disabled = true;
             if (id != 0) {
                 axios.post('admin/blogs/delete-image', { id: id }).then(function (resp) {
+
                     parent.removeChild(child);
                     console.log(i);
                     _this3.form.images[i].deleted_at = true;
@@ -88333,6 +88336,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     if (err.response.status == 422) {
                         message = err.response.data.error;
                     }
+                    _this3.form.images[i].disabled = false;
+
                     swal("", message, "error");
                 });
             } else {
@@ -90706,14 +90711,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _sliceItem: function _sliceItem(id, i) {
             var _this3 = this;
 
+            this.form.images[i].disabled = true;
             var parent = document.querySelector(".gallery__items");
             var child = document.querySelector('#file-' + id);
-
+            this.form.i;
             if (id != 0) {
                 axios.post('admin/wholesalers/delete-images', { id: id }).then(function (resp) {
                     parent.removeChild(child);
                     _this3.elements = _this3.elements - 1;
                 }).catch(function (err) {
+                    _this3.form.images[i].disabled = false;
                     _this3._showAlert("Disculpa, ha ocurrido un error", "error");
                 });
             } else {

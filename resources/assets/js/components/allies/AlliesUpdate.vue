@@ -167,6 +167,7 @@ export default {
 
         _sliceItem (id, i) {
             let countImages = 0
+            this.form.files[i].disabled = true
             this.form.files.forEach(img => {
                 if(img.id != 0 && !img.deleted_at) {
                     countImages++
@@ -189,6 +190,7 @@ export default {
                     this.form.files[i].deleted_at = true
                 })
                 .catch(err => {
+                    this.form.files[i].disabled = false
                     this._showAlert("Disculpa, ha ocurrido un error", "error")
                 })
             } else {

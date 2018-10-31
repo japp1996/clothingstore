@@ -261,9 +261,10 @@ export default {
             }, 500)
         },
         _sliceItem (id, i) {
+            this.form.images[i].disabled = true
             let parent = document.querySelector(".gallery__items")
             let child = document.querySelector(`#file-${id}`)            
-            
+            this.form.i
             if (id != 0) {
                 axios.post('admin/wholesalers/delete-images', {id: id})
                 .then(resp => {
@@ -271,6 +272,7 @@ export default {
                     this.elements = this.elements - 1
                 })
                 .catch(err => {
+                    this.form.images[i].disabled = false
                     this._showAlert("Disculpa, ha ocurrido un error", "error")
                 })
             } else {

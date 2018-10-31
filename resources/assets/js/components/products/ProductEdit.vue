@@ -435,6 +435,7 @@ export default {
             }, 500)
         },
         _sliceItem (id, i) {
+            this.form.images[i].disabled = true
             let parent = document.querySelector(".gallery__items")
             let child = document.querySelector(`#file-${id}`)            
             
@@ -447,6 +448,7 @@ export default {
                     this.elements = this.elements - 1
                 })
                 .catch(err => {
+                    this.form.images[i].disabled = false
                     this.sending = false
                     this._showAlert("Disculpa, ha ocurrido un error", "error")
                 })
