@@ -147,6 +147,8 @@ export default {
                     }
                 }.bind(this)
             }).then(resp=>{
+                quiLoading()
+
                 swal({
                     title: '',
                     text: 'Se ha creado el blog con éxito',

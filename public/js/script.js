@@ -87686,6 +87686,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     }
                 }.bind(this)
             }).then(function (resp) {
+                quiLoading();
+
                 swal({
                     title: '',
                     text: 'Se ha creado el blog con éxito',
