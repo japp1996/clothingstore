@@ -86009,9 +86009,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.items[x].file = resp.data.file;
                 progressElement.classList.remove('progress-active');
                 _this._quitProgress(progressElement, x);
-                setTimeout(function () {
-                    location.reload();
-                }, 500);
             }).catch(function (err) {
                 _this._quitProgress(progressElement, x);
                 _this._showAlert("Disculpa, ha ocurrido un error", "error");
@@ -86079,6 +86076,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             button.setAttribute('disabled', true);
             axios.put('admin/allies/' + this.form.id, this.form).then(function (resp) {
                 _this4._showAlert("Aliado actualizado exitosamente", "success");
+                setTimeout(function () {
+                    location.reload();
+                }, 500);
             }).catch(function (err) {
                 var message = "Disculpe, ha ocurrido un error";
                 if (err.response.status == 422) {

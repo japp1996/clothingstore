@@ -142,9 +142,7 @@ export default {
                 this.items[x].file = resp.data.file
                 progressElement.classList.remove('progress-active')
                 this._quitProgress(progressElement, x)
-                setTimeout(() => {
-                    location.reload()
-                }, 500)
+               
             })
             .catch(err => {
                 this._quitProgress(progressElement, x)
@@ -213,6 +211,9 @@ export default {
             axios.put(`admin/allies/${this.form.id}`, this.form)
             .then(resp => {                
                 this._showAlert("Aliado actualizado exitosamente", "success")
+                 setTimeout(() => {
+                    location.reload()
+                }, 500)
             })
             .catch(err => {
                 let message = "Disculpe, ha ocurrido un error";
