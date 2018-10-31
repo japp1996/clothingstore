@@ -80159,12 +80159,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     });
                 }
             }).catch(function (err) {
+                quiLoading();
                 if (err.response.status === 422) {
                     _this2._showAlert(err.response.data.error, 'warning');
                     return false;
                 }
                 _this2._showAlert("Disculpa, ha ocurrido un error", "error");
-                quiLoading();
             }).then(function (all) {
                 quiLoading();
                 button.removeAttribute('disabled');
@@ -87667,6 +87667,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             formData.append("description", this.form.description);
             formData.append("description_english", this.form.description_english);
             // formData.append("images",this.form.images);
+            showLoading();
+
             this.form.images.forEach(function (image, index) {
                 formData.append("image" + index, image.file);
             });
@@ -87691,11 +87693,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     window.location = urlBase + "admin/blogs";
                 });
             }).catch(function (err) {
+                quiLoading();
                 var message = "Disculpe, ha ocurrido un error";
                 if (err.response.status == 422) {
                     message = err.response.data.error;
                 }
                 swal("", message, "error");
+            }).then(function (all) {
+                button.removeAttribute('disabled');
             });
         }
     },

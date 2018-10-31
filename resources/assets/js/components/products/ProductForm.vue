@@ -496,12 +496,12 @@ export default {
                     }
                 })
                 .catch(err => {
+                    quiLoading()
                     if(err.response.status === 422){
                         this._showAlert(err.response.data.error, 'warning')
                         return false;
                     }
                     this._showAlert("Disculpa, ha ocurrido un error", "error")
-                    quiLoading()
                 })
                 .then(all => {
                     quiLoading()

@@ -131,6 +131,8 @@ export default {
             formData.append("description",this.form.description);
             formData.append("description_english", this.form.description_english);
             // formData.append("images",this.form.images);
+            showLoading()
+
             this.form.images.forEach((image, index) => {
                 formData.append("image"+index, image.file)
             });
@@ -155,11 +157,14 @@ export default {
                     window.location = urlBase+"admin/blogs";
                 });
             }).catch(err=>{
+                quiLoading()
                 let message = "Disculpe, ha ocurrido un error";
                 if (err.response.status == 422){
                     message = err.response.data.error;
                 }
                 swal("", message, "error");
+            }).then(all => {
+                button.removeAttribute('disabled')
             })
         }
     },
