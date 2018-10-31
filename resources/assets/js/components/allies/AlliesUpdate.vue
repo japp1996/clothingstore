@@ -88,6 +88,10 @@ export default {
         this.form = this.data
         this.items = this.form.fotos
         this.form.files = this.items
+        this.items.forEach(e => {
+            Vue.set(e, 'uploadPercentage', 0)
+            Vue.set(e, 'disabled', false)
+        })
     },
 
     data () {
@@ -95,6 +99,7 @@ export default {
             form: {
                 files: []
             },
+            sending: false,
             items: [],
             files: [],
             file: '',
@@ -127,7 +132,7 @@ export default {
             axios.post('admin/allies/update-image', formData, {
                 onUploadProgress: function( progressEvent ) {
                     this.sending = true
-                    this.items[x].uploadPercentage.disabled = true
+                    this.items[x].disabled = true
                     this.items[x].uploadPercentage = parseInt( Math.round( ( progressEvent.loaded * 100 ) / progressEvent.total ))
                 }.bind(this)
             })
@@ -232,10 +237,7 @@ export default {
 
     mounted() {        
         this.ids = this.items[this.items.length - 1].id
-        this.items.forEach(e => {
-            Vue.set(e, 'uploadPercentage', false)
-            Vue.set(e, 'disabled', false)
-        })
+       
         setTimeout(() => {
             this.elements = Array.from(document.querySelectorAll('.items__file')).length
         }, 150);

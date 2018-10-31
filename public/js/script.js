@@ -85953,12 +85953,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.form = this.data;
         this.items = this.form.fotos;
         this.form.files = this.items;
+        this.items.forEach(function (e) {
+            Vue.set(e, 'uploadPercentage', 0);
+            Vue.set(e, 'disabled', false);
+        });
     },
     data: function data() {
         return {
             form: {
                 files: []
             },
+            sending: false,
             items: [],
             files: [],
             file: '',
@@ -85984,7 +85989,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (e.file.type.match("video.*")) {
                 return swal('', 'Solo se aceptan imagenes', 'error');
             }
-            var progressElement = document.querySelector("#progress-" + x);
+            var progressElement = document.querySelector('#progress-' + x);
             progressElement.classList.add('progress-active');
             var formData = new FormData();
             this.sending = true;
@@ -85995,7 +86000,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.post('admin/allies/update-image', formData, {
                 onUploadProgress: function (progressEvent) {
                     this.sending = true;
-                    this.items[x].uploadPercentage.disabled = true;
+                    this.items[x].disabled = true;
                     this.items[x].uploadPercentage = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
                 }.bind(this)
             }).then(function (resp) {
@@ -86048,7 +86053,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             console.log(countImages, id);
             var parent = document.querySelector(".gallery__items");
-            var child = document.querySelector("#file-" + id);
+            var child = document.querySelector('#file-' + id);
 
             if (id != 0) {
                 axios.post('admin/allies/delete-images', { id: id }).then(function (resp) {
@@ -86069,7 +86074,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             var button = e.target;
             button.setAttribute('disabled', true);
-            axios.put("admin/allies/" + this.form.id, this.form).then(function (resp) {
+            axios.put('admin/allies/' + this.form.id, this.form).then(function (resp) {
                 _this4._showAlert("Aliado actualizado exitosamente", "success");
             }).catch(function (err) {
                 var message = "Disculpe, ha ocurrido un error";
@@ -86096,10 +86101,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this5 = this;
 
         this.ids = this.items[this.items.length - 1].id;
-        this.items.forEach(function (e) {
-            Vue.set(e, 'uploadPercentage', false);
-            Vue.set(e, 'disabled', false);
-        });
+
         setTimeout(function () {
             _this5.elements = Array.from(document.querySelectorAll('.items__file')).length;
         }, 150);

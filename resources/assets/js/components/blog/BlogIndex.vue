@@ -162,9 +162,8 @@ export default {
             this.modal.init.open();
         },
         _delete() {
-            axios.delete(
-                "/admin/blogs/"+this.modal.data.id
-            ).then(
+            axios.delete("/admin/blogs/"+this.modal.data.id)
+            .then(
                 resp=> {
                     this.modal.init.close();
                     swal({
