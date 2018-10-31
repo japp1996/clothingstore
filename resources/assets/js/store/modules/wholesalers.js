@@ -26,6 +26,7 @@ const actions = {
                 location.reload()
             })
             .catch(err => {
+                quiLoading()
                 if(err.response.status === 422) {
                     swal('', err.response.data.error, 'error')
                 }else {
@@ -33,7 +34,7 @@ const actions = {
                 }
                 commit('setSending', false)
             }) .then(all => {
-                quiLoading()
+               
             })
     },
 

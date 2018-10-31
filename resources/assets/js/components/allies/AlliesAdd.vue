@@ -143,6 +143,7 @@ export default {
                     count++
                 }
             });
+            showLoading()
 
             formData.append("count", count);
             axios.post('admin/allies', formData, {
@@ -160,6 +161,8 @@ export default {
                 this._showAlert("Aliado almacenado exitosamente", "success");
             })
             .catch( err => {
+                quiLoading()
+
                 let message = "Disculpe, ha ocurrido un error";
                 if(err.response.status == 422){
                     message = err.response.data.error;

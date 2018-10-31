@@ -71550,15 +71550,14 @@ var actions = {
             commit('setOption', 1);
             location.reload();
         }).catch(function (err) {
+            quiLoading();
             if (err.response.status === 422) {
                 swal('', err.response.data.error, 'error');
             } else {
                 swal('', 'Algo ha ocurrido, intente nuevamente', 'error');
             }
             commit('setSending', false);
-        }).then(function (all) {
-            quiLoading();
-        });
+        }).then(function (all) {});
     },
     deleteWholesaler: function deleteWholesaler(_ref3, id) {
         var commit = _ref3.commit;
@@ -85417,6 +85416,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     count++;
                 }
             });
+            showLoading();
 
             formData.append("count", count);
             axios.post('admin/allies', formData, {
@@ -85432,6 +85432,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(_this.form);
                 _this._showAlert("Aliado almacenado exitosamente", "success");
             }).catch(function (err) {
+                quiLoading();
+
                 var message = "Disculpe, ha ocurrido un error";
                 if (err.response.status == 422) {
                     message = err.response.data.error;
