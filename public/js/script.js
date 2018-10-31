@@ -86009,6 +86009,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.items[x].file = resp.data.file;
                 progressElement.classList.remove('progress-active');
                 _this._quitProgress(progressElement, x);
+                setTimeout(function () {
+                    location.reload();
+                }, 500);
             }).catch(function (err) {
                 _this._quitProgress(progressElement, x);
                 _this._showAlert("Disculpa, ha ocurrido un error", "error");

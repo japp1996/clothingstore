@@ -142,6 +142,9 @@ export default {
                 this.items[x].file = resp.data.file
                 progressElement.classList.remove('progress-active')
                 this._quitProgress(progressElement, x)
+                setTimeout(() => {
+                    location.reload()
+                }, 500)
             })
             .catch(err => {
                 this._quitProgress(progressElement, x)
