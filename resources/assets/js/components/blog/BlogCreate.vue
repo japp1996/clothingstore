@@ -135,7 +135,16 @@ export default {
                 formData.append("image"+index, image.file)
             });
             formData.append("count", this.form.images.length);
-            axios.post("admin/blogs",formData).then(resp=>{
+            axios.post("admin/blogs",formData, {
+                onUploadProgress: function( progressEvent ) {
+                    
+                    let percent = document.querySelector('#percent')
+                    let p = parseInt( Math.round( ( progressEvent.loaded * 100 ) / progressEvent.total ))
+                    if(p < 100) {
+                        percent.innerHTML = `${p}%`
+                    }
+                }.bind(this)
+            }).then(resp=>{
                 swal({
                     title: '',
                     text: 'Se ha creado el blog con éxito',

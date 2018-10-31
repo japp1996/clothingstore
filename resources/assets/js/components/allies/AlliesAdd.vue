@@ -147,8 +147,12 @@ export default {
             formData.append("count", count);
             axios.post('admin/allies', formData, {
                 onUploadProgress: function( progressEvent ) {
+                    
                     let percent = document.querySelector('#percent')
-                    percent.innerHTML = `${parseInt( Math.round( ( progressEvent.loaded * 100 ) / progressEvent.total ))}%`
+                    let p = parseInt( Math.round( ( progressEvent.loaded * 100 ) / progressEvent.total ))
+                    if(p < 100) {
+                        percent.innerHTML = `${p}%`
+                    }
                 }.bind(this)
             })
             .then( resp => {

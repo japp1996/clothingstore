@@ -476,7 +476,10 @@ export default {
             let percent = document.querySelector('#percent')
             axios.post('admin/products', this._convertToFormData(),  {
                 onUploadProgress: function( progressEvent ) {
-                    percent.innerHTML = `${parseInt( Math.round( ( progressEvent.loaded * 100 ) / progressEvent.total ))}%`
+                    let p = parseInt( Math.round( ( progressEvent.loaded * 100 ) / progressEvent.total ))
+                    if(p < 100) {
+                        percent.innerHTML = `${p}%`
+                    }
                 }.bind(this)
             })
                 .then(resp => {                

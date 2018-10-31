@@ -71629,7 +71629,10 @@ whosalerService.store = function (data) {
     return __WEBPACK_IMPORTED_MODULE_0__wara__["a" /* default */].post('admin/wholesalers', data, {
         onUploadProgress: function (progressEvent) {
             var percent = document.querySelector('#percent');
-            percent.innerHTML = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total)) + '%';
+            var p = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
+            if (p < 100) {
+                percent.innerHTML = p + '%';
+            }
         }.bind(this)
     }).then(function (res) {
         return res.data;
@@ -80138,7 +80141,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var percent = document.querySelector('#percent');
             axios.post('admin/products', this._convertToFormData(), {
                 onUploadProgress: function (progressEvent) {
-                    percent.innerHTML = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total)) + "%";
+                    var p = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
+                    if (p < 100) {
+                        percent.innerHTML = p + "%";
+                    }
                 }.bind(this)
             }).then(function (resp) {
                 if (resp.data.result) {
@@ -85415,8 +85421,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             formData.append("count", count);
             axios.post('admin/allies', formData, {
                 onUploadProgress: function (progressEvent) {
+
                     var percent = document.querySelector('#percent');
-                    percent.innerHTML = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total)) + "%";
+                    var p = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
+                    if (p < 100) {
+                        percent.innerHTML = p + "%";
+                    }
                 }.bind(this)
             }).then(function (resp) {
                 console.log(_this.form);
@@ -86010,7 +86020,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return;
             }
 
-            // this.ids = this.ids + 1
             this.items.push({ file: "", id: 0, uploadPercentage: 0, disabled: false });
             this.form.files = this.items;
             this.elements = this.elements + 1;
@@ -87662,7 +87671,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 formData.append("image" + index, image.file);
             });
             formData.append("count", this.form.images.length);
-            axios.post("admin/blogs", formData).then(function (resp) {
+            axios.post("admin/blogs", formData, {
+                onUploadProgress: function (progressEvent) {
+
+                    var percent = document.querySelector('#percent');
+                    var p = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
+                    if (p < 100) {
+                        percent.innerHTML = p + "%";
+                    }
+                }.bind(this)
+            }).then(function (resp) {
                 swal({
                     title: '',
                     text: 'Se ha creado el blog con éxito',

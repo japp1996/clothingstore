@@ -159,7 +159,6 @@ export default {
                 return
             }
 
-            // this.ids = this.ids + 1
             this.items.push({file: "", id: 0, uploadPercentage: 0, disabled: false})
             this.form.files = this.items
             this.elements = this.elements + 1
