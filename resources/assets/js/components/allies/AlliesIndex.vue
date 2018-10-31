@@ -23,17 +23,17 @@
                     <table-byte :set-table="allies" :filters="['nombre', 'facebook', 'twitter', 'instagram']">
                         <table-row slot="table-head" slot-scope="{ item }">
                             <table-head>Nombre </table-head>
-                            <table-head>Facebook</table-head>
-                            <table-head>Twitter </table-head>
                             <table-head>Instagram</table-head>
+                            <!-- <table-head>Facebook</table-head> -->
+                            <!-- <table-head>Twitter </table-head> -->
                             <table-head class="th-action">Acciones</table-head>
                         </table-row>
 
                         <table-row slot="table-row" slot-scope="{ item }">
                             <table-cell>{{ item.name }}</table-cell>
-                            <table-cell>{{ item.facebook }}</table-cell>
-                            <table-cell>{{ item.twitter }}</table-cell>
                             <table-cell>{{ item.instagram }}</table-cell>
+                            <!-- <table-cell>{{ item.facebook }}</table-cell> -->
+                            <!-- <table-cell>{{ item.twitter }}</table-cell> -->
                             <table-cell>
 
                                 <a href="#!" class="btn-action" @click="_view(item)">

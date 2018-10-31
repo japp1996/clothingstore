@@ -86527,10 +86527,6 @@ var render = function() {
                             [
                               _c("table-head", [_vm._v("Nombre ")]),
                               _vm._v(" "),
-                              _c("table-head", [_vm._v("Facebook")]),
-                              _vm._v(" "),
-                              _c("table-head", [_vm._v("Twitter ")]),
-                              _vm._v(" "),
                               _c("table-head", [_vm._v("Instagram")]),
                               _vm._v(" "),
                               _c("table-head", { staticClass: "th-action" }, [
@@ -86550,10 +86546,6 @@ var render = function() {
                             {},
                             [
                               _c("table-cell", [_vm._v(_vm._s(item.name))]),
-                              _vm._v(" "),
-                              _c("table-cell", [_vm._v(_vm._s(item.facebook))]),
-                              _vm._v(" "),
-                              _c("table-cell", [_vm._v(_vm._s(item.twitter))]),
                               _vm._v(" "),
                               _c("table-cell", [
                                 _vm._v(_vm._s(item.instagram))
