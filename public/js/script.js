@@ -85429,6 +85429,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     }
                 }.bind(this)
             }).then(function (resp) {
+                quiLoading();
                 console.log(_this.form);
                 _this._showAlert("Aliado almacenado exitosamente", "success");
             }).catch(function (err) {

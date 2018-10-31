@@ -157,6 +157,7 @@ export default {
                 }.bind(this)
             })
             .then( resp => {
+                quiLoading()
                 console.log(this.form);
                 this._showAlert("Aliado almacenado exitosamente", "success");
             })
