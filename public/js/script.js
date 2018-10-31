@@ -85430,8 +85430,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }.bind(this)
             }).then(function (resp) {
                 quiLoading();
-                console.log(_this.form);
+
                 _this._showAlert("Aliado almacenado exitosamente", "success");
+                setTimeout(function () {
+                    location.reload();
+                }, 500);
             }).catch(function (err) {
                 quiLoading();
 
@@ -87687,7 +87690,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }.bind(this)
             }).then(function (resp) {
                 quiLoading();
-
                 swal({
                     title: '',
                     text: 'Se ha creado el blog con éxito',

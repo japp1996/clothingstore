@@ -158,8 +158,11 @@ export default {
             })
             .then( resp => {
                 quiLoading()
-                console.log(this.form);
+
                 this._showAlert("Aliado almacenado exitosamente", "success");
+                setTimeout(() => {
+                    location.reload()
+                }, 500)
             })
             .catch( err => {
                 quiLoading()
