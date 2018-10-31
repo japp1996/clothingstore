@@ -82790,6 +82790,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("input-file", {
                     attrs: {
+                      disabled: _vm.uploadPercentage != 0,
                       file: _vm._f("img")("img/products/" + _vm.form.main),
                       btn: false,
                       image: true
@@ -90023,7 +90024,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "browser-default input-impegno",
-                  attrs: { type: "text", name: "name", id: "name" },
+                  attrs: { type: "number", name: "name", id: "name" },
                   domProps: { value: _vm.form.price },
                   on: {
                     input: function($event) {
@@ -90056,7 +90057,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "browser-default input-impegno",
-                  attrs: { type: "text", name: "name", id: "name" },
+                  attrs: { type: "number", name: "name", id: "name" },
                   domProps: { value: _vm.form.quantity },
                   on: {
                     input: function($event) {
@@ -90946,7 +90947,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "browser-default input-impegno",
-                  attrs: { type: "text", name: "name", id: "name" },
+                  attrs: { type: "number", name: "name", id: "name" },
                   domProps: { value: _vm.form.price },
                   on: {
                     input: function($event) {
@@ -90979,7 +90980,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "browser-default input-impegno",
-                  attrs: { type: "text", name: "name", id: "name" },
+                  attrs: { type: "number", name: "name", id: "name" },
                   domProps: { value: _vm.form.quantity },
                   on: {
                     input: function($event) {
@@ -91202,6 +91203,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("input-file", {
                       attrs: {
+                        disabled: _vm.uploadPercentage != 0,
                         file: _vm._f("img")("img/products/" + _vm.form.main),
                         btn: false,
                         image: true

@@ -53,7 +53,7 @@
                             <div class="col s12 m6 l6 center-align">
                                 <label for="name_english" class="label-impegno">Precio</label>
                                 <input 
-                                    type="text" 
+                                    type="number" 
                                     name="name" id="name" 
                                     v-model="form.price" 
                                     class="browser-default input-impegno">
@@ -62,7 +62,7 @@
                             <div class="col s12 m6 l6 center-align">
                                 <label for="description_english" class="label-impegno">Cantidad existente</label>
                                 <input 
-                                    type="text" 
+                                    type="number" 
                                     name="name" id="name" 
                                     v-model="form.quantity" 
                                     class="browser-default input-impegno">
@@ -106,7 +106,7 @@
                             <div class="row">
                                 <div class="col s12 center-align">
                                     <label for="" class="label-impegno">Imagen Principal</label>
-                                    <input-file :file="`img/products/${form.main}` | img" :btn="false" :image="true" @file="_setFile(null, null, $event)"></input-file>
+                                    <input-file :disabled="uploadPercentage != 0" :file="`img/products/${form.main}` | img" :btn="false" :image="true" @file="_setFile(null, null, $event)" ></input-file>
                                     <div class="col s4"></div>
                                     <div class="col s4">
                                         <div class="progress" id="principal" v-if="form.main">

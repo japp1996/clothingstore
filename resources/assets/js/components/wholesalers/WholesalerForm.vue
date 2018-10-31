@@ -53,7 +53,7 @@
                             <div class="col s12 m6 l6 center-align">
                                 <label for="name_english" class="label-impegno">Precio</label>
                                 <input 
-                                    type="text" 
+                                    type="number" 
                                     name="name" id="name" 
                                     v-model="form.price" 
                                     class="browser-default input-impegno">
@@ -62,7 +62,7 @@
                             <div class="col s12 m6 l6 center-align">
                                 <label for="description_english" class="label-impegno">Cantidad existente</label>
                                 <input 
-                                    type="text" 
+                                    type="number" 
                                     name="name" id="name" 
                                     v-model="form.quantity" 
                                     class="browser-default input-impegno">
