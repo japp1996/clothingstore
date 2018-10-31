@@ -127,6 +127,7 @@ export default {
             axios.post('admin/allies/update-image', formData, {
                 onUploadProgress: function( progressEvent ) {
                     this.sending = true
+                    this.items[x].uploadPercentage.disabled = true
                     this.items[x].uploadPercentage = parseInt( Math.round( ( progressEvent.loaded * 100 ) / progressEvent.total ))
                 }.bind(this)
             })

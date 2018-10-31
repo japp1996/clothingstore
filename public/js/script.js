@@ -85995,6 +85995,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.post('admin/allies/update-image', formData, {
                 onUploadProgress: function (progressEvent) {
                     this.sending = true;
+                    this.items[x].uploadPercentage.disabled = true;
                     this.items[x].uploadPercentage = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
                 }.bind(this)
             }).then(function (resp) {
