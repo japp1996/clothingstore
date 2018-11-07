@@ -133,7 +133,7 @@
 
 	// Admin
 	
-	Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
+	Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => "isAdmin"], function() {
 		// Home
 		Route::get('/', 'AdminController@index');
 		Route::post('login', 'AuthController@singIn');
