@@ -83,8 +83,8 @@
                                         <th>subtotal</th>
                                     </thead>
                                     <tbody v-if="modal.data.details">
-                                        <tr v-for="(d,i ) in modal.data.details" :key="i">
-                                            <td>{{ d.producto.name}}</td>
+                                        <tr v-for="(d, i) in modal.data.details" :key="i">
+                                            <td>{{ d.producto.name }} ({{ d.product_size.name }}) ({{ d.product_color.name }})</td>
                                             <td>{{ getPrice(d.price, d.coin, modal.data.exchange.change, modal.data.payment_type) }}</td>
                                             <td>{{ d.quantity }}</td>
                                             <td>{{ parseFloat(getPrice(d.price, d.coin, modal.data.exchange.change, modal.data.payment_type) * d.quantity).toFixed(2) }}  {{ modal.data.payment_type == 2 ? 'USD' : 'Bs. S.' }}</td>
