@@ -4,6 +4,13 @@
 	.carousel-inner{
 	     height: 100%;
 	}
+	.carousel-item {
+		height: calc(100vh - 69.5px - 80.5px);
+		margin-top: 69.5px;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
 	@media (min-width: 992px) {
 		background-image: none !important;
 	}

@@ -16,7 +16,7 @@
 			margin-right: 10px;
 			text-decoration: none !important;
 			img {
-				width: 15px;
+				width: 10px;
 				margin-right: 10px;
 				position: relative;
 				top: -2.5px;
@@ -24,7 +24,10 @@
 		}
 		h3 {
 			color: $white;
-			font-family: 'Segoe Bold';
+			// @include texto();
+			text-transform: uppercase;
+			font-family: 'Bebas';
+			font-size: 25px;
 		}
 		select {
 			max-width: 250px;
@@ -44,10 +47,13 @@
 		background-color: #000;
 		-webkit-transition: background-image 0.2s ease-in-out;
 		transition: background-image 0.2s ease-in-out;
+		@media (max-width: 767px) {
+			min-height: 500px;
+		}
 		i {
-			@media (max-width: 767px) {
-				display: none;
-			}
+			// @media (max-width: 767px) {
+			// 	display: none;
+			// }
 			font-size: 40px;
 			color: #fff;
 			cursor: pointer;
@@ -109,9 +115,9 @@
 		img.img-principal {
 			width: 100%;
 			display: none;
-			@media (max-width: 767px) {
-				display: block;
-			}
+			// @media (max-width: 767px) {
+			// 	display: block;
+			// }
 		}
 		.image-modal {
 			background-size: cover;
@@ -128,18 +134,20 @@
 			padding-right: 30px;
 			h5 {
 				margin-bottom: 20px;
+				font-size: 16px;
 			}
 			h4 {
 				font-family: 'Segoe Bold';
-				font-size: 25px;
+				font-size: 15px;
 			}
 			.precio {
 				color: $dorado;
-				font-size: 22px;
+				font-size: 20px;
 				font-family: 'Segoe Bold';
 			}
 			.strong {
 				line-height: 0.8;
+				font-size: 14px;
 			}
 			.ellipsis {
 				line-height: 20px;

@@ -10,64 +10,129 @@
 			@lang('Page.Carrito.Title')
 		</h2>
 
-		<div class="responsive-table">
-			<table class="table">
-				<thead>
-					<tr>
-						<th>@lang('Page.Carrito.Nombre')</th>
-						<th v-if="currency == '1'">@lang('Page.Carrito.Precio')</th>
-						<th v-if="currency == '2'">@lang('Page.Carrito.PrecioUSD')</th>
-						<th>@lang('Page.Carrito.Cantidades')</th>
-						<th v-if="currency == '1'">@lang('Page.Carrito.TotalVES')</th>
-						<th v-if="currency == '2'">@lang('Page.Carrito.TotalUSD')</th>
-						<th style="width: 50px"></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr v-for="(item,index) in carrito">
-						<td>
-							<p style="line-height: 0.8;" class="bold">
-								@if (\App::getLocale() == 'es')
-									@{{ item.producto.name }}
-								@else
-									@{{ item.producto.name_english }}
-								@endif
-							</p>
-							<p style="line-height: 0.8;">@lang('Page.Carrito.Talla'): @{{ item.producto.talla.name }}, @lang('Page.Carrito.Color'): @if (\App::getLocale() == 'es') @{{ item.producto.color.name }} @else @{{ item.producto.color.name_english }} @endif</p>
-						</td>
-						<td v-if="currency == '1'">
-							@{{ getPrice(item.cantidad < 12 ? item.producto.price_1 : item.producto.price_2,item.producto.coin) | VES }}
-							<p class="almayor" v-if="item.cantidad < 12">@lang('Page.Tienda.Detal')</p>
-							<p class="almayor" v-if="item.cantidad >= 12">@lang('Page.Tienda.Mayor')</p>
-						</td>
-						<td v-if="currency == '2'">
-							@{{ getPrice(item.cantidad < 12 ? item.producto.price_1 : item.producto.price_2,item.producto.coin) | USD }}
-							<p class="almayor" v-if="item.cantidad < 12">@lang('Page.Tienda.Detal')</p>
-							<p class="almayor" v-if="item.cantidad >= 12">@lang('Page.Tienda.Mayor')</p>
-						</td>		
-						<td>
-							<div class="item-cantidad">
-								<button class="btn btn-default remove" v-on:click="item.cantidad > 1 ? item.cantidad-- : null; update(item)">
-									{{ HTML::Image('img/icons/cant.png') }}
-								</button>
-									<span>@{{ item.cantidad }}</span>
-								<button class="btn btn-default add" v-on:click="item.producto.amount.amount > item.cantidad ? item.cantidad++ : null; item.producto.amount.amount >= item.cantidad ? update(item) : null">
-									{{ HTML::Image('img/icons/add.png') }}
-								</button>
-							</div>
-						</td>
-						<td v-if="currency == '1'">@{{ (getPrice(item.cantidad < 12 ? item.producto.price_1 : item.producto.price_2,item.producto.coin).toFixed(2) * item.cantidad) | VES }}</td>
-						<td v-if="currency == '2'">@{{ (getPrice(item.cantidad < 12 ? item.producto.price_1 : item.producto.price_2,item.producto.coin).toFixed(2) * item.cantidad) | USD }}</td>
-						<td>
-							<button class="btn btn-default" v-on:click="eliminar(item)">
-								<i class="fa fa-close"></i>
+		<table class="table table-no-responsive">
+			<thead>
+				<tr>
+					<th>@lang('Page.Carrito.Nombre')</th>
+					<th v-if="currency == '1'">@lang('Page.Carrito.Precio')</th>
+					<th v-if="currency == '2'">@lang('Page.Carrito.PrecioUSD')</th>
+					<th>@lang('Page.Carrito.Cantidades')</th>
+					<th v-if="currency == '1'">@lang('Page.Carrito.TotalVES')</th>
+					<th v-if="currency == '2'">@lang('Page.Carrito.TotalUSD')</th>
+					<th style="width: 50px"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="(item,index) in carrito">
+					<td>
+						<p style="line-height: 0.8;" class="bold">
+							@if (\App::getLocale() == 'es')
+								@{{ item.producto.name }}
+							@else
+								@{{ item.producto.name_english }}
+							@endif
+						</p>
+						<p style="line-height: 0.8;">@lang('Page.Carrito.Talla'): @{{ item.producto.talla.name }}, @lang('Page.Carrito.Color'): @if (\App::getLocale() == 'es') @{{ item.producto.color.name }} @else @{{ item.producto.color.name_english }} @endif</p>
+					</td>
+					<td v-if="currency == '1'">
+						@{{ getPrice(item.cantidad < 12 ? item.producto.price_1 : item.producto.price_2,item.producto.coin) | VES }}
+						<p class="almayor" v-if="item.cantidad < 12">@lang('Page.Tienda.Detal')</p>
+						<p class="almayor" v-if="item.cantidad >= 12">@lang('Page.Tienda.Mayor')</p>
+					</td>
+					<td v-if="currency == '2'">
+						@{{ getPrice(item.cantidad < 12 ? item.producto.price_1 : item.producto.price_2,item.producto.coin) | USD }}
+						<p class="almayor" v-if="item.cantidad < 12">@lang('Page.Tienda.Detal')</p>
+						<p class="almayor" v-if="item.cantidad >= 12">@lang('Page.Tienda.Mayor')</p>
+					</td>		
+					<td>
+						<div class="item-cantidad">
+							<button class="btn btn-default remove" v-on:click="item.cantidad > 1 ? item.cantidad-- : null; update(item)">
+								{{ HTML::Image('img/icons/cant.png') }}
 							</button>
-						</td>
-					</tr>
+								<span>@{{ item.cantidad }}</span>
+							<button class="btn btn-default add" v-on:click="item.producto.amount.amount > item.cantidad ? item.cantidad++ : null; item.producto.amount.amount >= item.cantidad ? update(item) : null">
+								{{ HTML::Image('img/icons/add.png') }}
+							</button>
+						</div>
+					</td>
+					<td v-if="currency == '1'">@{{ (getPrice(item.cantidad < 12 ? item.producto.price_1 : item.producto.price_2,item.producto.coin).toFixed(2) * item.cantidad) | VES }}</td>
+					<td v-if="currency == '2'">@{{ (getPrice(item.cantidad < 12 ? item.producto.price_1 : item.producto.price_2,item.producto.coin).toFixed(2) * item.cantidad) | USD }}</td>
+					<td>
+						<button class="btn btn-default" v-on:click="eliminar(item)">
+							<i class="fa fa-close"></i>
+						</button>
+					</td>
+				</tr>
+				<tr v-if="carrito.length > 0">
+					{{-- <td></td> --}}
+					<td></td>
+					<td></td>
+					<td class="envio">
+						@lang('Page.Carrito.Envio')
+					</td>
+					<td class="envio" v-if="currency == '1'">
+						<i class="circle-gold"></i> ZOOM, TEALCA, SEREX
+					</td>
+					<td class="envio" v-if="currency == '2'">
+						<i class="circle-gold"></i> DHL
+					</td>
+					<td></td>
+				</tr>
+				<tr v-if="carrito.length > 0">
+					<td class="empty"></td>
+					<td class="empty"></td>
+					<td class="total">@lang('Page.Carrito.Total')</td>
+					<td v-if="currency == '1'" class="total total-gold">@{{ getTotal() | VES }}</td>
+					<td v-if="currency == '2'" class="total total-gold">@{{ getTotalUsd() | USD }}</td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="container-responsive">
+			<div id="accordion">
+			  <template v-for="(item,index) in carrito">
+			  	<h3>@if (\App::getLocale() == 'es') @{{ item.producto.name }} @else @{{ item.producto.name_english }} @endif</h3>
+			  	<div>
+			  		<div class="container-accordion">
+			  			<p><strong>@lang('Page.Carrito.Talla')</strong>: @{{ item.producto.talla.name }}, @lang('Page.Carrito.Color'): @if (\App::getLocale() == 'es') @{{ item.producto.color.name }} @else @{{ item.producto.color.name_english }} @endif</p>
+						<template v-if="currency == '1'">
+							<p>
+								<strong>@lang('Page.Carrito.Precio')</strong>: @{{ getPrice(item.cantidad < 12 ? item.producto.price_1 : item.producto.price_2,item.producto.coin) | VES }}
+								<span class="almayor almayor-responsive" v-if="item.cantidad < 12">(@lang('Page.Tienda.Detal'))</span>
+								<span class="almayor almayor-responsive" v-if="item.cantidad >= 12">(@lang('Page.Tienda.Mayor'))</span>
+							</p>
+						</template>
+						<template v-if="currency == '2'">
+							<p>
+								<strong>@lang('Page.Carrito.PrecioUSD')</strong>: @{{ getPrice(item.cantidad < 12 ? item.producto.price_1 : item.producto.price_2,item.producto.coin) | USD }}
+								<span class="almayor almayor-responsive" v-if="item.cantidad < 12">(@lang('Page.Tienda.Detal'))</span>
+								<span class="almayor almayor-responsive" v-if="item.cantidad >= 12">(@lang('Page.Tienda.Mayor'))</span>
+							</p>
+						</template>
+						<p><strong>@lang('Page.Carrito.Cantidades'):</strong> @{{ item.cantidad }}</p>
+						<p v-if="currency == '1'"><strong>@lang('Page.Carrito.TotalVES')</strong>: @{{ (getPrice(item.cantidad < 12 ? item.producto.price_1 : item.producto.price_2,item.producto.coin).toFixed(2) * item.cantidad) | VES }}</p>
+						<p v-if="currency == '2'"><strong>@lang('Page.Carrito.TotalUSD')</strong>: @{{ (getPrice(item.cantidad < 12 ? item.producto.price_1 : item.producto.price_2,item.producto.coin).toFixed(2) * item.cantidad) | USD }}</p>
+			  		</div>
+			  		<div class="item-cantidad">
+						<button class="btn btn-default remove" v-on:click="item.cantidad > 1 ? item.cantidad-- : null; update(item)">
+							{{ HTML::Image('img/icons/cant.png') }}
+						</button>
+							<span>@{{ item.cantidad }}</span>
+						<button class="btn btn-default add" v-on:click="item.producto.amount.amount > item.cantidad ? item.cantidad++ : null; item.producto.amount.amount >= item.cantidad ? update(item) : null">
+							{{ HTML::Image('img/icons/add.png') }}
+						</button>
+					</div>
+			  		<button class="btn btn-default btn-delete" v-on:click="eliminar(item)">
+						<i class="fa fa-close"></i>
+					</button>
+			  	</div>
+			  </template>
+			</div>
+			
+			<table class="table">
+				<tbody>
 					<tr v-if="carrito.length > 0">
-						{{-- <td></td> --}}
-						<td></td>
-						<td></td>
 						<td class="envio">
 							@lang('Page.Carrito.Envio')
 						</td>
@@ -80,8 +145,6 @@
 						<td></td>
 					</tr>
 					<tr v-if="carrito.length > 0">
-						<td class="empty"></td>
-						<td class="empty"></td>
 						<td class="total">@lang('Page.Carrito.Total')</td>
 						<td v-if="currency == '1'" class="total total-gold">@{{ getTotal() | VES }}</td>
 						<td v-if="currency == '2'" class="total total-gold">@{{ getTotalUsd() | USD }}</td>
@@ -207,7 +270,12 @@
 	</div>
 @stop
 
+@section('styles')
+	{{ HTML::Style('bower_components/jquery-ui/jquery-ui.css') }}
+@stop
+
 @section('scripts')
+	{{ HTML::Script('bower_components/jquery-ui/jquery-ui.min.js') }}
 	<script type="text/javascript">
 		var vue;
 
@@ -304,6 +372,11 @@
 						})
 						.then(function() {
 							quitLoader();
+							$(function() {
+							    $("#accordion").accordion({
+							    	animate: false
+							    });
+							});
 						});
 				},
 				update(producto) {

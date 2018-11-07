@@ -315,6 +315,8 @@
 				categorias_selected: [],
 				filtros: [],
 				page: 1,
+				img_preload: [],
+				base_preload: '{{ URL('img/products') }}' + '/',
 				form: {
 					talla: '',
 					color: '',
@@ -363,7 +365,11 @@
 							if (res.data.result) {
 								res.data.productos.data.forEach(function(item) {
 									item.file_selected = 0;
+									item.images.forEach(function(i) {
+										vue.img_preload.push(vue.base_preload + i.file);
+									});									
 								});
+								vue.preload();
 								vue.filtros = res.data.filtros;
 								vue.paginator = res.data.productos;
 								vue.productos = res.data.productos.data;
@@ -447,6 +453,13 @@
 						vue.form.cantidad = vue.getCarrito().cantidad;
 					}
 				},
+				preload() {
+					var images = new Array();
+					for (i = 0; i < vue.img_preload.length; i++) {
+						images[i] = new Image()
+						images[i].src = vue.img_preload[i]
+					}
+				}
 			}
 		})
 	</script>

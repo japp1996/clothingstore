@@ -13,6 +13,8 @@
 	use MP;
 	use Auth;
 	use Lang;
+	use Mail;
+	use App\Models\Social;
 
 	class CarritoController extends Controller {
 
@@ -106,6 +108,23 @@
 	    	}
 
 	    	Cart::destroy();
+
+	    	$_sociales = Social::orderBy('id','desc')->first();
+
+	    	$compra = Purchase::with(['exchange','details','transfer'])
+	    		->whereHas('details',function($q) {
+	    			$q->whereNotNull('product_amount_id');
+	    		})->where('id',$compra->id)->first();
+
+	    	Mail::send('emails.compra', ['compra' => $compra], function ($m) {
+	            $m->to(Auth::user()->email)
+	              ->subject(Lang::get('Page.EmailCompra.Title').' | Wará');
+	        });
+
+	        Mail::send('emails.compra', ['compra' => $compra], function ($m) use ($_sociales) {
+	            $m->to($_sociales->email)
+	              ->subject(Lang::get('Page.EmailCompra.Title').' | Wará');
+	        });
 	    }
 
 	    public function getPrice($price,$coin,$cantidad) {

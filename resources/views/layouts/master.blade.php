@@ -10,7 +10,7 @@
 	{{ HTML::Style('bower_components/font-awesome/css/font-awesome.min.css') }}
 	{{ HTML::Style('bower_components/sweetalert/dist/sweetalert.css') }}
 	{{ HTML::Style('bower_components/hold-on/src/css/HoldOn.min.css') }}
-	{{ HTML::Style('css/main.css?1.0') }}
+	{{ HTML::Style('css/main.css?1.1') }}
 	@yield('styles')
 </head>
 <body style="overflow-x: hidden !important;">

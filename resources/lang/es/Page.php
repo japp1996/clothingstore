@@ -252,6 +252,19 @@
 		'ResetEmail' => [
 			'Title' => 'Recuperar Contraseña',
 			'Continuar' => 'Para continuar con el proceso de restablecimiento de contraseña, por favor ingrese el código en la página web.'
+		],
+
+		'EmailCompra' => [
+			'Title' => 'Compra Realizada',
+			'Fecha' => 'Fecha',
+			'Metodo' => 'Método de Pago',
+			'Cliente' => 'Cliente',
+			'Producto' => 'Producto',
+			'Cantidad' => 'Cantidad',
+			'Total' => 'Total',
+			'TotalPagar' => 'Total a Pagar',
+			'Code' => 'ID de Transacción',
+			'Costo' => 'Costo'
 		]
 
 	];

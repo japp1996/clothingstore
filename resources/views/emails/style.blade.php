@@ -22,6 +22,9 @@
 	.text-center {
 		text-align: center;
 	}
+	.text-right {
+		text-align: right;
+	}
 	.title {
 		text-transform: uppercase;
 		font-size: 40px;
@@ -48,5 +51,40 @@
 		color: #debc61;
 		font-family: 'Roboto';
 		font-weight: 700;
+	}
+	table {
+		width: 100%;
+	}
+	table td, table th {
+		padding-top: 10px !important;
+		padding-left: 5px !important;
+		padding-right: 5px !important;
+		padding-bottom: 10px !important;
+	}
+	thead > tr > td, thead > tr > th {
+		border-bottom: 2px solid #debc61;
+	}
+	tbody > tr.borde-blanco > td {
+		border-bottom: 1px solid #fff;
+	}
+	table h4 {
+		margin: 0px !important;
+		margin-top: 10px !important;
+		border-bottom: 1px solid #fff;
+		padding-bottom: 10px;
+		font-size: 20px;
+		color: #debc61;
+	}
+	.money {
+		font-size: 20px;
+		padding-top: 0px !important;
+	}
+	ul {
+		list-style: none;
+		padding-left: 0px !important;
+	}
+	ul > li {
+		padding-bottom: 5px !important;
+		color: #fff !important;
 	}
 </style>

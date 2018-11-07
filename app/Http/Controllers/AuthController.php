@@ -143,10 +143,12 @@
 	    }
 
 	    public function logout() {
-	    	if (Auth::user()->type == 2) {
-	    		Cart::destroy();
-	    	}
-	    	Auth::logout();
+	    	if (Auth::check()) {
+	    		if (Auth::user()->type == 2) {
+		    		Cart::destroy();
+		    	}
+		    	Auth::logout();
+	    	}	    	
 	    	return Redirect('home');
 	    }
 	}

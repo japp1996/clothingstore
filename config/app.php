@@ -230,6 +230,10 @@ return [
         'HTML' => Collective\Html\HtmlFacade::class,
         'Cart' => App\Libraries\Cart::class,
         'PasswordGenerator' => App\Libraries\PasswordGenerator::class,
+        'CalcPrice' => App\Libraries\CalcPrice::class,
+        'Money' => App\Libraries\Money::class,
+        'Total' => App\Libraries\Total::class,
+        'Metodo' => App\Libraries\Metodo::class,
 
     ],
 

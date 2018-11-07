@@ -111,6 +111,8 @@
 				producto: null,
 				carrito: [],
 				exchange: '{{ $_change }}',
+				img_preload: [],
+				base_preload: '{{ URL('img/products') }}' + '/',
 				form: {
 					talla: '',
 					color: '',
@@ -127,6 +129,9 @@
 					axios.post('{{ URL('tienda/get') }}',{id: '{{ $id }}'})
 						.then(function(res) {
 							if (res.data.result) {
+								res.data.producto.images.forEach(function(i) {
+									vue.img_preload.push(vue.base_preload + i.file);
+								});
 								res.data.producto.file_selected = 0;
 								vue.producto = res.data.producto;
 								vue.carrito = res.data.carrito;
@@ -220,6 +225,13 @@
 				inCarrito() {
 					var carrito = vue.carrito.map(function(item) { return item.id });
 					return carrito.indexOf(vue.producto.id) != -1;
+				},
+				preload() {
+					var images = new Array();
+					for (i = 0; i < vue.img_preload.length; i++) {
+						images[i] = new Image()
+						images[i].src = vue.img_preload[i]
+					}
 				}
 			}
 		})

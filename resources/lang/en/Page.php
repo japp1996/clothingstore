@@ -252,6 +252,19 @@
 		'ResetEmail' => [
 			'Title' => 'Recover Password',
 			'Continuar' => 'To continue with the password reset process, please enter the code on the web page.'
+		],
+
+		'EmailCompra' => [
+			'Title' => 'Realized Purchase',
+			'Fecha' => 'Date',
+			'Metodo' => 'Payment Method',
+			'Cliente' => 'Client',
+			'Producto' => 'Product',
+			'Cantidad' => 'Quantity',
+			'Total' => 'Total',
+			'TotalPagar' => 'Total to pay',
+			'Code' => 'Transaction ID',
+			'Costo' => 'Cost'
 		]
 
 	];
