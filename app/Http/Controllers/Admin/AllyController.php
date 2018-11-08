@@ -55,9 +55,9 @@ class AllyController extends Controller
 
         $ally = new Aliado;
         $ally->name = $request->name;
-        $ally->facebook = $request->facebook;
-        $ally->twitter = $request->twitter;
-        $ally->instagram = $request->instagram;
+        $ally->facebook = $request->facebook == "" ? "https://www.facebook.com" : $request->facebook;
+        $ally->twitter = $request->twitter == "" ? "https://twitter.com" : $request->twitter;
+        $ally->instagram = $request->instagram == "" ? "https://www.instagram.com" : $request->instagram;
         $ally->address = $request->address;
         $ally->save();
         for ($i=0; $i < $request->count; $i++) {
