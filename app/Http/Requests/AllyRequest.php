@@ -32,13 +32,13 @@ class AllyRequest extends FormRequest
                     return $query->where('deleted_at', NULL);
                 }),
             ],
-            'facebook' => 'required',
-            'twitter' => 'required',
-            'instagram' => 'required',
+            'facebook' => 'nullable',
+            'twitter' => 'nullable',
+            'instagram' => 'nullable',
             'address' => 'required|min:3'
         ];
         for ($i = 0; $i < $this->count; $i++) {
-            $contenido['image'.$i] = 'mimes:jpg,png,jpeg,gif'; 
+            $contenido['image'.$i] = 'mimes:jpg,png,jpeg,gif';
         }
         return $contenido;
     }
