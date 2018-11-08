@@ -133,12 +133,12 @@
 
 	// Admin
 	
-	Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => "isAdmin"], function() {
+	Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
 		// Home
 		Route::get('/', 'AdminController@index');
 		Route::post('login', 'AuthController@singIn');
 		
-		Route::group(['middleware' => 'Auth'], function() {
+		Route::group(['middleware' => ['Auth', 'isAdmin']], function() {
 			// Exchange rate
 			Route::resource('exchange_rate', 'ExchangeRateController');			
 			Route::get('home', 'AdminController@home');
