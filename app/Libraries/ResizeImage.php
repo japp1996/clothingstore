@@ -5,7 +5,7 @@ use Intervention\Image\ImageManagerStatic as Images;
 
 class ResizeImage 
 {
-    public static function dimenssion($file, $ext, $route, $width = 0, $height = 0)
+    public static function dimenssion($file, $ext, $route, $width = 0, $height = 0, $both = false)
     {
         // REDIMENSION DE LAS IMAGENES
         $dimensiones = getimagesize(public_path($route.$file));
@@ -31,20 +31,21 @@ class ResizeImage
 
             $porcentaje = $porcentaje / 100;
 
-            if($width == 0 && $height == 0){
+            if($width > 0 && $width < $width_image && !$both){
+                $percent = ($width * 100) / $width_image;
+                $height = $height_image * ($percent / 100);
+            }else if($width == 0 && $width < $width_image && !$both){
                 $width = $dimensiones[0] - (($dimensiones[0] * $porcentaje) / 100);
                 $height = $dimensiones[1] - (($dimensiones[1] * $porcentaje) / 100);
             }
 
-            if($width > 0 && $width < $width_image){
-                $percent = ($width * 100) / $width_image;
-                $height = $height_image * ($percent / 100);
-            }else{
+            if($width == 0 && $height == 0 && !$both){
                 $width = $dimensiones[0] - (($dimensiones[0] * $porcentaje) / 100);
                 $height = $dimensiones[1] - (($dimensiones[1] * $porcentaje) / 100);
             }
 
             $resizer->resize($width, $height)->save(public_path($route.$file), $porcentaje);
+
         }elseif ($ext == 'jpg'){
 
             if($width_default > 3100){
@@ -55,12 +56,15 @@ class ResizeImage
                 $porcentaje = 70;
             }
 
-            if($width > 0 && $width < $width_image){
+            if($width > 0 && $width < $width_image && !$both){
                 $percent = ($width * 100) / $width_image;
                 $height = $height_image * ($percent / 100);
+            } else if($width == 0 && $width < $width_image && !$both){
+                $width = $dimensiones[0] - (($dimensiones[0] * $porcentaje) / 100);
+                $height = $dimensiones[1] - (($dimensiones[1] * $porcentaje) / 100);
             }
 
-            if($width == 0 && $height == 0){
+            if($width == 0 && $height == 0 && !$both){
                 $width = $dimensiones[0] - (($dimensiones[0] * $porcentaje) / 100);
                 $height = $dimensiones[1] - (($dimensiones[1] * $porcentaje) / 100);
             }
