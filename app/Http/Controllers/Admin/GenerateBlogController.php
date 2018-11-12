@@ -15,6 +15,9 @@ use File;
 class GenerateBlogController extends Controller
 {
 
+    private $width_file = 1920;
+    private $height_file = 750;
+
     public function index(){
         $blog = Blog::select('id', 'title', 'title_english', 'description', 'description as description_min', 'description_english', 'created_at')
             ->where('status', "!=", '2')
@@ -51,7 +54,7 @@ class GenerateBlogController extends Controller
             $file = $request->file('image'.$i);
             $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
             $file->move($url, $file_name);
-            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
+            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url, $this->width_file, $this->height_file);
             $blog_image = new BlogImage;
             $blog_image->file = $file_name;
             $blog_image->blog_id = $blog->id;
@@ -84,7 +87,7 @@ class GenerateBlogController extends Controller
             $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
             $file->move($url, $file_name);
             
-            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
+            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url, $this->width_file, $this->height_file);
             $detail = new BlogImage;
             $detail->file = $file_name;
             $detail->blog_id = $request->blog_id;
@@ -96,7 +99,7 @@ class GenerateBlogController extends Controller
             $file = $request->file('file');
             $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
             $file->move($url, $file_name);
-            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
+            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url, $this->width_file, $this->height_file);
             File::delete(public_path($url.$odlFile));
             $item->file = $file_name;
             $item->save();

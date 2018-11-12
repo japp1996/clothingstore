@@ -23,6 +23,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $width_file = 550;
+    private $height_file = 800;
+
     public function index()
     {
         $categories = Category::select('id', 'name', 'name_english')
@@ -141,7 +144,7 @@ class ProductController extends Controller
         $main = $request->file('main');
         $main_name = SetNameImage::set($main->getClientOriginalName(), $main->getClientOriginalExtension());
         $main->move($url, $main_name);
-        ResizeImage::dimenssion($main_name, $main->getClientOriginalExtension(), $url);
+        ResizeImage::dimenssion($main_name, $main->getClientOriginalExtension(), $url, $this->width_file, $this->height_file);
         $first = new ProductImage;
         $first->file = $main_name;
         $first->product_id = $product->id;
@@ -151,7 +154,7 @@ class ProductController extends Controller
             $file = $request->file('file'.$i);
             $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
             $file->move($url, $file_name);
-            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
+            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url, $this->width_file, $this->height_file);
             $second = new ProductImage;
             $second->file = $file_name;
             $second->product_id = $product->id;
@@ -268,7 +271,7 @@ class ProductController extends Controller
             $main = $request->file('main');
             $main_name = SetNameImage::set($main->getClientOriginalName(), $main->getClientOriginalExtension());
             $main->move($url, $main_name);
-            ResizeImage::dimenssion($main_name, $main->getClientOriginalExtension(), $url);
+            ResizeImage::dimenssion($main_name, $main->getClientOriginalExtension(), $url, $this->width_file, $this->height_file);
             $first = ProductImage::where('product_id', $id)->where('main', '1')->first();
             $old_main = $first->file;
             $first->file = $main_name;
@@ -284,13 +287,19 @@ class ProductController extends Controller
     {
         $url = "img/products/";
         if ($request->id == NULL || $request->id == 'null') {
+
             $item = ProductImage::where('product_id', $request->product_id)->where('main', '1')->first();
             $odlFile = $item->file;
             $file = $request->file('file');
             $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
             $file->move($url, $file_name);
-            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
-            File::delete(public_path($url.$odlFile));
+            
+            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url, $this->width_file, $this->height_file);
+
+            if(File::exists($url.$odlFile)){
+                File::delete(public_path($url.$odlFile));
+            }
+
             $item->file = $file_name;
             $item->save();
             $fileId = $item->id;
@@ -300,7 +309,7 @@ class ProductController extends Controller
             $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
             $file->move($url, $file_name);
             
-            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
+            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url, $this->width_file, $this->height_file);
             $detail = new ProductImage;
             $detail->file = $file_name;
             $detail->product_id = $request->product_id;
@@ -312,7 +321,7 @@ class ProductController extends Controller
             $file = $request->file('file');
             $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
             $file->move($url, $file_name);
-            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
+            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url, $this->width_file, $this->height_file);
             File::delete(public_path($url.$odlFile));
             $item->file = $file_name;
             $item->save();

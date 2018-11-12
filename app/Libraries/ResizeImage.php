@@ -5,41 +5,73 @@ use Intervention\Image\ImageManagerStatic as Images;
 
 class ResizeImage 
 {
-    public static function dimenssion($file, $ext, $route)
+    public static function dimenssion($file, $ext, $route, $width = 0, $height = 0)
     {
         // REDIMENSION DE LAS IMAGENES
         $dimensiones = getimagesize(public_path($route.$file));
-        $width = $dimensiones[0];
-        $height = $dimensiones[1];
+        $width_image = $dimensiones[0];
+        $height_image = $dimensiones[1];
      
         $resizer = Images::make(public_path($route.$file));
         
         $porcentaje = 20;
-        $d_width = $dimensiones[0];
-        if($d_width > 3100){
-            $porcentaje = 50;
-        }else if($d_width > 2000 && $d_width < 3100){
-            $porcentaje = 60;
-        }else if($d_width > 1300 && $d_width < 2000){
-            $porcentaje = 70;
-        }
+        $width_default = $dimensiones[0];
+
         if ($ext == 'png'){
-            if($d_width > 3100){
+
+            if($width_default > 3100){
                 $porcentaje = 60;
-            }else if($d_width > 2000 && $d_width < 3100){
+            }else if($width_default > 2000 && $width_default < 3100){
                 $porcentaje = 50;
-            }else if($d_width > 1300 && $d_width < 2000){
+            }else if($width_default > 1300 && $width_default < 2000){
                 $porcentaje = 30;
-            } else if ($d_width < 1024) {
+            } else if ($width_default < 1024) {
                 $porcentaje = 5;
             }
+
             $porcentaje = $porcentaje / 100;
-            $width = $dimensiones[0] - ($dimensiones[0] * $porcentaje);
-            $height = $dimensiones[1] - ($dimensiones[1] * $porcentaje);
+
+            if($width == 0 && $height == 0){
+                $width = $dimensiones[0] - (($dimensiones[0] * $porcentaje) / 100);
+                $height = $dimensiones[1] - (($dimensiones[1] * $porcentaje) / 100);
+            }
+
+            if($width > 0 && $width < $width_image){
+                $percent = ($width * 100) / $width_image;
+                $height = $height_image * ($percent / 100);
+            }else{
+                $width = $dimensiones[0] - (($dimensiones[0] * $porcentaje) / 100);
+                $height = $dimensiones[1] - (($dimensiones[1] * $porcentaje) / 100);
+            }
+
             $resizer->resize($width, $height)->save(public_path($route.$file), $porcentaje);
         }elseif ($ext == 'jpg'){
-            $resizer->resize($width, $height)
-            ->save(public_path($route.$file), $porcentaje);
+
+            if($width_default > 3100){
+                $porcentaje = 50;
+            }else if($width_default > 2000 && $width_default < 3100){
+                $porcentaje = 60;
+            }else if($width_default > 1300 && $width_default < 2000){
+                $porcentaje = 70;
+            }
+
+            if($width > 0 && $width < $width_image){
+                $percent = ($width * 100) / $width_image;
+                $height = $height_image * ($percent / 100);
+            }
+
+            if($width == 0 && $height == 0){
+                $width = $dimensiones[0] - (($dimensiones[0] * $porcentaje) / 100);
+                $height = $dimensiones[1] - (($dimensiones[1] * $porcentaje) / 100);
+            }
+
+            // if($height > 0){
+            //     $percent = ($height * 100) / $height_image;
+            //     $width = $width * ($percent / 100);
+            // }
+
+            $resizer->resize($width, $height)->save(public_path($route.$file), $porcentaje);
+
         }
     }
 }
