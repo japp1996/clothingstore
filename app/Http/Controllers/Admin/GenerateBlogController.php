@@ -129,7 +129,7 @@ class GenerateBlogController extends Controller
                 }
 
                 $item->file = $file_name;
-                $item->file_miniature = $file_name;
+                $item->file_miniature = $file_name_miniature;
             $item->save();
             $fileId = $request->id;
         }
