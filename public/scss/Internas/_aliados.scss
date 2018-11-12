@@ -125,3 +125,19 @@
 		}
 	}
 }
+
+.carousel{
+	&-item{
+		&--overflow{
+			height: 300px;
+			overflow: hidden;
+		}
+
+		&__image{
+			height: 100%;
+			margin: auto;
+			object-fit: cover;
+			object-position: top;
+		}
+	}
+}

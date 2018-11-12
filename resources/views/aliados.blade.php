@@ -15,11 +15,11 @@
 							<div id="carousel{{ $aliado->id }}" class="carousel slide carousel-fade" data-ride="carousel" data-interval="false">
 							
 							  <div class="carousel-inner">
-								@foreach($aliado->fotos as $key => $item)
-								    <div class="carousel-item @if ($key == 0) active @endif">
-								      <img class="d-block w-100" src="{{ URL('img/aliados/'.$item->file_miniature) }}" />
-								    </div>
-								 @endforeach
+									@foreach($aliado->fotos as $key => $item)
+											<div class="carousel-item carousel-item--overflow @if ($key == 0) active @endif">
+												<img class="carousel-item__image d-block w-100" src="{{ URL('img/aliados/'.$item->file_miniature) }}" />
+											</div>
+									@endforeach
 							  </div>
 							
 							  <a class="carousel-control-prev" href="#carousel{{ $aliado->id }}" role="button" data-slide="prev">
@@ -74,8 +74,8 @@
 						<div id="carousel-modal" class="carousel slide carousel-fade" data-ride="carousel">
 						
 						  <div class="carousel-inner">
-						    <div v-for="(item,key) in aliado.fotos" class="carousel-item" :class="key == 0 ? 'active' : ''">
-						      <img class="d-block w-100" :src="'{{ URL('img/aliados') }}' + '/' + item.file" />
+						    <div v-for="(item,key) in aliado.fotos" class="carousel-item carousel-item--full-size" :class="key == 0 ? 'active' : ''">
+						      <img class="carousel-item__image--full-size d-block w-100" :src="'{{ URL('img/aliados') }}' + '/' + item.file" />
 						    </div>
 						  </div>
 
