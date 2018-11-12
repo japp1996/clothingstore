@@ -2,6 +2,11 @@
 
 #carrito {
 	table {
+		@media (max-width: 991px) {
+			&.table-no-responsive {
+				display: none;
+			}			
+		}
 		td.empty {
 			border-top: 0px !important;
 		}
@@ -27,14 +32,70 @@
 			margin-top: -5px;
 		}
 	}
-	// .title {
-	// 	font-size: 35px !important;
-	// }
+	.container-responsive {
+		display: none;
+		@media (max-width: 991px) {
+			display: block;
+		}
+	}
+	.ui-accordion-content {
+		height: auto !important;
+		border: 0px !important;
+		background-color: transparent !important;
+		color: $white !important;
+		font-size: 14px !important;
+		display: flex;
+		justify-content: center;
+		padding-left: 0px !important;
+		// align-items: center;
+		flex-direction: column;
+	 	p {
+		 	margin-bottom: 5px !important;
+		}
+		.container-accordion {
+			width: 90%;
+			margin-left: 0px;
+		}
+		.item-cantidad {
+			display: inline-block;
+			width: 100px;
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+		button.btn-delete {
+			padding: 0px !important;
+			font-size: 22px;
+			color: $white !important;
+			background-color: transparent;
+			margin-top: -5px;
+			position: absolute;
+			right: 10px;
+			display: inline-block;
+			width: 10%;
+		}
+	}
+	.ui-accordion-header-active {
+		color: $white !important;
+	}
+	.ui-accordion-header {
+		outline: 0px !important;
+		background-color: transparent !important;
+		border-radius: 0px !important;
+		border: 0px !important;
+		border-bottom: 2px solid $white !important;
+		font-size: 16px !important;
+		font-family: 'Segoe Bold';
+		color: $white !important;
+	}
 	.almayor {
 		font-size: 11px;
 		margin-bottom: 0px;
 		position: relative;
 		font-style: italic;
+		&.almayor-responsive {
+			margin-bottom: 20px;
+			margin-top: 0px;
+		}
 	}
 	.item-cantidad {
 		display: inline-block;
