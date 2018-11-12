@@ -13,7 +13,7 @@
 				<div class="item-column">
 					<a href="{{ URL('mundo/view',$blog->id) }}">
 						<div class="item">
-							<img src="{{ URL('img/blogs/'.$blog->images[0]->file) }}" />
+							<img src="{{ URL('img/blogs/'.$blog->images[0]->file_miniature) }}" />
 							<div class="container-text">
 								<h4>{{ \App::getLocale() == 'es' ? $blog->title : $blog->title_english }}</h4>
 								<p class="fecha">@lang('Page.Blog.Fecha'): {{ \Carbon\Carbon::parse($blog->created_at)->format('d/m/Y') }}</p>

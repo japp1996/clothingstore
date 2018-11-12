@@ -20,6 +20,8 @@ class AllyController extends Controller
      * @return \Illuminate\Http\Response
      */
     private $url = "img/aliados/";
+    private $width_file = 600;
+    private $height_file = 600;
 
     public function index()
     {
@@ -61,12 +63,19 @@ class AllyController extends Controller
         $ally->address = $request->address;
         $ally->save();
         for ($i=0; $i < $request->count; $i++) {
+            // File
             $file = $request->file('image'.$i);
             $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
             $file->move($this->url, $file_name);
-            // ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $this->url);
+            // Miniature
+            $file_name_miniature = SetNameImage::set("miniature_" . $file->getClientOriginalName(), $file->getClientOriginalExtension());
+            File::copy($this->url . $file_name, $this->url . $file_name_miniature);
+            // Resize
+            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $this->url);
+            ResizeImage::dimenssion($file_name_miniature, $file->getClientOriginalExtension(), $this->url, $this->width_file, $this->height_file);
             $photo = new AliadoFoto;
             $photo->file = $file_name;
+            $photo->file_miniature = $file_name_miniature;
             $photo->aliado_id = $ally->id;
             $photo->save();
         }
@@ -106,9 +115,9 @@ class AllyController extends Controller
     {
         $ally = Aliado::find($id);
         $ally->name = $request->name;
-        $ally->facebook = $request->facebook;
-        $ally->twitter = $request->twitter;
-        $ally->instagram = $request->instagram;
+        $ally->facebook = $request->facebook == "" ? "https://www.facebook.com" : $request->facebook;
+        $ally->twitter = $request->twitter == "" ? "https://twitter.com" : $request->twitter;
+        $ally->instagram = $request->instagram == "" ? "https://www.instagram.com" : $request->instagram;
         $ally->address = $request->address;
         $ally->save();
 
@@ -118,27 +127,49 @@ class AllyController extends Controller
     public function updateImages(Request $request)
     {
         if ($request->id == 0) {
+            // File
             $file = $request->file('file');
             $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
             $file->move($this->url, $file_name);
-            
+            // Miniature
+            $file_name_miniature = SetNameImage::set("miniature_" . $file->getClientOriginalName(), $file->getClientOriginalExtension());
+            File::copy($this->url . $file_name, $this->url . $file_name_miniature);
+            // Resize
             ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $this->url);
+            ResizeImage::dimenssion($file_name_miniature, $file->getClientOriginalExtension(), $this->url, $this->width_file, $this->height_file);
 
             $photo = new AliadoFoto;
-            $photo->file = $file_name;
-            $photo->aliado_id = $request->aliado_id;
+                $photo->file = $file_name;
+                $photo->file_miniature = $file_name_miniature;
+                $photo->aliado_id = $request->aliado_id;
             $photo->save();
             $id = $photo->id;
         } else {
+            // Query
             $item = AliadoFoto::find($request->id);
             $odlFile = $item->file;
+            $oldFileMiniature = $item->file_miniature;
+            // File
             $file = $request->file('file');
             $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
             $file->move($this->url, $file_name);
+            // Miniature
+            $file_name_miniature = SetNameImage::set("miniature_" . $file->getClientOriginalName(), $file->getClientOriginalExtension());
+            File::copy($this->url . $file_name, $this->url . $file_name_miniature);
+            // Resize
             ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $this->url);
-            File::delete(public_path($this->url.$odlFile));
+            ResizeImage::dimenssion($file_name_miniature, $file->getClientOriginalExtension(), $this->url, $this->width_file, $this->height_file);
 
-            $item->file = $file_name;
+            if(File::exists(public_path($this->url.$odlFile))){
+                File::delete(public_path($this->url.$odlFile));
+            }
+
+            if(File::exists(public_path($this->url.$odlFile))){
+                File::delete(public_path($this->url.$odlFile));
+            }
+            
+                $item->file = $file_name;
+                $item->file_miniature = $file_name_miniature;
             $item->save();
             $id = $request->id;
         }

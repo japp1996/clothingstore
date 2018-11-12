@@ -15,8 +15,8 @@ use File;
 class GenerateBlogController extends Controller
 {
 
-    private $width_file = 1920;
-    private $height_file = 750;
+    private $width_file = 600;
+    private $height_file = 600;
     private $both_file = true;
 
     public function index(){
@@ -45,20 +45,23 @@ class GenerateBlogController extends Controller
         // Images
         $url = "img/blogs/";
         
-        // $first = new ProductImage;
-        // $first->file = $main_name;
-        // $first->product_id = $product->id;
-        // $first->main = '1';
-        // $first->save();
-
         for ($i=0; $i < $request->count; $i++) { 
             $file = $request->file('image'.$i);
+            // File
             $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
             $file->move($url, $file_name);
-            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url, $this->width_file, $this->height_file, $this->both_file);
+            // File Miniature
+            $file_name_miniature = SetNameImage::set("miniature_" . $file->getClientOriginalName(), $file->getClientOriginalExtension());
+            File::copy($url . $file_name, $url . $file_name_miniature);
+            // Resize
+            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
+            ResizeImage::dimenssion($file_name_miniature, $file->getClientOriginalExtension(), $url, $this->width_file, $this->height_file);
+
+            // Instance Blog Image
             $blog_image = new BlogImage;
-            $blog_image->file = $file_name;
-            $blog_image->blog_id = $blog->id;
+                $blog_image->file = $file_name;
+                $blog_image->file_miniature = $file_name_miniature;
+                $blog_image->blog_id = $blog->id;
             $blog_image->save();
         }
 
@@ -85,24 +88,48 @@ class GenerateBlogController extends Controller
         $url = "img/blogs/";
         if ($request->id == 0) {
             $file = $request->file('file');
+            // File
             $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
             $file->move($url, $file_name);
-            
-            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url, $this->width_file, $this->height_file, $this->both_file);
+            // Miniature
+            $file_name_miniature = SetNameImage::set("miniature_" . $file->getClientOriginalName(), $file->getClientOriginalExtension());
+            File::copy($url . $file_name, $url . $file_name_miniature);
+            // Resize
+            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
+            ResizeImage::dimenssion($file_name_miniature, $file->getClientOriginalExtension(), $url, $this->width_file, $this->height_file);
             $detail = new BlogImage;
-            $detail->file = $file_name;
-            $detail->blog_id = $request->blog_id;
+                $detail->file = $file_name;
+                $detail->file_miniature = $file_name_miniature;
+                $detail->blog_id = $request->blog_id;
             $detail->save();
             $fileId = $detail->id;
         } else {
+            // Query
             $item = BlogImage::find($request->id);
-            $odlFile = $item->file;
-            $file = $request->file('file');
-            $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
-            $file->move($url, $file_name);
-            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url, $this->width_file, $this->height_file, $this->both_file);
-            File::delete(public_path($url.$odlFile));
-            $item->file = $file_name;
+                $odlFile = $item->file;
+                $oldFileMiniature = $item->file_miniature;
+                //*** Process File ***/ 
+                // File
+                $file = $request->file('file');
+                $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
+                $file->move($url, $file_name);
+                // Miniature
+                $file_name_miniature = SetNameImage::set("miniature_" . $file->getClientOriginalName(), $file->getClientOriginalExtension());
+                File::copy($url . $file_name, $url . $file_name_miniature);
+                // Resize
+                ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
+                ResizeImage::dimenssion($file_name_miniature, $file->getClientOriginalExtension(), $url, $this->width_file, $this->height_file);
+                
+                if(File::exists($url.$odlFile)){
+                    File::delete(public_path($url.$odlFile));
+                }
+                
+                if(File::exists($url.$odlFile)){
+                    File::delete(public_path($url.$oldFileMiniature));
+                }
+
+                $item->file = $file_name;
+                $item->file_miniature = $file_name;
             $item->save();
             $fileId = $request->id;
         }

@@ -17,7 +17,7 @@
 							  <div class="carousel-inner">
 								@foreach($aliado->fotos as $key => $item)
 								    <div class="carousel-item @if ($key == 0) active @endif">
-								      <img class="d-block w-100" src="{{ URL('img/aliados/'.$item->file) }}" />
+								      <img class="d-block w-100" src="{{ URL('img/aliados/'.$item->file_miniature) }}" />
 								    </div>
 								 @endforeach
 							  </div>
