@@ -16,6 +16,8 @@ class WholesalerController extends Controller
 {
     
     private $url = "img/wholesalers/";
+    private $width_file = 550;
+    private $height_file = 800;
     /**
      * Display a listing of the resource.
      *
@@ -53,19 +55,18 @@ class WholesalerController extends Controller
         $main = $request->file('main');
         $main_name = SetNameImage::set($main->getClientOriginalName(), $main->getClientOriginalExtension());
         $main->move($url, $main_name);
-        ResizeImage::dimenssion($main_name, $main->getClientOriginalExtension(), $url);
+        ResizeImage::dimenssion($main_name, $main->getClientOriginalExtension(), $url, $this->width_file, $this->height_file);
         $first = new WholesalerImage;
         $first->file = $main_name;
         $first->wholesaler_id = $wholesaler->id;
         $first->main = '1';
         $first->save();
-        
 
-        for ($i=1; $i <= $request->count; $i++) { 
+        for ($i=1; $i <= $request->count; $i++) {
             $file = $request->file('file'.$i);
             $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
             $file->move($url, $file_name);
-            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
+            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url, $this->width_file, $this->height_file);
             $second = new WholesalerImage;
             $second->file = $file_name;
             $second->wholesaler_id = $wholesaler->id;
@@ -145,7 +146,7 @@ class WholesalerController extends Controller
             $file = $request->file('file');
             $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
             $file->move($url, $file_name);
-            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
+            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url, $this->width_file, $this->height_file);
             File::delete(public_path($url.$odlFile));
             $item->file = $file_name;
             $item->save();
@@ -155,8 +156,7 @@ class WholesalerController extends Controller
             $file = $request->file('file');
             $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
             $file->move($url, $file_name);
-            
-            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
+            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url, $this->width_file, $this->height_file);
             $detail = new WholesalerImage;
             $detail->file = $file_name;
             $detail->wholesaler_id = $request->wholesaler_id;
@@ -168,7 +168,7 @@ class WholesalerController extends Controller
             $file = $request->file('file');
             $file_name = SetNameImage::set($file->getClientOriginalName(), $file->getClientOriginalExtension());
             $file->move($url, $file_name);
-            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url);
+            ResizeImage::dimenssion($file_name, $file->getClientOriginalExtension(), $url, $this->width_file, $this->height_file);
             File::delete(public_path($url.$odlFile));
             $item->file = $file_name;
             $item->save();
