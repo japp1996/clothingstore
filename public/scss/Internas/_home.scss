@@ -10,17 +10,21 @@
 		background-size: cover;
 		background-repeat: no-repeat;
 		background-position: center center;
-	}
-	@media (min-width: 992px) {
-		background-image: none !important;
-	}
-	@media (max-width: 991px) {
-		.carousel {
-			display: none;
+		@media (max-width: 991px) {
+			margin-top: 62.88px;
+			height: calc(100vh - 62.88px - 80.5px);
 		}
-		background-repeat: no-repeat;
-		background-size: cover;
-		background-position: center center;
+	}
+	// @media (min-width: 992px) {
+		background-image: none !important;
+	// }
+	@media (max-width: 991px) {
+		// .carousel {
+		// 	display: none;
+		// }
+		// background-repeat: no-repeat;
+		// background-size: cover;
+		// background-position: center center;
 		@include size();
 	}
 }
