@@ -32,9 +32,9 @@ class AllyRequest extends FormRequest
                     return $query->where('deleted_at', NULL);
                 }),
             ],
-            'facebook' => 'nullable',
-            'twitter' => 'nullable',
-            'instagram' => 'nullable',
+            'facebook' => 'nullable|url',
+            'twitter' => 'nullable|url',
+            'instagram' => 'nullable|url',
             'address' => 'required|min:3'
         ];
         for ($i = 0; $i < $this->count; $i++) {

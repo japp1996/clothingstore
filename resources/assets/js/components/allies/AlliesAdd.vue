@@ -29,6 +29,9 @@
                         <label for="instagram" class="label-impegno">Instagram</label>
                         <input type="text" name="instagram" id="instagram" v-model="form.instagram" class="browser-default input-impegno">
                     </div>
+                    <div class="col s12 center-align">
+                        <small>Formato de redes sociales: <code>https://www.facebook.com</code></small><br>
+                    </div>
                     <div class="col s12 m12 l12 center-align">
                         <label for="address" class="label-impegno">Descripción</label>
                         <textarea name="address" id="address" v-model="form.address" class="browser-default input-impegno"></textarea>

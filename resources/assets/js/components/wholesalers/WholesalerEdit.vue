@@ -56,7 +56,7 @@
                                     type="number" 
                                     name="name" id="name" 
                                     v-model="form.price" 
-                                    class="browser-default input-impegno">
+                                    class="browser-default input-impegno" min="1">
                             </div>
 
                             <div class="col s12 m6 l6 center-align">
@@ -65,7 +65,7 @@
                                     type="number" 
                                     name="name" id="name" 
                                     v-model="form.quantity" 
-                                    class="browser-default input-impegno">
+                                    class="browser-default input-impegno" min="0">
                             </div>
 
                             <div class="col s12 m6 l6 center-align">
@@ -300,7 +300,12 @@ export default {
                     },2000)
                 })
                 .catch(err => {
-                    console.log(err)
+                    if(err.response.status === 422){
+                        this._showAlert(err.response.data.error, 'warning')
+                        return false;
+                    }
+                  
+                    swal('', 'Ha ocurrido un error', 'error')
                 })
         },
 
