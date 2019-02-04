@@ -20,5 +20,6 @@
 		],
 		'Login' => 'Correo Electrónico o Contraseña incorrectos',
 		'Empresa' => 'El campo Nombre de Empresa es requerido',
-		'NoCoincide' => 'La contraseña actual no coincide'
+		'NoCoincide' => 'La contraseña actual no coincide',
+		'NoLogin' => 'Lo sentimos, su usuario ha sido desactivado'
 	];

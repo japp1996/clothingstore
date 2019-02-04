@@ -41,6 +41,13 @@
 	    			'password' => $request->password
 	    		];
 	    		if (Auth::attempt($data,true)) {
+	    			if (Auth::user()->status != 1) {
+	    				Auth::logout();
+	    				return response()->json([
+			    			'result' => false,
+			    			'error' => Lang::get('Controllers.NoLogin')
+			    		]);
+	    			}
 	    			if (Auth::user()->type == 2) {
 	    				Cart::destroy();
 	    			}

@@ -20,5 +20,6 @@
 		],
 		'Login' => 'Wrong Email or Password',
 		'Empresa' => 'The Company Name field is required',
-		'NoCoincide' => 'The current password does not match'
+		'NoCoincide' => 'The current password does not match',
+		'NoLogin' => 'Sorry, your user has been deactivated'
 	];
