@@ -30061,7 +30061,7 @@ if (token) {
   var undefined;
 
   /** Used as the semantic version number. */
-  var VERSION = '4.17.10';
+  var VERSION = '4.17.11';
 
   /** Used as the size to enable large array optimizations. */
   var LARGE_ARRAY_SIZE = 200;
@@ -30325,7 +30325,7 @@ if (token) {
   var reHasUnicode = RegExp('[' + rsZWJ + rsAstralRange  + rsComboRange + rsVarRange + ']');
 
   /** Used to detect strings that need a more robust regexp to match words. */
-  var reHasUnicodeWord = /[a-z][A-Z]|[A-Z]{2,}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/;
+  var reHasUnicodeWord = /[a-z][A-Z]|[A-Z]{2}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/;
 
   /** Used to assign default `context` object properties. */
   var contextProps = [
@@ -31271,20 +31271,6 @@ if (token) {
       }
     }
     return result;
-  }
-
-  /**
-   * Gets the value at `key`, unless `key` is "__proto__".
-   *
-   * @private
-   * @param {Object} object The object to query.
-   * @param {string} key The key of the property to get.
-   * @returns {*} Returns the property value.
-   */
-  function safeGet(object, key) {
-    return key == '__proto__'
-      ? undefined
-      : object[key];
   }
 
   /**
@@ -33744,7 +33730,7 @@ if (token) {
           if (isArguments(objValue)) {
             newValue = toPlainObject(objValue);
           }
-          else if (!isObject(objValue) || (srcIndex && isFunction(objValue))) {
+          else if (!isObject(objValue) || isFunction(objValue)) {
             newValue = initCloneObject(srcValue);
           }
         }
@@ -36665,6 +36651,22 @@ if (token) {
         array[length] = isIndex(index, arrLength) ? oldArray[index] : undefined;
       }
       return array;
+    }
+
+    /**
+     * Gets the value at `key`, unless `key` is "__proto__".
+     *
+     * @private
+     * @param {Object} object The object to query.
+     * @param {string} key The key of the property to get.
+     * @returns {*} Returns the property value.
+     */
+    function safeGet(object, key) {
+      if (key == '__proto__') {
+        return;
+      }
+
+      return object[key];
     }
 
     /**
@@ -58400,7 +58402,7 @@ module.exports = function spread(callback) {
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * Materialize v1.0.0-rc.2 (http://materializecss.com)
+ * Materialize v1.0.0 (http://materializecss.com)
  * Copyright 2014-2017 Materialize
  * MIT License (https://raw.githubusercontent.com/Dogfalo/materialize/master/LICENSE)
  */
@@ -59485,6 +59487,8 @@ if (true) {
   }
   exports.default = M;
 }
+
+M.version = '1.0.0';
 
 M.keys = {
   TAB: 9,
@@ -60909,7 +60913,11 @@ $jscomp.polyfill = function (e, r, p, m) {
           var $activatableElement = $(focusedElement).find('a, button').first();
 
           // Click a or button tag if exists, otherwise click li tag
-          !!$activatableElement.length ? $activatableElement[0].click() : focusedElement.click();
+          if (!!$activatableElement.length) {
+            $activatableElement[0].click();
+          } else if (!!focusedElement) {
+            focusedElement.click();
+          }
 
           // Close dropdown on ESC
         } else if (e.which === M.keys.ESC && this.isOpen) {
@@ -61089,8 +61097,7 @@ $jscomp.polyfill = function (e, r, p, m) {
 
             // onOpenEnd callback
             if (typeof _this11.options.onOpenEnd === 'function') {
-              var elem = anim.animatables[0].target;
-              _this11.options.onOpenEnd.call(elem, _this11.el);
+              _this11.options.onOpenEnd.call(_this11, _this11.el);
             }
           }
         });
@@ -61121,7 +61128,6 @@ $jscomp.polyfill = function (e, r, p, m) {
 
             // onCloseEnd callback
             if (typeof _this12.options.onCloseEnd === 'function') {
-              var elem = anim.animatables[0].target;
               _this12.options.onCloseEnd.call(_this12, _this12.el);
             }
           }
@@ -61251,7 +61257,7 @@ $jscomp.polyfill = function (e, r, p, m) {
 
   Dropdown._dropdowns = [];
 
-  window.M.Dropdown = Dropdown;
+  M.Dropdown = Dropdown;
 
   if (M.jQueryLoaded) {
     M.initializeJqueryWrapper(Dropdown, 'dropdown', 'M_Dropdown');
@@ -62822,7 +62828,7 @@ $jscomp.polyfill = function (e, r, p, m) {
     return Tabs;
   }(Component);
 
-  window.M.Tabs = Tabs;
+  M.Tabs = Tabs;
 
   if (M.jQueryLoaded) {
     M.initializeJqueryWrapper(Tabs, 'tabs', 'M_Tabs');
@@ -64492,7 +64498,7 @@ $jscomp.polyfill = function (e, r, p, m) {
 
   Sidenav._sidenavs = [];
 
-  window.M.Sidenav = Sidenav;
+  M.Sidenav = Sidenav;
 
   if (M.jQueryLoaded) {
     M.initializeJqueryWrapper(Sidenav, 'sidenav', 'M_Sidenav');
@@ -70235,10 +70241,20 @@ $jscomp.polyfill = function (e, r, p, m) {
           // Add callback for centering selected option when dropdown content is scrollable
           dropdownOptions.onOpenEnd = function (el) {
             var selectedOption = $(_this71.dropdownOptions).find('.selected').first();
-            if (_this71.dropdown.isScrollable && selectedOption.length) {
-              var scrollOffset = selectedOption[0].getBoundingClientRect().top - _this71.dropdownOptions.getBoundingClientRect().top; // scroll to selected option
-              scrollOffset -= _this71.dropdownOptions.clientHeight / 2; // center in dropdown
-              _this71.dropdownOptions.scrollTop = scrollOffset;
+
+            if (selectedOption.length) {
+              // Focus selected option in dropdown
+              M.keyDown = true;
+              _this71.dropdown.focusedIndex = selectedOption.index();
+              _this71.dropdown._focusFocusedItem();
+              M.keyDown = false;
+
+              // Handle scrolling to selected option
+              if (_this71.dropdown.isScrollable) {
+                var scrollOffset = selectedOption[0].getBoundingClientRect().top - _this71.dropdownOptions.getBoundingClientRect().top; // scroll to selected option
+                scrollOffset -= _this71.dropdownOptions.clientHeight / 2; // center in dropdown
+                _this71.dropdownOptions.scrollTop = scrollOffset;
+              }
             }
           };
 
@@ -71930,7 +71946,7 @@ var content = __webpack_require__(188);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("71454aec", content, false, {});
+var update = __webpack_require__(3)("8aae94ce", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -72103,7 +72119,7 @@ var content = __webpack_require__(194);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("64c2c02c", content, false, {});
+var update = __webpack_require__(3)("22d2b4d2", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -72660,7 +72676,7 @@ var content = __webpack_require__(199);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("2e651c45", content, false, {});
+var update = __webpack_require__(3)("c17fc21c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -73083,7 +73099,7 @@ var content = __webpack_require__(204);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("bf275882", content, false, {});
+var update = __webpack_require__(3)("517c37ec", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -73477,7 +73493,7 @@ var content = __webpack_require__(209);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("195984d4", content, false, {});
+var update = __webpack_require__(3)("d73db8fa", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -74330,7 +74346,7 @@ var content = __webpack_require__(223);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("5ebf68e6", content, false, {});
+var update = __webpack_require__(3)("71ae317a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -74824,7 +74840,7 @@ var content = __webpack_require__(231);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("7e445cb7", content, false, {});
+var update = __webpack_require__(3)("78e38424", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -75107,7 +75123,7 @@ var content = __webpack_require__(235);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("6945f546", content, false, {});
+var update = __webpack_require__(3)("799dac39", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -75953,7 +75969,7 @@ var content = __webpack_require__(243);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("8435dd58", content, false, {});
+var update = __webpack_require__(3)("7b5b4cc1", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -77437,7 +77453,7 @@ var content = __webpack_require__(251);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("087f7ff8", content, false, {});
+var update = __webpack_require__(3)("2b661d2a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -78291,7 +78307,7 @@ var content = __webpack_require__(257);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("11640b72", content, false, {});
+var update = __webpack_require__(3)("91cf18c2", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -78561,7 +78577,7 @@ var content = __webpack_require__(261);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("466fb24c", content, false, {});
+var update = __webpack_require__(3)("5dff850d", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -79176,7 +79192,7 @@ var content = __webpack_require__(267);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("43795dd6", content, false, {});
+var update = __webpack_require__(3)("48471b48", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -79636,7 +79652,7 @@ var content = __webpack_require__(271);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("ff57ab2c", content, false, {});
+var update = __webpack_require__(3)("1864cdd7", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -81282,7 +81298,7 @@ var content = __webpack_require__(276);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("925ee3c4", content, false, {});
+var update = __webpack_require__(3)("4ee1318b", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -83623,7 +83639,7 @@ var content = __webpack_require__(282);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("0963b244", content, false, {});
+var update = __webpack_require__(3)("6b805271", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -84035,7 +84051,7 @@ var content = __webpack_require__(287);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("8d650408", content, false, {});
+var update = __webpack_require__(3)("9794b7a2", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -84325,7 +84341,7 @@ var content = __webpack_require__(292);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("3e9a1e6d", content, false, {});
+var update = __webpack_require__(3)("e3828f4c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -84886,7 +84902,7 @@ var content = __webpack_require__(297);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("550dbf7a", content, false, {});
+var update = __webpack_require__(3)("7b9e2bb0", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -85238,7 +85254,7 @@ var content = __webpack_require__(301);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("103c0372", content, false, {});
+var update = __webpack_require__(3)("fdd1f3c2", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -85829,7 +85845,7 @@ var content = __webpack_require__(306);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("85e714a0", content, false, {});
+var update = __webpack_require__(3)("48ee503a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -86895,7 +86911,7 @@ var content = __webpack_require__(312);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("cb114400", content, false, {});
+var update = __webpack_require__(3)("384a6ea6", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -87506,7 +87522,7 @@ var content = __webpack_require__(317);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("20738b17", content, false, {});
+var update = __webpack_require__(3)("037d760a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -88091,7 +88107,7 @@ var content = __webpack_require__(322);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("c0fe4266", content, false, {});
+var update = __webpack_require__(3)("bc422b00", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -89602,7 +89618,7 @@ var content = __webpack_require__(332);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("5402de16", content, false, {});
+var update = __webpack_require__(3)("834264b0", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -90436,7 +90452,7 @@ var content = __webpack_require__(336);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("44151678", content, false, {});
+var update = __webpack_require__(3)("2c75532b", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -91506,7 +91522,7 @@ var content = __webpack_require__(342);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("b69e627c", content, false, {});
+var update = __webpack_require__(3)("4a6536ef", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -91916,7 +91932,7 @@ var content = __webpack_require__(347);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("732482ac", content, false, {});
+var update = __webpack_require__(3)("c6398a52", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -92690,7 +92706,7 @@ var content = __webpack_require__(352);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("1ae05a79", content, false, {});
+var update = __webpack_require__(3)("7ed67ab4", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -92725,6 +92741,12 @@ exports.push([module.i, "\n.underline {\n    border-bottom: 3px solid #000000;\n
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -93019,6 +93041,16 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("table-cell", [
+                                _c("div", { staticClass: "switch" }, [
+                                  _c("label", [
+                                    _c("input", {
+                                      attrs: { type: "checkbox" }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("span", { staticClass: "lever" })
+                                  ])
+                                ]),
+                                _vm._v(" "),
                                 _c(
                                   "a",
                                   {
@@ -93321,7 +93353,7 @@ var content = __webpack_require__(357);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("00169fc0", content, false, {});
+var update = __webpack_require__(3)("b4adcf66", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -93808,7 +93840,7 @@ var content = __webpack_require__(362);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("1fad9be0", content, false, {});
+var update = __webpack_require__(3)("30863953", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -94215,7 +94247,7 @@ var content = __webpack_require__(367);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("ff7dcb3e", content, false, {});
+var update = __webpack_require__(3)("7ae041ce", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -94559,7 +94591,7 @@ var content = __webpack_require__(371);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("18accb6b", content, false, {});
+var update = __webpack_require__(3)("2904825e", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -95045,7 +95077,7 @@ var content = __webpack_require__(376);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("d0e86110", content, false, {});
+var update = __webpack_require__(3)("b038f32a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -96354,7 +96386,7 @@ var content = __webpack_require__(385);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("d6e234d4", content, false, {});
+var update = __webpack_require__(3)("3f143889", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -96909,7 +96941,7 @@ var content = __webpack_require__(390);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("82ba0232", content, false, {});
+var update = __webpack_require__(3)("8d7bb358", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
