@@ -29,6 +29,12 @@
                                     <table-cell>{{ item.created_at | date }}</table-cell>
                                     <table-cell>{{ item.telefono }} </table-cell>
                                     <table-cell>
+                                        <div class="switch">
+                                            <label>
+                                                <input type="checkbox">
+                                                <span class="lever"></span>
+                                            </label>
+                                        </div>
                                         <a href="#!" class="btn-action" @click="_view(item)">
                                             <img :src="'img/icons/ico-ver.png' | asset" alt="" class="img-responsive">
                                         </a>
