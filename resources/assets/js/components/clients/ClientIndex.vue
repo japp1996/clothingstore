@@ -29,12 +29,10 @@
                                     <table-cell>{{ item.created_at | date }}</table-cell>
                                     <table-cell>{{ item.telefono }} </table-cell>
                                     <table-cell>
-                                        <div class="switch">
-                                            <label>
-                                                <input type="checkbox">
-                                                <span class="lever"></span>
-                                            </label>
-                                        </div>
+                                        <a href="#!" class="btn-action" @click="_confirm(item)">
+                                            <img :src="'img/icons/ico-toggle-on.svg' | asset" alt="" class="img-responsive" style="width: 36px; margin: 0;" v-if="item.status == 1">
+                                            <img :src="'img/icons/ico-toggle-off.svg' | asset" alt="" class="img-responsive" style="width: 36px; margin: 0;" v-if="item.status == 0">
+                                        </a>
                                         <a href="#!" class="btn-action" @click="_view(item)">
                                             <img :src="'img/icons/ico-ver.png' | asset" alt="" class="img-responsive">
                                         </a>
@@ -99,6 +97,18 @@
                                     </div>
                                 </template>
                             </byte-modal>
+                             <byte-modal id="switch" v-on:pressok="modalSwitch.action" :confirm="modalSwitch.type.confirm">
+                                <template>
+                                    <div class="container-confirmation">
+                                        <div class="confimation__icon">
+                                            <i class="material-icons">error_outline</i>
+                                        </div>
+                                        <div class="confirmation__text">
+                                            <h5>¿ Realmente deseas <b>{{ modalSwitch.data.status == 1 ? 'Desactivar ' : 'Activar' }}</b> el Usuario {{ modalSwitch.data.name }} ?</h5>
+                                        </div>
+                                    </div>
+                                </template>
+                            </byte-modal>
                         </div>
                     </section>
                 </div>
@@ -141,6 +151,15 @@ export default {
                     action: 'purchase'
                 }
             },
+            modalSwitch: {
+                init: {},
+                data: {},
+                action: {},
+                type: {
+                    confirm: false,
+                    action: 'switch'
+                }
+            },
             total: ''
         }
     },
@@ -155,6 +174,30 @@ export default {
             });
             this.modalPurchase.data = item;
             this.modalPurchase.init.open();
+        },
+        _confirm(item) {
+            console.log("aqui", item, this.modalSwitch)
+            this.modalSwitch.type.confirm = true;
+            this.modalSwitch.type.action = this._switch;
+            this.modalSwitch.data = item;
+            this.modalSwitch.action = this._switch
+            this.modalSwitch.init.open();
+        },
+        _switch() {
+            let index = this.dataTable.findIndex(e => {
+                return e.id == this.modalSwitch.data.id
+            })
+            this.modalSwitch.init.close();
+            axios.post(`admin/clients/switch/${this.modalSwitch.data.id}`)
+            .then(res => {
+                console.log(this.dataTable[index]);
+                this.dataTable[index].status = !this.dataTable[index].status
+                swal("", 'Se cambio el estatus correctamente', "success");
+            })
+            .catch(err => {
+                this._showAlert('Disculpa, ha ocurrido un error', "error")
+            });
+
         },
         getTotal (item) {
             let total = 0
@@ -216,6 +259,8 @@ export default {
         this.dataTable = this.clients
         this.modal.init = M.Modal.init(document.querySelector('.modal'));
         this.modalPurchase.init = M.Modal.init(document.querySelector('#purchase'));
+        this.modalSwitch.init = M.Modal.init(document.querySelector('#switch'));
+        console.log(this.modalSwitch)
     }
 }
 </script>

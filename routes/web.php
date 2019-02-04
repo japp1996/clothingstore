@@ -189,6 +189,7 @@
 			Route::post('blogs/delete-images', 'BlogController@delete');
 			*/
 			Route::get('clients', 'ClientController@index');
+			Route::post('clients/switch/{id}', 'ClientController@changeStatus');
 			Route::get('profile', 'ProfileController@profile');
 			Route::post('profile', 'ProfileController@update');
 			Route::resource('banks', 'BankController');

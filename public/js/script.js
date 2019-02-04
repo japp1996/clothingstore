@@ -92906,6 +92906,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: '',
@@ -92932,6 +92942,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     action: 'purchase'
                 }
             },
+            modalSwitch: {
+                init: {},
+                data: {},
+                action: {},
+                type: {
+                    confirm: false,
+                    action: 'switch'
+                }
+            },
             total: ''
         };
     },
@@ -92945,6 +92964,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.dataTable.forEach(function (element) {});
             this.modalPurchase.data = item;
             this.modalPurchase.init.open();
+        },
+        _confirm: function _confirm(item) {
+            console.log("aqui", item, this.modalSwitch);
+            this.modalSwitch.type.confirm = true;
+            this.modalSwitch.type.action = this._switch;
+            this.modalSwitch.data = item;
+            this.modalSwitch.action = this._switch;
+            this.modalSwitch.init.open();
+        },
+        _switch: function _switch() {
+            var _this = this;
+
+            var index = this.dataTable.findIndex(function (e) {
+                return e.id == _this.modalSwitch.data.id;
+            });
+            this.modalSwitch.init.close();
+            axios.post('admin/clients/switch/' + this.modalSwitch.data.id).then(function (res) {
+                console.log(_this.dataTable[index]);
+                _this.dataTable[index].status = !_this.dataTable[index].status;
+                swal("", 'Se cambio el estatus correctamente', "success");
+            }).catch(function (err) {
+                _this._showAlert('Disculpa, ha ocurrido un error', "error");
+            });
         },
         getTotal: function getTotal(item) {
             var total = 0;
@@ -93005,6 +93047,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.dataTable = this.clients;
         this.modal.init = M.Modal.init(document.querySelector('.modal'));
         this.modalPurchase.init = M.Modal.init(document.querySelector('#purchase'));
+        this.modalSwitch.init = M.Modal.init(document.querySelector('#switch'));
+        console.log(this.modalSwitch);
     }
 });
 
@@ -93089,15 +93133,51 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("table-cell", [
-                                _c("div", { staticClass: "switch" }, [
-                                  _c("label", [
-                                    _c("input", {
-                                      attrs: { type: "checkbox" }
-                                    }),
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "btn-action",
+                                    attrs: { href: "#!" },
+                                    on: {
+                                      click: function($event) {
+                                        _vm._confirm(item)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    item.status == 1
+                                      ? _c("img", {
+                                          staticClass: "img-responsive",
+                                          staticStyle: {
+                                            width: "36px",
+                                            margin: "0"
+                                          },
+                                          attrs: {
+                                            src: _vm._f("asset")(
+                                              "img/icons/ico-toggle-on.svg"
+                                            ),
+                                            alt: ""
+                                          }
+                                        })
+                                      : _vm._e(),
                                     _vm._v(" "),
-                                    _c("span", { staticClass: "lever" })
-                                  ])
-                                ]),
+                                    item.status == 0
+                                      ? _c("img", {
+                                          staticClass: "img-responsive",
+                                          staticStyle: {
+                                            width: "36px",
+                                            margin: "0"
+                                          },
+                                          attrs: {
+                                            src: _vm._f("asset")(
+                                              "img/icons/ico-toggle-off.svg"
+                                            ),
+                                            alt: ""
+                                          }
+                                        })
+                                      : _vm._e()
+                                  ]
+                                ),
                                 _vm._v(" "),
                                 _c(
                                   "a",
@@ -93307,6 +93387,49 @@ var render = function() {
                           ]
                         )
                       })
+                    ]
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "byte-modal",
+                  {
+                    attrs: {
+                      id: "switch",
+                      confirm: _vm.modalSwitch.type.confirm
+                    },
+                    on: { pressok: _vm.modalSwitch.action }
+                  },
+                  [
+                    [
+                      _c("div", { staticClass: "container-confirmation" }, [
+                        _c("div", { staticClass: "confimation__icon" }, [
+                          _c("i", { staticClass: "material-icons" }, [
+                            _vm._v("error_outline")
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "confirmation__text" }, [
+                          _c("h5", [
+                            _vm._v("¿ Realmente deseas "),
+                            _c("b", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.modalSwitch.data.status == 1
+                                    ? "Desactivar "
+                                    : "Activar"
+                                )
+                              )
+                            ]),
+                            _vm._v(
+                              " el Usuario " +
+                                _vm._s(_vm.modalSwitch.data.name) +
+                                " ?"
+                            )
+                          ])
+                        ])
+                      ])
                     ]
                   ],
                   2

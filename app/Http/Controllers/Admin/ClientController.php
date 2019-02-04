@@ -14,4 +14,13 @@ class ClientController extends Controller
    
         return view('admin.clients.index', ['clients' => $clients]);
     }
+
+    public function changeStatus(Request $request, $id)
+    {
+        $clients = User::find($id);
+        $clients->status = $request->status;
+        $clients->save();
+
+        return response()->json(['result' => true]);
+    }
 }
