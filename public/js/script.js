@@ -92931,8 +92931,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var index = this.dataTable.findIndex(function (e) {
                 return e.id == _this.modalSwitch.data.id;
             });
+            var status = this.modalSwitch.data.status == 1 ? 0 : 1;
             this.modalSwitch.init.close();
-            axios.post('admin/clients/switch/' + this.modalSwitch.data.id).then(function (res) {
+            axios.post('admin/clients/switch/' + this.modalSwitch.data.id, { status: status }).then(function (res) {
                 console.log(_this.dataTable[index]);
                 _this.dataTable[index].status = !_this.dataTable[index].status;
                 swal("", 'Se cambio el estatus correctamente', "success");

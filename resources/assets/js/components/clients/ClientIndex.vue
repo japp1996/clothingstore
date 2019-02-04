@@ -187,8 +187,9 @@ export default {
             let index = this.dataTable.findIndex(e => {
                 return e.id == this.modalSwitch.data.id
             })
+            var status = this.modalSwitch.data.status == 1 ? 0 : 1;
             this.modalSwitch.init.close();
-            axios.post(`admin/clients/switch/${this.modalSwitch.data.id}`)
+            axios.post(`admin/clients/switch/${this.modalSwitch.data.id}`, {status:status})
             .then(res => {
                 console.log(this.dataTable[index]);
                 this.dataTable[index].status = !this.dataTable[index].status
