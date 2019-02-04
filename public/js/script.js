@@ -30011,7 +30011,8 @@ window.axios = __webpack_require__(10);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-window.urlBase = window.location.protocol + '//' + window.location.hostname + '/WaraNONONO/public/';
+window.urlBase = window.location.protocol + '//' + window.location.hostname + '/';
+// window.urlBase = `${window.location.protocol}//${window.location.hostname}/WaraNONONO/public/`;
 
 window.axios.defaults.baseURL = urlBase;
 /**
@@ -80671,7 +80672,12 @@ var render = function() {
                   }
                 ],
                 staticClass: "browser-default input-impegno",
-                attrs: { type: "text", name: "price_1", id: "price_1" },
+                attrs: {
+                  type: "text",
+                  name: "price_1",
+                  id: "price_1",
+                  min: "1"
+                },
                 domProps: { value: _vm.form.price_1 },
                 on: {
                   input: function($event) {
@@ -80702,7 +80708,12 @@ var render = function() {
                   }
                 ],
                 staticClass: "browser-default input-impegno",
-                attrs: { type: "text", name: "price_2", id: "price_2" },
+                attrs: {
+                  type: "text",
+                  name: "price_2",
+                  id: "price_2",
+                  min: "1"
+                },
                 domProps: { value: _vm.form.price_2 },
                 on: {
                   input: function($event) {
@@ -82410,7 +82421,12 @@ var render = function() {
                   }
                 ],
                 staticClass: "browser-default input-impegno",
-                attrs: { type: "text", name: "price_1", id: "price_1" },
+                attrs: {
+                  type: "text",
+                  name: "price_1",
+                  id: "price_1",
+                  min: "1"
+                },
                 domProps: { value: _vm.form.price_1 },
                 on: {
                   input: function($event) {
@@ -82441,7 +82457,12 @@ var render = function() {
                   }
                 ],
                 staticClass: "browser-default input-impegno",
-                attrs: { type: "text", name: "price_2", id: "price_2" },
+                attrs: {
+                  type: "text",
+                  name: "price_2",
+                  id: "price_2",
+                  min: "1"
+                },
                 domProps: { value: _vm.form.price_2 },
                 on: {
                   input: function($event) {
@@ -85346,6 +85367,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     template: "#template-allies-add",
@@ -85620,6 +85644,14 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
+              _c("div", { staticClass: "col s12 center-align" }, [
+                _c("small", [
+                  _vm._v("Formato de redes sociales: "),
+                  _c("code", [_vm._v("https://www.facebook.com")])
+                ]),
+                _c("br")
+              ]),
+              _vm._v(" "),
               _c("div", { staticClass: "col s12 m12 l12 center-align" }, [
                 _c(
                   "label",
@@ -85864,6 +85896,9 @@ exports.push([module.i, "\n.progress {\n  opacity: 0;\n  -webkit-transition: all
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
 //
 //
 //
@@ -86267,11 +86302,19 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
+              _c("div", { staticClass: "col s12 center-align" }, [
+                _c("small", [
+                  _vm._v("Formato de redes sociales: "),
+                  _c("code", [_vm._v("https://www.facebook.com")])
+                ]),
+                _c("br")
+              ]),
+              _vm._v(" "),
               _c("div", { staticClass: "col s12 m6 l6 center-align" }, [
                 _c(
                   "label",
                   { staticClass: "label-impegno", attrs: { for: "direccion" } },
-                  [_vm._v("Dirección")]
+                  [_vm._v("Descripción")]
                 ),
                 _vm._v(" "),
                 _c("textarea", {
@@ -90777,7 +90820,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     window.location = urlBase + 'admin/wholesalers';
                 }, 2000);
             }).catch(function (err) {
-                console.log(err);
+                if (err.response.status === 422) {
+                    _this5._showAlert(err.response.data.error, 'warning');
+                    return false;
+                }
+
+                swal('', 'Ha ocurrido un error', 'error');
             });
         },
         _showAlert: function _showAlert(text, type) {
@@ -90947,7 +90995,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "browser-default input-impegno",
-                  attrs: { type: "number", name: "name", id: "name" },
+                  attrs: { type: "number", name: "name", id: "name", min: "1" },
                   domProps: { value: _vm.form.price },
                   on: {
                     input: function($event) {
@@ -90980,7 +91028,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "browser-default input-impegno",
-                  attrs: { type: "number", name: "name", id: "name" },
+                  attrs: { type: "number", name: "name", id: "name", min: "0" },
                   domProps: { value: _vm.form.quantity },
                   on: {
                     input: function($event) {

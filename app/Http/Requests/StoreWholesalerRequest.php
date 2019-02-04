@@ -30,8 +30,8 @@ class StoreWholesalerRequest extends FormRequest
             'name_english' => 'required',
             'description' => 'required',
             'description_english' => 'required',
-            'price' => 'required',
-            'quantity' => 'required',
+            'price' => 'required|min:1',
+            'quantity' => 'required|min:1',
             'main' => 'required',
             'coin' => 'required',
             'filter_id' => 'required',
@@ -50,6 +50,13 @@ class StoreWholesalerRequest extends FormRequest
             'main' => 'imagen principal',
             'coin' => 'moneda',
             'filter_id' => 'dispobilidad'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'min' => 'El valor mínimo :attribute es de :min'
         ];
     }
 

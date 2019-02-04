@@ -23,7 +23,8 @@ window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-window.urlBase = `${window.location.protocol}//${window.location.hostname}/WaraNONONO/public/`;
+window.urlBase = `${window.location.protocol}//${window.location.hostname}/`;
+// window.urlBase = `${window.location.protocol}//${window.location.hostname}/WaraNONONO/public/`;
 
 window.axios.defaults.baseURL = urlBase;
 /**

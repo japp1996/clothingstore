@@ -10,5 +10,6 @@
 		'Contacto' => 'Contacto',
 		'Idioma' => 'Idioma',
 		'Spanish' => 'Español',
-		'English' => 'Ingles'
+		'English' => 'Ingles',
+		'Blog' => 'Blog'
 	];

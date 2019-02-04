@@ -27,7 +27,7 @@
 		      <a class="nav-link" href="{{ URL('nosotros') }}">@lang('Header.Nosotros')</a>
 		    </li>
 		    <li class="nav-item {{ isset($_active) && $_active == 2 ? 'active' : '' }}">
-		      <a class="nav-link" href="{{ URL('mundo') }}">@lang('Header.Mundo')</a>
+		      <a class="nav-link" href="{{ URL('mundo') }}">@lang('Header.Blog')</a>
 		    </li>
 		    <li class="nav-item {{ isset($_active) && $_active == 3 ? 'active' : '' }}">
 		      <a class="nav-link" href="{{ URL('tienda') }}">@lang('Header.Tienda')</a>

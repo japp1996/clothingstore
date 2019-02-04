@@ -92,9 +92,9 @@
 
                         <div class="col s12 m6 l6 center-align">
                             <label for="name_english" class="label-impegno">Precio (Detal)</label>
-                            <input type="text" name="price_1" id="price_1" v-model="form.price_1" class="browser-default input-impegno">
+                            <input type="text" name="price_1" id="price_1" v-model="form.price_1" class="browser-default input-impegno" min="1">
                             <label for="name_english" class="label-impegno">Precio (Mayor)</label>
-                            <input type="text" name="price_2" id="price_2" v-model="form.price_2" class="browser-default input-impegno">
+                            <input type="text" name="price_2" id="price_2" v-model="form.price_2" class="browser-default input-impegno" min="1">
                         </div>
 
                         
